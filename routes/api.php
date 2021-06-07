@@ -125,6 +125,11 @@ $api->version('v1', [
           $api->get('list', 'ProblemController@list');
           $api->get('select', 'ProblemController@select');
           $api->get('view/{id}', 'ProblemController@view');
+
+          // 常见问题分类路由
+          $api->group(['namespace' => 'Problem', 'prefix'  => 'category'], function ($api) {
+            $api->get('select', 'CategoryController@select');
+          });
         });
 
 
@@ -148,6 +153,24 @@ $api->version('v1', [
         $api->group(['prefix'  => 'role'], function ($api) {
           $api->get('info', 'RoleController@info');
         });
+
+
+
+
+        // 会员投诉路由
+        $api->group(['prefix'  => 'complain'], function ($api) {
+          $api->get('list', 'ComplainController@list');
+          $api->get('select', 'ComplainController@select');
+          $api->get('view/{id}', 'ComplainController@view');
+          $api->post('handle', 'ComplainController@handle');
+        });
+
+
+
+
+
+
+
 
         // 会员关联内容路由
         $api->group(['namespace' => 'Relevance'], function ($api) {
@@ -367,12 +390,10 @@ $api->version('v1', [
 
 
       // 广告路由
-      $api->group(['namespace' => 'Advertising', 'prefix' => 'advertising'], function ($api) {
-        $api->get('list', 'AdvertisingController@list');
+      $api->group(['prefix' => 'advertising'], function ($api) {
         $api->get('select', 'AdvertisingController@select');
-        $api->get('view/{id}', 'AdvertisingController@view');
 
-        $api->group(['namespace' => 'Relevance', 'prefix' => 'position'], function ($api) {
+        $api->group(['namespace' => 'Advertising', 'prefix' => 'position'], function ($api) {
           $api->get('list', 'PositionController@list');
           $api->get('select', 'PositionController@select');
           $api->get('view/{id}', 'PositionController@view');
@@ -494,16 +515,9 @@ $api->version('v1', [
 
       // 投诉路由
       $api->group(['namespace' => 'Complain', 'prefix' => 'complain'], function ($api) {
-        $api->get('list', 'ComplainController@list');
-        $api->get('select', 'ComplainController@select');
-        $api->get('view/{id}', 'ComplainController@view');
-        $api->post('handle', 'ComplainController@handle');
-
-        // 投诉分类路由
-        $api->group(['namespace' => 'Relevance'], function ($api) {
-          $api->group(['prefix' => 'category'], function ($api) {
-            $api->get('select', 'CategoryController@select');
-          });
+        $api->group(['prefix' => 'category'], function ($api) {
+          // 投诉分类路由
+          $api->get('select', 'CategoryController@select');
         });
       });
     });

@@ -1,307 +1,106 @@
 <?php
-namespace App\Http\Controllers\Platform\System;
+namespace App\Http\Controllers\Api\System;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
-use App\Http\Constant\Code;
-use App\Http\Controllers\Platform\BaseController;
-
-use App\Models\Platform\System\File;
-use App\Models\Platform\System\Config;
+use zxf5115\Upload\File;
+use App\Http\Controllers\Api\BaseController;
+use App\Http\Constant\Common\System\FileCode;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-07-08
+ * @dateTime 2021-04-20
  *
  * 文件上传接口控制器类
  */
 class FileController extends BaseController
 {
   /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-03
-   * ------------------------------------------
-   * 上传头像
-   * ------------------------------------------
+   * @api {post} /api/file/file 01. 上传文件
+   * @apiDescription 通过base64的内容进行文件上传
+   * @apiGroup 03. 上传模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
    *
-   * 上传头像
+   * @apiParam {string} file 文件数据
+   * @apiParam {string} category 文件分类 excel word pdf video audio ...
    *
-   * @param Request $request 请求参数
-   * @return [type]
-   */
-  public function avatar(Request $request)
-  {
-    try
-    {
-      $response = File::file('file', 'avatar');
-
-      if($response)
-      {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
-      }
-
-      return self::error(Code::FILE_UPLOAD_ERROR);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 上传图片
-   * ------------------------------------------
+   * @apiSuccess (响应) {string} data 文件地址
    *
-   * 上传图片
-   *
-   * @param Request $request 请求参数
-   * @return [type]
-   */
-  public function picture(Request $request)
-  {
-    try
-    {
-      $response = File::file('file', 'picture');
-
-      if($response)
-      {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
-      }
-
-      return self::error(Code::FILE_UPLOAD_ERROR);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 上传文件
-   * ------------------------------------------
-   *
-   * 上传文件
-   *
-   * @param Request $request 请求参数
-   * @return [type]
+   * @apiSampleRequest /api/file/file
+   * @apiVersion 1.0.0
    */
   public function file(Request $request)
   {
     try
     {
-      $response = File::file('file', 'file');
+      $category = $request->category ?? 'file';
 
-      if($response)
+      $response = File::file_base64($request->file, $category);
+
+      // 如果返回错误代码
+      if(false === strpos($response, 'http'))
       {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
+        return self::message($response);
       }
 
-      return self::error(Code::FILE_UPLOAD_ERROR);
+      return self::success($response);
     }
     catch(\Exception $e)
     {
       // 记录异常信息
-      self::record($e);
+      record($e);
 
-      return self::error(Code::ERROR);
+      return self::error(Code::FILE_UPLOAD_ERROR);
     }
   }
 
 
   /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 上传广告
-   * ------------------------------------------
+   * @api {post} /api/file/picture 02. 上传图片
+   * @apiDescription 通过base64的内容进行图片上传
+   * @apiGroup 03. 上传模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
    *
-   * 上传广告
+   * @apiParam {string} file 图片数据
+   * @apiParam {string} category 图片分类 picture avatar ...
    *
-   * @param Request $request 请求参数
-   * @return [type]
+   * @apiSuccess (响应) {string} data 图片地址
+   *
+   * @apiSampleRequest /api/file/picture
+   * @apiVersion 1.0.0
    */
-  public function advertising(Request $request)
+  public function picture(Request $request)
   {
     try
     {
-      $response = File::file('file', 'advertising');
+      $category = $request->category ?? 'picture';
 
-      if($response)
+      $response = File::picture_base64($request->file, $category);
+
+      // 如果返回错误代码
+      if(false === strpos($response, 'http'))
       {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
+        return self::message($response);
       }
 
-      return self::error(Code::FILE_UPLOAD_ERROR);
+      return self::success($response);
     }
     catch(\Exception $e)
     {
       // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 上传配置数据
-   * ------------------------------------------
-   *
-   * 上传配置数据
-   *
-   * @param Request $request 请求参数
-   * @return [type]
-   */
-  public function data(Request $request)
-  {
-    try
-    {
-      $response = File::file('file', 'config');
-
-      if($response)
-      {
-        $headers = ['content-type' => 'application/json'];
-
-        $data = [
-          'title' => $request->title,
-          'url' => $response
-        ];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $data]);
-
-        return $response->withHeaders($headers);
-      }
+      record($e);
 
       return self::error(Code::FILE_UPLOAD_ERROR);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-
-
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 上传课程
-   * ------------------------------------------
-   *
-   * 上传课程
-   *
-   * @param Request $request 请求参数
-   * @return [type]
-   */
-  public function course(Request $request)
-  {
-    // 秒为单位，自己根据需要定义
-    // ini_set('max_execution_time', 600);
-    // 设置不超时
-    set_time_limit(0);
-
-    try
-    {
-      $response = File::file('file', 'course');
-
-      if($response)
-      {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
-      }
-
-      return self::error(Code::FILE_UPLOAD_ERROR);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-24
-   * ------------------------------------------
-   * 批量上传图片
-   * ------------------------------------------
-   *
-   * 批量上传图片
-   *
-   * @param Request $request 请求参数
-   * @return [type]
-   */
-  public function batchRichText(Request $request)
-  {
-    try
-    {
-      $response = File::batchRichTextFile('file', 'picture');
-
-      if($response)
-      {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['code' => 0, 'msg' => '', 'data' => $response]);
-
-        return $response->withHeaders($headers);
-      }
-
-      return self::error(Code::FILE_UPLOAD_ERROR);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
     }
   }
 }

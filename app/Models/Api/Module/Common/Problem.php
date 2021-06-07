@@ -1,32 +1,24 @@
 <?php
-namespace App\Models\Common\Module\Common;
+namespace App\Models\Api\Module\Common;
 
-use App\Models\Base;
+use App\Models\Common\Module\Common\Problem as Common;
+
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-09-25
+ * @dateTime 2021-05-28
  *
  * 常见问题模型类
  */
-class Problem extends Base
+class Problem extends Common
 {
-  // 表名
-  protected $table = "module_common_problem";
-
   // 隐藏的属性
-  protected $hidden = [
+  public $hidden = [
     'organization_id',
     'status',
+    'create_time',
     'update_time'
   ];
-
-  // 追加到模型数组表单的访问器
-  protected $appends = [];
-
-  // 批量添加
-  protected $fillable = ['id'];
-
 
   // 关联函数 ------------------------------------------------------
 
@@ -45,7 +37,7 @@ class Problem extends Base
   public function category()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Common\Problem\Category',
+      'App\Models\Api\Module\Common\Problem\Category',
       'category_id',
       'id'
     );

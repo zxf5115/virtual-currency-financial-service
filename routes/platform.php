@@ -164,6 +164,15 @@ $api->version('v1', [
           $api->get('view/{id}', 'ProblemController@view');
           $api->post('handle', 'ProblemController@handle');
           $api->post('delete', 'ProblemController@delete');
+
+          // 常见问题分类路由
+          $api->group(['namespace' => 'Problem', 'prefix' => 'category'], function ($api) {
+            $api->any('list', 'CategoryController@list');
+            $api->get('select', 'CategoryController@select');
+            $api->get('view/{id}', 'CategoryController@view');
+            $api->post('handle', 'CategoryController@handle');
+            $api->post('delete/{id?}', 'CategoryController@delete');
+          });
         });
       });
 
@@ -303,7 +312,7 @@ $api->version('v1', [
 
 
       // 广告路由
-      $api->group(['namespace' => 'Advertising', 'prefix' => 'advertising'], function ($api) {
+      $api->group(['prefix' => 'advertising'], function ($api) {
         // 广告路由
         $api->any('list', 'AdvertisingController@list');
         $api->get('select', 'AdvertisingController@select');
@@ -312,7 +321,7 @@ $api->version('v1', [
         $api->post('delete', 'AdvertisingController@delete');
 
         // 广告位路由
-        $api->group(['namespace' => 'Relevance', 'prefix' => 'position'], function ($api) {
+        $api->group(['namespace' => 'Advertising', 'prefix' => 'position'], function ($api) {
           $api->any('list', 'PositionController@list');
           $api->get('select', 'PositionController@select');
           $api->get('view/{id}', 'PositionController@view');
@@ -323,16 +332,17 @@ $api->version('v1', [
 
 
       // 投诉路由
-      $api->group(['namespace' => 'Complain', 'prefix' => 'complain'], function ($api) {
+      $api->group(['prefix' => 'complain'], function ($api) {
         // 投诉路由
         $api->any('list', 'ComplainController@list');
         $api->post('read', 'ComplainController@read');
         $api->post('delete', 'ComplainController@delete');
 
         // 投诉分类路由
-        $api->group(['namespace' => 'Relevance', 'prefix' => 'category'], function ($api) {
+        $api->group(['namespace' => 'Complain', 'prefix' => 'category'], function ($api) {
           $api->any('list', 'CategoryController@list');
           $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
           $api->post('status', 'CategoryController@status');
           $api->post('handle', 'CategoryController@handle');
           $api->post('delete/{id?}', 'CategoryController@delete');

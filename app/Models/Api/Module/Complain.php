@@ -1,53 +1,43 @@
 <?php
-namespace App\Models\Common\Module\Common;
+namespace App\Models\Api\Module;
 
-use App\Models\Base;
+use App\Models\Common\Module\Complain as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-09-25
+ * @dateTime 2020-10-06
  *
- * 常见问题模型类
+ * 投诉模型类
  */
-class Problem extends Base
+class Complain extends Common
 {
-  // 表名
-  protected $table = "module_common_problem";
-
   // 隐藏的属性
-  protected $hidden = [
+  public $hidden = [
     'organization_id',
     'status',
     'update_time'
   ];
 
-  // 追加到模型数组表单的访问器
-  protected $appends = [];
-
-  // 批量添加
-  protected $fillable = ['id'];
-
 
   // 关联函数 ------------------------------------------------------
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-01-20
    * ------------------------------------------
-   * 常见问题与常见问题分类关联函数
+   * 投诉与投诉分类关联函数
    * ------------------------------------------
    *
-   * 常见问题与常见问题分类关联函数
+   * 投诉与投诉分类关联函数
    *
    * @return [关联对象]
    */
   public function category()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Common\Problem\Category',
+      'App\Models\Api\Module\Complain\Category',
       'category_id',
       'id'
-    );
+    )->where(['status'=>1]);
   }
 }

@@ -168,11 +168,6 @@ class MemberController extends BaseController
 
         DB::commit();
 
-        if(empty($request->id) && $request->sms_notification)
-        {
-          // SmsTrait::sendRegistereSms($model->username);
-        }
-
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)

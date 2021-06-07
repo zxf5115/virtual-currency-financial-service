@@ -34,7 +34,8 @@
         "socialiteproviders/weixin": "^4.1",
         "staudenmeir/eloquent-has-many-deep": "^1.11",
         "tymon/jwt-auth": "dev-develop",
-        "yansongda/pay": "^2.10"
+        "yansongda/pay": "^2.10",
+        "zxf5115/laravel-upload": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -60,6 +61,9 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/Helpers/function.php"
         ]
     },
     "autoload-dev": {

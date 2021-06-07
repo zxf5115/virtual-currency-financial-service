@@ -1,50 +1,45 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Common;
+namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
-use App\Enum\Common\NationalEnum;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-02-22
+ * @dateTime 2021-01-11
  *
- * 常见问题控制器类
+ * 广告控制器类
  */
-class ProblemController extends BaseController
+class AdvertisingController extends BaseController
 {
   /**
    * 模型
    */
-  protected $_model = 'App\Models\Common\Module\Common\Problem';
+  protected $_model = 'App\Models\Platform\Module\Advertising';
 
   protected $_where = [];
 
   protected $_params = [
-    'title'
+    'position_id',
   ];
 
   /**
    * 排序条件
    */
   protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
+    ['key' => 'sort', 'value' => 'desc'],
   ];
 
   protected $_relevance = [
-    'list' => [
-      'category'
-    ],
-    'select' => false,
-    'view' => false,
+    'position'
   ];
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2020-12-12
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -57,15 +52,13 @@ class ProblemController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'category_id.required' => '请您选择分类标题',
-      'title.required'   => '请您输入问题标题',
-      'content.required' => '请您输入问题答案',
+      'position_id.required' => '请您输入广告位标题',
+      'title.required'       => '请您输入广告标题',
     ];
 
     $rule = [
-      'category_id' => 'required',
-      'title' => 'required',
-      'content' => 'required',
+      'position_id' => 'required',
+      'title'       => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -77,24 +70,27 @@ class ProblemController extends BaseController
     }
     else
     {
-      $model = $this->_model::firstOrNew(['id' => $request->id]);
-
-      $model->organization_id  = self::getOrganizationId();
-      $model->category_id     = $request->category_id;
-      $model->title            = $request->title;
-      $model->content          = $request->content;
-
-      $response = $model->save();
-
-      if($response)
+      try
       {
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
+
+        $model->organization_id = self::getOrganizationId();
+        $model->position_id     = $request->position_id;
+        $model->title           = $request->title;
+        $model->picture         = $request->picture;
+        $model->link            = $request->link ?? '';
+        $model->sort            = $request->sort;
+        $model->save();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
-      else
+      catch(\Exception $e)
       {
+        // 记录异常信息
+        self::record($e);
+
         return self::error(Code::HANDLE_FAILURE);
       }
     }
   }
-
 }
