@@ -14,34 +14,17 @@ use App\Http\Controllers\Api\BaseController;
  */
 class ComplainController extends BaseController
 {
-  /**
-   * 模型
-   */
-  protected $_model = 'App\Models\Api\Module\Complain\Complain';
+  // 模型名称
+  protected $_model = 'App\Models\Api\Module\Complain';
 
-  protected $_where = [];
-
+  // 客户端搜索字段
   protected $_params = [
     'category_id',
   ];
 
-  /**
-   * 排序条件
-   */
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
-
+  // 关联对象
   protected $_relevance = [
-    'list' => [
-      'category'
-    ],
-    'select' => [
-      'category'
-    ],
-    'view' => [
-      'category'
-    ]
+    'category'
   ];
 
 

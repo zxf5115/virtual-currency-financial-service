@@ -37,13 +37,12 @@ $api->version('v1', [
         $api->get('kernel', 'SystemController@kernel'); // 系统信息路由
       });
 
-      // 文件上传路由（必须先进行身份认证，默认人不可以上传）
-      $api->group(['prefix' => 'file'], function ($api) {
-        $api->post('avatar', 'FileController@avatar'); // 上传头像
-        $api->post('picture', 'FileController@picture')->middleware(['auth:api', 'refresh.token', 'failure']); // 上传图片
-        $api->post('file', 'FileController@file')->middleware(['auth:api', 'refresh.token', 'failure']); // 上传文件
-        $api->post('audio', 'FileController@audio')->middleware(['auth:api', 'refresh.token', 'failure']); // 上传音频
-        $api->post('movie', 'FileController@movie')->middleware(['auth:api', 'refresh.token', 'failure']); // 上传视频
+      // 上传路由
+      $api->group(['prefix' => 'file', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+        // 上传文件
+        $api->post('file', 'FileController@file');
+        // 上传图片
+        $api->post('picture', 'FileController@picture');
       });
     });
 
@@ -59,40 +58,21 @@ $api->version('v1', [
           $api->get('list', 'AreaController@list');
         });
 
-        // 成为老师目标路由
-        $api->group(['prefix' => 'target'], function ($api) {
-          $api->get('data', 'TargetController@data');
-        });
-
         // 系统协议路由
         $api->group(['prefix' => 'agreement'], function ($api) {
-          $api->get('user', 'AgreementController@user');
           $api->get('about', 'AgreementController@about');
+          $api->get('user', 'AgreementController@user');
+          $api->get('employ', 'AgreementController@employ');
+          $api->get('privacy', 'AgreementController@privacy');
+          $api->get('specification', 'AgreementController@specification');
+          $api->get('liability', 'AgreementController@liability');
         });
 
-        // 微信支付回调路由
-        $api->group(['prefix' => 'wechat'], function ($api) {
-          $api->any('notify', 'WechatController@notify');
-        });
-
-        // 支付宝支付回调路由
-        $api->group(['prefix' => 'alipay'], function ($api) {
-          $api->any('notify', 'AlipayController@notify');
-        });
-
-        // 苹果支付回调路由
-        $api->group(['prefix' => 'apple'], function ($api) {
-          $api->any('notify', 'AppleController@notify');
-        });
-
-        // 棒棒糖路由
-        $api->group(['prefix' => 'lollipop'], function ($api) {
-          $api->get('data', 'LollipopController@data');
-        });
-
-        // 老师分红路由
-        $api->group(['prefix' => 'bonus'], function ($api) {
-          $api->post('data', 'BonusController@data');
+        // 支付回调路由
+        $api->group(['prefix' => 'notify'], function ($api) {
+          $api->any('wechat', 'NotifyController@wechat');
+          $api->any('alipay', 'NotifyController@alipay');
+          $api->any('apple', 'NotifyController@apple');
         });
 
         // 红包路由
@@ -100,42 +80,124 @@ $api->version('v1', [
           $api->post('data', 'RedEnvelopeController@data');
         });
 
-        // 分享路由
-        $api->group(['prefix' => 'share'], function ($api) {
-          $api->post('data', 'ShareController@data');
-        });
-
-        // 分享二维码路由
-        $api->group(['prefix' => 'qrcode', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
-          $api->post('share', 'QrcodeController@share');
-        });
-
-        // 快递路由
-        $api->group(['prefix' => 'express'], function ($api) {
-          $api->post('data', 'ExpressController@data');
-        });
-
-        // 快递路由
+        // 客服路由
         $api->group(['prefix' => 'service'], function ($api) {
           $api->post('data', 'ServiceController@data');
         });
 
-        // 会员棒棒糖路由
-        $api->group(['prefix'  => 'problem'], function ($api) {
-          $api->get('list', 'ProblemController@list');
-          $api->get('select', 'ProblemController@select');
-          $api->get('view/{id}', 'ProblemController@view');
+        // 支付类型路由
+        $api->group(['prefix' => 'pay'], function ($api) {
+          $api->post('data', 'PayController@data');
+        });
+      });
 
-          // 常见问题分类路由
-          $api->group(['namespace' => 'Problem', 'prefix'  => 'category'], function ($api) {
-            $api->get('select', 'CategoryController@select');
+
+
+      // 广告路由
+      $api->group(['prefix' => 'advertising'], function ($api) {
+        $api->get('select', 'AdvertisingController@select');
+
+        $api->group(['namespace' => 'Advertising', 'prefix' => 'position'], function ($api) {
+          $api->get('list', 'PositionController@list');
+          $api->get('select', 'PositionController@select');
+          $api->get('view/{id}', 'PositionController@view');
+        });
+      });
+
+
+      // 投诉路由
+      $api->group(['namespace' => 'Complain', 'prefix' => 'complain'], function ($api) {
+        $api->group(['prefix' => 'category'], function ($api) {
+          // 投诉分类路由
+          $api->get('select', 'CategoryController@select');
+        });
+      });
+
+
+      // 常见问题路由
+      $api->group(['prefix'  => 'problem'], function ($api) {
+        $api->get('list', 'ProblemController@list');
+        $api->get('select', 'ProblemController@select');
+        $api->get('view/{id}', 'ProblemController@view');
+
+        // 常见问题分类路由
+        $api->group(['namespace' => 'Problem', 'prefix'  => 'category'], function ($api) {
+          $api->get('select', 'CategoryController@select');
+        });
+      });
+
+
+
+
+
+      // 教育中心路由
+      $api->group(['namespace' => 'Education', 'prefix' => 'education'], function ($api) {
+
+        // 课件路由
+        $api->group(['namespace' => 'Courseware', 'prefix' => 'courseware'], function ($api) {
+          $api->any('list', 'CoursewareController@list');
+          $api->get('select', 'CoursewareController@select');
+          $api->get('view/{id}', 'CoursewareController@view');
+          $api->get('index', 'CoursewareController@index');
+
+          // 课件级别
+          $api->group(['namespace' => 'Relevance', 'prefix' => 'level'], function ($api) {
+            $api->any('list', 'LevelController@list');
+            $api->get('select', 'LevelController@select');
+            $api->get('view/{id}', 'LevelController@view');
+
+            // 课件单元
+            $api->group(['namespace' => 'Relevance', 'prefix' => 'unit'], function ($api) {
+              $api->any('list', 'UnitController@list');
+              $api->get('select', 'UnitController@select');
+              $api->get('unlock', 'UnitController@unlock');
+              $api->get('view/{id}', 'UnitController@view');
+
+              // 课件知识点
+              $api->group(['namespace' => 'Relevance', 'prefix' => 'point'], function ($api) {
+                $api->any('list', 'PointController@list');
+                $api->get('select', 'PointController@select');
+                $api->get('view/{id}', 'PointController@view');
+              });
+            });
           });
         });
 
 
-        // 支付类型路由
-        $api->group(['prefix' => 'pay'], function ($api) {
-          $api->post('data', 'PayController@data');
+        // 课程路由
+        $api->group(['namespace' => 'Course', 'prefix' => 'course'], function ($api) {
+          $api->any('list', 'CourseController@list');
+          $api->get('select', 'CourseController@select');
+          $api->get('view/{id}', 'CourseController@view');
+
+          $api->group(['namespace' => 'Relevance'], function ($api) {
+
+            // 课程老师路由
+            $api->group(['prefix' => 'teacher'], function ($api) {
+              $api->any('list', 'TeacherController@list');
+              $api->get('select', 'TeacherController@select');
+              $api->get('view/{id}', 'TeacherController@view');
+            });
+
+            // 课程礼包路由
+            $api->group(['prefix' => 'present'], function ($api) {
+              $api->any('list', 'PresentController@list');
+              $api->get('select', 'PresentController@select');
+              $api->get('view/{id}', 'PresentController@view');
+            });
+
+            // 课程解锁路由
+            $api->group(['prefix' => 'unlock'], function ($api) {
+              $api->any('list', 'UnlockController@list');
+              $api->get('select', 'UnlockController@select');
+              $api->get('view/{id}', 'UnlockController@view');
+            });
+
+            // 课程分享路由
+            $api->group(['prefix' => 'share'], function ($api) {
+              $api->get('data', 'ShareController@data');
+            });
+          });
         });
       });
 
@@ -165,7 +227,10 @@ $api->version('v1', [
           $api->post('handle', 'ComplainController@handle');
         });
 
-
+        // 会员客服路由
+        $api->group(['prefix'  => 'contact'], function ($api) {
+          $api->post('handle', 'ContactController@handle');
+        });
 
 
 
@@ -323,201 +388,6 @@ $api->version('v1', [
               });
             });
           });
-        });
-      });
-
-
-
-      // 老师路由
-      $api->group(['namespace' => 'Teacher', 'prefix'  => 'teacher', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
-
-        // 管理老师路由
-        $api->group(['namespace' => 'Management', 'prefix'  => 'management'], function ($api) {
-          $api->get('archive', 'TeacherController@archive');
-          $api->post('handle', 'TeacherController@handle');
-
-          $api->group(['namespace' => 'Relevance'], function ($api) {
-            // 管理老师课程路由
-            $api->group(['prefix'  =>  'course'], function ($api) {
-              $api->get('list', 'CourseController@list');
-              $api->get('select', 'CourseController@select');
-              $api->get('view/{id}', 'CourseController@view');
-              $api->post('confirm', 'CourseController@confirm');
-            });
-
-            // 管理老师学员路由
-            $api->group(['prefix'  =>  'member'], function ($api) {
-              $api->get('list', 'MemberController@list');
-              $api->get('view/{id}', 'MemberController@view');
-              $api->get('production', 'MemberController@production');
-            });
-
-            // 管理老师班级路由
-            $api->group(['prefix'  =>  'squad'], function ($api) {
-              $api->get('list', 'SquadController@list');
-              $api->get('student', 'SquadController@student');
-            });
-          });
-        });
-
-        // 招聘老师路由
-        $api->group(['namespace' => 'Recruitment', 'prefix'  => 'recruitment'], function ($api) {
-          $api->get('archive', 'TeacherController@archive');
-          $api->get('status', 'TeacherController@status');
-          $api->post('handle', 'TeacherController@handle');
-          $api->post('confirm', 'TeacherController@confirm');
-
-
-          // 招聘老师分红路由
-          $api->group(['namespace' => 'Relevance', 'prefix'  =>  'money'], function ($api) {
-            $api->get('center', 'MoneyController@center');
-
-            // 招聘老师分红详情路由
-            $api->group(['namespace' => 'Relevance'], function ($api) {
-              // 获取
-              $api->group(['prefix'  =>  'obtain'], function ($api) {
-                $api->get('list', 'ObtainController@list');
-              });
-
-              // 提取
-              $api->group(['prefix'  =>  'extract'], function ($api) {
-                $api->get('list', 'ExtractController@list');
-              });
-            });
-          });
-        });
-      });
-
-
-      // 广告路由
-      $api->group(['prefix' => 'advertising'], function ($api) {
-        $api->get('select', 'AdvertisingController@select');
-
-        $api->group(['namespace' => 'Advertising', 'prefix' => 'position'], function ($api) {
-          $api->get('list', 'PositionController@list');
-          $api->get('select', 'PositionController@select');
-          $api->get('view/{id}', 'PositionController@view');
-        });
-      });
-
-
-      // 教育中心路由
-      $api->group(['namespace' => 'Education', 'prefix' => 'education'], function ($api) {
-
-        // 课件路由
-        $api->group(['namespace' => 'Courseware', 'prefix' => 'courseware'], function ($api) {
-          $api->any('list', 'CoursewareController@list');
-          $api->get('select', 'CoursewareController@select');
-          $api->get('view/{id}', 'CoursewareController@view');
-          $api->get('index', 'CoursewareController@index');
-
-          // 课件级别
-          $api->group(['namespace' => 'Relevance', 'prefix' => 'level'], function ($api) {
-            $api->any('list', 'LevelController@list');
-            $api->get('select', 'LevelController@select');
-            $api->get('view/{id}', 'LevelController@view');
-
-            // 课件单元
-            $api->group(['namespace' => 'Relevance', 'prefix' => 'unit'], function ($api) {
-              $api->any('list', 'UnitController@list');
-              $api->get('select', 'UnitController@select');
-              $api->get('unlock', 'UnitController@unlock');
-              $api->get('view/{id}', 'UnitController@view');
-
-              // 课件知识点
-              $api->group(['namespace' => 'Relevance', 'prefix' => 'point'], function ($api) {
-                $api->any('list', 'PointController@list');
-                $api->get('select', 'PointController@select');
-                $api->get('view/{id}', 'PointController@view');
-              });
-            });
-          });
-        });
-
-
-        // 课程路由
-        $api->group(['namespace' => 'Course', 'prefix' => 'course'], function ($api) {
-          $api->any('list', 'CourseController@list');
-          $api->get('select', 'CourseController@select');
-          $api->get('view/{id}', 'CourseController@view');
-
-          $api->group(['namespace' => 'Relevance'], function ($api) {
-
-            // 课程老师路由
-            $api->group(['prefix' => 'teacher'], function ($api) {
-              $api->any('list', 'TeacherController@list');
-              $api->get('select', 'TeacherController@select');
-              $api->get('view/{id}', 'TeacherController@view');
-            });
-
-            // 课程礼包路由
-            $api->group(['prefix' => 'present'], function ($api) {
-              $api->any('list', 'PresentController@list');
-              $api->get('select', 'PresentController@select');
-              $api->get('view/{id}', 'PresentController@view');
-            });
-
-            // 课程解锁路由
-            $api->group(['prefix' => 'unlock'], function ($api) {
-              $api->any('list', 'UnlockController@list');
-              $api->get('select', 'UnlockController@select');
-              $api->get('view/{id}', 'UnlockController@view');
-            });
-
-            // 课程分享路由
-            $api->group(['prefix' => 'share'], function ($api) {
-              $api->get('data', 'ShareController@data');
-            });
-          });
-        });
-      });
-
-
-
-      // 作品路由
-      $api->group(['namespace' => 'Production', 'prefix' => 'production'], function ($api) {
-        $api->get('list', 'ProductionController@list');
-        $api->get('select', 'ProductionController@select');
-        $api->get('view/{id}', 'ProductionController@view');
-
-        $api->group(['namespace' => 'Relevance'], function ($api) {
-          // 作品评论路由
-          $api->group(['prefix' => 'comment'], function ($api) {
-            $api->get('list', 'CommentController@list');
-            $api->get('select', 'CommentController@select');
-            $api->get('view/{id}', 'CommentController@view');
-          });
-
-          // 作品点赞路由
-          $api->group(['prefix' => 'approval'], function ($api) {
-            $api->get('list', 'ApprovalController@list');
-            $api->get('select', 'ApprovalController@select');
-            $api->get('view/{id}', 'ApprovalController@view');
-          });
-        });
-      });
-
-
-      // 模板路由
-      $api->group(['namespace' => 'Template', 'prefix' => 'template'], function ($api) {
-        $api->get('list', 'TemplateController@list');
-        $api->get('select', 'TemplateController@select');
-        $api->get('view/{id}', 'TemplateController@view');
-      });
-
-
-      // 商品路由
-      $api->group(['namespace' => 'Goods', 'prefix' => 'goods'], function ($api) {
-        $api->get('list', 'GoodsController@list');
-        $api->get('select', 'GoodsController@select');
-        $api->get('view/{id}', 'GoodsController@view');
-      });
-
-      // 投诉路由
-      $api->group(['namespace' => 'Complain', 'prefix' => 'complain'], function ($api) {
-        $api->group(['prefix' => 'category'], function ($api) {
-          // 投诉分类路由
-          $api->get('select', 'CategoryController@select');
         });
       });
     });

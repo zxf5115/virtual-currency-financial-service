@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Platform\System;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Constant\RedisKey;
@@ -49,18 +48,34 @@ class SystemController extends BaseController
   {
     try
     {
-      $condition = self::getBaseWhereData();
+      // 平台核心数据Reids Key
+      $key = RedisKey::KERNEL;
 
-      $condition = array_merge($condition, $this->_where);
+      if(Redis::exists($key))
+      {
+        $data = Redis::get($key);
 
-      $response = $this->_model::where($condition)->pluck('value', 'title');
+        $response = unserialize($data);
+      }
+      else
+      {
+        $condition = self::getBaseWhereData();
+
+        $condition = array_merge($condition, $this->_where);
+
+        $response = $this->_model::where($condition)->pluck('value', 'title');
+
+        $data = serialize($response);
+
+        Redis::set($key, $data);
+      }
 
       return self::success($response);
     }
     catch(\Exception $e)
     {
       // 记录异常信息
-      self::record($e);
+      record($e);
 
       return self::error(Code::ERROR);
     }
@@ -83,6 +98,12 @@ class SystemController extends BaseController
     try
     {
       Cache::flush();
+
+      // 清除Redis中平台核心信息
+      Redis::del(RedisKey::KERNEL);
+
+      // 清除Redis中协议信息
+      Redis::del(RedisKey::AGREEMENT);
 
       // 清除Redis中平台菜单信息
       Redis::del(RedisKey::PLATFORM_MENU);

@@ -1,38 +1,33 @@
 <?php
-namespace App\Http\Controllers\Api\System;
+namespace App\Http\Controllers\Platform\System;
 
 use Illuminate\Http\Request;
 
 use zxf5115\Upload\File;
-use App\Http\Controllers\Api\BaseController;
 use App\Http\Constant\Common\System\FileCode;
+use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-04-20
+ * @dateTime 2021-04-16
  *
- * 文件上传接口控制器类
+ * 文件上传控制器类
  */
 class FileController extends BaseController
 {
   /**
-   * @api {post} /api/file/file 01. 上传文件
-   * @apiDescription 通过base64的内容进行文件上传
-   * @apiGroup 03. 上传模块
-   * @apiPermission jwt
-   * @apiHeader {String} Authorization 身份令牌
-   * @apiHeaderExample {json} Header-Example:
-   * {
-   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
-   * }
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-20
+   * ------------------------------------------
+   * 上传文件
+   * ------------------------------------------
    *
-   * @apiParam {string} file 文件数据
-   * @apiParam {string} category 文件分类 excel word pdf video audio ...
+   * 上传文件
    *
-   * @apiSuccess (响应) {string} data 文件地址
+   * @param {object} $file 文件数据
+   * @param {string} $category 文件分类 excel word pdf ...
    *
-   * @apiSampleRequest /api/file/file
-   * @apiVersion 1.0.0
+   * @return [type]
    */
   public function file(Request $request)
   {
@@ -40,7 +35,7 @@ class FileController extends BaseController
     {
       $category = $request->category ?? 'file';
 
-      $response = File::file_base64($request->file, $category);
+      $response = File::file('file', $category);
 
       // 如果返回错误代码
       if(false === strpos($response, 'http'))
@@ -55,29 +50,24 @@ class FileController extends BaseController
       // 记录异常信息
       record($e);
 
-      return self::error(Code::FILE_UPLOAD_ERROR);
+      return self::error(FileCode::FILE_UPLOAD_ERROR);
     }
   }
 
 
   /**
-   * @api {post} /api/file/picture 02. 上传图片
-   * @apiDescription 通过base64的内容进行图片上传
-   * @apiGroup 03. 上传模块
-   * @apiPermission jwt
-   * @apiHeader {String} Authorization 身份令牌
-   * @apiHeaderExample {json} Header-Example:
-   * {
-   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
-   * }
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-18
+   * ------------------------------------------
+   * 上传图片
+   * ------------------------------------------
    *
-   * @apiParam {string} file 图片数据
-   * @apiParam {string} category 图片分类 picture avatar ...
+   * 上传图片
    *
-   * @apiSuccess (响应) {string} data 图片地址
+   * @param {object} $file 图片数据
+   * @param {string} $category 图片分类 picture advertising avatar ...
    *
-   * @apiSampleRequest /api/file/picture
-   * @apiVersion 1.0.0
+   * @return [type]
    */
   public function picture(Request $request)
   {
@@ -85,7 +75,7 @@ class FileController extends BaseController
     {
       $category = $request->category ?? 'picture';
 
-      $response = File::picture_base64($request->file, $category);
+      $response = File::picture('file', $category);
 
       // 如果返回错误代码
       if(false === strpos($response, 'http'))
@@ -100,7 +90,126 @@ class FileController extends BaseController
       // 记录异常信息
       record($e);
 
-      return self::error(Code::FILE_UPLOAD_ERROR);
+      return self::error(FileCode::FILE_UPLOAD_ERROR);
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-20
+   * ------------------------------------------
+   * 上传文件(编辑器)
+   * ------------------------------------------
+   *
+   * 上传文件(编辑器)
+   *
+   * @param {object} $file 文件数据
+   *
+   * @return [type]
+   */
+  public function editor_file(Request $request)
+  {
+    try
+    {
+      $response = File::file('file', 'file');
+
+      $link = ["link" => $response];
+
+      // 如果返回错误代码
+      if(false === strpos($response, 'http'))
+      {
+        return json_encode($link);
+      }
+
+      return json_encode($link);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(FileCode::FILE_UPLOAD_ERROR);
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-18
+   * ------------------------------------------
+   * 上传图片(编辑器)
+   * ------------------------------------------
+   *
+   * 上传图片(编辑器)
+   *
+   * @param {object} $file 图片数据
+   * @param {string} $category 图片分类 picture advertising avatar ...
+   *
+   * @return [type]
+   */
+  public function editor_picture(Request $request)
+  {
+    try
+    {
+      $response = File::picture('file', 'picture');
+
+      $link = ["link" => $response];
+
+      // 如果返回错误代码
+      if(false === strpos($response, 'http'))
+      {
+        return json_encode($link);
+      }
+
+      return json_encode($link);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(FileCode::FILE_UPLOAD_ERROR);
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-03
+   * ------------------------------------------
+   * 上传附件
+   * ------------------------------------------
+   *
+   * 上传附件
+   *
+   * @param {object} $file 文件数据
+   * @param {string} $category 文件分类 excel word pdf ...
+   *
+   * @return [type]
+   */
+  public function attachment(Request $request)
+  {
+    try
+    {
+      $category = $request->category ?? 'file';
+
+      $response = File::file('file', $category, false, true);
+
+      // 如果返回错误代码
+      if(is_string($response) && false === strpos($response, 'http'))
+      {
+        return self::message($response);
+      }
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(FileCode::FILE_UPLOAD_ERROR);
     }
   }
 }

@@ -10,6 +10,12 @@ namespace App\Http\Constant;
  */
 class RedisKey
 {
+  // 平台核心数据
+  const KERNEL = 'kernel';
+
+  // 系统协议
+  const AGREEMENT = 'agreement';
+
   // 平台菜单键名
   const PLATFORM_MENU = 'platform_menus';
 

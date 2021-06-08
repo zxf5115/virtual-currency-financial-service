@@ -33,13 +33,11 @@ $api->version('v1', [
 
       // 文件上传路由
       $api->group(['prefix' => 'file'], function ($api) {
-        $api->post('avatar', 'FileController@avatar');
-        $api->post('picture', 'FileController@picture');
         $api->post('file', 'FileController@file');
-        $api->post('data', 'FileController@data');
-        $api->post('advertising', 'FileController@advertising');
-        $api->post('course', 'FileController@course');
-        $api->post('batchRichText', 'FileController@batchRichText');
+        $api->post('picture', 'FileController@picture');
+        $api->post('attachment', 'FileController@attachment');
+        $api->post('editor_file', 'FileController@editor_file');
+        $api->post('editor_picture', 'FileController@editor_picture');
       });
 
 
@@ -114,8 +112,12 @@ $api->version('v1', [
       // 系统设置路由
       $api->group(['prefix'  =>  'setting'], function ($api) {
         $api->any('data', 'SettingController@data');
-        $api->any('agreement', 'SettingController@agreement');
         $api->any('about', 'SettingController@about');
+        $api->any('user', 'SettingController@user');
+        $api->any('employ', 'SettingController@employ');
+        $api->any('privacy', 'SettingController@privacy');
+        $api->any('specification', 'SettingController@specification');
+        $api->any('liability', 'SettingController@liability');
       });
 
 
@@ -154,24 +156,6 @@ $api->version('v1', [
         $api->group(['namespace' => 'Express', 'prefix' => 'express'], function ($api) {
           $api->group(['prefix' => 'company'], function ($api) {
             $api->get('list', 'CompanyController@list'); // 快递公司路由
-          });
-        });
-
-        // 常见问题路由
-        $api->group(['prefix' => 'problem'], function ($api) {
-          $api->any('list', 'ProblemController@list');
-          $api->get('select', 'ProblemController@select');
-          $api->get('view/{id}', 'ProblemController@view');
-          $api->post('handle', 'ProblemController@handle');
-          $api->post('delete', 'ProblemController@delete');
-
-          // 常见问题分类路由
-          $api->group(['namespace' => 'Problem', 'prefix' => 'category'], function ($api) {
-            $api->any('list', 'CategoryController@list');
-            $api->get('select', 'CategoryController@select');
-            $api->get('view/{id}', 'CategoryController@view');
-            $api->post('handle', 'CategoryController@handle');
-            $api->post('delete/{id?}', 'CategoryController@delete');
           });
         });
       });
@@ -331,6 +315,25 @@ $api->version('v1', [
       });
 
 
+      // 常见问题路由
+      $api->group(['prefix' => 'problem'], function ($api) {
+        $api->any('list', 'ProblemController@list');
+        $api->get('select', 'ProblemController@select');
+        $api->get('view/{id}', 'ProblemController@view');
+        $api->post('handle', 'ProblemController@handle');
+        $api->post('delete', 'ProblemController@delete');
+
+        // 常见问题分类路由
+        $api->group(['namespace' => 'Problem', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
       // 投诉路由
       $api->group(['prefix' => 'complain'], function ($api) {
         // 投诉路由
@@ -347,6 +350,13 @@ $api->version('v1', [
           $api->post('handle', 'CategoryController@handle');
           $api->post('delete/{id?}', 'CategoryController@delete');
         });
+      });
+
+
+      // 联系客服路由
+      $api->group(['prefix' => 'contact'], function ($api) {
+        $api->any('list', 'ContactController@list');
+        $api->post('delete', 'ContactController@delete');
       });
 
 

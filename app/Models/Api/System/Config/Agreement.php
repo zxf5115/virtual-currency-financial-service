@@ -15,6 +15,7 @@ class Agreement extends Common
   public $hidden = [
     'id',
     'organization_id',
+    'name',
     'title',
     'status',
     'create_time',

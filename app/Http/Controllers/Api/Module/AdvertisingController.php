@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-12-27
+ * @dateTime 2021-06-08
  *
  * 广告控制器类
  */
@@ -36,9 +36,9 @@ class AdvertisingController extends BaseController
    * @apiParam {int} position_id 广告位编号
    * @apiParam {int} total 显示广告数量，默认显示5条
    *
-   * @apiSuccess (basic params) {String} title 广告标题
-   * @apiSuccess (basic params) {String} picture 广告图片
-   * @apiSuccess (basic params) {String} link 广告链接
+   * @apiSuccess (字段说明) {String} title 广告标题
+   * @apiSuccess (字段说明) {String} picture 广告图片
+   * @apiSuccess (字段说明) {String} link 广告链接
    *
    * @apiSampleRequest /api/advertising/select
    * @apiVersion 1.0.0

@@ -56,7 +56,7 @@ class MemberController extends BaseController
   /**
    * @api {get} /api/member/archive 01. 获取当前会员档案
    * @apiDescription 获取当前会员的档案信息
-   * @apiGroup 04. 会员模块
+   * @apiGroup 20. 会员模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -120,7 +120,7 @@ class MemberController extends BaseController
   /**
    * @api {post} /api/member/handle 02. 编辑会员信息
    * @apiDescription 编辑会员信息
-   * @apiGroup 04. 会员模块
+   * @apiGroup 20. 会员模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -215,7 +215,7 @@ class MemberController extends BaseController
   /**
    * @api {post} /api/member/teacher 03. 成为招聘老师
    * @apiDescription 将满足条件的当前会员的身份变成招聘老师
-   * @apiGroup 04. 会员模块
+   * @apiGroup 20. 会员模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -283,7 +283,7 @@ class MemberController extends BaseController
   /**
    * @api {get} /api/member/view/{id} 04. 获取会员详情
    * @apiDescription 获取会员详情
-   * @apiGroup 04. 会员模块
+   * @apiGroup 20. 会员模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -339,7 +339,7 @@ class MemberController extends BaseController
   /**
    * @api {get} /api/member/status 05. 当前会员是否填写资料
    * @apiDescription 获取当前会员是否填写资料信息
-   * @apiGroup 04. 会员模块
+   * @apiGroup 20. 会员模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
