@@ -21,7 +21,7 @@ class MemberController extends BaseController
   /**
    * 操作模型
    */
-  protected $_model = 'App\Models\Platform\Module\Member\Member';
+  protected $_model = 'App\Models\Platform\Module\Member';
 
   /**
    * 基本查询条件

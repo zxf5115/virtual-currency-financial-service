@@ -1,15 +1,15 @@
 <?php
-namespace App\Models\Api\Module\Order\Course;
+namespace App\Models\Api\Module\Member;
 
-use App\Models\Common\Module\Order\Course\Logistics as Common;
+use App\Models\Common\Module\Member\Attention as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-17
+ * @dateTime 2021-01-16
  *
- * 课程订单物流模型类
+ * 学员关注模型类
  */
-class Logistics extends Common
+class Attention extends Common
 {
   // 隐藏的属性
   public $hidden = [
@@ -19,39 +19,45 @@ class Logistics extends Common
   ];
 
 
-
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-01-16
    * ------------------------------------------
-   * 物流与订单关联函数
+   * 学员与学员关联表
    * ------------------------------------------
    *
-   * 物流与订单关联函数
-   *
-   * @return [关联对象]
-   */
-  public function order()
-  {
-    return $this->belongsTo('App\Models\Api\Module\Order\Course', 'order_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 物流与学员关联函数
-   * ------------------------------------------
-   *
-   * 物流与学员关联函数
+   * 学员与学员关联表
    *
    * @return [关联对象]
    */
   public function member()
   {
-    return $this->belongsTo('App\Models\Api\Module\Member', 'member_id', 'id');
+    return $this->belongsTo(
+      'App\Models\Api\Module\Member',
+      'member_id',
+      'id'
+    );
+  }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-01-16
+   * ------------------------------------------
+   * 学员与关注学员关联表
+   * ------------------------------------------
+   *
+   * 学员与关注学员关联表
+   *
+   * @return [关联对象]
+   */
+  public function attention()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Member',
+      'attention_member_id',
+      'id'
+    );
   }
 }

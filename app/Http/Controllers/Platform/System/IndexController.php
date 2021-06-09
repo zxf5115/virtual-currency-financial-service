@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Enum\Common\MoneyEnum;
-use App\Models\Common\Module\Member\Member;
+use App\Models\Common\Module\Member;
 use App\Models\Common\Module\Complain\Complain;
 use App\Http\Controllers\Platform\BaseController;
 use App\Models\Common\Module\Member\Relevance\Money;

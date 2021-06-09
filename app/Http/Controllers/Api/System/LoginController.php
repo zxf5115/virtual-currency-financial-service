@@ -11,7 +11,7 @@ use App\TraitClass\ToolTrait;
 use App\Http\Constant\RedisKey;
 use App\Http\Constant\Parameter;
 use App\Events\Common\Message\SmsEvent;
-use App\Models\Api\Module\Member\Member;
+use App\Models\Api\Module\Member;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Api\Module\Member\Relevance\Archive;
 

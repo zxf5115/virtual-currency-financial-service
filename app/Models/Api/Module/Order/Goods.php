@@ -51,7 +51,7 @@ class Goods extends Common
    */
   public function member()
   {
-    return $this->belongsTo('App\Models\Api\Module\Member\Member', 'member_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Member', 'member_id', 'id');
   }
 
 

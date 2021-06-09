@@ -183,7 +183,7 @@ $api->version('v1', [
 
 
       // 会员路由
-      $api->group(['namespace' => 'Member', 'prefix'  =>  'member'], function ($api) {
+      $api->group(['prefix'  => 'member'], function ($api) {
         $api->any('list', 'MemberController@list');
         $api->get('select', 'MemberController@select');
         $api->get('view/{id}', 'MemberController@view');
@@ -192,7 +192,7 @@ $api->version('v1', [
         $api->post('enable', 'MemberController@enable');
         $api->post('delete', 'MemberController@delete');
 
-        $api->group(['namespace'  =>  'Relevance'], function ($api) {
+        $api->group(['namespace'  =>  'Member'], function ($api) {
 
           // 会员课程路由
           $api->group(['prefix'  =>  'course'], function ($api) {

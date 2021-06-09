@@ -82,6 +82,6 @@ class Teacher extends Common
    */
   public function teacher()
   {
-    return $this->belongsTo('App\Models\Api\Module\Member\Member', 'teacher_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Member', 'teacher_id', 'id');
   }
 }

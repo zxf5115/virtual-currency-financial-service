@@ -96,6 +96,6 @@ class Logistics extends Base
    */
   public function member()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member\Member', 'member_id', 'id');
+    return $this->belongsTo('App\Models\Common\Module\Member', 'member_id', 'id');
   }
 }

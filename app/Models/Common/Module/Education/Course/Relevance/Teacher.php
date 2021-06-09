@@ -92,6 +92,6 @@ class Teacher extends Base
    */
   public function teacher()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member\Member', 'teacher_id', 'id');
+    return $this->belongsTo('App\Models\Common\Module\Member', 'teacher_id', 'id');
   }
 }

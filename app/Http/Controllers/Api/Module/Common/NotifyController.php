@@ -15,7 +15,7 @@ use App\Events\Api\Member\MoneyEvent;
 use App\Events\Api\Member\TargetEvent;
 use App\Models\Api\Module\Order\Goods;
 use App\Models\Api\Module\Order\Course;
-use App\Models\Api\Module\Member\Member;
+use App\Models\Api\Module\Member;
 use App\Events\Api\Member\Order\GoodsEvent;
 use App\Events\Api\Member\Order\CourseEvent;
 use App\Events\Api\Member\Course\TeacherEvent;

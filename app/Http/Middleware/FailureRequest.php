@@ -2,7 +2,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\Api\Module\Member\Member;
+use App\Models\Api\Module\Member;
 
 /**
  * 会员失效

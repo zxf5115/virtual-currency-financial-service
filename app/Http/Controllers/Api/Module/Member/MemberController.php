@@ -22,7 +22,7 @@ use App\Models\Api\Module\Organization\Organization;
  */
 class MemberController extends BaseController
 {
-  protected $_model = 'App\Models\Api\Module\Member\Member';
+  protected $_model = 'App\Models\Api\Module\Member';
 
   protected $_where = [];
 

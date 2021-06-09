@@ -6,7 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Api\System\Config;
 use App\Events\Api\Member\MoneyEvent;
-use App\Models\Api\Module\Member\Member;
+use App\Models\Api\Module\Member;
 use App\Models\Api\Module\Member\Relevance\Money;
 use App\Models\Api\Module\Member\Relevance\Asset;
 
