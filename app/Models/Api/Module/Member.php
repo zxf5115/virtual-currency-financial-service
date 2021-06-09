@@ -113,26 +113,4 @@ class Member extends Common
       'id'
     );
   }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-01-20
-   * ------------------------------------------
-   * 会有与消息关联表
-   * ------------------------------------------
-   *
-   * 会有与消息关联表
-   *
-   * @return [关联对象]
-   */
-  public function message()
-  {
-    return $this->belongsToMany(
-      'App\Models\Api\Module\Message',
-      'module_member_message_relevance',
-      'member_id',
-      'message_id'
-    );
-  }
 }

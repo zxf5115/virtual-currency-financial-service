@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-04-15
+ * @dateTime 2020-07-14
  *
  * Token模型类, 用于JWT验证使用
  */

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api\Module\Member;
+namespace App\Http\Controllers\Api\Module;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

@@ -74,12 +74,12 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Platform::class,
+            'model' => App\Models\Platform\Platform::class,
         ],
 
         'apis' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Api::class,
+            'model' => App\Models\Api\Api::class,
         ],
     ],
 

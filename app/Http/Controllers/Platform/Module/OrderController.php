@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Order;
+namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -11,12 +11,12 @@ use App\Http\Controllers\Platform\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-01-16
  *
- * 商品订单控制器类
+ * 订单控制器类
  */
-class GoodsController extends BaseController
+class OrderController extends BaseController
 {
   // 模型
-  protected $_model = 'App\Models\Platform\Module\Order\Goods';
+  protected $_model = 'App\Models\Platform\Module\Order';
 
   // 默认查询条件
   protected $_where = [];
@@ -24,14 +24,19 @@ class GoodsController extends BaseController
   // 查询条件
   protected $_params = [
     'order_no',
-    'pay_status',
-    'order_status',
+    'member_id'
   ];
 
   // 附加关联查询条件
   protected $_addition = [
-    'goods' => [
+    'member' => [
+      'nickname',
+    ],
+    'course' => [
       'title',
+    ],
+    'courseware' => [
+      'id',
     ]
   ];
 
@@ -43,11 +48,14 @@ class GoodsController extends BaseController
   // 关联信息
   protected $_relevance = [
     'list' => [
-      'goods',
+      'course',
+      'courseware',
       'member',
     ],
     'view' => [
-      'goods',
+      'course',
+      'courseware',
+      'level',
       'member',
       'address',
     ]
@@ -73,8 +81,6 @@ class GoodsController extends BaseController
     {
       $where = ['pay_status' => 1];
 
-      $response = 0;
-
       $condition = self::getBaseWhereData();
 
       // 对用户请求进行过滤
@@ -82,14 +88,13 @@ class GoodsController extends BaseController
 
       $condition = array_merge($condition, $this->_where, $filter, $where);
 
-      $result = $this->_model::getPluck('pay_money', $condition, false, false, true);
+      $data = $this->_model::getPluck('pay_money', $condition, false, false, true);
 
-      if(!empty($result))
+      $response = 0;
+
+      foreach($data as $item)
       {
-        foreach($result as $item)
-        {
-          $response = bcadd($response, $item, 2);
-        }
+        $response = bcadd($response, $item, 2);
       }
 
       return self::success($response);
@@ -102,5 +107,4 @@ class GoodsController extends BaseController
       return self::error(Code::ERROR);
     }
   }
-
 }

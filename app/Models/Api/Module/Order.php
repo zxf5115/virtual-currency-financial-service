@@ -1,85 +1,22 @@
 <?php
-namespace App\Models\Common\Module\Order;
+namespace App\Models\Api\Module;
 
-use App\Models\Base;
-use App\Http\Constant\Status;
-use App\Enum\Module\Order\CourseEnum;
+use App\Models\Common\Module\Order as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-15
+ * @dateTime 2021-01-16
  *
  * 课程订单模型类
  */
-class Course extends Base
+class Order extends Common
 {
-  // 表名
-  protected $table = "module_course_order";
-
   // 隐藏的属性
-  protected $hidden = [
+  public $hidden = [
+    'organization_id',
+    'status',
     'update_time'
   ];
-
-  // 追加到模型数组表单的访问器
-  protected $appends = [];
-
-  // 批量添加
-  protected $fillable = ['id'];
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 支付类型封装
-   * ------------------------------------------
-   *
-   * 支付类型封装
-   *
-   * @param [type] $value [description]
-   * @return [type]
-   */
-  public function getPayTypeAttribute($value)
-  {
-    return CourseEnum::getTypeStatus($value);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 订单状态封装
-   * ------------------------------------------
-   *
-   * 订单状态封装
-   *
-   * @param [type] $value [description]
-   * @return [type]
-   */
-  public function getPayStatusAttribute($value)
-  {
-    return CourseEnum::getPayStatus($value);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 支付状态封装
-   * ------------------------------------------
-   *
-   * 支付状态封装
-   *
-   * @param [type] $value [description]
-   * @return [type]
-   */
-  public function getOrderStatusAttribute($value)
-  {
-    return CourseEnum::getOrderStatus($value);
-  }
 
 
   // 关联函数 ------------------------------------------------------
@@ -97,7 +34,7 @@ class Course extends Base
    */
   public function course()
   {
-    return $this->belongsTo('App\Models\Common\Module\Education\Course\Course', 'course_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Education\Course\Course', 'course_id', 'id');
   }
 
 
@@ -114,7 +51,7 @@ class Course extends Base
    */
   public function courseware()
   {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Courseware', 'courseware_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Education\Courseware\Courseware', 'courseware_id', 'id');
   }
 
 
@@ -131,7 +68,7 @@ class Course extends Base
    */
   public function level()
   {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Relevance\Level', 'level_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Education\Courseware\Relevance\Level', 'level_id', 'id');
   }
 
 
@@ -148,7 +85,7 @@ class Course extends Base
    */
   public function member()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member', 'member_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Member', 'member_id', 'id');
   }
 
 
@@ -165,7 +102,7 @@ class Course extends Base
    */
   public function address()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member\Relevance\Address', 'address_id', 'id');
+    return $this->belongsTo('App\Models\Api\Module\Member\Relevance\Address', 'address_id', 'id');
   }
 
 
@@ -182,7 +119,7 @@ class Course extends Base
    */
   public function logistics()
   {
-    return $this->hasMany('App\Models\Common\Module\Order\Course\Logistics', 'order_id', 'id');
+    return $this->hasOne('App\Models\Api\Module\Order\Course\Logistics', 'order_id', 'id');
   }
 
 
@@ -199,6 +136,6 @@ class Course extends Base
    */
   public function memberCourse()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member\Relevance\Course', 'member_id', 'member_id');
+    return $this->belongsTo('App\Models\Api\Module\Member\Relevance\Course', 'member_id', 'member_id');
   }
 }
