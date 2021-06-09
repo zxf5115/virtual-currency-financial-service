@@ -93,11 +93,8 @@ class LoginController extends BaseController
             return self::error(Code::USER_EXIST);
           }
 
-          // 获取客户端ip地址
-          $response->last_login_ip = $request->getClientIp();
-
           // 记录登录信息
-          User::login($response);
+          User::login($response, $request);
 
           // 记录用户行为日志
           event(new UserActionLogEvent($response, $request));

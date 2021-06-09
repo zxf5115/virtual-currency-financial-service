@@ -11,6 +11,7 @@ use App\Http\Constant\RedisKey;
 use App\Http\Constant\Parameter;
 use App\Models\Platform\System\Menu;
 use App\Models\Platform\System\Log\Action;
+use App\Models\Platform\System\Role\Permission;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -37,7 +38,6 @@ class UserController extends BaseController
 
   protected $_relevance = [
     'role',
-    'relevance',
   ];
 
 
@@ -57,14 +57,14 @@ class UserController extends BaseController
   {
     $messages = [
       'username.required' => '请您输入登录账户',
-      'username.unique'   => '登录账户重复',
       'nickname.required' => '请您输入用户昵称',
+      'role_id.required'  => '请您选择用户角色',
     ];
 
     $rule = [
       'username' => 'required',
-      'username' => 'unique:system_user,username,' . $request->id,
       'nickname' => 'required',
+      'role_id'  => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -76,50 +76,28 @@ class UserController extends BaseController
     }
     else
     {
-      DB::beginTransaction();
-
       try
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
-        $organization_id = self::getOrganizationId();
-
-        $model->organization_id = $organization_id;
-        $model->username    = $request->username;
-        $model->nickname    = $request->nickname;
-        $model->avatar      = $request->avatar;
-        $model->mobile      = $request->mobile;
-        $model->email       = $request->email;
-
         if(empty($request->id))
         {
-          $model->password    = $this->_model::generate(Parameter::PASSWORD);
+          $model->password = $this->_model::generate(Parameter::PASSWORD);
         }
 
-        if(empty($request->role_id))
-        {
-          return self::error(Code::USER_ROLE_EMPTY);
-        }
-
-        $data = $this->_model::getRoleId($request->role_id, $organization_id);
-
-        $response = $model->save();
-
-        $model->relevance()->delete();
-
-        if(!empty($data))
-        {
-          $model->relevance()->createMany($data);
-        }
-
-        DB::commit();
+        $model->organization_id = self::getOrganizationId();
+        $model->role_id         = $request->role_id;
+        $model->username        = $request->username;
+        $model->nickname        = $request->nickname;
+        $model->avatar          = $request->avatar;
+        $model->mobile          = $request->mobile;
+        $model->email           = $request->email;
+        $model->save();
 
         return self::success(Code::$message[Code::HANDLE_SUCCESS]);
       }
       catch(\Exception $e)
       {
-        DB::rollback();
-
         // 记录异常信息
         self::record($e);
 
@@ -263,11 +241,7 @@ class UserController extends BaseController
     {
       $result = [];
 
-      $user_id = self::getCurrentId();
-
-      $role = $this->_model::find($user_id)->role[0] ?: [];
-
-      $role_id = $role->id;
+      $role_id = self::getCurrentRoleId();
 
       // 平台菜单redis Key
       $key = RedisKey::PLATFORM_MENU;
@@ -280,12 +254,14 @@ class UserController extends BaseController
       }
       else
       {
-        $permission = $role->permission->toArray();
+        $where = [
+          'role_id' => $role_id
+        ];
 
-        $menu_ids = array_column($permission, 'menu_id');
+        $menu_id = Permission::getPluck('menu_id', $where);
 
         // 获取用户可访问菜单
-        $result = Menu::getCurrentUserMenuData($menu_ids);
+        $result = Menu::getCurrentUserMenuData($menu_id);
 
         $menus = serialize($result);
 

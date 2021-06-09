@@ -2,7 +2,7 @@
 namespace App\Models\Common\System\User;
 
 use App\Models\Base;
-use App\Enum\Common\System\MessageEnum;
+use App\Enum\MessageEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

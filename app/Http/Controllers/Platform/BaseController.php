@@ -251,6 +251,35 @@ class BaseController extends Common
   }
 
 
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-20
+   * ------------------------------------------
+   * 获取当前登录用户的角色编号
+   * ------------------------------------------
+   *
+   * 获取当前登录用户的角色编号
+   *
+   * @return 角色编号
+   */
+  public static function getCurrentRoleId()
+  {
+    try
+    {
+      return auth('platform')->user()->role_id ?? 0;
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return 0;
+    }
+  }
+
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-03-07

@@ -1,100 +1,139 @@
 <?php
 namespace App\Http\Controllers\Platform\System\User;
 
-use App\Http\Constant\Code;
 use Illuminate\Http\Request;
-use App\Models\Platform\System\Message;
-use Illuminate\Support\Facades\Validator;
+
+use App\Enum\BaseEnum;
+use App\Http\Constant\Code;
+use App\Models\Platform\System\User\UserMessage;
 use App\Http\Controllers\Platform\BaseController;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-07-14
+ * @dateTime 2021-04-17
  *
- * 用户控制器类
+ * 用户消息控制器类
  */
 class MessageController extends BaseController
 {
-  protected $_model = 'App\Models\Platform\System\User\Message';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\System\User';
 
-  protected $_where = [];
-
-  protected $_params = [];
-
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
+  // 客户端搜索字段
+  protected $_params = [
+    'title',
   ];
 
-  protected $_relevance = [];
+  protected $_addition = [
+    'message' => [
+      'status'
+    ]
+  ];
 
+  // 关联对象
+  protected $_relevance = [
+    'list' => [
+      'message'
+    ]
+  ];
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-27
+   * @dateTime 2021-04-17
    * ------------------------------------------
    * 当前用户消息
    * ------------------------------------------
    *
    * 当前用户消息
    *
-   * @param Request $request [description]
+   * @param Request $request 请求数据
    * @return [type]
    */
   public function list(Request $request)
   {
     try
     {
-      $condition = [
-        'user_id' => self::getCurrentId(),
-        'status'  => $request->status
-      ];
+      // 默认查询字段
+      $request['message_status'] = BaseEnum::ENABLE;
 
-      $response = $this->_model::getPaging($condition, 'message');
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = ['user_id' => self::getCurrentId()];
+
+      $where = ['status' => BaseEnum::ENABLE];
+
+      $where = array_merge($condition, $where, $filter);
+
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
+
+      $unread = UserMessage::getList($where, $relevance);
+
+      $unread_count = count($unread) > 0 ? count($unread) : '';
+
+      $where = ['status' => BaseEnum::DISABLE];
+
+      $where = array_merge($condition, $where, $filter);
+
+      $readed = UserMessage::getPaging($where, $relevance);
+
+      $response = [
+        'unread'       => $unread,
+        'unread_count' => $unread_count,
+        'readed'       => $readed,
+      ];
 
       return self::success($response);
     }
     catch(\Exception $e)
     {
-      return self::error(Code::ERROR);
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::HANDLE_FAILURE);
     }
   }
 
 
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-09-22
+   * @dateTime 2021-04-17
    * ------------------------------------------
    * 是否存在未读消息
    * ------------------------------------------
    *
    * 是否存在未读消息
    *
-   * @param Request $request [description]
+   * @param Request $request 请求数据
    * @return [type]
    */
   public function unread(Request $request)
   {
     try
     {
-      $user_id = $this->user->id;
+      $where = [
+        'user_id' => self::getCurrentId(),
+        'status'  => BaseEnum::ENABLE
+      ];
 
-      $response = $this->_model::getCount(['user_id' => $user_id, 'status' => 1]);
+      $response = UserMessage::getCount($where);
 
       return self::success($response);
     }
     catch(\Exception $e)
     {
-      return self::error(Code::$message[Code::ERROR]);
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::HANDLE_FAILURE);
     }
   }
 
 
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-２8
+   * @dateTime 2021-04-17
    * ------------------------------------------
    * 消息设置为已读
    * ------------------------------------------
@@ -108,18 +147,56 @@ class MessageController extends BaseController
   {
     try
     {
-      $id = $request->id ?? '';
+      $id = $request->id ?? 0;
 
       $current_id = self::getCurrentId();
 
       // 设置为已读
-      $response = $this->_model::setReaded($id, $current_id);
+      UserMessage::setReaded($id, $current_id);
 
-      return self::success($response);
+      return self::success(Code::HANDLE_SUCCESS);
     }
     catch(\Exception $e)
     {
-      return self::error(Code::$message[Code::ERROR]);
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::HANDLE_FAILURE);
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-04-17
+   * ------------------------------------------
+   * 删除已读消息
+   * ------------------------------------------
+   *
+   * 删除已读消息
+   *
+   * @param Request $request 请求数据
+   * @return [type]
+   */
+  public function delete(Request $request)
+  {
+    try
+    {
+      $id = $request->id ?? '';
+
+      $user_id = self::getCurrentId();
+
+      // 删除已读
+      UserMessage::setDelete($id, $user_id);
+
+      return self::success(Code::HANDLE_SUCCESS);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::HANDLE_FAILURE);
     }
   }
 }

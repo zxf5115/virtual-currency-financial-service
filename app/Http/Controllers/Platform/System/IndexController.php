@@ -36,72 +36,74 @@ class IndexController extends BaseController
   {
     try
     {
-      $today_member_total = 0;
-      $member_total = 0;
+      $response = [];
 
-      $today_course_total = 0;
-      $course_total = 0;
+      // $today_member_total = 0;
+      // $member_total = 0;
 
-      $today_goods_total = 0;
-      $goods_total = 0;
+      // $today_course_total = 0;
+      // $course_total = 0;
 
-      $today_money_total = 0;
-      $money_total = 0;
+      // $today_goods_total = 0;
+      // $goods_total = 0;
 
-      $wait_money_total = 0;
-      $complain_total = 0;
-      $wait_order_total = 0;
+      // $today_money_total = 0;
+      // $money_total = 0;
 
-      // 今天0点
-      $today = strtotime(date("Y-m-d"),time());
+      // $wait_money_total = 0;
+      // $complain_total = 0;
+      // $wait_order_total = 0;
 
-      // 今天
-      $where = [['create_time', '>', $today]];
+      // // 今天0点
+      // $today = strtotime(date("Y-m-d"),time());
 
-      $today_member_total = Member::getCount($where);
-      $member_total = Member::getCount([]);
+      // // 今天
+      // $where = [['create_time', '>', $today]];
 
-      $today_course_total = Course::getCount($where);
-      $course_total = Course::getCount([]);
+      // $today_member_total = Member::getCount($where);
+      // $member_total = Member::getCount([]);
 
-      $today_goods_total = GoodsOrder::getCount($where);
-      $goods_total = GoodsOrder::getCount([]);
+      // $today_course_total = Course::getCount($where);
+      // $course_total = Course::getCount([]);
 
-      $today_goods_money_total = GoodsOrder::getPluck('pay_money', $where, false, false, true);
-      $goods_money_total = GoodsOrder::getPluck('pay_money', [], false, false, true);
+      // $today_goods_total = GoodsOrder::getCount($where);
+      // $goods_total = GoodsOrder::getCount([]);
 
-      $today_course_money_total = CourseOrder::getPluck('pay_money', $where, false, false, true);
-      $course_money_total = CourseOrder::getPluck('pay_money', [], false, false, true);
+      // $today_goods_money_total = GoodsOrder::getPluck('pay_money', $where, false, false, true);
+      // $goods_money_total = GoodsOrder::getPluck('pay_money', [], false, false, true);
 
-      $today_money_total = array_merge($today_course_money_total, $today_goods_money_total);
+      // $today_course_money_total = CourseOrder::getPluck('pay_money', $where, false, false, true);
+      // $course_money_total = CourseOrder::getPluck('pay_money', [], false, false, true);
 
-      $today_money_total = MoneyEnum::getTotalMoney($today_money_total);
+      // $today_money_total = array_merge($today_course_money_total, $today_goods_money_total);
 
-      $money_total = array_merge($course_money_total, $goods_money_total);
-      $money_total = MoneyEnum::getTotalMoney($money_total);
+      // $today_money_total = MoneyEnum::getTotalMoney($today_money_total);
 
-      $wait_money_total = Money::getCount(['type' => 2, 'withdrawal_status' => 0]);
+      // $money_total = array_merge($course_money_total, $goods_money_total);
+      // $money_total = MoneyEnum::getTotalMoney($money_total);
 
-      $complain_total = Complain::getCount([]);
+      // $wait_money_total = Money::getCount(['type' => 2, 'withdrawal_status' => 0]);
 
-      $where = ['pay_status' => 1, 'order_status' => 0];
-      $wait_order_total = GoodsOrder::getCount($where);
+      // $complain_total = Complain::getCount([]);
 
-      $response['today_member_total'] = $today_member_total;
-      $response['member_total']       = $member_total;
+      // $where = ['pay_status' => 1, 'order_status' => 0];
+      // $wait_order_total = GoodsOrder::getCount($where);
 
-      $response['today_course_total'] = $today_course_total;
-      $response['course_total']       = $course_total;
+      // $response['today_member_total'] = $today_member_total;
+      // $response['member_total']       = $member_total;
 
-      $response['today_goods_total']  = $today_goods_total;
-      $response['goods_total']        = $goods_total;
+      // $response['today_course_total'] = $today_course_total;
+      // $response['course_total']       = $course_total;
 
-      $response['today_money_total']  = $today_money_total;
-      $response['money_total']        = $money_total;
+      // $response['today_goods_total']  = $today_goods_total;
+      // $response['goods_total']        = $goods_total;
 
-      $response['wait_money_total']   = $wait_money_total;
-      $response['complain_total']     = $complain_total;
-      $response['wait_order_total']   = $wait_order_total;
+      // $response['today_money_total']  = $today_money_total;
+      // $response['money_total']        = $money_total;
+
+      // $response['wait_money_total']   = $wait_money_total;
+      // $response['complain_total']     = $complain_total;
+      // $response['wait_order_total']   = $wait_order_total;
 
       return self::success($response);
     }
