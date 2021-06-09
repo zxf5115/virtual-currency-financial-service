@@ -25,34 +25,6 @@ class Role extends Base
 
 
 
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-07-16
-   * ------------------------------------------
-   * 获取菜单编号
-   * ------------------------------------------
-   *
-   * 获取菜单编号
-   *
-   * @param array $request 菜单编号
-   * @param array $organization_id 机构编号
-   * @return 菜单编号
-   */
-  public static function getMenuId($request, $organization_id)
-  {
-    $response = [];
-
-    foreach($request as $key => $item)
-    {
-      $response[$key]['menu_id']     = $item;
-      $response[$key]['organization_id'] = $organization_id;
-    }
-
-    return $response;
-  }
-
-
-
   // 关联函数 ------------------------------------------------------
 
   /**

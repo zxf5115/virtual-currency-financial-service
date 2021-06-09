@@ -32,6 +32,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Common\Message\SmsListeners',
         ],
 
+        // 短信验证码
+        'App\Events\Common\Sms\CodeEvent' => [
+            'App\Listeners\Common\Sms\CodeListeners',
+        ],
+
         // 发送邮件
         'App\Events\Common\Message\EmailEvent' => [
             'App\Listeners\Common\Message\EmailListeners',

@@ -19,18 +19,10 @@ $api->version('v1', [
       $api->post('sms_code', 'LoginController@sms_code'); // 登录验证码
       $api->post('weixin_login', 'LoginController@weixin_login'); // 微信登录
       $api->post('apple_login', 'LoginController@apple_login'); // 苹果登录
-      $api->post('h5_login', 'LoginController@h5_login'); // H5登录
-      $api->get('weixin_redirect', 'LoginController@weixin_redirect');
       $api->post('register', 'LoginController@register');
       $api->post('bind_mobile', 'LoginController@bind_mobile');
-      $api->post('apple_bind_mobile', 'LoginController@apple_bind_mobile');
       $api->post('bind_code', 'LoginController@bind_code');
-      $api->post('apple_bind_code', 'LoginController@apple_bind_code');
       $api->get('logout', 'LoginController@logout'); // 退出
-      $api->post('h5_sms_code', 'LoginController@h5_sms_code'); // 登录验证码
-
-      $api->get('weixin', 'LoginController@weixin'); // 微信登录
-      $api->get('callback', 'LoginController@callback'); // 微信回调
 
       // 系统基础数据路由
       $api->group(['prefix' => 'system'], function ($api) {

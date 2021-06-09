@@ -310,4 +310,88 @@ class BaseController extends Common
       return 0;
     }
   }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-07-08
+   * ------------------------------------------
+   * 获取基础查询条件数据
+   * ------------------------------------------
+   *
+   * 获取基础查询条件数据，状态为正常并且属于当前商户
+   *
+   * @return [type]
+   */
+  public static function getBaseWhereData($id = '', $field = 'id')
+  {
+    $organization_id = static::getOrganizationId();
+
+    $condition = [
+      ['status', '=', Status::ENABLE],
+    ];
+
+    if($organization_id)
+    {
+      $condition['organization_id'] = $organization_id;
+    }
+
+    if($id)
+    {
+      $condition[$field] = $id;
+    }
+
+    return $condition;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-07-08
+   * ------------------------------------------
+   * 根据ID组装查询条件数据
+   * ------------------------------------------
+   *
+   * 根据用户传递过来的ID，组装查询条件数据
+   *
+   * @return [type]
+   */
+  public static function getSimpleWhereData($id = '', $field = 'id')
+  {
+    $condition = [
+      ['status', '=', Status::ENABLE],
+    ];
+
+    if($id)
+    {
+      $condition[$field] = $id;
+    }
+
+    return $condition;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-07-08
+   * ------------------------------------------
+   * 获取当前会员查询条件数据
+   * ------------------------------------------
+   *
+   * 获取当前会员查询条件数据，状态为正常并且属于当前商户
+   *
+   * @return [type]
+   */
+  public static function getCurrentWhereData($field = 'member_id')
+  {
+    $member_id       = static::getCurrentId();
+    $organization_id = static::getOrganizationId();
+
+    $condition = [
+      ['status', '=', Status::ENABLE],
+      $field => $member_id,
+      'organization_id' => $organization_id,
+    ];
+
+    return $condition;
+  }
 }
