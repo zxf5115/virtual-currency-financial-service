@@ -27,7 +27,7 @@ class FileController extends BaseController
    * }
    *
    * @apiParam {string} file 文件数据
-   * @apiParam {string} category 文件分类 excel word pdf video audio ...
+   * @apiParam {string} [category] 文件分类 excel word pdf video audio ...
    *
    * @apiSuccess (字段说明) {string} data 文件地址
    *
@@ -72,7 +72,7 @@ class FileController extends BaseController
    * }
    *
    * @apiParam {string} file 图片数据
-   * @apiParam {string} category 图片分类 picture avatar ...
+   * @apiParam {string} [category] 图片分类 picture avatar ...
    *
    * @apiSuccess (字段说明) {string} data 图片地址
    *

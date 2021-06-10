@@ -248,6 +248,31 @@ $api->version('v1', [
       });
 
 
+      // 快讯路由
+      $api->group(['prefix' => 'flash'], function ($api) {
+        $api->any('list', 'FlashController@list');
+        $api->get('select', 'FlashController@select');
+        $api->get('view/{id}', 'FlashController@view');
+        $api->post('status', 'FlashController@status');
+        $api->post('handle', 'FlashController@handle');
+        $api->post('delete/{id?}', 'FlashController@delete');
+
+        // 快讯分类路由
+        $api->group(['namespace' => 'Flash', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('status', 'CategoryController@status');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
+
+
+
+
       // 联系客服路由
       $api->group(['prefix' => 'contact'], function ($api) {
         $api->any('list', 'ContactController@list');

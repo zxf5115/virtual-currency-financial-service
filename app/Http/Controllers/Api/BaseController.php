@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\Http\Constant\Status;
 use App\Http\Controllers\BaseController as Common;
-use App\Models\Common\Module\Member\Relevance\Role;
 
 
 /**
@@ -291,18 +291,7 @@ class BaseController extends Common
   {
     try
     {
-      $response = 0;
-
-      $member_id = auth('api')->user()->id;
-
-      $role = Role::getRow(['member_id' => $member_id]);
-
-      if(!empty($role))
-      {
-        $response = $role->role_id;
-      }
-
-      return $response;
+      return auth('api')->user()->role_id;
     }
     catch(\Exception $e)
     {

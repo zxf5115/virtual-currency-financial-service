@@ -22,6 +22,8 @@ $api->version('v1', [
       $api->post('register', 'LoginController@register');
       $api->post('bind_mobile', 'LoginController@bind_mobile');
       $api->post('bind_code', 'LoginController@bind_code');
+      $api->post('reset_code', 'LoginController@reset_code');
+      $api->post('back_mobile', 'LoginController@back_mobile');
       $api->get('logout', 'LoginController@logout'); // 退出
 
       // 系统基础数据路由
@@ -65,11 +67,6 @@ $api->version('v1', [
           $api->any('wechat', 'NotifyController@wechat');
           $api->any('alipay', 'NotifyController@alipay');
           $api->any('apple', 'NotifyController@apple');
-        });
-
-        // 红包路由
-        $api->group(['prefix' => 'redenvelope'], function ($api) {
-          $api->post('data', 'RedEnvelopeController@data');
         });
 
         // 客服路由
@@ -117,6 +114,19 @@ $api->version('v1', [
           $api->get('select', 'CategoryController@select');
         });
       });
+
+
+      // 快讯路由
+      $api->group(['prefix'  => 'flash'], function ($api) {
+        $api->get('list', 'FlashController@list');
+        $api->get('view/{id}', 'FlashController@view');
+
+        // 快讯分类路由
+        $api->group(['namespace' => 'Flash', 'prefix'  => 'category'], function ($api) {
+          $api->get('select', 'CategoryController@select');
+        });
+      });
+
 
 
 

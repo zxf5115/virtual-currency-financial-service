@@ -22,11 +22,8 @@ use App\Models\Api\Module\Organization\Organization;
  */
 class MemberController extends BaseController
 {
+  // 模型名称
   protected $_model = 'App\Models\Api\Module\Member';
-
-  protected $_where = [];
-
-  protected $_params = [];
 
   protected $_addition = [
     'relevance' => [
@@ -34,10 +31,12 @@ class MemberController extends BaseController
     ]
   ];
 
+  // 排序方式
   protected $_order = [
     ['key' => 'id', 'value' => 'asc'],
   ];
 
+  // 关联对象
   protected $_relevance = [
     'archive' => [
       'archive',

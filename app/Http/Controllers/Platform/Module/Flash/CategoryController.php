@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Problem;
+namespace App\Http\Controllers\Platform\Module\Flash;
 
 use Illuminate\Http\Request;
 
@@ -8,14 +8,15 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-05-29
+ * @dateTime 2021-06-10
  *
- * 购车指南分类控制器类
+ * 快讯分类控制器类
  */
 class CategoryController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Platform\Module\Problem\Category';
+  protected $_model = 'App\Models\Platform\Module\Flash\Category';
+
 
   // 排序条件
   protected $_order = [
@@ -25,7 +26,7 @@ class CategoryController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-06-10
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -38,7 +39,7 @@ class CategoryController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'title.required'  => '请您输入购车指南分类标题',
+      'title.required'  => '请您输入快讯分类标题',
     ];
 
     $rule = [
@@ -72,40 +73,6 @@ class CategoryController extends BaseController
 
         return self::error(Code::HANDLE_FAILURE);
       }
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-05
-   * ------------------------------------------
-   * 启用（停用）课程类型
-   * ------------------------------------------
-   *
-   * 启用（停用）课程类型
-   *
-   * @param Request $request [description]
-   * @return [type]
-   */
-  public function status(Request $request)
-  {
-    try
-    {
-      $model = $this->_model::find($request->id);
-
-      $model->status = $model->status['value'] == 1 ? 2 : 1;
-
-      $model->save();
-
-      return self::success(Code::message(Code::HANDLE_SUCCESS));
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::HANDLE_FAILURE);
     }
   }
 }

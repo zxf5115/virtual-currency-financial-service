@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api\Module;
+namespace App\Http\Controllers\Api\Module\Flash;
 
 use Illuminate\Http\Request;
 
@@ -10,17 +10,12 @@ use App\Http\Controllers\Api\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-08
  *
- * 广告控制器类
+ * 快讯分类控制器类
  */
-class AdvertisingController extends BaseController
+class CategoryController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Advertising';
-
-  // 客户端搜索字段
-  protected $_params = [
-    'position_id',
-  ];
+  protected $_model = 'App\Models\Api\Module\Flash\Category';
 
   // 排序方式
   protected $_order = [
@@ -29,18 +24,14 @@ class AdvertisingController extends BaseController
 
 
   /**
-   * @api {get} /api/advertising/select 01. 广告数据
-   * @apiDescription 获取广告不分页列表
-   * @apiGroup 05. 广告模块
+   * @api {get} /api/flash/category/select 01. 快讯分类数据
+   * @apiDescription 获取快讯分类不分页列表数据
+   * @apiGroup 50. 快讯分类模块
    *
-   * @apiParam {int} position_id 广告位编号
-   * @apiParam {int} [total] 显示广告数量，默认显示5条
+   * @apiSuccess (字段说明) {Number} id 快讯分类编号
+   * @apiSuccess (字段说明) {String} title 快讯分类标题
    *
-   * @apiSuccess (字段说明) {String} title 广告标题
-   * @apiSuccess (字段说明) {String} picture 广告图片
-   * @apiSuccess (字段说明) {String} link 广告链接
-   *
-   * @apiSampleRequest /api/advertising/select
+   * @apiSampleRequest /api/flash/category/select
    * @apiVersion 1.0.0
    */
   public function select(Request $request)
@@ -52,14 +43,12 @@ class AdvertisingController extends BaseController
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
 
-      $total = $request->total ?? 5;
-
       $condition = array_merge($condition, $this->_where, $filter);
 
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'select');
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order, false, false, $total);
+      $response = $this->_model::getList($condition, $relevance, $this->_order);
 
       return self::success($response);
     }

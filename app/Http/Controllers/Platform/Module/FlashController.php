@@ -8,34 +8,36 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-11
+ * @dateTime 2021-06-10
  *
- * 广告控制器类
+ * 快讯控制器类
  */
-class AdvertisingController extends BaseController
+class FlashController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Platform\Module\Advertising';
+  protected $_model = 'App\Models\Common\Module\Flash';
 
   // 客户端搜索字段
   protected $_params = [
-    'position_id',
-  ];
-
-  // 排序方式
-  protected $_order = [
-    ['key' => 'sort', 'value' => 'desc'],
+    'category_id',
+    'title'
   ];
 
   // 关联对象
   protected $_relevance = [
-    'position'
+    'list' => [
+      'category'
+    ],
+    'select' => false,
+    'view' => [
+      'category'
+    ],
   ];
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-12
+   * @dateTime 2021-06-10
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -48,13 +50,15 @@ class AdvertisingController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'position_id.required' => '请您输入广告位标题',
-      'title.required'       => '请您输入广告标题',
+      'category_id.required' => '请您选择分类标题',
+      'title.required'       => '请您输入快讯标题',
+      'content.required'     => '请您输入快讯内容',
     ];
 
     $rule = [
-      'position_id' => 'required',
+      'category_id' => 'required',
       'title'       => 'required',
+      'content'     => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -71,11 +75,10 @@ class AdvertisingController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->position_id     = $request->position_id;
+        $model->category_id     = $request->category_id;
+        $model->member_id       = self::getCurrentId();
         $model->title           = $request->title;
-        $model->picture         = $request->picture;
-        $model->link            = $request->link ?? '';
-        $model->sort            = $request->sort;
+        $model->content         = $request->content;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

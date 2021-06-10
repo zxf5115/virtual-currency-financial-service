@@ -40,10 +40,6 @@ class OrderController extends BaseController
     ]
   ];
 
-  // 排序
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
 
   // 关联信息
   protected $_relevance = [

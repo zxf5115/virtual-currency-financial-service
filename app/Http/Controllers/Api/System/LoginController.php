@@ -771,7 +771,7 @@ class LoginController extends BaseController
         }
 
         // 发送登录验证码
-        event(new SmsEvent($username, 3));
+        event(new SmsEvent($username, 5));
 
         return self::success(Code::message(Code::SEND_SUCCESS));
       }
@@ -785,9 +785,152 @@ class LoginController extends BaseController
     }
   }
 
+  /**
+   * @api {post} /api/reset_code 09. 重置验证码
+   * @apiDescription 获取重置验证码
+   * @apiGroup 04. 登录模块
+   *
+   * @apiParam {string} username 登录账户（18201018888）
+   *
+   * @apiSuccess (响应) {String} data 验证码
+   *
+   * @apiSampleRequest /api/reset_code
+   * @apiVersion 1.0.0
+   */
+  public function reset_code(Request $request)
+  {
+    $messages = [
+      'username.required'  => '请输入用户名称',
+      'username.regex'     => '手机号码不合法',
+    ];
+
+    $rule = [
+      'username' => 'required',
+      'username' => 'regex:/^1[3456789][0-9]{9}$/',     //正则验证
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $username = $request->username;
+
+        $condition = self::getSimpleWhereData($username, 'username');
+
+        $response = $this->_model::getRow($condition);
+
+        if(empty($response->id))
+        {
+          return self::error(Code::MEMBER_EMPTY);
+        }
+
+        // 发送重置验证码
+        event(new SmsEvent($username, 3));
+
+        return self::success(Code::HANDLE_SUCCESS);
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        record($e);
+
+        return self::error(Code::ERROR);
+      }
+    }
+  }
+
 
   /**
-   * @api {get} /api/logout 09. 退出
+   * @api {post} /api/back_mobile 10. 手机找回密码
+   * @apiDescription 通过手机号码找回密码
+   * @apiGroup 04. 登录模块
+   *
+   * @apiParam {string} username 登录手机号码
+   * @apiParam {string} sms_code 验证码
+   * @apiParam {string} password 新密码
+   * @apiParam {string} password_confirmation 确认密码
+   *
+   * @apiSampleRequest /api/back_mobile
+   * @apiVersion 1.0.0
+   */
+  public function back_mobile(Request $request)
+  {
+    $messages = [
+      'username.required'  => '请您输入登录账户',
+      'sms_code.required'  => '请您输入验证码',
+      'password.required'  => '请您输入新密码',
+      'password.between'   => '输入的密码必须是6-16位',
+      'password.confirmed' => '您输入的两次密码信息不一致',
+    ];
+
+    $rule = [
+      'username' => 'required',
+      'sms_code' => 'required',
+      'password' => 'required|between:6,16|confirmed',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $username = $request->username;
+
+        $sms_code = $request->sms_code;
+
+        // 比对验证码
+        $status = event(new CodeEvent($username, $sms_code));
+
+        // 验证码错误
+        if(empty($status))
+        {
+          return self::error(Code::VERIFICATION_CODE);
+        }
+
+        $condition = self::getSimpleWhereData($username, 'username');
+
+        $model = $this->_model::getRow($condition);
+
+        if(empty($model->id))
+        {
+          return self::error(Code::MEMBER_EMPTY);
+        }
+
+        $password = $this->_model::generate($request->password);
+
+        $model->password = $password;
+        $model->save();
+
+        return self::success(Code::HANDLE_SUCCESS);
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
+
+
+
+
+  /**
+   * @api {get} /api/logout 11. 退出
    * @apiDescription 退出登录状态
    * @apiGroup 01. 登录模块
    * @apiPermission jwt
