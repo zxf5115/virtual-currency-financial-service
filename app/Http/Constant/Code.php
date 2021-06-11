@@ -107,6 +107,8 @@ class Code
   const CURRENT_MOBILE_BIND = 90047;
   // 请先绑定微信
   const BIND_WEIXIN = 90048;
+  // 当前手机不存在
+  const CURRENT_MOBILE_EMPTY = 90050;
 
   // 标签不能为空
   const LABEL_EMPTY = 9005;
@@ -222,6 +224,7 @@ class Code
     self::MEMBER_DISABLE       => '当前用户被禁用',
     self::CURRENT_MOBILE_BIND       => '当前手机号码已绑定用户',
     self::BIND_WEIXIN       => '请先绑定微信',
+    self::CURRENT_MOBILE_EMPTY => '当前手机不存在',
 
     self::LABEL_EMPTY  => '标签不能为空',
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\Listeners\Api\Member\Production;
+namespace App\Listeners\Api\Flash;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;

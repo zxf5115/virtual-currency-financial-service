@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-11
+ * @dateTime 2021-06-11
  *
  * 我的投诉控制器类
  */
@@ -31,7 +31,7 @@ class ComplainController extends BaseController
   /**
    * @api {get} /api/member/complain/list?page={page} 01. 我的投诉列表
    * @apiDescription 获取我的投诉分页列表
-   * @apiGroup 27. 会员投诉模块
+   * @apiGroup 31. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -42,13 +42,10 @@ class ComplainController extends BaseController
    * @apiParam {int} page 当前页数
    * @apiParam {int} category_id 投诉位编号
    *
-   * @apiSuccess (响应) {Number} id 投诉编号
-   * @apiSuccess (响应) {Number} category_id 投诉位编号
-   * @apiSuccess (响应) {String} title 投诉标题
-   * @apiSuccess (响应) {String} picture 投诉图片资源
-   * @apiSuccess (响应) {String} url 投诉其他资源
-   * @apiSuccess (响应) {String} link 投诉链接
-   * @apiSuccess (响应) {Number} create_time 添加时间
+   * @apiSuccess (字段说明|投诉) {Number} id 投诉编号
+   * @apiSuccess (字段说明|投诉) {String} content 投诉内容
+   * @apiSuccess (字段说明|投诉) {Number} create_time 投诉时间
+   * @apiSuccess (字段说明|投诉分类) {Number} title 投诉分类标题
    *
    * @apiSampleRequest /api/member/complain/list
    * @apiVersion 1.0.0
@@ -82,61 +79,9 @@ class ComplainController extends BaseController
 
 
   /**
-   * @api {get} /api/member/complain/select 02. 获取我的投诉列表(不分页)
-   * @apiDescription 获取我的投诉列表(不分页)
-   * @apiGroup 27. 会员投诉模块
-   * @apiPermission jwt
-   * @apiHeader {String} Authorization 身份令牌
-   * @apiHeaderExample {json} Header-Example:
-   * {
-   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
-   * }
-   *
-   * @apiParam {int} category_id 投诉位编号
-   *
-   * @apiSuccess (响应) {Number} id 投诉编号
-   * @apiSuccess (响应) {Number} category_id 投诉位编号
-   * @apiSuccess (响应) {String} title 投诉标题
-   * @apiSuccess (响应) {String} picture 投诉图片资源
-   * @apiSuccess (响应) {String} url 投诉其他资源
-   * @apiSuccess (响应) {String} link 投诉链接
-   * @apiSuccess (响应) {Number} create_time 添加时间
-   *
-   * @apiSampleRequest /api/member/complain/select
-   * @apiVersion 1.0.0
-   */
-  public function select(Request $request)
-  {
-    try
-    {
-      $condition = self::getCurrentWhereData();
-
-      // 对用户请求进行过滤
-      $filter = $this->filter($request->all());
-
-      $condition = array_merge($condition, $this->_where, $filter);
-
-      // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'select');
-
-      $response = $this->_model::getList($condition, $relevance, $this->_order);
-
-      return self::success($response);
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::ERROR);
-    }
-  }
-
-
-  /**
-   * @api {get} /api/member/complain/view/{id} 03. 获取我的投诉详情
+   * @api {get} /api/member/complain/view/{id} 02. 我的投诉详情
    * @apiDescription 获取我的投诉详情
-   * @apiGroup 27. 会员投诉模块
+   * @apiGroup 31. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -144,13 +89,10 @@ class ComplainController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiSuccess (响应) {Number} id 投诉编号
-   * @apiSuccess (响应) {Number} category_id 投诉位编号
-   * @apiSuccess (响应) {String} title 投诉标题
-   * @apiSuccess (响应) {String} picture 投诉图片资源
-   * @apiSuccess (响应) {String} url 投诉其他资源
-   * @apiSuccess (响应) {String} link 投诉链接
-   * @apiSuccess (响应) {Number} create_time 添加时间
+   * @apiSuccess (字段说明|投诉) {Number} id 投诉编号
+   * @apiSuccess (字段说明|投诉) {String} content 投诉内容
+   * @apiSuccess (字段说明|投诉) {Number} create_time 投诉时间
+   * @apiSuccess (字段说明|投诉分类) {Number} title 投诉分类标题
    *
    * @apiSampleRequest /api/member/complain/view/{id}
    * @apiVersion 1.0.0
@@ -178,9 +120,9 @@ class ComplainController extends BaseController
   }
 
   /**
-   * @api {post} /api/member/complain/handle 04. 编辑投诉信息
-   * @apiDescription 编辑招聘老师的信息
-   * @apiGroup 27. 会员投诉模块
+   * @api {post} /api/member/complain/handle 03. 提交投诉信息
+   * @apiDescription 提交投诉信息
+   * @apiGroup 31. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -222,7 +164,6 @@ class ComplainController extends BaseController
         $model->category_id = $request->category_id;
         $model->member_id   = self::getCurrentId();
         $model->content     = $request->content;
-
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

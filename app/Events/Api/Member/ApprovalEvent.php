@@ -10,24 +10,24 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 成为老师目标事件
+ * 项目点赞事件
  */
-class TargetEvent
+class ApprovalEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $type      = null;
-  public $member_id = null;
+  public $status = null;
+  public $data_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($member_id, $type)
+  public function __construct($status, $data_id)
   {
-    $this->member_id = $member_id;
-    $this->type      = $type;
+    $this->status  = $status;
+    $this->data_id = $data_id;
   }
 
   /**

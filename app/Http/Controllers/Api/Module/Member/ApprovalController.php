@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api\Module\Member\Relevance;
+namespace App\Http\Controllers\Api\Module\Member;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,23 +11,24 @@ use App\Events\Api\Member\Production\ApprovalEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-12-25
+ * @dateTime 2021-06-11
  *
  * 会员点赞控制器类
  */
 class ApprovalController extends BaseController
 {
-  protected $_model = 'App\Models\Api\Module\Member\Relevance\Approval';
+  // 模型名称
+  protected $_model = 'App\Models\Api\Module\Member\Approval';
 
-  protected $_where = [];
-
-  protected $_params = [];
-
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
+  // 关联对像
+  protected $_relevance = [
+    'list' => [
+      'member'
+    ],
+    'select' => [
+      'member'
+    ]
   ];
-
-  protected $_relevance = [];
 
 
   /**

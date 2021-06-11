@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api\Module\Member\Relevance;
+namespace App\Http\Controllers\Api\Module\Member;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -11,35 +11,31 @@ use App\Events\Api\Member\Production\CommentEvent;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-13
+ * @dateTime 2021-06-11
  *
  * 会员评论控制器类
  */
 class CommentController extends BaseController
 {
-  protected $_model = 'App\Models\Api\Module\Member\Relevance\Comment';
+  // 模型名称
+  protected $_model = 'App\Models\Api\Module\Member\Comment';
 
-  protected $_where = [];
-
-  protected $_params = [];
-
+  // 排序方式
   protected $_order = [
     ['key' => 'is_top', 'value' => 'desc'],
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 
-  protected $_relevance = [];
-
 
   /**
-   * @api {get} /api/member/comment/list?page={page} 01. 会员评论列表(分页)
-   * @apiDescription 获取当前会员评论列表(分页)
+   * @api {get} /api/member/comment/list?page={page} 01. 我的评论列表
+   * @apiDescription 获取当前会员评论分页列表
    * @apiGroup 23. 会员评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
    * {
-   *   "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN"
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
    * @apiParam {int} page 当前页数
@@ -92,7 +88,7 @@ class CommentController extends BaseController
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
    * {
-   *   "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN"
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
    * @apiSuccess (basic params) {Number} id 会员评论编号
@@ -143,7 +139,7 @@ class CommentController extends BaseController
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
    * {
-   *   "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN"
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
    * @apiParam {string} course_id 课程编号

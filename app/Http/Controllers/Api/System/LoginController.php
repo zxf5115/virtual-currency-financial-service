@@ -629,6 +629,16 @@ class LoginController extends BaseController
           $model->archive()->create($data);
         }
 
+        $data = [
+          'money' => 0.00,
+        ];
+
+        if(!empty($data))
+        {
+          $model->asset()->delete();
+          $model->asset()->create($data);
+        }
+
         DB::commit();
 
         return self::success(Code::message(Code::REGISTER_SUCCESS));
@@ -688,7 +698,7 @@ class LoginController extends BaseController
         $sms_code = $request->sms_code;
 
         // 比对验证码
-        $status = event(new CodeEvent($username, $sms_code));
+        $status = event(new CodeEvent($username, $sms_code, 5));
 
         // 验证码错误
         if(empty($status))
@@ -788,7 +798,7 @@ class LoginController extends BaseController
   /**
    * @api {post} /api/reset_code 09. 重置验证码
    * @apiDescription 获取重置验证码
-   * @apiGroup 04. 登录模块
+   * @apiGroup 01. 登录模块
    *
    * @apiParam {string} username 登录账户（18201018888）
    *
@@ -850,7 +860,7 @@ class LoginController extends BaseController
   /**
    * @api {post} /api/back_mobile 10. 手机找回密码
    * @apiDescription 通过手机号码找回密码
-   * @apiGroup 04. 登录模块
+   * @apiGroup 01. 登录模块
    *
    * @apiParam {string} username 登录手机号码
    * @apiParam {string} sms_code 验证码
@@ -892,7 +902,7 @@ class LoginController extends BaseController
         $sms_code = $request->sms_code;
 
         // 比对验证码
-        $status = event(new CodeEvent($username, $sms_code));
+        $status = event(new CodeEvent($username, $sms_code, 3));
 
         // 验证码错误
         if(empty($status))

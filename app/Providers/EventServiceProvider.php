@@ -42,34 +42,21 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Common\Message\EmailListeners',
         ],
 
-        // 获取棒棒糖
-        'App\Events\Api\Member\LollipopEvent' => [
-            'App\Listeners\Api\Member\LollipopListeners',
+        // 关注
+        'App\Events\Api\Member\AttentionEvent' => [
+            'App\Listeners\Api\Member\AttentionListeners',
         ],
 
-        // 记录作品总数
-        'App\Events\Api\Member\ProductionEvent' => [
-            'App\Listeners\Api\Member\ProductionListeners',
+        // 点赞
+        'App\Events\Api\Member\ApprovalEvent' => [
+            'App\Listeners\Api\Member\ApprovalListeners',
         ],
 
-        // 记录作品总数
-        'App\Events\Api\Member\Production\CommentEvent' => [
-            'App\Listeners\Api\Member\Production\CommentListeners',
-        ],
 
-        // 记录点赞总数
-        'App\Events\Api\Member\Production\ApprovalEvent' => [
-            'App\Listeners\Api\Member\Production\ApprovalListeners',
-        ],
 
         // 获取佣金
         'App\Events\Api\Member\MoneyEvent' => [
             'App\Listeners\Api\Member\MoneyListeners',
-        ],
-
-        // 完成目标
-        'App\Events\Api\Member\TargetEvent' => [
-            'App\Listeners\Api\Member\TargetListeners',
         ],
 
         // 获取分红
@@ -117,15 +104,17 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\Order\PayListeners',
         ],
 
-        // 提现
-        'App\Events\Api\Member\ExtractEvent' => [
-            'App\Listeners\Api\Member\ExtractListeners',
+
+        // 快讯利益
+        'App\Events\Api\Flash\BenefitEvent' => [
+            'App\Listeners\Api\Flash\BenefitListeners',
         ],
 
-        // 微信登录
-        \SocialiteProviders\Manager\SocialiteWasCalled::class => [
-            'SocialiteProviders\Weixin\WeixinExtendSocialite@handle',
+        // 快讯评论
+        'App\Events\Api\Flash\CommentEvent' => [
+            'App\Listeners\Api\Flash\CommentListeners',
         ],
+
     ];
 
     /**

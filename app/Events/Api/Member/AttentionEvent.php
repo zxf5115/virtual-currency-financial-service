@@ -2,28 +2,32 @@
 namespace App\Events\Api\Member;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 作品事件
+ * 会员关注事件
  */
-class ProductionEvent
+class AttentionEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
+
+  public $status = null;
+  public $data_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct()
+  public function __construct($status, $data_id)
   {
-
+    $this->status  = $status;
+    $this->data_id = $data_id;
   }
 
   /**
@@ -33,6 +37,6 @@ class ProductionEvent
    */
   public function broadcastOn()
   {
-      return new PrivateChannel('channel-name');
+    return new PrivateChannel('channel-name');
   }
 }

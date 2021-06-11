@@ -605,6 +605,41 @@ class Base extends Model
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-11
+   * ------------------------------------------
+   * 已存在数据删除，不存在数据保存
+   * ------------------------------------------
+   *
+   * 已存在数据删除，不存在数据保存
+   *
+   * @return [type]
+   */
+  public static function createOrDelete($where)
+  {
+    $model = static::firstOrNew($where);
+
+    // 如果数据不存在，保存数据
+    if(empty($model->id))
+    {
+      $model->save();
+
+      return true;
+    }
+    // 如果数据存在，删除数据
+    else
+    {
+      $model->delete();
+
+      return false;
+    }
+  }
+
+
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-07-23
    * ------------------------------------------
    * 获取服务器域名

@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member;
+namespace App\Events\Api\Flash;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,22 +10,22 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 提现事件
+ * 作品评论事件
  */
-class ExtractEvent
+class CommentEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $order = null;
+  public $flash_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($order)
+  public function __construct($production_id)
   {
-    $this->order = $order;
+    $this->production_id = $production_id;
   }
 
   /**
@@ -35,6 +35,6 @@ class ExtractEvent
    */
   public function broadcastOn()
   {
-    return new PrivateChannel('channel-name');
+      return new PrivateChannel('channel-name');
   }
 }

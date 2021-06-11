@@ -1,14 +1,14 @@
 <?php
-namespace App\Listeners\Api\Member\Production;
+namespace App\Listeners\Api\Member;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Models\Api\Module\Production\Production;
-use App\Events\Api\Member\Production\ApprovalEvent;
+use App\Models\Api\Module\Project;
+use App\Events\Api\Member\ApprovalEvent;
 
 /**
- * 作品点赞监听器
+ * 项目点赞监听器
  */
 class ApprovalListeners
 {
@@ -32,27 +32,26 @@ class ApprovalListeners
   {
     try
     {
-      $type          = $event->type;
-      $production_id = $event->production_id;
+      $type       = $event->type;
+      $project_id = $event->project_id;
 
-      $production = Production::getRow(['id' => $production_id]);
+      $project = Project::getRow(['id' => $project_id]);
 
       if(1 == $type)
       {
-        $production->increment('approval_total', 1);
+        $project->increment('approval_total', 1);
       }
       else
       {
-        $production->decrement('approval_total', 1);
+        $project->decrement('approval_total', 1);
       }
-
-      $production->save();
 
       return true;
     }
     catch(\Exception $e)
     {
-      \Log::error($e);
+      // 记录异常信息
+      record($e);
 
       return false;
     }

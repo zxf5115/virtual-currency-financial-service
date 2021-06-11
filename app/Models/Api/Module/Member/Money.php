@@ -1,15 +1,15 @@
 <?php
 namespace App\Models\Api\Module\Member;
 
-use App\Models\Common\Module\Member\Asset as Common;
+use App\Models\Common\Module\Member\Money as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-12-24
+ * @dateTime 2021-06-11
  *
- * 会员资产模型类
+ * 会员红包模型类
  */
-class Asset extends Common
+class Money extends Common
 {
   // 隐藏的属性
   public $hidden = [
@@ -17,7 +17,6 @@ class Asset extends Common
     'organization_id',
     'member_id',
     'status',
-    'create_time',
     'update_time'
   ];
 }

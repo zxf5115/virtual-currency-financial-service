@@ -1,5 +1,5 @@
 <?php
-namespace App\Enum\Module\Member\Relevance;
+namespace App\Enum\Module\Member;
 
 use App\Enum\BaseEnum;
 

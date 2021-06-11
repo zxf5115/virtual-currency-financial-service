@@ -3,7 +3,7 @@ namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
 use App\Enum\Common\AreaEnum;
-use App\Enum\Module\Member\Relevance\AddressEnum;
+use App\Enum\Module\Member\AddressEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

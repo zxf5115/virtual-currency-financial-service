@@ -2,26 +2,23 @@
 namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
+use App\Enum\Module\Member\MoneyEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-12-19
+ * @dateTime 2021-06-11
  *
- * 学员资产模型类
+ * 会员收支模型类
  */
-class Asset extends Base
+class Money extends Base
 {
   // 表名
-  public $table = "module_member_asset";
+  public $table = "module_member_money";
 
   // 可以批量修改的字段
   public $fillable = [
     'id',
     'organization_id',
-    'member_id',
-    'red_envelope',
-    'lollipop',
-    'production',
   ];
 
   // 隐藏的属性
@@ -34,16 +31,34 @@ class Asset extends Base
   protected $appends = [];
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-11
+   * ------------------------------------------
+   * 收支类型封装
+   * ------------------------------------------
+   *
+   * 收支类型封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getTypeAttribute($value)
+  {
+    return MoneyEnum::getTypeStatus($value);
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-20
+   * @dateTime 2021-06-11
    * ------------------------------------------
-   * 学员资产与学员关联表
+   * 会员收支与会员关联表
    * ------------------------------------------
    *
-   * 学员资产与学员关联表
+   * 会员收支与会员关联表
    *
    * @return [关联对象]
    */

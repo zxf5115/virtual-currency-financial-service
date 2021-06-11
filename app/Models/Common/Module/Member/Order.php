@@ -2,7 +2,7 @@
 namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
-use App\Enum\Module\Member\Relevance\OrderEnum;
+use App\Enum\Module\Member\OrderEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]

@@ -2,12 +2,9 @@
 namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
-use App\Enum\Common\AgeEnum;
 use App\Enum\Common\SexEnum;
 use App\Enum\Common\AreaEnum;
-use App\Enum\Common\NationalEnum;
-use App\Enum\Common\EducationEnum;
-use App\Enum\Module\Member\Relevance\ArchiveEnum;
+use App\Enum\Module\Member\ArchiveEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -40,37 +37,7 @@ class Archive extends Base
   ];
 
   // 追加到模型数组表单的访问器
-  protected $appends = [
-    'age'
-  ];
-
-  /**
-   * 转换属性类型
-   */
-  protected $casts = [
-    'status' => 'array',
-    'birthday' => 'datetime:Y-m-d',
-    'create_time' => 'datetime:Y-m-d H:i:s',
-    'update_time' => 'datetime:Y-m-d H:i:s',
-  ];
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-01-20
-   * ------------------------------------------
-   * 宝宝年龄封装
-   * ------------------------------------------
-   *
-   * 宝宝年龄封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getAgeAttribute($value)
-  {
-    return AgeEnum::getAge($this->birthday);
-  }
+  protected $appends = [];
 
 
   /**
@@ -140,24 +107,6 @@ class Archive extends Base
   public function getRegionIdAttribute($value)
   {
     return AreaEnum::getArea($value);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-21
-   * ------------------------------------------
-   * 技能水平封装
-   * ------------------------------------------
-   *
-   * 技能水平封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getSkillLevelAttribute($value)
-  {
-    return ArchiveEnum::getSkillLevelStatus($value);
   }
 
 

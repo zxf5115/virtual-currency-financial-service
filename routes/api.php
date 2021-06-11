@@ -121,14 +121,162 @@ $api->version('v1', [
         $api->get('list', 'FlashController@list');
         $api->get('view/{id}', 'FlashController@view');
 
-        // 快讯分类路由
-        $api->group(['namespace' => 'Flash', 'prefix'  => 'category'], function ($api) {
-          $api->get('select', 'CategoryController@select');
+        // 快讯关联路由
+        $api->group(['namespace' => 'Flash'], function ($api) {
+
+          // 快讯分类路由
+          $api->group(['prefix'  => 'category'], function ($api) {
+            $api->get('select', 'CategoryController@select');
+          });
+
+          // 快讯评论路由
+          $api->group(['prefix'  => 'comment'], function ($api) {
+            $api->get('select', 'CommentController@select');
+          });
         });
       });
 
 
 
+
+
+
+      // 会员路由
+      $api->group(['prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+        $api->get('archive', 'MemberController@archive');
+        $api->get('asset', 'MemberController@asset');
+        $api->get('status', 'MemberController@status');
+        $api->post('handle', 'MemberController@handle');
+        $api->get('data', 'MemberController@data');
+        $api->post('password', 'MemberController@password');
+        $api->post('change_code', 'MemberController@change_code');
+        $api->post('change_mobile', 'MemberController@change_mobile');
+
+
+        // 会员关联内容路由
+        $api->group(['namespace' => 'Member'], function ($api) {
+
+          // 会员资产路由
+          $api->group(['prefix'  => 'asset'], function ($api) {
+            $api->get('list', 'AssetController@list');
+            $api->get('income', 'AssetController@income');
+            $api->get('expend', 'AssetController@expend');
+          });
+
+          // 会员关注路由
+          $api->group(['prefix'  => 'attention'], function ($api) {
+            $api->get('list', 'AttentionController@list');
+            $api->post('status', 'AttentionController@status');
+            $api->post('handle', 'AttentionController@handle');
+          });
+
+          // 会员邀请路由
+          $api->group(['prefix'  => 'invitation'], function ($api) {
+            $api->get('list', 'InvitationController@list');
+            $api->post('status', 'InvitationController@status');
+            $api->post('handle', 'InvitationController@handle');
+          });
+
+
+
+
+
+
+          // 会员投诉路由
+          $api->group(['prefix'  => 'complain'], function ($api) {
+            $api->get('list', 'ComplainController@list');
+            $api->get('view/{id}', 'ComplainController@view');
+            $api->post('handle', 'ComplainController@handle');
+          });
+
+
+          // 会员客服路由
+          $api->group(['prefix'  => 'contact'], function ($api) {
+            $api->post('handle', 'ContactController@handle');
+          });
+
+
+
+
+
+          // 会员快讯路由
+          $api->group(['namespace' => 'Flash', 'prefix'  => 'flash'], function ($api) {
+
+            // 会员快讯利益路由
+            $api->group(['prefix'  => 'benefit'], function ($api) {
+              $api->post('bullish', 'BenefitController@bullish');
+              $api->post('bearish', 'BenefitController@bearish');
+            });
+
+            // 会员快讯利益路由
+            $api->group(['prefix'  => 'comment'], function ($api) {
+              $api->post('handle', 'CommentController@handle');
+            });
+          });
+
+
+
+
+
+
+          // 会员送货地址路由
+          $api->group(['prefix'  => 'address'], function ($api) {
+            $api->get('list', 'AddressController@list');
+            $api->get('select', 'AddressController@select');
+            $api->get('view/{id}', 'AddressController@view');
+            $api->get('default', 'AddressController@default');
+            $api->post('handle', 'AddressController@handle');
+            $api->post('delete', 'AddressController@delete');
+          });
+
+          // 会员点赞路由
+          $api->group(['prefix'  => 'approval'], function ($api) {
+            $api->get('list', 'ApprovalController@list');
+            $api->get('select', 'ApprovalController@select');
+            $api->post('status', 'ApprovalController@status');
+            $api->post('handle', 'ApprovalController@handle');
+          });
+
+          // 会员课程路由
+          $api->group(['prefix'  =>  'course'], function ($api) {
+            $api->get('list', 'CourseController@list');
+            $api->get('select', 'CourseController@select');
+            $api->get('center', 'CourseController@center');
+            $api->get('view/{id}', 'CourseController@view');
+            $api->get('status/{id}', 'CourseController@status');
+            $api->get('addition/{id}', 'CourseController@addition');
+            $api->post('apply', 'CourseController@apply');
+            $api->post('finish', 'CourseController@finish');
+
+            // 会员课程单元路由
+            $api->group(['namespace' => 'Relevance', 'prefix'  =>  'unit'], function ($api) {
+              $api->get('list', 'UnitController@list');
+              $api->get('select', 'UnitController@select');
+              $api->get('view/{id}', 'UnitController@view');
+
+              // 会员课程单元知识点路由
+              $api->group(['namespace' => 'Relevance', 'prefix'  =>  'point'], function ($api) {
+                $api->get('list', 'PointController@list');
+                $api->get('select', 'PointController@select');
+                $api->get('view/{id}', 'PointController@view');
+                $api->get('status/{id}', 'PointController@status');
+                $api->post('finish', 'PointController@finish');
+              });
+            });
+          });
+
+
+          // 会员评论路由
+          $api->group(['prefix'  => 'comment'], function ($api) {
+            $api->get('list', 'CommentController@list');
+            $api->get('select', 'CommentController@select');
+            $api->post('handle', 'CommentController@handle');
+          });
+
+
+
+        });
+      });
 
 
 
@@ -198,196 +346,6 @@ $api->version('v1', [
             // 课程分享路由
             $api->group(['prefix' => 'share'], function ($api) {
               $api->get('data', 'ShareController@data');
-            });
-          });
-        });
-      });
-
-
-
-      // 会员路由
-      $api->group(['namespace' => 'Member', 'prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
-        $api->get('archive', 'MemberController@archive');
-        $api->get('view/{id}', 'MemberController@view');
-        $api->post('handle', 'MemberController@handle');
-        $api->post('teacher', 'MemberController@teacher');
-        $api->get('status', 'MemberController@status');
-
-        // 会员角色路由
-        $api->group(['prefix'  => 'role'], function ($api) {
-          $api->get('info', 'RoleController@info');
-        });
-
-
-
-
-        // 会员投诉路由
-        $api->group(['prefix'  => 'complain'], function ($api) {
-          $api->get('list', 'ComplainController@list');
-          $api->get('select', 'ComplainController@select');
-          $api->get('view/{id}', 'ComplainController@view');
-          $api->post('handle', 'ComplainController@handle');
-        });
-
-        // 会员客服路由
-        $api->group(['prefix'  => 'contact'], function ($api) {
-          $api->post('handle', 'ContactController@handle');
-        });
-
-
-
-
-
-
-        // 会员关联内容路由
-        $api->group(['namespace' => 'Relevance'], function ($api) {
-
-          // 会员资产路由
-          $api->group(['prefix'  => 'asset'], function ($api) {
-            $api->get('center', 'AssetController@center');
-            $api->get('lollipop', 'AssetController@lollipop');
-            $api->get('money', 'AssetController@money');
-            $api->get('production', 'AssetController@production');
-          });
-
-          // 会员棒棒糖路由
-          $api->group(['prefix'  => 'lollipop'], function ($api) {
-            $api->get('list', 'LollipopController@list');
-            $api->get('select', 'LollipopController@select');
-            $api->post('status', 'LollipopController@status');
-            $api->post('receive', 'LollipopController@receive');
-          });
-
-          // 会员红包路由
-          $api->group(['prefix'  => 'money'], function ($api) {
-            $api->get('list', 'MoneyController@list');
-            $api->get('select', 'MoneyController@select');
-            $api->post('handle', 'MoneyController@handle');
-          });
-
-          // 会员作品路由
-          $api->group(['prefix'  => 'production'], function ($api) {
-            $api->get('list', 'ProductionController@list');
-            $api->get('select', 'ProductionController@select');
-            $api->get('view/{id}', 'ProductionController@view');
-            $api->post('handle', 'ProductionController@handle');
-            $api->post('share', 'ProductionController@share');
-            $api->post('status', 'ProductionController@status');
-          });
-
-          // 会员送货地址路由
-          $api->group(['prefix'  => 'address'], function ($api) {
-            $api->get('list', 'AddressController@list');
-            $api->get('select', 'AddressController@select');
-            $api->get('view/{id}', 'AddressController@view');
-            $api->get('default', 'AddressController@default');
-            $api->post('handle', 'AddressController@handle');
-            $api->post('delete', 'AddressController@delete');
-          });
-
-          // 会员点赞路由
-          $api->group(['prefix'  => 'approval'], function ($api) {
-            $api->get('list', 'ApprovalController@list');
-            $api->get('select', 'ApprovalController@select');
-            $api->post('status', 'ApprovalController@status');
-            $api->post('handle', 'ApprovalController@handle');
-          });
-
-          // 会员课程路由
-          $api->group(['prefix'  =>  'course'], function ($api) {
-            $api->get('list', 'CourseController@list');
-            $api->get('select', 'CourseController@select');
-            $api->get('center', 'CourseController@center');
-            $api->get('view/{id}', 'CourseController@view');
-            $api->get('status/{id}', 'CourseController@status');
-            $api->get('addition/{id}', 'CourseController@addition');
-            $api->post('apply', 'CourseController@apply');
-            $api->post('finish', 'CourseController@finish');
-
-            // 会员课程单元路由
-            $api->group(['namespace' => 'Relevance', 'prefix'  =>  'unit'], function ($api) {
-              $api->get('list', 'UnitController@list');
-              $api->get('select', 'UnitController@select');
-              $api->get('view/{id}', 'UnitController@view');
-
-              // 会员课程单元知识点路由
-              $api->group(['namespace' => 'Relevance', 'prefix'  =>  'point'], function ($api) {
-                $api->get('list', 'PointController@list');
-                $api->get('select', 'PointController@select');
-                $api->get('view/{id}', 'PointController@view');
-                $api->get('status/{id}', 'PointController@status');
-                $api->post('finish', 'PointController@finish');
-              });
-            });
-          });
-
-          // 会员任务指标路由
-          $api->group(['prefix'  =>  'target'], function ($api) {
-            $api->get('progress', 'TargetController@progress');
-          });
-
-          // 会员评论路由
-          $api->group(['prefix'  => 'comment'], function ($api) {
-            $api->get('list', 'CommentController@list');
-            $api->get('select', 'CommentController@select');
-            $api->post('handle', 'CommentController@handle');
-          });
-
-          // 会员关注路由
-          $api->group(['prefix'  => 'attention'], function ($api) {
-            $api->get('list', 'AttentionController@list');
-            $api->get('select', 'AttentionController@select');
-            $api->post('status', 'AttentionController@status');
-            $api->post('handle', 'AttentionController@handle');
-          });
-
-          // 会员邀请路由
-          $api->group(['prefix'  => 'invitation'], function ($api) {
-            $api->get('list', 'InvitationController@list');
-            $api->get('select', 'InvitationController@select');
-            $api->post('status', 'InvitationController@status');
-            $api->post('handle', 'InvitationController@handle');
-          });
-
-          // 会员订单路由
-          $api->group(['namespace' => 'Order', 'prefix'  => 'order'], function ($api) {
-
-            // 会员课程订单路由
-            $api->group(['prefix'  => 'course'], function ($api) {
-              $api->get('list', 'CourseController@list');
-              $api->get('select', 'CourseController@select');
-              $api->get('view/{id}', 'CourseController@view');
-              $api->post('handle', 'CourseController@handle');
-              $api->post('change', 'CourseController@change');
-              $api->post('pay', 'CourseController@pay');
-              $api->post('finish', 'CourseController@finish');
-              $api->post('cancel', 'CourseController@cancel');
-
-              // 会员课程订单物流路由
-              $api->group(['namespace'  => 'Course', 'prefix' => 'logistics'], function ($api) {
-                $api->get('list', 'LogisticsController@list');
-                $api->get('select', 'LogisticsController@select');
-                $api->get('view/{id}', 'LogisticsController@view');
-              });
-            });
-
-            // 会员商品订单路由
-            $api->group(['prefix'  => 'goods'], function ($api) {
-              $api->get('list', 'GoodsController@list');
-              $api->get('select', 'GoodsController@select');
-              $api->get('view/{id}', 'GoodsController@view');
-              $api->post('handle', 'GoodsController@handle');
-              $api->post('change', 'GoodsController@change');
-              $api->post('pay', 'GoodsController@pay');
-              $api->post('finish', 'GoodsController@finish');
-              $api->post('cancel', 'GoodsController@cancel');
-
-              // 会员商品订单物流路由
-              $api->group(['namespace'  => 'Goods', 'prefix' => 'logistics'], function ($api) {
-                $api->get('list', 'LogisticsController@list');
-                $api->get('select', 'LogisticsController@select');
-                $api->get('view/{id}', 'LogisticsController@view');
-              });
             });
           });
         });

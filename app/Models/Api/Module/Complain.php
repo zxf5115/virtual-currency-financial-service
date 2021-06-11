@@ -14,6 +14,9 @@ class Complain extends Common
   // 隐藏的属性
   public $hidden = [
     'organization_id',
+    'category_id',
+    'member_id',
+    'read_status',
     'status',
     'update_time'
   ];

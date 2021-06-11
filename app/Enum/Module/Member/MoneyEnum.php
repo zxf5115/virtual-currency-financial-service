@@ -1,5 +1,5 @@
 <?php
-namespace App\Enum\Module\Member\Relevance;
+namespace App\Enum\Module\Member;
 
 use App\Enum\BaseEnum;
 
@@ -12,8 +12,8 @@ use App\Enum\BaseEnum;
 class MoneyEnum extends BaseEnum
 {
   // 红包类型状态
-  const INCOME = 1; // 收入
-  const EXPEND = 2; // 提现
+  const INCOME = 1; // 充值
+  const EXPEND = 2; // 消费
 
   const WAIT = 0; // 待提现
   const FINISH = 1; //已同意
@@ -23,12 +23,12 @@ class MoneyEnum extends BaseEnum
   public static $type = [
     self::INCOME => [
       'value' => self::INCOME,
-      'text' => '收入'
+      'text' => '充值'
     ],
 
     self::EXPEND => [
       'value' => self::EXPEND,
-      'text' => '提现'
+      'text' => '消费'
     ]
   ];
 

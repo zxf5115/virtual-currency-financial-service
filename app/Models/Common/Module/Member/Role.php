@@ -62,7 +62,10 @@ class Role extends Base
    */
   public function permission()
   {
-      return $this->hasMany('App\Models\Common\Module\Member\Permission', 'role_id');
+    return $this->hasMany(
+      'App\Models\Common\Module\Member\Permission',
+      'role_id'
+    );
   }
 
   /**

@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member\Production;
+namespace App\Events\Api\Flash;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,12 +10,13 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 作品评论事件
+ * 作品点赞事件
  */
-class CommentEvent
+class BenefitEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
+  public $type = null;
   public $production_id = null;
 
   /**
@@ -23,8 +24,9 @@ class CommentEvent
    *
    * @return void
    */
-  public function __construct($production_id)
+  public function __construct($type, $production_id)
   {
+    $this->type          = $type;
     $this->production_id = $production_id;
   }
 
