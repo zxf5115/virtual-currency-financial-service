@@ -34,7 +34,7 @@ class ApprovalController extends BaseController
   /**
    * @api {get} /api/member/approval/list?page={page} 01. 会员点赞列表(分页)
    * @apiDescription 获取当前会员点赞列表(分页)
-   * @apiGroup 22. 会员点赞模块
+   * @apiGroup 62. 会员点赞模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -84,7 +84,7 @@ class ApprovalController extends BaseController
   /**
    * @api {get} /api/member/approval/select 02. 会员点赞列表(不分页)
    * @apiDescription 获取当前会员点赞列表(不分页)
-   * @apiGroup 22. 会员点赞模块
+   * @apiGroup 62. 会员点赞模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -132,7 +132,7 @@ class ApprovalController extends BaseController
   /**
    * @api {post} /api/member/approval/status 03. 作品是否点赞
    * @apiDescription 获取当前会员点赞的详情
-   * @apiGroup 22. 会员点赞模块
+   * @apiGroup 62. 会员点赞模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -197,7 +197,7 @@ class ApprovalController extends BaseController
   /**
    * @api {post} /api/member/approval/handle 04. 点赞操作
    * @apiDescription 当前会员执行点赞操作, 已经点赞过，再次点击取消点赞
-   * @apiGroup 22. 会员点赞模块
+   * @apiGroup 62. 会员点赞模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

@@ -164,12 +164,16 @@ class BaseController extends Controller
         if(false !== strpos($key, $k))
         {
           $field = $k . '_';
-          $key = str_replace($field, '', $key);
+          $field = str_replace($field, '', $key);
 
-          if(in_array($key, $v))
+          if(in_array($field, $v))
           {
-            $relevance_params[$k][$key] = $value;
+            $relevance_params[$k][$field] = $value;
           }
+        }
+        else if(in_array($key, $v) && false !== strpos($key, '_'))
+        {
+          $relevance_params[$k][$key] = $value;
         }
       }
 

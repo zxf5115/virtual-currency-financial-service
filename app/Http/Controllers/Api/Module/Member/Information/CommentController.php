@@ -30,7 +30,7 @@ class CommentController extends BaseController
   /**
    * @api {get} /api/member/comment/list?page={page} 01. 我的评论列表
    * @apiDescription 获取当前会员评论分页列表
-   * @apiGroup 23. 会员评论模块
+   * @apiGroup 63. 会员评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -83,7 +83,7 @@ class CommentController extends BaseController
   /**
    * @api {get} /api/member/comment/select 02. 会员评论列表(不分页)
    * @apiDescription 获取当前会员评论列表(不分页)
-   * @apiGroup 23. 会员评论模块
+   * @apiGroup 63. 会员评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -134,7 +134,7 @@ class CommentController extends BaseController
   /**
    * @api {post} /api/member/comment/handle 04. 评论操作
    * @apiDescription 当前会员执行评论操作
-   * @apiGroup 23. 会员评论模块
+   * @apiGroup 63. 会员评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

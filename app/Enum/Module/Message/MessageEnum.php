@@ -9,21 +9,21 @@ namespace App\Enum\Module\Message;
  */
 class MessageEnum
 {
-  // 菜单分类状态
-  const NOTICE       = 1; // 系统通知
-  const ANNOUNCEMENT = 2; // 班级公共
+  // 消息阅读状态
+  const WAIT   = 0; // 待阅读
+  const FINISH = 1; // 已完成
 
 
-  // 分类状态
-  public static $type = [
-    self::NOTICE       => [
-      'value' => self::NOTICE,
-      'text' => '系统通知'
+  // 消息阅读状态
+  public static $finish = [
+    self::WAIT       => [
+      'value' => self::WAIT,
+      'text' => '待阅读'
     ],
 
-    self::ANNOUNCEMENT => [
-      'value' => self::ANNOUNCEMENT,
-      'text' => '班级公共'
+    self::FINISH => [
+      'value' => self::FINISH,
+      'text' => '已完成'
     ],
   ];
 
@@ -41,8 +41,8 @@ class MessageEnum
    * @param int $code 信息代码
    * @return 信息内容
    */
-  public static function getTypeStatus($code)
+  public static function getFinishStatus($code)
   {
-    return self::$type[$code] ?: self::$type[self::NOTICE];
+    return self::$finish[$code] ?: self::$finish[self::WAIT];
   }
 }

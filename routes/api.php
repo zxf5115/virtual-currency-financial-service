@@ -137,7 +137,14 @@ $api->version('v1', [
       });
 
 
+      // 消息路由
+      $api->group(['namespace' => 'Message', 'prefix' => 'message', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
 
+        // 消息分类路由
+        $api->group(['prefix'  => 'category'], function ($api) {
+          $api->get('select', 'CategoryController@select');
+        });
+      });
 
 
 
@@ -162,6 +169,15 @@ $api->version('v1', [
             $api->get('income', 'AssetController@income');
             $api->get('expend', 'AssetController@expend');
           });
+
+          // 会员消息路由
+          $api->group(['prefix'  => 'message'], function ($api) {
+            $api->get('list', 'MessageController@list');
+            $api->post('finish', 'MessageController@finish');
+          });
+
+
+
 
           // 会员关注路由
           $api->group(['prefix'  => 'attention'], function ($api) {
