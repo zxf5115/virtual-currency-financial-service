@@ -2,18 +2,18 @@
 namespace App\Models\Common\Module\Member;
 
 use App\Models\Base;
-use App\Enum\Module\Message\MessageEnum;
+use App\Enum\Module\Notice\NoticeEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-04-20
  *
- * 会员消息模型类
+ * 会员通知模型类
  */
-class MemberMessage extends Base
+class MemberNotice extends Base
 {
   // 表名
-  public $table = 'module_member_message';
+  public $table = 'module_member_notice';
 
   /**
    * 可以被批量赋值的属性
@@ -38,17 +38,17 @@ class MemberMessage extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-11
    * ------------------------------------------
-   * 消息阅读状态封装
+   * 通知阅读状态封装
    * ------------------------------------------
    *
-   * 消息阅读状态封装
+   * 通知阅读状态封装
    *
    * @param [type] $value [description]
    * @return [type]
    */
   public function getIsFinishAttribute($value)
   {
-    return MessageEnum::getFinishStatus($value);
+    return NoticeEnum::getFinishStatus($value);
   }
 
 
@@ -59,10 +59,10 @@ class MemberMessage extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-20
    * ------------------------------------------
-   * 会员消息与会员关联函数
+   * 会员通知与会员关联函数
    * ------------------------------------------
    *
-   * 会员消息与会员关联函数
+   * 会员通知与会员关联函数
    *
    * @return [type]
    */
@@ -80,18 +80,18 @@ class MemberMessage extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-20
    * ------------------------------------------
-   * 会员消息与消息关联函数
+   * 会员通知与通知关联函数
    * ------------------------------------------
    *
-   * 会员消息与消息关联函数
+   * 会员通知与通知关联函数
    *
    * @return [type]
    */
-  public function message()
+  public function notice()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Message',
-      'message_id',
+      'App\Models\Common\Module\Notice',
+      'notice_id',
       'id'
     );
   }

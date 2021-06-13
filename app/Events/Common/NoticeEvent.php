@@ -1,33 +1,33 @@
 <?php
-namespace App\Events\Common\Message;
+namespace App\Events\Common;
 
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 邮件事件
+ * 通知事件
  */
-class EmailEvent
+class NoticeEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $member = null;
-  public $code  = null;
+  public $type = null;
+  public $be_member_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($member, $code)
+  public function __construct($type, $be_member_id = 0)
   {
-    $this->member = $member;
-    $this->code   = $code;
+    $this->type = $type;
+    $this->be_member_id = $be_member_id;
   }
 
   /**

@@ -137,10 +137,10 @@ $api->version('v1', [
       });
 
 
-      // 消息路由
-      $api->group(['namespace' => 'Message', 'prefix' => 'message', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
+      // 通知路由
+      $api->group(['namespace' => 'Notice', 'prefix' => 'notice', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
 
-        // 消息分类路由
+        // 通知分类路由
         $api->group(['prefix'  => 'category'], function ($api) {
           $api->get('select', 'CategoryController@select');
         });
@@ -171,9 +171,9 @@ $api->version('v1', [
           });
 
           // 会员消息路由
-          $api->group(['prefix'  => 'message'], function ($api) {
-            $api->get('list', 'MessageController@list');
-            $api->post('finish', 'MessageController@finish');
+          $api->group(['prefix'  => 'notice'], function ($api) {
+            $api->get('list', 'NoticeController@list');
+            $api->post('finish', 'NoticeController@finish');
           });
 
 

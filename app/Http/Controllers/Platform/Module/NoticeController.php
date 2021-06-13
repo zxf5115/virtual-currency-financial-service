@@ -8,36 +8,24 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-02-22
+ * @dateTime 2021-06-12
  *
- * 常见问题控制器类
+ * 通知控制器类
  */
-class ProblemController extends BaseController
+class NoticeController extends BaseController
 {
-  /**
-   * 模型
-   */
-  protected $_model = 'App\Models\Common\Module\Problem';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Notice';
 
-  protected $_where = [];
-
+  // 客户端搜索字段
   protected $_params = [
-    'title'
+    'category_id',
+    'content',
   ];
 
-  /**
-   * 排序条件
-   */
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
-
+  // 关联对象
   protected $_relevance = [
-    'list' => [
-      'category'
-    ],
-    'select' => false,
-    'view' => false,
+    'category'
   ];
 
 
@@ -57,14 +45,12 @@ class ProblemController extends BaseController
   {
     $messages = [
       'category_id.required' => '请您选择分类标题',
-      'title.required'   => '请您输入问题标题',
-      'content.required' => '请您输入问题答案',
+      'content.required'     => '请您输入通知内容',
     ];
 
     $rule = [
       'category_id' => 'required',
-      'title' => 'required',
-      'content' => 'required',
+      'content'     => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -82,7 +68,6 @@ class ProblemController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->category_id     = $request->category_id;
-        $model->title           = $request->title;
         $model->content         = $request->content;
         $model->save();
 

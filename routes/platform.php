@@ -248,6 +248,25 @@ $api->version('v1', [
       });
 
 
+      // 通知路由
+      $api->group(['prefix' => 'notice'], function ($api) {
+        $api->any('list', 'NoticeController@list');
+        $api->get('select', 'NoticeController@select');
+        $api->get('view/{id}', 'NoticeController@view');
+        $api->post('handle', 'NoticeController@handle');
+        $api->post('delete', 'NoticeController@delete');
+
+        // 通知分类路由
+        $api->group(['namespace' => 'Notice', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
       // 快讯路由
       $api->group(['prefix' => 'flash'], function ($api) {
         $api->any('list', 'FlashController@list');

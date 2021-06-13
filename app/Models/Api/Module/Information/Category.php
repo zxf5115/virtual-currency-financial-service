@@ -1,22 +1,23 @@
 <?php
-namespace App\Models\Api\Module\Message;
+namespace App\Models\Api\Module\Information;
 
-use App\Models\Common\Module\Message\Category as Common;
+use App\Models\Common\Module\Information\Category as Common;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-06-10
  *
- * 消息分类模型类
+ * 资讯分类模型类
  */
 class Category extends Common
 {
+
   // 隐藏的属性
-  public $hidden = [
+  protected $hidden = [
     'organization_id',
-    'sort',
     'status',
+    'sort',
     'create_time',
     'update_time'
   ];
@@ -25,20 +26,20 @@ class Category extends Common
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-11
+   * @dateTime 2021-06-09
    * ------------------------------------------
-   * 消息分类与消息关联函数
+   * 资讯分类置与资讯关联函数
    * ------------------------------------------
    *
-   * 消息分类与消息关联函数
+   * 资讯分类置与资讯关联函数
    *
    * @return [关联对象]
    */
-  public function message()
+  public function information()
   {
     return $this->hasMany(
-      'App\Models\Api\Module\Message',
-      'category_id',
+      'App\Models\Api\Module\Information',
+      'information_id',
       'id'
     );
   }

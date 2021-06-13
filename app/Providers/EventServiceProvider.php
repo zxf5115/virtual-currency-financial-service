@@ -42,6 +42,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Common\Message\EmailListeners',
         ],
 
+        // 系统通知
+        'App\Events\Common\NoticeEvent' => [
+            'App\Listeners\Common\NoticeListeners',
+        ],
+
         // 关注
         'App\Events\Api\Member\AttentionEvent' => [
             'App\Listeners\Api\Member\AttentionListeners',
@@ -50,6 +55,16 @@ class EventServiceProvider extends ServiceProvider
         // 点赞
         'App\Events\Api\Member\ApprovalEvent' => [
             'App\Listeners\Api\Member\ApprovalListeners',
+        ],
+
+        // 收藏
+        'App\Events\Api\Member\CollectionEvent' => [
+            'App\Listeners\Api\Member\CollectionListeners',
+        ],
+
+        // 浏览
+        'App\Events\Api\Member\BrowseEvent' => [
+            'App\Listeners\Api\Member\BrowseListeners',
         ],
 
 

@@ -9,6 +9,9 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * 短信事件
+ */
 class SmsEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;

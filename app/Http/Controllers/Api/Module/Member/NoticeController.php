@@ -10,30 +10,30 @@ use App\Http\Controllers\Api\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-11
  *
- * 会员消息接口控制器类
+ * 会员通知接口控制器类
  */
-class MessageController extends BaseController
+class NoticeController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Member\MemberMessage';
+  protected $_model = 'App\Models\Api\Module\Member\MemberNotice';
 
   // 附加搜索条件
   protected $_addition = [
-    'message' => [
+    'notice' => [
       'category_id'
     ]
   ];
 
   // 关联对象
   protected $_relevance = [
-    'message'
+    'notice'
   ];
 
 
   /**
-   * @api {get} /api/member/message/list?page={page} 我的消息列表
-   * @apiDescription 获取当前会员消息分页列表
-   * @apiGroup 23. 会员消息模块
+   * @api {get} /api/member/notice/list?page={page} 我的通知列表
+   * @apiDescription 获取当前会员通知分页列表
+   * @apiGroup 23. 会员通知模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -42,16 +42,16 @@ class MessageController extends BaseController
    * }
    *
    * @apiParam {int} page 当前页数
-   * @apiParam {int} message_category_id 消息分类编号
+   * @apiParam {int} message_category_id 通知分类编号
    *
-   * @apiSuccess (字段说明|会员消息) {String} id 会员消息编号
-   * @apiSuccess (字段说明|会员消息) {String} create_time 消息时间
-   * @apiSuccess (字段说明|消息) {String} id 消息编号
-   * @apiSuccess (字段说明|消息) {String} title 消息标题
-   * @apiSuccess (字段说明|消息) {String} content 消息内容
-   * @apiSuccess (字段说明|消息) {String} is_finish 消息阅读状态
+   * @apiSuccess (字段说明|会员通知) {String} id 会员通知编号
+   * @apiSuccess (字段说明|会员通知) {String} create_time 通知时间
+   * @apiSuccess (字段说明|通知) {String} id 通知编号
+   * @apiSuccess (字段说明|通知) {String} title 通知标题
+   * @apiSuccess (字段说明|通知) {String} content 通知内容
+   * @apiSuccess (字段说明|通知) {String} is_finish 通知阅读状态
    *
-   * @apiSampleRequest /api/member/message/list
+   * @apiSampleRequest /api/member/notice/list
    * @apiVersion 1.0.0
    */
   public function list(Request $request)
@@ -83,9 +83,9 @@ class MessageController extends BaseController
 
 
   /**
-   * @api {post} /api/member/message/finish 我的消息已阅读
-   * @apiDescription 当前会员消息标记已阅读
-   * @apiGroup 23. 会员消息模块
+   * @api {post} /api/member/notice/finish 我的通知已阅读
+   * @apiDescription 当前会员通知标记已阅读
+   * @apiGroup 23. 会员通知模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -93,9 +93,9 @@ class MessageController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {int} message_id 会员消息编号
+   * @apiParam {int} message_id 会员通知编号
    *
-   * @apiSampleRequest /api/member/message/finish
+   * @apiSampleRequest /api/member/notice/finish
    * @apiVersion 1.0.0
    */
   public function finish(Request $request)

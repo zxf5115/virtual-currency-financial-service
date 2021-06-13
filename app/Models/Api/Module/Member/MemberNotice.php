@@ -1,15 +1,15 @@
 <?php
 namespace App\Models\Api\Module\Member;
 
-use App\Models\Common\Module\Member\MemberMessage as Common;
+use App\Models\Common\Module\Member\MemberNotice as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-04-20
  *
- * 会员消息模型类
+ * 会员通知模型类
  */
-class MemberMessage extends Common
+class MemberNotice extends Common
 {
   // 隐藏的属性
   public $hidden = [
@@ -28,10 +28,10 @@ class MemberMessage extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-20
    * ------------------------------------------
-   * 会员消息与会员关联函数
+   * 会员通知与会员关联函数
    * ------------------------------------------
    *
-   * 会员消息与会员关联函数
+   * 会员通知与会员关联函数
    *
    * @return [type]
    */
@@ -49,18 +49,18 @@ class MemberMessage extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-20
    * ------------------------------------------
-   * 会员消息与消息关联函数
+   * 会员通知与通知关联函数
    * ------------------------------------------
    *
-   * 会员消息与消息关联函数
+   * 会员通知与通知关联函数
    *
    * @return [type]
    */
-  public function message()
+  public function notice()
   {
     return $this->belongsTo(
-      'App\Models\Api\Module\Message',
-      'message_id',
+      'App\Models\Api\Module\Notice',
+      'notice_id',
       'id'
     );
   }

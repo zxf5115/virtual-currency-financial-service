@@ -1,18 +1,18 @@
 <?php
-namespace App\Models\Common\Module\Message;
+namespace App\Models\Common\Module\Information;
 
 use App\Models\Base;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-06-09
  *
- * 消息分类模型类
+ * 资讯分类模型类
  */
 class Category extends Base
 {
   // 表名
-  protected $table = "module_message_category";
+  protected $table = "module_information_category";
 
   // 隐藏的属性
   protected $hidden = [
@@ -30,20 +30,20 @@ class Category extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-11
+   * @dateTime 2021-06-09
    * ------------------------------------------
-   * 消息分类与息关联函数
+   * 资讯分类置与资讯关联函数
    * ------------------------------------------
    *
-   * 消息分类与息关联函数
+   * 资讯分类置与资讯关联函数
    *
    * @return [关联对象]
    */
-  public function message()
+  public function flash()
   {
     return $this->hasMany(
-      'App\Models\Common\Module\Message',
-      'category_id',
+      'App\Models\Common\Module\Flash',
+      'flash_id',
       'id'
     );
   }
