@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
@@ -10,12 +11,12 @@ use App\Http\Controllers\Platform\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-10
  *
- * 快讯控制器类
+ * 资讯控制器类
  */
-class FlashController extends BaseController
+class InformationController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Common\Module\Flash';
+  protected $_model = 'App\Models\Common\Module\Information';
 
   // 客户端搜索字段
   protected $_params = [
@@ -30,7 +31,8 @@ class FlashController extends BaseController
     ],
     'select' => false,
     'view' => [
-      'category'
+      'category',
+      'label'
     ],
   ];
 
@@ -51,8 +53,8 @@ class FlashController extends BaseController
   {
     $messages = [
       'category_id.required' => '请您选择分类标题',
-      'title.required'       => '请您输入快讯标题',
-      'content.required'     => '请您输入快讯内容',
+      'title.required'       => '请您输入资讯标题',
+      'content.required'     => '请您输入资讯内容',
     ];
 
     $rule = [
@@ -70,6 +72,8 @@ class FlashController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
@@ -79,14 +83,27 @@ class FlashController extends BaseController
         $model->member_id       = self::getCurrentId();
         $model->title           = $request->title;
         $model->content         = $request->content;
-        $model->bullish_total   = $request->bullish_total ?? 0;
-        $model->bearish_total   = $request->bearish_total ?? 0;
+        $model->source          = $request->source ?? '';
+        $model->author          = $request->author ?? '';
+        $model->read_total      = $request->read_total ?? 0;
         $model->save();
+
+        $label = self::packRelevanceData($request, 'label_id');
+
+        if(!empty($label))
+        {
+          $model->labelRelevance()->delete();
+          $model->labelRelevance()->createMany($label);
+        }
+
+        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 

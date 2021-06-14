@@ -45,11 +45,55 @@ class Information extends Base
   public function category()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Flash\Category',
+      'App\Models\Common\Module\Information\Category',
       'category_id',
       'id'
     );
   }
+
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-09
+   * ------------------------------------------
+   * 资讯与标签关联函数
+   * ------------------------------------------
+   *
+   * 资讯与标签关联函数
+   *
+   * @return [关联对象]
+   */
+  public function label()
+  {
+    return $this->belongsToMany(
+      'App\Models\Common\Module\Label',
+      'module_information_label',
+      'information_id',
+      'label_id'
+    );
+  }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-09
+   * ------------------------------------------
+   * 资讯与资讯标签关联函数
+   * ------------------------------------------
+   *
+   * 资讯与资讯标签关联函数
+   *
+   * @return [关联对象]
+   */
+  public function labelRelevance()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Information\Label',
+      'information_id',
+      'id',
+    );
+  }
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -65,7 +109,7 @@ class Information extends Base
   public function comment()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Flash\Comment',
+      'App\Models\Common\Module\Information\Comment',
       'flash_id',
       'id'
     );

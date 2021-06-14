@@ -39,11 +39,11 @@ class Comment extends Base
    *
    * @return [关联对象]
    */
-  public function flash()
+  public function information()
   {
     return $this->hasMany(
-      'App\Models\Common\Module\Flash',
-      'flash_id',
+      'App\Models\Common\Module\Information',
+      'information_id',
       'id'
     );
   }

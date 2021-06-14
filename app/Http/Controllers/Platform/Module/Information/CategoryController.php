@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module;
+namespace App\Http\Controllers\Platform\Module\Information;
 
 use Illuminate\Http\Request;
 
@@ -10,28 +10,17 @@ use App\Http\Controllers\Platform\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-10
  *
- * 快讯控制器类
+ * 资讯分类控制器类
  */
-class FlashController extends BaseController
+class CategoryController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Common\Module\Flash';
+  protected $_model = 'App\Models\Platform\Module\Information\Category';
 
-  // 客户端搜索字段
-  protected $_params = [
-    'category_id',
-    'title'
-  ];
 
-  // 关联对象
-  protected $_relevance = [
-    'list' => [
-      'category'
-    ],
-    'select' => false,
-    'view' => [
-      'category'
-    ],
+  // 排序条件
+  protected $_order = [
+    ['key' => 'sort', 'value' => 'desc'],
   ];
 
 
@@ -50,15 +39,11 @@ class FlashController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'category_id.required' => '请您选择分类标题',
-      'title.required'       => '请您输入快讯标题',
-      'content.required'     => '请您输入快讯内容',
+      'title.required'  => '请您输入资讯分类标题',
     ];
 
     $rule = [
-      'category_id' => 'required',
-      'title'       => 'required',
-      'content'     => 'required',
+      'title' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -75,12 +60,8 @@ class FlashController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->category_id     = $request->category_id;
-        $model->member_id       = self::getCurrentId();
         $model->title           = $request->title;
-        $model->content         = $request->content;
-        $model->bullish_total   = $request->bullish_total ?? 0;
-        $model->bearish_total   = $request->bearish_total ?? 0;
+        $model->sort            = $request->sort;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

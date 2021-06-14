@@ -24,11 +24,6 @@ class NoticeController extends BaseController
     ]
   ];
 
-  // 关联对象
-  protected $_relevance = [
-    'notice'
-  ];
-
 
   /**
    * @api {get} /api/member/notice/list?page={page} 我的通知列表
@@ -44,12 +39,9 @@ class NoticeController extends BaseController
    * @apiParam {int} page 当前页数
    * @apiParam {int} message_category_id 通知分类编号
    *
-   * @apiSuccess (字段说明|会员通知) {String} id 会员通知编号
-   * @apiSuccess (字段说明|会员通知) {String} create_time 通知时间
-   * @apiSuccess (字段说明|通知) {String} id 通知编号
-   * @apiSuccess (字段说明|通知) {String} title 通知标题
-   * @apiSuccess (字段说明|通知) {String} content 通知内容
-   * @apiSuccess (字段说明|通知) {String} is_finish 通知阅读状态
+   * @apiSuccess (字段说明) {String} id 会员通知编号
+   * @apiSuccess (字段说明) {String} content 通知内容
+   * @apiSuccess (字段说明) {String} create_time 通知时间
    *
    * @apiSampleRequest /api/member/notice/list
    * @apiVersion 1.0.0
