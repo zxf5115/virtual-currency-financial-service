@@ -1,5 +1,5 @@
 <?php
-namespace App\Listeners\Common\Message;
+namespace App\Listeners\Common;
 
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Queue\InteractsWithQueue;

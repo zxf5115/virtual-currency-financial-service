@@ -74,6 +74,16 @@ return [
             'endpoint'  => env('HWOBS_ENDPOINT'),
             'exceptionResponseMode'  => false,
         ],
+
+        'oss' => [
+            'driver' => 'oss',
+            'root' => '', // 设置上传时根前缀
+            'access_key' => env('OSS_ACCESS_KEY'),
+            'secret_key' => env('OSS_SECRET_KEY'),
+            'endpoint'   => env('OSS_ENDPOINT'), // 使用 ssl 这里设置如: https://oss-cn-beijing.aliyuncs.com
+            'bucket'     => env('OSS_BUCKET'),
+            'isCName'    => env('OSS_IS_CNAME', false), // 如果 isCname 为 false，endpoint 应配置 oss 提
+        ],
     ],
 
 ];

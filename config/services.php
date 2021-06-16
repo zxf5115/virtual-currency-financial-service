@@ -39,11 +39,4 @@ return [
        # 这一行配置非常重要，必须要写成这个地址。
        'auth_base_uri' => 'https://open.weixin.qq.com/connect/qrconnect',
     ],
-
-    // 快递100
-    'express' => [
-      'id' => env('EXPRESS_ID'),
-      'key' => env('EXPRESS_KEY'),
-      'type' => env('EXPRESS_TYPE'),
-    ],
 ];

@@ -3,7 +3,7 @@
 return [
 
   // 上传方式 1 本地 2 OSS 3 OBS
-  'type' => 1,
+  'type' => 2,
 
   // 系统访问地址
   'base_url' => 'http://api.bitcodeman.com',

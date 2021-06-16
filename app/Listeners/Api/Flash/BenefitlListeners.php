@@ -10,7 +10,7 @@ use App\Events\Api\Member\Production\BenefitEvent;
 /**
  * 作品点赞监听器
  */
-class BenefitListeners
+class BenefitlListeners
 {
   /**
    * Create the event listener.
