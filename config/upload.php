@@ -6,7 +6,7 @@ return [
   'type' => 1,
 
   // 系统访问地址
-  'base_url' => 'http://localhost:8062',
+  'base_url' => 'http://api.bitcodeman.com',
 
   // 本地
   'local' => [],
