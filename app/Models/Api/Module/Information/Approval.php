@@ -1,48 +1,47 @@
 <?php
 namespace App\Models\Api\Module\Information;
 
-use App\Models\Common\Module\Information\Comment as Common;
+use App\Models\Common\Module\Information\Approval as Common;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-10
  *
- * 资讯评论模型类
+ * 资讯点赞模型类
  */
-class Comment extends Common
+class Approval extends Common
 {
-  use \Awobaz\Compoships\Compoships;
-
 
   // 隐藏的属性
   protected $hidden = [
     'id',
     'organization_id',
-    'parent_id',
-    'flash_id',
+    'information_id',
     'member_id',
     'status',
+    'create_time',
     'update_time'
   ];
+
 
 
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-09
+   * @dateTime 2021-01-11
    * ------------------------------------------
-   * 资讯评论置与资讯关联函数
+   * 资讯点赞与资讯关联函数
    * ------------------------------------------
    *
-   * 资讯评论置与资讯关联函数
+   * 资讯点赞与资讯关联函数
    *
    * @return [关联对象]
    */
   public function information()
   {
-    return $this->hasMany(
+    return $this->belongsTo(
       'App\Models\Api\Module\Information',
       'information_id',
       'id'
@@ -52,31 +51,12 @@ class Comment extends Common
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-09
+   * @dateTime 2021-01-11
    * ------------------------------------------
-   * 无限评论封装
-   * ------------------------------------------
-   *
-   * 无限评论封装
-   *
-   * @return [type]
-   */
-  public function children()
-  {
-    return $this->hasMany(__CLASS__, 'parent_id')
-                ->with('children.member')
-                ->where(['status'=>1]);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-11
-   * ------------------------------------------
-   * 评论与评论人关联表
+   * 资讯点赞与学员关联函数
    * ------------------------------------------
    *
-   * 评论与评论人关联表
+   * 资讯点赞与学员关联函数
    *
    * @return [关联对象]
    */

@@ -2,6 +2,7 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
+use App\Enum\Module\Information\InformationEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -26,6 +27,24 @@ class Information extends Base
 
   // 批量添加
   protected $fillable = ['id'];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-12-20
+   * ------------------------------------------
+   * 是否推荐状态封装
+   * ------------------------------------------
+   *
+   * 是否推荐状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsRecommendAttribute($value)
+  {
+    return InformationEnum::getRecommendStatus($value);
+  }
 
 
   // 关联函数 ------------------------------------------------------

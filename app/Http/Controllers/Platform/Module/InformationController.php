@@ -82,6 +82,7 @@ class InformationController extends BaseController
         $model->category_id     = $request->category_id;
         $model->member_id       = self::getCurrentId();
         $model->title           = $request->title;
+        $model->picture         = $request->picture ?? '';
         $model->content         = $request->content;
         $model->source          = $request->source ?? '';
         $model->author          = $request->author ?? '';
@@ -104,6 +105,57 @@ class InformationController extends BaseController
       {
         DB::rollback();
 
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-10
+   * ------------------------------------------
+   * 是否推荐
+   * ------------------------------------------
+   *
+   * 是否推荐
+   *
+   * @param Request $request [请求参数]
+   * @return [type]
+   */
+  public function recommend(Request $request)
+  {
+    $messages = [
+      'id.required' => '请您选择分类标题',
+    ];
+
+    $rule = [
+      'id' => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $model = $this->_model::find($request->id);
+
+        $model->is_recommend = $model->is_recommend == 1 ? 0 : 1;
+        $model->save();
+
+        return self::success(Code::message(Code::HANDLE_SUCCESS));
+      }
+      catch(\Exception $e)
+      {
         // 记录异常信息
         self::record($e);
 

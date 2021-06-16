@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member;
+namespace App\Events\Api\Member\Information;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;

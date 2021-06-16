@@ -1,11 +1,11 @@
 <?php
-namespace App\Listeners\Api\Member;
+namespace App\Listeners\Api\Member\Information;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Api\Module\Project;
-use App\Events\Api\Member\CollectionEvent;
+use App\Events\Api\Member\Information\CollectionEvent;
 
 /**
  * 项目收藏监听器

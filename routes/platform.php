@@ -303,7 +303,7 @@ $api->version('v1', [
         $api->any('list', 'InformationController@list');
         $api->get('select', 'InformationController@select');
         $api->get('view/{id}', 'InformationController@view');
-        $api->post('status', 'InformationController@status');
+        $api->post('recommend', 'InformationController@recommend');
         $api->post('handle', 'InformationController@handle');
         $api->post('delete/{id?}', 'InformationController@delete');
 

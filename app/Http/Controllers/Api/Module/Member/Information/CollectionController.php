@@ -2,23 +2,21 @@
 namespace App\Http\Controllers\Api\Module\Member\Information;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
-use App\Events\Api\Member\Information\ApprovalEvent;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-11
  *
- * 会员点赞控制器类
+ * 会员收藏控制器类
  */
-class ApprovalController extends BaseController
+class CollectionController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Information\Approval';
+  protected $_model = 'App\Models\Api\Module\Information\Collection';
 
   // 关联对像
   protected $_relevance = [
@@ -30,9 +28,9 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {get} /api/member/information/approval/list?page={page} 01. 会员点赞列表
-   * @apiDescription 获取当前会员点赞分页列表
-   * @apiGroup 63. 资讯点赞模块
+   * @api {get} /api/member/information/collection/list?page={page} 01. 我的收藏列表
+   * @apiDescription 获取当前会员收藏分页列表
+   * @apiGroup 64. 资讯收藏模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -54,7 +52,7 @@ class ApprovalController extends BaseController
    * @apiSuccess (字段说明|会员) {Number} avatar 会员头像
    * @apiSuccess (字段说明|会员) {Number} nickname 会员昵称
    *
-   * @apiSampleRequest /api/member/information/approval/list
+   * @apiSampleRequest /api/member/information/collection/list
    * @apiVersion 1.0.0
    */
   public function list(Request $request)
@@ -86,9 +84,9 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {post} /api/member/information/approval/status 02. 资讯是否点赞
-   * @apiDescription 获取当前会员点赞的详情
-   * @apiGroup 63. 资讯点赞模块
+   * @api {post} /api/member/information/collection/status 02. 资讯是否收藏
+   * @apiDescription 获取当前会员资讯收藏的详情
+   * @apiGroup 64. 资讯收藏模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -96,9 +94,9 @@ class ApprovalController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiSuccess (basic params) {Number} information_id 资讯编号
+   * @apiSuccess (字段说明) {Number} information_id 资讯编号
    *
-   * @apiSampleRequest /api/member/information/approval/status
+   * @apiSampleRequest /api/member/information/collection/status
    * @apiVersion 1.0.0
    */
   public function status(Request $request)
@@ -151,9 +149,9 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {post} /api/member/information/approval/handle 03. 点赞操作
-   * @apiDescription 当前会员执行资讯点赞操作, 已经点赞过，再次点击取消点赞
-   * @apiGroup 63. 资讯点赞模块
+   * @api {post} /api/member/information/collection/handle 03. 收藏操作
+   * @apiDescription 当前会员执行资讯收藏操作, 已经收藏过，再次点击取消收藏
+   * @apiGroup 64. 资讯收藏模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -163,7 +161,7 @@ class ApprovalController extends BaseController
    *
    * @apiParam {string} information_id 资讯编号
    *
-   * @apiSampleRequest /api/member/information/approval/handle
+   * @apiSampleRequest /api/member/information/collection/handle
    * @apiVersion 1.0.0
    */
   public function handle(Request $request)
@@ -185,26 +183,17 @@ class ApprovalController extends BaseController
     }
     else
     {
-      DB::beginTransaction();
-
       try
       {
-        $status = $this->_model::createOrDelete([
+        $this->_model::createOrDelete([
           'member_id' => self::getCurrentId(),
           'information_id' => $request->information_id
         ]);
-
-        // 记录点赞资讯总数
-        event(new ApprovalEvent($status, $request->information_id));
-
-        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
-        DB::rollback();
-
         // 记录异常信息
         self::record($e);
 

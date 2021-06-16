@@ -53,18 +53,13 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         // 点赞
-        'App\Events\Api\Member\ApprovalEvent' => [
-            'App\Listeners\Api\Member\ApprovalListeners',
+        'App\Events\Api\Member\Information\ApprovalEvent' => [
+            'App\Listeners\Api\Member\Information\ApprovalListeners',
         ],
 
         // 收藏
-        'App\Events\Api\Member\CollectionEvent' => [
-            'App\Listeners\Api\Member\CollectionListeners',
-        ],
-
-        // 浏览
-        'App\Events\Api\Member\BrowseEvent' => [
-            'App\Listeners\Api\Member\BrowseListeners',
+        'App\Events\Api\Member\Information\CollectionEvent' => [
+            'App\Listeners\Api\Member\Information\CollectionListeners',
         ],
 
 
@@ -130,6 +125,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Flash\CommentListeners',
         ],
 
+
+
+        // 资讯浏览
+        'App\Events\Api\Information\BrowseEvent' => [
+            'App\Listeners\Api\Information\BrowseListeners',
+        ],
     ];
 
     /**

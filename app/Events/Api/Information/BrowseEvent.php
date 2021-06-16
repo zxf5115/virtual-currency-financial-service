@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member;
+namespace App\Events\Api\Information;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,13 +10,13 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 项目点赞事件
+ * 资讯浏览事件
  */
-class ApprovalEvent
+class BrowseEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $status = null;
+  // 数据编号
   public $data_id = null;
 
   /**
@@ -24,9 +24,8 @@ class ApprovalEvent
    *
    * @return void
    */
-  public function __construct($status, $data_id)
+  public function __construct($data_id)
   {
-    $this->status  = $status;
     $this->data_id = $data_id;
   }
 

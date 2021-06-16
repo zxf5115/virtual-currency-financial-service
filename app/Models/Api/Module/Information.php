@@ -69,6 +69,27 @@ class Information extends Common
   }
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-09
+   * ------------------------------------------
+   * 资讯与资讯标签关联函数
+   * ------------------------------------------
+   *
+   * 资讯与资讯标签关联函数
+   *
+   * @return [关联对象]
+   */
+  public function labelRelevance()
+  {
+    return $this->hasMany(
+      'App\Models\Api\Module\Information\Label',
+      'information_id',
+      'id',
+    );
+  }
+
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]

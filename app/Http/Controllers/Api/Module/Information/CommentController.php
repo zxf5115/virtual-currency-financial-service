@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Api\Module\Flash;
+namespace App\Http\Controllers\Api\Module\Information;
 
 use Illuminate\Http\Request;
 
@@ -10,12 +10,12 @@ use App\Http\Controllers\Api\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-08
  *
- * 快讯评论控制器类
+ * 资讯评论控制器类
  */
 class CommentController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Flash\Comment';
+  protected $_model = 'App\Models\Api\Module\Information\Comment';
 
   // 默认查询条件
   protected $_where = [
@@ -24,7 +24,7 @@ class CommentController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'flash_id',
+    'information_id',
   ];
 
   // 关联对像
@@ -37,18 +37,20 @@ class CommentController extends BaseController
 
 
   /**
-   * @api {get} /api/flash/comment/select 01. 快讯评论数据
-   * @apiDescription 获取快讯评论不分页列表数据
-   * @apiGroup 52. 快讯评论模块
+   * @api {get} /api/information/comment/select 01. 资讯评论数据
+   * @apiDescription 获取资讯评论不分页列表数据
+   * @apiGroup 62. 资讯评论模块
    *
-   * @apiParam {string} flash_id 快讯编号
+   * @apiParam {string} information_id 资讯编号
    *
    * @apiSuccess (字段说明|评论) {String} content 评论内容
    * @apiSuccess (字段说明|评论) {String} create_time 评论时间
    * @apiSuccess (字段说明|评论人) {String} avatar 评论人头像
    * @apiSuccess (字段说明|评论人) {String} nickname 评论人昵称
+   * @apiSuccess (字段说明|被评论人) {String} avatar 被评论人头像
+   * @apiSuccess (字段说明|被评论人) {String} nickname 被评论人昵称
    *
-   * @apiSampleRequest /api/flash/comment/select
+   * @apiSampleRequest /api/information/comment/select
    * @apiVersion 1.0.0
    */
   public function select(Request $request)

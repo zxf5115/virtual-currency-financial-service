@@ -1,14 +1,14 @@
 <?php
-namespace App\Listeners\Api\Member;
+namespace App\Listeners\Api\Information;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Models\Api\Module\Project;
-use App\Events\Api\Member\BrowseEvent;
+use App\Models\Api\Module\Information;
+use App\Events\Api\Information\BrowseEvent;
 
 /**
- * 浏览监听器
+ * 资讯浏览监听器
  */
 class BrowseListeners
 {
@@ -34,15 +34,15 @@ class BrowseListeners
     {
       $data_id  = $event->data_id;
 
-      $model = Project::firstOrNew(['id' => $data_id]);
+      $model = Information::getRow(['id' => $data_id]);
 
       if(!empty($model->id))
       {
-        $model->increment('browse_total');
+        $model->increment('read_total');
       }
       else
       {
-        $model->browse_total = 1;
+        $model->read_total = 1;
         $model->save();
       }
     }

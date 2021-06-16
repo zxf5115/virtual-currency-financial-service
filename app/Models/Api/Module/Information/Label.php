@@ -15,7 +15,9 @@ class Label extends Common
 
   // 隐藏的属性
   protected $hidden = [
+    'id',
     'organization_id',
+    'information_id',
     'status',
     'create_time',
     'update_time'

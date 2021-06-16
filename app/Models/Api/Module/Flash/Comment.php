@@ -12,14 +12,16 @@ use App\Models\Common\Module\Flash\Comment as Common;
  */
 class Comment extends Common
 {
+  use \Awobaz\Compoships\Compoships;
+
 
   // 隐藏的属性
   protected $hidden = [
     'id',
     'organization_id',
+    'parent_id',
     'flash_id',
     'member_id',
-    'be_member_id',
     'status',
     'update_time'
   ];
@@ -50,6 +52,25 @@ class Comment extends Common
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-09
+   * ------------------------------------------
+   * 无限评论封装
+   * ------------------------------------------
+   *
+   * 无限评论封装
+   *
+   * @return [type]
+   */
+  public function children()
+  {
+    return $this->hasMany(__CLASS__, ['flash_id', 'parent_id'], ['flash_id', 'parent_id'])
+                ->with('children.member')
+                ->where(['status'=>1]);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-11
    * ------------------------------------------
    * 评论与评论人关联表
@@ -64,26 +85,6 @@ class Comment extends Common
     return $this->belongsTo(
       'App\Models\Api\Module\Member',
       'member_id',
-      'id'
-    );
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-11
-   * ------------------------------------------
-   * 评论与被评论人关联表
-   * ------------------------------------------
-   *
-   * 评论与被评论人关联表
-   *
-   * @return [关联对象]
-   */
-  public function bemember()
-  {
-    return $this->belongsTo(
-      'App\Models\Api\Module\Member',
-      'be_member_id',
       'id'
     );
   }

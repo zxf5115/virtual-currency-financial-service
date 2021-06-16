@@ -137,6 +137,29 @@ $api->version('v1', [
       });
 
 
+      // 资讯路由
+      $api->group(['prefix'  => 'information'], function ($api) {
+        $api->get('list', 'InformationController@list');
+        $api->get('recommend', 'InformationController@recommend');
+        $api->get('related', 'InformationController@related');
+        $api->get('view/{id}', 'InformationController@view');
+
+        // 资讯关联路由
+        $api->group(['namespace' => 'Information'], function ($api) {
+
+          // 资讯分类路由
+          $api->group(['prefix'  => 'category'], function ($api) {
+            $api->get('select', 'CategoryController@select');
+          });
+
+          // 资讯评论路由
+          $api->group(['prefix'  => 'comment'], function ($api) {
+            $api->get('select', 'CommentController@select');
+          });
+        });
+      });
+
+
       // 通知路由
       $api->group(['namespace' => 'Notice', 'prefix' => 'notice', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {
 
@@ -224,13 +247,34 @@ $api->version('v1', [
               $api->post('bearish', 'BenefitController@bearish');
             });
 
-            // 会员快讯利益路由
+            // 会员快讯评论路由
             $api->group(['prefix'  => 'comment'], function ($api) {
               $api->post('handle', 'CommentController@handle');
             });
           });
 
+          // 会员资讯路由
+          $api->group(['namespace' => 'Information', 'prefix'  => 'information'], function ($api) {
 
+            // 会员资讯评论路由
+            $api->group(['prefix'  => 'comment'], function ($api) {
+              $api->post('handle', 'CommentController@handle');
+            });
+
+            // 会员资讯点赞路由
+            $api->group(['prefix'  => 'approval'], function ($api) {
+              $api->post('handle', 'ApprovalController@handle');
+              $api->post('status', 'ApprovalController@status');
+              $api->post('handle', 'ApprovalController@handle');
+            });
+
+            // 会员资讯收藏路由
+            $api->group(['prefix'  => 'collection'], function ($api) {
+              $api->get('list', 'CollectionController@list');
+              $api->post('status', 'CollectionController@status');
+              $api->post('handle', 'CollectionController@handle');
+            });
+          });
 
 
 
