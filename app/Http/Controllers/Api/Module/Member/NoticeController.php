@@ -28,7 +28,7 @@ class NoticeController extends BaseController
   /**
    * @api {get} /api/member/notice/list?page={page} 我的通知列表
    * @apiDescription 获取当前会员通知分页列表
-   * @apiGroup 23. 会员通知模块
+   * @apiGroup 24. 会员通知模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -77,7 +77,7 @@ class NoticeController extends BaseController
   /**
    * @api {post} /api/member/notice/finish 我的通知已阅读
    * @apiDescription 当前会员通知标记已阅读
-   * @apiGroup 23. 会员通知模块
+   * @apiGroup 24. 会员通知模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

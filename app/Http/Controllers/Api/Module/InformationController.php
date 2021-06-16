@@ -98,10 +98,12 @@ class InformationController extends BaseController
    *
    * @apiSuccess (字段说明) {Number} id 资讯编号
    * @apiSuccess (字段说明) {String} title 资讯标题
+   * @apiSuccess (字段说明) {String} picture 资讯封面
    * @apiSuccess (字段说明) {String} content 资讯内容
    * @apiSuccess (字段说明) {String} source 资讯来源
    * @apiSuccess (字段说明) {String} author 资讯作者
    * @apiSuccess (字段说明) {String} read_total 阅读总数
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/information/recommend

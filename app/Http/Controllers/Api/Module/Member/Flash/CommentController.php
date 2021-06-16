@@ -21,9 +21,9 @@ class CommentController extends BaseController
 
 
   /**
-   * @api {post} /api/member/flash/comment/handle 01. 快讯评论操作
+   * @api {post} /api/member/flash/comment/handle 02. 快讯评论操作
    * @apiDescription 当前会员执行快讯评论操作
-   * @apiGroup 23. 会员评论模块
+   * @apiGroup 52. 快讯评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

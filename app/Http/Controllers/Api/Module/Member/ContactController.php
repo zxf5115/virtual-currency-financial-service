@@ -21,7 +21,7 @@ class ContactController extends BaseController
   /**
    * @api {post} /api/member/contact/handle 01. 提交联系客服信息
    * @apiDescription 提交联系客服信息信息
-   * @apiGroup 32. 会员客服模块
+   * @apiGroup 26. 会员客服模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

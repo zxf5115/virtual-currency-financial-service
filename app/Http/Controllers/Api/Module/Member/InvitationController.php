@@ -35,7 +35,7 @@ class InvitationController extends BaseController
   /**
    * @api {get} /api/member/invitation/list?page={page} 01. 会员邀请列表
    * @apiDescription 获取当前会员邀请分页列表
-   * @apiGroup 26. 会员邀请模块
+   * @apiGroup 23. 会员邀请模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -88,7 +88,7 @@ class InvitationController extends BaseController
   /**
    * @api {post} /api/member/invitation/status 02. 是否邀请会员
    * @apiDescription 获取当前会员邀请的详情
-   * @apiGroup 26. 会员邀请模块
+   * @apiGroup 23. 会员邀请模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -155,7 +155,7 @@ class InvitationController extends BaseController
   /**
    * @api {post} /api/member/invitation/handle 03. 邀请操作
    * @apiDescription 当前会员执行邀请操作, 已经邀请过，再次点击取消邀请
-   * @apiGroup 26. 会员邀请模块
+   * @apiGroup 23. 会员邀请模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

@@ -31,7 +31,7 @@ class ComplainController extends BaseController
   /**
    * @api {get} /api/member/complain/list?page={page} 01. 我的投诉列表
    * @apiDescription 获取我的投诉分页列表
-   * @apiGroup 31. 会员投诉模块
+   * @apiGroup 25. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -81,7 +81,7 @@ class ComplainController extends BaseController
   /**
    * @api {get} /api/member/complain/view/{id} 02. 我的投诉详情
    * @apiDescription 获取我的投诉详情
-   * @apiGroup 31. 会员投诉模块
+   * @apiGroup 25. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -122,7 +122,7 @@ class ComplainController extends BaseController
   /**
    * @api {post} /api/member/complain/handle 03. 提交投诉信息
    * @apiDescription 提交投诉信息
-   * @apiGroup 31. 会员投诉模块
+   * @apiGroup 25. 会员投诉模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

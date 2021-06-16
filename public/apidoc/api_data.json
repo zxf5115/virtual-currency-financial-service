@@ -2845,221 +2845,11 @@
     "name": "PostApiMemberAssetList"
   },
   {
-    "type": "post",
-    "url": "/api/member/flash/comment/handle",
-    "title": "01. 快讯评论操作",
-    "description": "<p>当前会员执行快讯评论操作</p>",
-    "group": "23._会员评论模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "flash_id",
-            "description": "<p>快讯编号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "parent_id",
-            "description": "<p>上级评论编号, 0为初始评论</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "content",
-            "description": "<p>评论内容</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/flash/comment/handle"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Flash/CommentController.php",
-    "groupTitle": "23._会员评论模块",
-    "name": "PostApiMemberFlashCommentHandle"
-  },
-  {
-    "type": "get",
-    "url": "/api/member/notice/list?page={page}",
-    "title": "我的通知列表",
-    "description": "<p>获取当前会员通知分页列表</p>",
-    "group": "23._会员通知模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "page",
-            "description": "<p>当前页数</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "message_category_id",
-            "description": "<p>通知分类编号</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "字段说明": [
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "id",
-            "description": "<p>会员通知编号</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "content",
-            "description": "<p>通知内容</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>通知时间</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/notice/list"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/NoticeController.php",
-    "groupTitle": "23._会员通知模块",
-    "name": "GetApiMemberNoticeListPagePage"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/notice/finish",
-    "title": "我的通知已阅读",
-    "description": "<p>当前会员通知标记已阅读</p>",
-    "group": "23._会员通知模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "message_id",
-            "description": "<p>会员通知编号</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/notice/finish"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/NoticeController.php",
-    "groupTitle": "23._会员通知模块",
-    "name": "PostApiMemberNoticeFinish"
-  },
-  {
     "type": "get",
     "url": "/api/member/attention/list?page={page}",
     "title": "01. 会员关注列表",
     "description": "<p>获取当前会员关注分页列表</p>",
-    "group": "25._会员关注模块",
+    "group": "22._会员关注模块",
     "permission": [
       {
         "name": "jwt"
@@ -3171,7 +2961,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
-    "groupTitle": "25._会员关注模块",
+    "groupTitle": "22._会员关注模块",
     "name": "GetApiMemberAttentionListPagePage"
   },
   {
@@ -3179,7 +2969,7 @@
     "url": "/api/member/attention/handle",
     "title": "03. 关注操作",
     "description": "<p>当前会员执行关注操作, 已经关注过，再次点击取消关注</p>",
-    "group": "25._会员关注模块",
+    "group": "22._会员关注模块",
     "permission": [
       {
         "name": "jwt"
@@ -3213,7 +3003,7 @@
             "type": "string",
             "optional": false,
             "field": "attention_member_id",
-            "description": "<p>作品编号</p>"
+            "description": "<p>关注编号</p>"
           }
         ]
       }
@@ -3225,7 +3015,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
-    "groupTitle": "25._会员关注模块",
+    "groupTitle": "22._会员关注模块",
     "name": "PostApiMemberAttentionHandle"
   },
   {
@@ -3233,7 +3023,7 @@
     "url": "/api/member/attention/status",
     "title": "02. 是否关注会员",
     "description": "<p>获取当前会员是否关注指定会员</p>",
-    "group": "25._会员关注模块",
+    "group": "22._会员关注模块",
     "permission": [
       {
         "name": "jwt"
@@ -3292,7 +3082,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
-    "groupTitle": "25._会员关注模块",
+    "groupTitle": "22._会员关注模块",
     "name": "PostApiMemberAttentionStatus"
   },
   {
@@ -3300,7 +3090,7 @@
     "url": "/api/member/invitation/list?page={page}",
     "title": "01. 会员邀请列表",
     "description": "<p>获取当前会员邀请分页列表</p>",
-    "group": "26._会员邀请模块",
+    "group": "23._会员邀请模块",
     "permission": [
       {
         "name": "jwt"
@@ -3412,7 +3202,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/InvitationController.php",
-    "groupTitle": "26._会员邀请模块",
+    "groupTitle": "23._会员邀请模块",
     "name": "GetApiMemberInvitationListPagePage"
   },
   {
@@ -3420,7 +3210,7 @@
     "url": "/api/member/invitation/handle",
     "title": "03. 邀请操作",
     "description": "<p>当前会员执行邀请操作, 已经邀请过，再次点击取消邀请</p>",
-    "group": "26._会员邀请模块",
+    "group": "23._会员邀请模块",
     "permission": [
       {
         "name": "jwt"
@@ -3466,7 +3256,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/InvitationController.php",
-    "groupTitle": "26._会员邀请模块",
+    "groupTitle": "23._会员邀请模块",
     "name": "PostApiMemberInvitationHandle"
   },
   {
@@ -3474,7 +3264,7 @@
     "url": "/api/member/invitation/status",
     "title": "02. 是否邀请会员",
     "description": "<p>获取当前会员邀请的详情</p>",
-    "group": "26._会员邀请模块",
+    "group": "23._会员邀请模块",
     "permission": [
       {
         "name": "jwt"
@@ -3533,15 +3323,157 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/InvitationController.php",
-    "groupTitle": "26._会员邀请模块",
+    "groupTitle": "23._会员邀请模块",
     "name": "PostApiMemberInvitationStatus"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/notice/list?page={page}",
+    "title": "我的通知列表",
+    "description": "<p>获取当前会员通知分页列表</p>",
+    "group": "24._会员通知模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "message_category_id",
+            "description": "<p>通知分类编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>会员通知编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>通知内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>通知时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/notice/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/NoticeController.php",
+    "groupTitle": "24._会员通知模块",
+    "name": "GetApiMemberNoticeListPagePage"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/notice/finish",
+    "title": "我的通知已阅读",
+    "description": "<p>当前会员通知标记已阅读</p>",
+    "group": "24._会员通知模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "message_id",
+            "description": "<p>会员通知编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/notice/finish"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/NoticeController.php",
+    "groupTitle": "24._会员通知模块",
+    "name": "PostApiMemberNoticeFinish"
   },
   {
     "type": "get",
     "url": "/api/member/complain/list?page={page}",
     "title": "01. 我的投诉列表",
     "description": "<p>获取我的投诉分页列表</p>",
-    "group": "31._会员投诉模块",
+    "group": "25._会员投诉模块",
     "permission": [
       {
         "name": "jwt"
@@ -3630,7 +3562,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/ComplainController.php",
-    "groupTitle": "31._会员投诉模块",
+    "groupTitle": "25._会员投诉模块",
     "name": "GetApiMemberComplainListPagePage"
   },
   {
@@ -3638,7 +3570,7 @@
     "url": "/api/member/complain/view/{id}",
     "title": "02. 我的投诉详情",
     "description": "<p>获取我的投诉详情</p>",
-    "group": "31._会员投诉模块",
+    "group": "25._会员投诉模块",
     "permission": [
       {
         "name": "jwt"
@@ -3707,7 +3639,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/ComplainController.php",
-    "groupTitle": "31._会员投诉模块",
+    "groupTitle": "25._会员投诉模块",
     "name": "GetApiMemberComplainViewId"
   },
   {
@@ -3715,7 +3647,7 @@
     "url": "/api/member/complain/handle",
     "title": "03. 提交投诉信息",
     "description": "<p>提交投诉信息</p>",
-    "group": "31._会员投诉模块",
+    "group": "25._会员投诉模块",
     "permission": [
       {
         "name": "jwt"
@@ -3768,7 +3700,7 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/ComplainController.php",
-    "groupTitle": "31._会员投诉模块",
+    "groupTitle": "25._会员投诉模块",
     "name": "PostApiMemberComplainHandle"
   },
   {
@@ -3776,7 +3708,7 @@
     "url": "/api/member/contact/handle",
     "title": "01. 提交联系客服信息",
     "description": "<p>提交联系客服信息信息</p>",
-    "group": "32._会员客服模块",
+    "group": "26._会员客服模块",
     "permission": [
       {
         "name": "jwt"
@@ -3843,8 +3775,452 @@
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/ContactController.php",
-    "groupTitle": "32._会员客服模块",
+    "groupTitle": "26._会员客服模块",
     "name": "PostApiMemberContactHandle"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/information/list?page={page}",
+    "title": "01. 我的资讯列表",
+    "description": "<p>获取我的资讯分页列表</p>",
+    "group": "27._会员资讯模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/InformationController.php",
+    "groupTitle": "27._会员资讯模块",
+    "name": "GetApiMemberInformationListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/information/view/{id}",
+    "title": "02. 我的资讯详情",
+    "description": "<p>获取我的资讯详情</p>",
+    "group": "27._会员资讯模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/InformationController.php",
+    "groupTitle": "27._会员资讯模块",
+    "name": "GetApiMemberInformationViewId"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/handle",
+    "title": "03. 资讯发布",
+    "description": "<p>当前会员资讯发布</p>",
+    "group": "27._会员资讯模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>资讯分类</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/InformationController.php",
+    "groupTitle": "27._会员资讯模块",
+    "name": "PostApiMemberInformationHandle"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/setting/data",
+    "title": "01. 我的设置",
+    "description": "<p>获取我的设置详情</p>",
+    "group": "28._会员设置模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "order_switch",
+            "description": "<p>订单开关</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "activity_switch",
+            "description": "<p>活动开关</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/setting/data"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/SettingController.php",
+    "groupTitle": "28._会员设置模块",
+    "name": "GetApiMemberSettingData"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/setting/handle",
+    "title": "03. 推送设置",
+    "description": "<p>当前会员设置推送开关</p>",
+    "group": "28._会员设置模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "order_switch",
+            "description": "<p>订单开关</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "activity_switch",
+            "description": "<p>活动开关</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/setting/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/SettingController.php",
+    "groupTitle": "28._会员设置模块",
+    "name": "PostApiMemberSettingHandle"
   },
   {
     "type": "get",
@@ -4087,6 +4463,74 @@
     "filename": "app/Http/Controllers/Api/Module/Flash/CommentController.php",
     "groupTitle": "52._快讯评论模块",
     "name": "GetApiFlashCommentSelect"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/flash/comment/handle",
+    "title": "02. 快讯评论操作",
+    "description": "<p>当前会员执行快讯评论操作</p>",
+    "group": "52._快讯评论模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "flash_id",
+            "description": "<p>快讯编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "parent_id",
+            "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "content",
+            "description": "<p>评论内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/flash/comment/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Flash/CommentController.php",
+    "groupTitle": "52._快讯评论模块",
+    "name": "PostApiMemberFlashCommentHandle"
   },
   {
     "type": "get",
@@ -4398,6 +4842,13 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "content",
             "description": "<p>资讯内容</p>"
           },
@@ -4421,6 +4872,13 @@
             "optional": false,
             "field": "read_total",
             "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
           },
           {
             "group": "字段说明",
@@ -5239,5 +5697,169 @@
     "filename": "app/Http/Controllers/Api/Module/Member/Information/CollectionController.php",
     "groupTitle": "64._资讯收藏模块",
     "name": "PostApiMemberInformationCollectionStatus"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/information/browse/list?page={page}",
+    "title": "01. 我的浏览历史列表",
+    "description": "<p>获取我的浏览历史分页列表</p>",
+    "group": "65._资讯浏览历史模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|资讯": [
+          {
+            "group": "字段说明|资讯",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/browse/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/BrowseController.php",
+    "groupTitle": "65._资讯浏览历史模块",
+    "name": "GetApiMemberInformationBrowseListPagePage"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/browse/clear",
+    "title": "02. 清除浏览历史",
+    "description": "<p>当前会员清除浏览历史</p>",
+    "group": "65._资讯浏览历史模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/browse/clear"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/BrowseController.php",
+    "groupTitle": "65._资讯浏览历史模块",
+    "name": "PostApiMemberInformationBrowseClear"
   }
 ]

@@ -41,7 +41,7 @@ class AttentionController extends BaseController
   /**
    * @api {get} /api/member/attention/list?page={page} 01. 会员关注列表
    * @apiDescription 获取当前会员关注分页列表
-   * @apiGroup 25. 会员关注模块
+   * @apiGroup 22. 会员关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -94,7 +94,7 @@ class AttentionController extends BaseController
   /**
    * @api {post} /api/member/attention/status 02. 是否关注会员
    * @apiDescription 获取当前会员是否关注指定会员
-   * @apiGroup 25. 会员关注模块
+   * @apiGroup 22. 会员关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -161,7 +161,7 @@ class AttentionController extends BaseController
   /**
    * @api {post} /api/member/attention/handle 03. 关注操作
    * @apiDescription 当前会员执行关注操作, 已经关注过，再次点击取消关注
-   * @apiGroup 25. 会员关注模块
+   * @apiGroup 22. 会员关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -169,7 +169,7 @@ class AttentionController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} attention_member_id 作品编号
+   * @apiParam {string} attention_member_id 关注编号
    *
    * @apiSampleRequest /api/member/attention/handle
    * @apiVersion 1.0.0
@@ -177,7 +177,7 @@ class AttentionController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'attention_member_id.required' => '请您输入作品编号',
+      'attention_member_id.required' => '请您输入关注编号',
     ];
 
     $rule = [

@@ -155,4 +155,25 @@ class Member extends Base
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-16
+   * ------------------------------------------
+   * 会员与设置关联表
+   * ------------------------------------------
+   *
+   * 会员与设置关联表
+   *
+   * @return [关联对象]
+   */
+  public function setting()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Setting',
+      'member_id',
+      'id'
+    );
+  }
 }

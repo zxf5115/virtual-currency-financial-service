@@ -235,7 +235,19 @@ $api->version('v1', [
           });
 
 
+          // 会员资讯路由
+          $api->group(['prefix'  => 'information'], function ($api) {
+            $api->get('list', 'InformationController@list');
+            $api->get('view/{id}', 'InformationController@view');
+            $api->post('handle', 'InformationController@handle');
+          });
 
+
+          // 会员设置路由
+          $api->group(['prefix'  => 'setting'], function ($api) {
+            $api->get('data', 'SettingController@data');
+            $api->post('handle', 'SettingController@handle');
+          });
 
 
           // 会员快讯路由
@@ -256,6 +268,12 @@ $api->version('v1', [
           // 会员资讯路由
           $api->group(['namespace' => 'Information', 'prefix'  => 'information'], function ($api) {
 
+            // 会员资讯浏览路由
+            $api->group(['prefix'  => 'browse'], function ($api) {
+              $api->get('list', 'BrowseController@list');
+              $api->post('clear', 'BrowseController@clear');
+            });
+
             // 会员资讯评论路由
             $api->group(['prefix'  => 'comment'], function ($api) {
               $api->post('handle', 'CommentController@handle');
@@ -263,7 +281,7 @@ $api->version('v1', [
 
             // 会员资讯点赞路由
             $api->group(['prefix'  => 'approval'], function ($api) {
-              $api->post('handle', 'ApprovalController@handle');
+              $api->get('list', 'ApprovalController@list');
               $api->post('status', 'ApprovalController@status');
               $api->post('handle', 'ApprovalController@handle');
             });

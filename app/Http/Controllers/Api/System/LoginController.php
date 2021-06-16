@@ -569,14 +569,12 @@ class LoginController extends BaseController
       'username.required'    => '请您输入登录手机号码',
       'nickname.required'    => '请您输入会员姓名',
       'avatar.required'      => '请您上传会员头像',
-      'sex.required'         => '请您选择会员性别',
     ];
 
     $rule = [
       'username'    => 'required',
       'nickname'    => 'required',
       'avatar'      => 'required',
-      'sex'         => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -637,6 +635,17 @@ class LoginController extends BaseController
         {
           $model->asset()->delete();
           $model->asset()->create($data);
+        }
+
+        $data = [
+          'order_switch'    => 1,
+          'activity_switch' => 1,
+        ];
+
+        if(!empty($data))
+        {
+          $model->setting()->delete();
+          $model->setting()->create($data);
         }
 
         DB::commit();

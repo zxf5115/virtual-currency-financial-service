@@ -6,6 +6,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Models\Api\Module\Information;
 use App\Events\Api\Information\BrowseEvent;
+use App\Models\Api\Module\Information\Browse;
 
 /**
  * 资讯浏览监听器
@@ -45,6 +46,14 @@ class BrowseListeners
         $model->read_total = 1;
         $model->save();
       }
+
+      $member_id = auth('api')->user()->id;
+
+      Browse::firstOrCreate([
+        'information_id' => $data_id,
+        'member_id'      => $member_id
+      ]);
+
     }
     catch(\Exception $e)
     {
