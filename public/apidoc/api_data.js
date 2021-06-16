@@ -4300,6 +4300,13 @@ define({ "api": [
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "content",
             "description": "<p>资讯内容</p>"
           },
@@ -4323,6 +4330,13 @@ define({ "api": [
             "optional": false,
             "field": "read_total",
             "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
           },
           {
             "group": "字段说明",
@@ -4585,298 +4599,6 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/api/member/approval/list?page={page}",
-    "title": "01. 会员点赞列表(分页)",
-    "description": "<p>获取当前会员点赞列表(分页)</p>",
-    "group": "62._会员点赞模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "page",
-            "description": "<p>当前页数</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "basic params": [
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>会员点赞编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "member_id",
-            "description": "<p>会员编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "course_id",
-            "description": "<p>课程编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>点赞时间</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/approval/list"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
-    "groupTitle": "62._会员点赞模块",
-    "name": "GetApiMemberApprovalListPagePage"
-  },
-  {
-    "type": "get",
-    "url": "/api/member/approval/select",
-    "title": "02. 会员点赞列表(不分页)",
-    "description": "<p>获取当前会员点赞列表(不分页)</p>",
-    "group": "62._会员点赞模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "basic params": [
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>会员点赞编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "member_id",
-            "description": "<p>会员编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "course_id",
-            "description": "<p>课程编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>点赞时间</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/approval/select"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
-    "groupTitle": "62._会员点赞模块",
-    "name": "GetApiMemberApprovalSelect"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/approval/handle",
-    "title": "04. 点赞操作",
-    "description": "<p>当前会员执行点赞操作, 已经点赞过，再次点击取消点赞</p>",
-    "group": "62._会员点赞模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "course_id",
-            "description": "<p>课程编号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/approval/handle"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
-    "groupTitle": "62._会员点赞模块",
-    "name": "PostApiMemberApprovalHandle"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/approval/status",
-    "title": "03. 作品是否点赞",
-    "description": "<p>获取当前会员点赞的详情</p>",
-    "group": "62._会员点赞模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOjM2NzgsImF1ZGllbmN\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "basic params": [
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/approval/status"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
-    "groupTitle": "62._会员点赞模块",
-    "name": "PostApiMemberApprovalStatus"
-  },
-  {
-    "type": "get",
     "url": "/api/information/comment/select",
     "title": "01. 资讯评论数据",
     "description": "<p>获取资讯评论不分页列表数据</p>",
@@ -5026,6 +4748,253 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/member/information/approval/list?page={page}",
+    "title": "01. 会员点赞列表",
+    "description": "<p>获取当前会员点赞分页列表</p>",
+    "group": "63._资讯点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|资讯": [
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ],
+        "字段说明|会员": [
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/approval/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
+    "groupTitle": "63._资讯点赞模块",
+    "name": "GetApiMemberInformationApprovalListPagePage"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/approval/handle",
+    "title": "03. 点赞操作",
+    "description": "<p>当前会员执行资讯点赞操作, 已经点赞过，再次点击取消点赞</p>",
+    "group": "63._资讯点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "information_id",
+            "description": "<p>资讯编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/approval/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
+    "groupTitle": "63._资讯点赞模块",
+    "name": "PostApiMemberInformationApprovalHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/approval/status",
+    "title": "02. 资讯是否点赞",
+    "description": "<p>获取当前会员点赞的详情</p>",
+    "group": "63._资讯点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "information_id",
+            "description": "<p>资讯编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/approval/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
+    "groupTitle": "63._资讯点赞模块",
+    "name": "PostApiMemberInformationApprovalStatus"
+  },
+  {
+    "type": "get",
     "url": "/api/member/information/collection/list?page={page}",
     "title": "01. 我的收藏列表",
     "description": "<p>获取当前会员收藏分页列表</p>",
@@ -5070,41 +5039,85 @@ define({ "api": [
     },
     "success": {
       "fields": {
-        "字段说明": [
+        "字段说明|资讯": [
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "字段说明|资讯",
+            "type": "String",
             "optional": false,
             "field": "id",
-            "description": "<p>会员收藏编号</p>"
+            "description": "<p>资讯编号</p>"
           },
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "字段说明|资讯",
+            "type": "String",
             "optional": false,
-            "field": "member_id",
-            "description": "<p>会员编号</p>"
+            "field": "title",
+            "description": "<p>资讯标题</p>"
           },
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "字段说明|资讯",
+            "type": "String",
             "optional": false,
-            "field": "course_id",
-            "description": "<p>课程编号</p>"
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
           },
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "字段说明|资讯",
+            "type": "String",
             "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
+            "field": "content",
+            "description": "<p>资讯内容</p>"
           },
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
             "optional": false,
             "field": "create_time",
-            "description": "<p>收藏时间</p>"
+            "description": "<p>发布时间</p>"
+          }
+        ],
+        "字段说明|会员": [
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员昵称</p>"
           }
         ]
       }
@@ -5123,7 +5136,7 @@ define({ "api": [
     "type": "post",
     "url": "/api/member/information/collection/handle",
     "title": "03. 收藏操作",
-    "description": "<p>当前会员执行收藏操作, 已经收藏过，再次点击取消收藏</p>",
+    "description": "<p>当前会员执行资讯收藏操作, 已经收藏过，再次点击取消收藏</p>",
     "group": "64._资讯收藏模块",
     "permission": [
       {
@@ -5176,8 +5189,8 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/member/information/collection/status",
-    "title": "02. 作品是否收藏",
-    "description": "<p>获取当前会员收藏的详情</p>",
+    "title": "02. 资讯是否收藏",
+    "description": "<p>获取当前会员资讯收藏的详情</p>",
     "group": "64._资讯收藏模块",
     "permission": [
       {
