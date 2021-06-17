@@ -20,7 +20,7 @@ class AssetController extends BaseController
 
 
   /**
-   * @api {post} /api/member/asset/list 01. 我的收支记录
+   * @api {get} /api/member/asset/list 01. 我的收支记录
    * @apiDescription 获取当前会员的收支记录
    * @apiGroup 21. 会员资产模块
    * @apiPermission jwt

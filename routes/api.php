@@ -116,6 +116,16 @@ $api->version('v1', [
       });
 
 
+      // 项目路由
+      $api->group(['prefix'  => 'project'], function ($api) {
+        // 项目分类路由
+        $api->group(['namespace' => 'Project', 'prefix'  => 'category'], function ($api) {
+          $api->get('select', 'CategoryController@select');
+        });
+      });
+
+
+
       // 快讯路由
       $api->group(['prefix'  => 'flash'], function ($api) {
         $api->get('list', 'FlashController@list');

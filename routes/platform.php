@@ -229,6 +229,19 @@ $api->version('v1', [
       });
 
 
+      // 项目路由
+      $api->group(['prefix' => 'project'], function ($api) {
+        // 项目分类路由
+        $api->group(['namespace' => 'Project', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
       // 投诉路由
       $api->group(['prefix' => 'complain'], function ($api) {
         // 投诉路由
