@@ -195,6 +195,15 @@ $api->version('v1', [
         });
       });
 
+      // 贵宾路由
+      $api->group(['prefix'  =>  'vip'], function ($api) {
+        $api->any('list', 'VipController@list');
+        $api->get('select', 'VipController@select');
+        $api->get('view/{id}', 'VipController@view');
+        $api->post('handle', 'VipController@handle');
+        $api->post('delete', 'VipController@delete');
+      });
+
 
       // 广告路由
       $api->group(['prefix' => 'advertising'], function ($api) {

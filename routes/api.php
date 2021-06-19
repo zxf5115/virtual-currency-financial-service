@@ -180,6 +180,13 @@ $api->version('v1', [
       });
 
 
+      // 贵宾路由
+      $api->group(['prefix'  => 'vip'], function ($api) {
+        $api->get('list', 'VipController@list');
+        $api->get('view/{id}', 'VipController@view');
+      });
+
+
 
       // 会员路由
       $api->group(['prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token', 'failure']], function ($api) {

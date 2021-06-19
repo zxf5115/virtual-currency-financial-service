@@ -1905,6 +1905,148 @@
   },
   {
     "type": "get",
+    "url": "/api/problem/list?page={page}",
+    "title": "01. 贵宾列表",
+    "description": "<p>获取贵宾分页列表</p>",
+    "group": "19._贵宾模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>贵宾编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>贵宾内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/problem/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/VipController.php",
+    "groupTitle": "19._贵宾模块",
+    "name": "GetApiProblemListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/problem/select",
+    "title": "02. 贵宾数据",
+    "description": "<p>获取贵宾不分页列表数据</p>",
+    "group": "19._贵宾模块",
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>贵宾编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>贵宾内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/problem/select"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/VipController.php",
+    "groupTitle": "19._贵宾模块",
+    "name": "GetApiProblemSelect"
+  },
+  {
+    "type": "get",
+    "url": "/api/problem/view/{id}",
+    "title": "03. 贵宾详情",
+    "description": "<p>获取贵宾详情</p>",
+    "group": "19._贵宾模块",
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>贵宾编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>贵宾内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/problem/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/VipController.php",
+    "groupTitle": "19._贵宾模块",
+    "name": "GetApiProblemViewId"
+  },
+  {
+    "type": "get",
     "url": "/api/member/archive",
     "title": "01. 当前会员档案",
     "description": "<p>获取当前会员的档案信息</p>",

@@ -64,6 +64,7 @@ class VipController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->title           = $request->title;
+        $model->content         = $request->content ?? '';
         $model->money           = $request->money;
         $model->valid_time      = $request->valid_time;
         $model->save();
