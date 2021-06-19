@@ -20,7 +20,7 @@ class VipController extends BaseController
 
 
   /**
-   * @api {get} /api/problem/list?page={page} 01. 贵宾列表
+   * @api {get} /api/vip/list?page={page} 01. 贵宾列表
    * @apiDescription 获取贵宾分页列表
    * @apiGroup 19. 贵宾模块
    *
@@ -29,8 +29,10 @@ class VipController extends BaseController
    * @apiSuccess (字段说明) {Number} id 贵宾编号
    * @apiSuccess (字段说明) {String} title 贵宾标题
    * @apiSuccess (字段说明) {String} content 贵宾内容
+   * @apiSuccess (字段说明) {String} money 贵宾费用
+   * @apiSuccess (字段说明) {String} valid_time 贵宾时限(月)
    *
-   * @apiSampleRequest /api/problem/list
+   * @apiSampleRequest /api/vip/list
    * @apiVersion 1.0.0
    */
   public function list(Request $request)
@@ -62,15 +64,17 @@ class VipController extends BaseController
 
 
   /**
-   * @api {get} /api/problem/select 02. 贵宾数据
+   * @api {get} /api/vip/select 02. 贵宾数据
    * @apiDescription 获取贵宾不分页列表数据
    * @apiGroup 19. 贵宾模块
    *
    * @apiSuccess (字段说明) {Number} id 贵宾编号
    * @apiSuccess (字段说明) {String} title 贵宾标题
    * @apiSuccess (字段说明) {String} content 贵宾内容
+   * @apiSuccess (字段说明) {String} money 贵宾费用
+   * @apiSuccess (字段说明) {String} valid_time 贵宾时限(月)
    *
-   * @apiSampleRequest /api/problem/select
+   * @apiSampleRequest /api/vip/select
    * @apiVersion 1.0.0
    */
   public function select(Request $request)
@@ -102,15 +106,17 @@ class VipController extends BaseController
 
 
   /**
-   * @api {get} /api/problem/view/{id} 03. 贵宾详情
+   * @api {get} /api/vip/view/{id} 03. 贵宾详情
    * @apiDescription 获取贵宾详情
    * @apiGroup 19. 贵宾模块
    *
    * @apiSuccess (字段说明) {Number} id 贵宾编号
    * @apiSuccess (字段说明) {String} title 贵宾标题
    * @apiSuccess (字段说明) {String} content 贵宾内容
+   * @apiSuccess (字段说明) {String} money 贵宾费用
+   * @apiSuccess (字段说明) {String} valid_time 贵宾时限(月)
    *
-   * @apiSampleRequest /api/problem/view/{id}
+   * @apiSampleRequest /api/vip/view/{id}
    * @apiVersion 1.0.0
    */
   public function view(Request $request, $id)

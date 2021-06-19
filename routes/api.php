@@ -183,6 +183,7 @@ $api->version('v1', [
       // 贵宾路由
       $api->group(['prefix'  => 'vip'], function ($api) {
         $api->get('list', 'VipController@list');
+        $api->get('select', 'VipController@select');
         $api->get('view/{id}', 'VipController@view');
       });
 
