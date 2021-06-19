@@ -109,7 +109,8 @@ class Code
   const BIND_WEIXIN = 90048;
   // 当前手机不存在
   const CURRENT_MOBILE_EMPTY = 90050;
-
+  // 当前会员未认证
+  const CERITFICATION_EMPTY = 90051;
   // 标签不能为空
   const LABEL_EMPTY = 9005;
 
@@ -225,7 +226,7 @@ class Code
     self::CURRENT_MOBILE_BIND       => '当前手机号码已绑定用户',
     self::BIND_WEIXIN       => '请先绑定微信',
     self::CURRENT_MOBILE_EMPTY => '当前手机不存在',
-
+    self::CERITFICATION_EMPTY => '当前会员未认证',
     self::LABEL_EMPTY  => '标签不能为空',
 
     self::HOMEWORK_EMPTY => '学员未完成作业',

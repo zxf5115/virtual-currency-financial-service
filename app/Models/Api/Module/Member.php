@@ -100,6 +100,27 @@ class Member extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-08
    * ------------------------------------------
+   * 会员与认证关联表
+   * ------------------------------------------
+   *
+   * 会员与认证关联表
+   *
+   * @return [关联对象]
+   */
+  public function certification()
+  {
+    return $this->hasOne(
+      'App\Models\Api\Module\Member\Certification',
+      'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-08
+   * ------------------------------------------
    * 会员与资产关联表
    * ------------------------------------------
    *
@@ -112,6 +133,48 @@ class Member extends Common
     return $this->hasOne(
       'App\Models\Api\Module\Member\Asset',
       'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-16
+   * ------------------------------------------
+   * 会员与设置关联表
+   * ------------------------------------------
+   *
+   * 会员与设置关联表
+   *
+   * @return [关联对象]
+   */
+  public function setting()
+  {
+    return $this->hasOne(
+      'App\Models\Api\Module\Member\Setting',
+      'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-18
+   * ------------------------------------------
+   * 会员与贵宾关联函数
+   * ------------------------------------------
+   *
+   * 会员与贵宾关联函数
+   *
+   * @return [关联对象]
+   */
+  public function vip()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Vip',
+      'vip_id',
       'id'
     );
   }

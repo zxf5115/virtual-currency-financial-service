@@ -14,7 +14,6 @@ class Comment extends Common
 {
   use \Awobaz\Compoships\Compoships;
 
-
   // 隐藏的属性
   protected $hidden = [
     'id',
@@ -63,8 +62,8 @@ class Comment extends Common
    */
   public function children()
   {
-    return $this->hasMany(__CLASS__, 'parent_id')
-                ->with('children.member')
+    return $this->hasMany(__CLASS__, ['information_id', 'parent_id'], ['information_id', 'parent_id'])
+                ->with('children')
                 ->where(['status'=>1]);
   }
 

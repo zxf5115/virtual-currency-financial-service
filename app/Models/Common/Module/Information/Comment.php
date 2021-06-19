@@ -11,6 +11,8 @@ use App\Models\Base;
  */
 class Comment extends Base
 {
+  use \Awobaz\Compoships\Compoships;
+
   // 表名
   protected $table = "module_information_comment";
 

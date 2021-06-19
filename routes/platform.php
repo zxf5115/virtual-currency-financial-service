@@ -157,11 +157,17 @@ $api->version('v1', [
         $api->get('select', 'MemberController@select');
         $api->get('view/{id}', 'MemberController@view');
         $api->post('handle', 'MemberController@handle');
-        $api->post('freeze', 'MemberController@freeze');
         $api->post('enable', 'MemberController@enable');
         $api->post('delete', 'MemberController@delete');
 
         $api->group(['namespace'  =>  'Member'], function ($api) {
+
+          // 会员认证路由
+          $api->group(['prefix'  =>  'certification'], function ($api) {
+            $api->get('data', 'CertificationController@data');
+            $api->post('handle', 'CertificationController@handle');
+          });
+
 
           // 会员课程路由
           $api->group(['prefix'  =>  'course'], function ($api) {

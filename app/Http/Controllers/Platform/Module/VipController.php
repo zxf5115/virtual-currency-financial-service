@@ -8,33 +8,24 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-02-22
+ * @dateTime 2021-06-17
  *
- * 常见问题控制器类
+ * 贵宾控制器类
  */
-class ProblemController extends BaseController
+class VipController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Common\Module\Problem';
+  protected $_model = 'App\Models\Common\Module\Vip';
 
   // 客户端搜索字段
   protected $_params = [
     'title'
   ];
 
-  // 关联对象
-  protected $_relevance = [
-    'list' => [
-      'category'
-    ],
-    'select' => false,
-    'view' => false,
-  ];
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-02-22
+   * @dateTime 2021-06-17
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -47,15 +38,15 @@ class ProblemController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'category_id.required' => '请您选择分类标题',
-      'title.required'   => '请您输入问题标题',
-      'content.required' => '请您输入问题答案',
+      'title.required'      => '请您输入贵宾标题',
+      'money.required'      => '请您输入贵宾费用',
+      'valid_time.required' => '请您输入有效期',
     ];
 
     $rule = [
-      'category_id' => 'required',
-      'title' => 'required',
-      'content' => 'required',
+      'title'      => 'required',
+      'money'      => 'required',
+      'valid_time' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -72,9 +63,9 @@ class ProblemController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->category_id     = $request->category_id;
         $model->title           = $request->title;
-        $model->content         = $request->content;
+        $model->money           = $request->money;
+        $model->valid_time      = $request->valid_time;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
@@ -88,5 +79,4 @@ class ProblemController extends BaseController
       }
     }
   }
-
 }

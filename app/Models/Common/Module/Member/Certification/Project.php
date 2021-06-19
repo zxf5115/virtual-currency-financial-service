@@ -2,7 +2,6 @@
 namespace App\Models\Common\Module\Member\Certification;
 
 use App\Models\Base;
-use App\Enum\Module\Member\CertificationEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -12,17 +11,25 @@ use App\Enum\Module\Member\CertificationEnum;
  */
 class Project extends Base
 {
+  use \Awobaz\Compoships\Compoships;
+
   // 表名
   public $table = "module_member_certification_project";
 
   // 可以批量修改的字段
   public $fillable = [
     'id',
-    'organization_id',
     'member_id',
-    'type',
-    'certification_status ',
-    'certification_status',
+    'project_name',
+    'project_logo',
+    'realname',
+    'mobile',
+    'category_id',
+    'project_website',
+    'project_document',
+    'project_social',
+    'project_report',
+    'project_github',
   ];
 
   // 隐藏的属性
@@ -35,54 +42,26 @@ class Project extends Base
   protected $appends = [];
 
 
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-17
-   * ------------------------------------------
-   * 认证状态封装
-   * ------------------------------------------
-   *
-   * 认证状态封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getTypeAttribute($value)
-  {
-    return CertificationEnum::getCertificationStatus($value);
-  }
+  // 关联函数 ------------------------------------------------------
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-17
+   * @dateTime 2021-06-08
    * ------------------------------------------
-   * 认证状态封装
+   * 项目认证与项目分类关联表
    * ------------------------------------------
    *
-   * 认证状态封装
+   * 项目认证与项目分类关联表
    *
-   * @param int $value 状态值
-   * @return 状态信息
+   * @return [关联对象]
    */
-  public function getCertificationStatusAttribute($value)
+  public function category()
   {
-    return CertificationEnum::getAuditStatus($value);
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-17
-   * ------------------------------------------
-   * 证书类型封装
-   * ------------------------------------------
-   *
-   * 证书类型封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getCertificateTypeAttribute($value)
-  {
-    return CertificationEnum::getCertificateType($value);
+    return $this->belongsTo(
+      'App\Models\Common\Module\Project\Category',
+      'category_id',
+      'id'
+    );
   }
 }

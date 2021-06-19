@@ -12,18 +12,13 @@ use App\Enum\Module\Member\CertificationEnum;
  */
 class Certification extends Base
 {
+  use \Awobaz\Compoships\Compoships;
+
   // 表名
   public $table = "module_member_certification";
 
   // 可以批量修改的字段
-  public $fillable = [
-    'id',
-    'organization_id',
-    'member_id',
-    'type',
-    'certification_status ',
-    'certification_status',
-  ];
+  public $fillable = ['id'];
 
   // 隐藏的属性
   public $hidden = [
@@ -49,7 +44,7 @@ class Certification extends Base
    */
   public function getTypeAttribute($value)
   {
-    return CertificationEnum::getCertificationStatus($value);
+    return CertificationEnum::getCertificationType($value);
   }
 
   /**
@@ -66,23 +61,72 @@ class Certification extends Base
    */
   public function getCertificationStatusAttribute($value)
   {
-    return CertificationEnum::getAuditStatus($value);
+    return CertificationEnum::getCertificationStatus($value);
   }
+
+
+  // 关联函数 ------------------------------------------------------
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-17
    * ------------------------------------------
-   * 证书类型封装
+   * 会员认证与个人认证关联函数
    * ------------------------------------------
    *
-   * 证书类型封装
+   * 会员认证与个人认证关联函数
    *
-   * @param int $value 状态值
-   * @return 状态信息
+   * @return [关联对象]
    */
-  public function getCertificateTypeAttribute($value)
+  public function personal()
   {
-    return CertificationEnum::getCertificateType($value);
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Certification\Personal',
+      ['certification_id', 'member_id'],
+      ['id', 'member_id']
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-17
+   * ------------------------------------------
+   * 会员认证与企业认证关联函数
+   * ------------------------------------------
+   *
+   * 会员认证与企业认证关联函数
+   *
+   * @return [关联对象]
+   */
+  public function company()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Certification\Company',
+      ['certification_id', 'member_id'],
+      ['id', 'member_id']
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-17
+   * ------------------------------------------
+   * 会员认证与项目认证关联函数
+   * ------------------------------------------
+   *
+   * 会员认证与项目认证关联函数
+   *
+   * @return [关联对象]
+   */
+  public function project()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Certification\Project',
+      ['certification_id', 'member_id'],
+      ['id', 'member_id']
+    );
   }
 }

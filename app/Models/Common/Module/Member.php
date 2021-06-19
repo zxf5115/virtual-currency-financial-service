@@ -176,4 +176,46 @@ class Member extends Base
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-18
+   * ------------------------------------------
+   * 会员与会员贵宾关联函数
+   * ------------------------------------------
+   *
+   * 会员与会员贵宾关联函数
+   *
+   * @return [关联对象]
+   */
+  public function vip()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Vip',
+      'member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-18
+   * ------------------------------------------
+   * 会员与会员认证关联函数
+   * ------------------------------------------
+   *
+   * 会员与会员认证关联函数
+   *
+   * @return [关联对象]
+   */
+  public function certification()
+  {
+    return $this->hasOne(
+      'App\Models\Common\Module\Member\Certification',
+      'member_id',
+      'id'
+    );
+  }
 }

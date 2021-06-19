@@ -196,6 +196,15 @@ $api->version('v1', [
         // 会员关联内容路由
         $api->group(['namespace' => 'Member'], function ($api) {
 
+          // 会员认证路由
+          $api->group(['prefix'  => 'certification'], function ($api) {
+            $api->post('status', 'CertificationController@status');
+            $api->post('personal', 'CertificationController@personal');
+            $api->post('company', 'CertificationController@company');
+            $api->post('project', 'CertificationController@project');
+            $api->get('data', 'CertificationController@data');
+          });
+
           // 会员资产路由
           $api->group(['prefix'  => 'asset'], function ($api) {
             $api->get('list', 'AssetController@list');

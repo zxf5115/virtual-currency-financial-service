@@ -16,6 +16,7 @@ class Personal extends Common
   public $hidden = [
     'id',
     'organization_id',
+    'certification_id',
     'member_id',
     'status',
     'create_time',

@@ -28,7 +28,8 @@ class MemberController extends BaseController
   // 关联对象
   protected $_relevance = [
     'archive' => [
-      'archive'
+      'archive',
+      'certification',
     ],
     'asset' => [
       'asset'
@@ -38,7 +39,8 @@ class MemberController extends BaseController
       'relevance'
     ],
     'data' => [
-      'archive'
+      'archive',
+      'certification',
     ],
   ];
 

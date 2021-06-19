@@ -27,9 +27,22 @@ class MemberController extends BaseController
 
   // 关联对象
   protected $_relevance = [
-    'list' => ['role'],
-    'view' => ['role', 'archive'],
+    'list' => [
+      'vip.vip',
+      'asset',
+      'archive'
+    ],
+    'view' => [
+      'archive',
+      'vip.vip',
+      'asset',
+      'archive',
+      'certification',
+    ],
     'select' => false,
+    'certification' => [
+      'certification'
+    ]
   ];
 
 
@@ -51,14 +64,12 @@ class MemberController extends BaseController
       'username.required' => '请您输入登录账户',
       'username.regex'    => '登录账户格式错误',
       'nickname.required' => '请您输入用户昵称',
-      'role_id.required'  => '请您选择用户角色',
     ];
 
     $rule = [
       'username' => 'required',
       'username' => 'regex:/^1[3456789][0-9]{9}$/',
       'nickname' => 'required',
-      'role_id'  => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -79,12 +90,9 @@ class MemberController extends BaseController
           $model->password = $this->_model::generate(Parameter::PASSWORD);
         }
 
-        $model->role_id  = $request->role_id;
         $model->username = $request->username;
         $model->nickname = $request->nickname;
         $model->avatar   = $request->avatar ?: '';
-        $model->mobile   = $request->mobile ?: '';
-        $model->email    = $request->email ?: '';
         $model->status   = intval($request->status);
         $model->save();
 
@@ -97,6 +105,40 @@ class MemberController extends BaseController
 
         return self::error(Code::HANDLE_FAILURE);
       }
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-02-25
+   * ------------------------------------------
+   * 禁用（解禁）学员账户
+   * ------------------------------------------
+   *
+   * 禁用（解禁）学员账户
+   *
+   * @param Request $request [description]
+   * @return [type]
+   */
+  public function enable(Request $request)
+  {
+    try
+    {
+      $model = $this->_model::find($request->id);
+
+      $model->status = $model->status['value'] == 1 ? 2 : 1;
+
+      $model->save();
+
+      return self::success(Code::message(Code::HANDLE_SUCCESS));
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::HANDLE_FAILURE);
     }
   }
 
