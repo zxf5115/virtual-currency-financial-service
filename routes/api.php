@@ -277,6 +277,13 @@ $api->version('v1', [
           });
 
 
+          // 贵宾路由
+          $api->group(['prefix'  => 'vip'], function ($api) {
+            $api->post('status', 'VipController@status');
+            $api->post('handle', 'VipController@handle');
+          });
+
+
           // 会员快讯路由
           $api->group(['namespace' => 'Flash', 'prefix'  => 'flash'], function ($api) {
 

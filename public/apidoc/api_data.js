@@ -4892,6 +4892,114 @@ define({ "api": [
     "name": "PostApiMemberCertificationStatus"
   },
   {
+    "type": "post",
+    "url": "/api/member/vip/handle",
+    "title": "02. 开通贵宾",
+    "description": "<p>当前会员开通贵宾</p>",
+    "group": "30._会员贵宾模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "vip_id",
+            "description": "<p>贵宾编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/vip/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/VipController.php",
+    "groupTitle": "30._会员贵宾模块",
+    "name": "PostApiMemberVipHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/vip/status",
+    "title": "01. 是否是贵宾",
+    "description": "<p>获取当前会员是否是贵宾</p>",
+    "group": "30._会员贵宾模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>是否贵宾</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/vip/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/VipController.php",
+    "groupTitle": "30._会员贵宾模块",
+    "name": "PostApiMemberVipStatus"
+  },
+  {
     "type": "get",
     "url": "/api/flash/category/select",
     "title": "01. 快讯分类数据",
