@@ -347,6 +347,27 @@ $api->version('v1', [
       });
 
 
+      // 社区路由
+      $api->group(['prefix' => 'community'], function ($api) {
+        $api->any('list', 'CommunityController@list');
+        $api->get('select', 'CommunityController@select');
+        $api->get('view/{id}', 'CommunityController@view');
+        $api->post('hot', 'CommunityController@hot');
+        $api->post('handle', 'CommunityController@handle');
+        $api->post('delete/{id?}', 'CommunityController@delete');
+
+        // 社区分类路由
+        $api->group(['namespace' => 'Community', 'prefix' => 'category'], function ($api) {
+          $api->any('list', 'CategoryController@list');
+          $api->get('select', 'CategoryController@select');
+          $api->get('view/{id}', 'CategoryController@view');
+          $api->post('status', 'CategoryController@status');
+          $api->post('handle', 'CategoryController@handle');
+          $api->post('delete/{id?}', 'CategoryController@delete');
+        });
+      });
+
+
 
       // 联系客服路由
       $api->group(['prefix' => 'contact'], function ($api) {

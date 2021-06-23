@@ -2,21 +2,20 @@
 namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-10
+ * @dateTime 2021-06-21
  *
- * 资讯控制器类
+ * 社区控制器类
  */
-class InformationController extends BaseController
+class CommunityController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Common\Module\Information';
+  protected $_model = 'App\Models\Common\Module\Community';
 
   // 客户端搜索字段
   protected $_params = [
@@ -31,8 +30,7 @@ class InformationController extends BaseController
     ],
     'select' => false,
     'view' => [
-      'category',
-      'label'
+      'category'
     ],
   ];
 
@@ -53,8 +51,8 @@ class InformationController extends BaseController
   {
     $messages = [
       'category_id.required' => '请您选择分类标题',
-      'title.required'       => '请您输入资讯标题',
-      'content.required'     => '请您输入资讯内容',
+      'title.required'       => '请您输入社区标题',
+      'content.required'     => '请您输入社区内容',
     ];
 
     $rule = [
@@ -72,8 +70,6 @@ class InformationController extends BaseController
     }
     else
     {
-      DB::beginTransaction();
-
       try
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
@@ -84,27 +80,13 @@ class InformationController extends BaseController
         $model->title           = $request->title;
         $model->picture         = $request->picture ?? '';
         $model->content         = $request->content;
-        $model->source          = $request->source ?? '';
         $model->author          = $request->author ?? '';
-        $model->read_total      = $request->read_total ?? 0;
         $model->save();
-
-        $label = self::packRelevanceData($request, 'label_id');
-
-        if(!empty($label))
-        {
-          $model->labelRelevance()->delete();
-          $model->labelRelevance()->createMany($label);
-        }
-
-        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
-        DB::rollback();
-
         // 记录异常信息
         self::record($e);
 
@@ -118,18 +100,18 @@ class InformationController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-10
    * ------------------------------------------
-   * 是否推荐
+   * 是否热门
    * ------------------------------------------
    *
-   * 是否推荐
+   * 是否热门
    *
    * @param Request $request [请求参数]
    * @return [type]
    */
-  public function recommend(Request $request)
+  public function hot(Request $request)
   {
     $messages = [
-      'id.required' => '请您选择资讯标题',
+      'id.required' => '请您选择社区标题',
     ];
 
     $rule = [
@@ -149,7 +131,7 @@ class InformationController extends BaseController
       {
         $model = $this->_model::find($request->id);
 
-        $model->is_recommend = $model->is_recommend == 1 ? 0 : 1;
+        $model->is_hot = $model->is_hot == 1 ? 0 : 1;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

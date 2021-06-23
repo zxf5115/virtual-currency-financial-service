@@ -214,4 +214,39 @@ class InformationController extends BaseController
       }
     }
   }
+
+
+
+  /**
+   * @api {post} /api/member/information/delete 04. 资讯删除
+   * @apiDescription 当前会员资讯发布
+   * @apiGroup 27. 会员资讯模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiParam {string} id 资讯编号
+   *
+   * @apiSampleRequest /api/member/information/delete
+   * @apiVersion 1.0.0
+   */
+  public function delete(Request $request)
+  {
+    try
+    {
+      $response = $this->_model::remove($request->id);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
 }

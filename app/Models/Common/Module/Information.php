@@ -129,7 +129,7 @@ class Information extends Base
   {
     return $this->belongsTo(
       'App\Models\Common\Module\Information\Comment',
-      'flash_id',
+      'information_id',
       'id'
     );
   }

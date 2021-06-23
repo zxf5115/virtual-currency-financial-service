@@ -52,14 +52,24 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\AttentionListeners',
         ],
 
-        // 点赞
+        // 资讯点赞
         'App\Events\Api\Member\Information\ApprovalEvent' => [
             'App\Listeners\Api\Member\Information\ApprovalListeners',
         ],
 
-        // 收藏
+        // 资讯收藏
         'App\Events\Api\Member\Information\CollectionEvent' => [
             'App\Listeners\Api\Member\Information\CollectionListeners',
+        ],
+
+        // 社区点赞
+        'App\Events\Api\Member\Community\ApprovalEvent' => [
+            'App\Listeners\Api\Member\Community\ApprovalListeners',
+        ],
+
+        // 社区收藏
+        'App\Events\Api\Member\Community\CollectionEvent' => [
+            'App\Listeners\Api\Member\Community\CollectionListeners',
         ],
 
 

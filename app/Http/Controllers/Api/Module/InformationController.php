@@ -194,12 +194,16 @@ class InformationController extends BaseController
    * @apiDescription 获取资讯详情
    * @apiGroup 61. 资讯模块
    *
-   * @apiSuccess (字段说明) {Number} id 资讯编号
-   * @apiSuccess (字段说明) {String} title 资讯标题
-   * @apiSuccess (字段说明) {String} content 资讯内容
-   * @apiSuccess (字段说明) {String} bullish_total 利多总数
-   * @apiSuccess (字段说明) {String} bearish_total 利空总数
-   * @apiSuccess (字段说明) {String} create_time 发布时间
+   * @apiSuccess (字段说明|资讯) {Number} id 资讯编号
+   * @apiSuccess (字段说明|资讯) {String} title 资讯标题
+   * @apiSuccess (字段说明|资讯) {String} picture 资讯封面
+   * @apiSuccess (字段说明|资讯) {String} content 资讯内容
+   * @apiSuccess (字段说明|资讯) {String} source 资讯来源
+   * @apiSuccess (字段说明|资讯) {String} author 资讯作者
+   * @apiSuccess (字段说明|资讯) {String} read_total 阅读总数
+   * @apiSuccess (字段说明|资讯) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明|资讯) {String} create_time 发布时间
+   * @apiSuccess (字段说明|标签) {String} title 标签名字
    *
    * @apiSampleRequest /api/information/view/{id}
    * @apiVersion 1.0.0

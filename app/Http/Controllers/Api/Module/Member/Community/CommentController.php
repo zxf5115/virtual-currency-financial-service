@@ -1,8 +1,7 @@
 <?php
-namespace App\Http\Controllers\Api\Module\Member\Information;
+namespace App\Http\Controllers\Api\Module\Member\Community;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
@@ -10,20 +9,20 @@ use App\Http\Controllers\Api\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-06-22
  *
  * 会员评论控制器类
  */
 class CommentController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Information\Comment';
+  protected $_model = 'App\Models\Api\Module\Community\Comment';
 
 
   /**
-   * @api {post} /api/member/information/comment/handle 02. 资讯评论操作
+   * @api {post} /api/member/community/comment/handle 02. 社区评论操作
    * @apiDescription 当前会员执行评论操作
-   * @apiGroup 62. 资讯评论模块
+   * @apiGroup 72. 社区评论模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -31,22 +30,22 @@ class CommentController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} information_id 资讯编号
+   * @apiParam {string} community_id 社区编号
    * @apiParam {string} [parent_id] 上级评论编号, 0为初始评论
    * @apiParam {string} content 评论内容
    *
-   * @apiSampleRequest /api/member/information/comment/handle
+   * @apiSampleRequest /api/member/community/comment/handle
    * @apiVersion 1.0.0
    */
   public function handle(Request $request)
   {
     $messages = [
-      'information_id.required' => '请您输入课程编号',
+      'community_id.required' => '请您输入课程编号',
       'content.required'        => '请您输入评论内容',
     ];
 
     $rule = [
-      'information_id' => 'required',
+      'community_id' => 'required',
       'content'        => 'required',
     ];
 
@@ -65,7 +64,7 @@ class CommentController extends BaseController
 
         $model->member_id      = self::getCurrentId();
         $model->parent_id      = $request->parent_id ?? 0;
-        $model->information_id = $request->information_id;
+        $model->community_id = $request->community_id;
         $model->content        = $request->content;
         $model->save();
 
