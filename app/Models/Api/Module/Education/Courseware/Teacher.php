@@ -1,15 +1,15 @@
 <?php
-namespace App\Models\Api\Module\Education\Courseware\Relevance;
+namespace App\Models\Api\Module\Education\Courseware;
 
-use App\Models\Common\Module\Education\Courseware\Relevance\Level as Common;
+use App\Models\Common\Module\Education\Courseware\Teacher as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-10-23
+ * @dateTime 2021-06-24
  *
- * 课件级别模型类
+ * 课件分类模型类
  */
-class Level extends Common
+class Teacher extends Common
 {
   // 隐藏的属性
   public $hidden = [

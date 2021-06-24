@@ -1,18 +1,18 @@
 <?php
-namespace App\Models\Common\Module\Education\Courseware\Relevance\Relevance\Relevance;
+namespace App\Models\Common\Module\Education\Courseware;
 
 use App\Models\Base;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-08
+ * @dateTime 2021-06-23
  *
  * 课件知识点模型类
  */
 class Point extends Base
 {
   // 表名
-  public $table = "module_courseware_level_unit_point";
+  public $table = "module_courseware_point";
 
   // 隐藏的属性
   public $hidden = [
@@ -30,7 +30,7 @@ class Point extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-06
+   * @dateTime 2021-06-23
    * ------------------------------------------
    * 课件知识点与课件关联函数
    * ------------------------------------------
@@ -41,47 +41,17 @@ class Point extends Base
    */
   public function courseware()
   {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Courseware', 'courseware_id', 'id');
+    return $this->belongsTo(
+      'App\Models\Common\Module\Education\Courseware',
+      'courseware_id',
+      'id'
+    );
   }
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-06
-   * ------------------------------------------
-   * 课件知识点与课件级别关联函数
-   * ------------------------------------------
-   *
-   * 课件知识点与课件级别关联函数
-   *
-   * @return [关联对象]
-   */
-  public function level()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Relevance\Level', 'level_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-08
-   * ------------------------------------------
-   * 课件知识点与课件单元关联函数
-   * ------------------------------------------
-   *
-   * 课件知识点与课件单元关联函数
-   *
-   * @return [关联对象]
-   */
-  public function unit()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Relevance\Relevance\Unit', 'unit_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-08
+   * @dateTime 2021-06-23
    * ------------------------------------------
    * 课件知识点与会员课件知识点关联函数
    * ------------------------------------------
@@ -98,7 +68,6 @@ class Point extends Base
       'id'
     );
   }
-
 
 
   /**

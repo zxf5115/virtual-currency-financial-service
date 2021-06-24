@@ -1,5 +1,5 @@
 <?php
-namespace App\Models\Common\Module\Education\Courseware;
+namespace App\Models\Common\Module\Education;
 
 use App\Models\Base;
 use App\Enum\Module\Education\CoursewareEnum;
@@ -42,17 +42,53 @@ class Courseware extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-01-20
    * ------------------------------------------
-   * 是否为永久课程封装
+   * 是否上架课程封装
    * ------------------------------------------
    *
-   * 是否为永久课程封装
+   * 是否上架课程封装
    *
    * @param int $value [数据库存在的值]
    * @return 状态值
    */
-  public function getIsPermanentAttribute($value)
+  public function getIsShelfAttribute($value)
   {
-    return CoursewareEnum::getIsPermanentStatus($value);
+    return CoursewareEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-01-20
+   * ------------------------------------------
+   * 是否试看课程封装
+   * ------------------------------------------
+   *
+   * 是否试看课程封装
+   *
+   * @param int $value [数据库存在的值]
+   * @return 状态值
+   */
+  public function getIsTrialAttribute($value)
+  {
+    return CoursewareEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-01-20
+   * ------------------------------------------
+   * 是否推荐课程封装
+   * ------------------------------------------
+   *
+   * 是否推荐课程封装
+   *
+   * @param int $value [数据库存在的值]
+   * @return 状态值
+   */
+  public function getIsRecommendAttribute($value)
+  {
+    return CoursewareEnum::getStatus($value);
   }
 
 
@@ -60,55 +96,20 @@ class Courseware extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-09-25
+   * @dateTime 2021-06-08
    * ------------------------------------------
-   * 课件与课程关联函数
-   * ------------------------------------------
-   *
-   * 课件与课程关联函数
-   *
-   * @return [关联对象]
-   */
-  public function course()
-  {
-    return $this->hasMany('App\Models\Common\Module\Education\Course\Course', 'courseware_id', 'id')
-                ->where(['status'=>1]);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-09-25
-   * ------------------------------------------
-   * 课件与课件级别关联函数
+   * 课件与课件分类关联函数
    * ------------------------------------------
    *
-   * 课件与课件级别关联函数
+   * 课件与课件分类关联函数
    *
    * @return [关联对象]
    */
-  public function level()
+  public function category()
   {
-    return $this->hasMany('App\Models\Common\Module\Education\Courseware\Relevance\Level', 'courseware_id', 'id')
-                ->where(['status'=>1]);
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-08
-   * ------------------------------------------
-   * 课件与会员课程关联函数
-   * ------------------------------------------
-   *
-   * 课件与会员课程关联函数
-   *
-   * @return [关联对象]
-   */
-  public function memberCourse()
-  {
-    return $this->hasMany(
-      'App\Models\Common\Module\Member\Relevance\Course',
-      'courseware_id',
+    return $this->belongsTo(
+      'App\Models\Common\Module\Education\Courseware\Category',
+      'category_id',
       'id'
     );
   }
@@ -116,22 +117,22 @@ class Courseware extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-08
+   * @dateTime 2020-09-25
    * ------------------------------------------
-   * 课件与会员课件单元关联函数
+   * 课件与课件知识点关联函数
    * ------------------------------------------
    *
-   * 课件与会员课件单元关联函数
+   * 课件与课件知识点关联函数
    *
    * @return [关联对象]
    */
-  public function memberUnit()
+  public function point()
   {
     return $this->hasMany(
-      'App\Models\Common\Module\Member\Relevance\Relevance\Unit',
+      'App\Models\Common\Module\Education\Courseware\Point',
       'courseware_id',
       'id'
-    );
+    )->where(['status'=>1]);
   }
 
 
@@ -148,11 +149,11 @@ class Courseware extends Base
    */
   public function memberPoint()
   {
-    return $this->hasMany(
-      'App\Models\Common\Module\Member\Relevance\Relevance\Relevance\Point',
-      'courseware_id',
-      'id'
-    );
+    // return $this->hasMany(
+    //   'App\Models\Common\Module\Member\Relevance\Relevance\Relevance\Point',
+    //   'courseware_id',
+    //   'id'
+    // );
   }
 
 
@@ -173,9 +174,7 @@ class Courseware extends Base
     parent::boot();
 
     static::updated(function($model) {
-      $model->memberCourse()->update(['status' => -1]);
-      $model->memberUnit()->update(['status' => -1]);
-      $model->memberPoint()->update(['status' => -1]);
+      // $model->memberPoint()->update(['status' => -1]);
     });
   }
 }

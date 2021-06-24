@@ -1,46 +1,32 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Education\Course\Relevance;
+namespace App\Http\Controllers\Platform\Module\Education\Courseware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
-use App\Models\Common\Module\Education\Course\Relevance\Question;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-09
+ * @dateTime 2021-06-23
  *
- * 课程礼包控制器类
+ * 课程知识点分类控制器类
  */
-class UnlockController extends BaseController
+class CategoryController extends BaseController
 {
-  protected $_model = 'App\Models\Platform\Module\Education\Course\Relevance\Unlock';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Education\Courseware\Category';
 
-  // 默认查询条件
-  protected $_where = [];
 
-  // 查询条件
-  protected $_params = [
-    'title',
-  ];
-
-  // 附加关联查询条件
-  protected $_addition = [];
-
+  // 排序条件
   protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
+    ['key' => 'sort', 'value' => 'desc'],
   ];
-
-  // 关联数组
-  protected $_relevance = [];
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-06-23
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -53,13 +39,11 @@ class UnlockController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'section.required'  => '请您输入章节',
-      'duration.required' => '请您输入时长',
+      'title.required'  => '请您输入知识点分类标题',
     ];
 
     $rule = [
-      'section'  => 'required',
-      'duration' => 'required',
+      'title' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -75,15 +59,10 @@ class UnlockController extends BaseController
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
-        $section = $request->section;
-        $duration = $request->duration;
-
         $model->organization_id = self::getOrganizationId();
-        $model->title           = $section . '节/'. $duration . '天';
-        $model->section         = $section;
-        $model->duration        = $duration;
-
-        $response = $model->save();
+        $model->title           = $request->title;
+        $model->sort            = $request->sort;
+        $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }

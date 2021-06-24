@@ -1,8 +1,7 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Education\Courseware;
+namespace App\Http\Controllers\Platform\Module\Education;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
@@ -10,30 +9,36 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-05
+ * @dateTime 2021-06-23
  *
  * 课件控制器类
  */
 class CoursewareController extends BaseController
 {
-  protected $_model = 'App\Models\Platform\Module\Education\Courseware\Courseware';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Education\Courseware';
 
-  protected $_where = [];
-
+  // 客户端搜索字段
   protected $_params = [
     'title'
   ];
 
+  // 排序方式
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
   ];
 
-  protected $_relevance = [];
+  // 关联对象
+  protected $_relevance = [
+    'list' => [
+      'category'
+    ]
+  ];
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-06-23
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -46,11 +51,21 @@ class CoursewareController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'title.required' => '请您输入分类标题'
+      'category_id.required' => '请您输入课件分类',
+      'teacher_id.required'  => '请您输入课件老师',
+      'code.required'        => '请您输入课件编号',
+      'title.required'       => '请您输入课件标题',
+      'picture.required'     => '请您上传课件封面',
+      'money.required'       => '请您输入课件价格',
     ];
 
     $rule = [
-      'title' => 'required'
+      'category_id' => 'required',
+      'teacher_id'  => 'required',
+      'code'        => 'required',
+      'title'       => 'required',
+      'picture'     => 'required',
+      'money'       => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -67,27 +82,20 @@ class CoursewareController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
+        $model->code            = $request->code;
         $model->title           = $request->title;
-        $model->description     = $request->description;
-        $model->is_permanent    = $request->is_permanent;
+        $model->content         = $request->content;
+        $model->picture         = $request->picture;
+        $model->category_id     = $request->category_id;
+        $model->teacher_id      = $request->teacher_id;
+        $model->money           = $request->money;
+        $model->is_shelf        = $request->is_shelf;
+        $model->is_trial        = $request->is_trial;
+        $model->is_recommend    = $request->is_recommend;
         $model->sort            = $request->sort ?? 0;
+        $model->save();
 
-        if(!empty($request->valid_time))
-        {
-          $model->start_time      = strtotime($request->valid_time[0]);
-          $model->end_time        = strtotime($request->valid_time[1]);
-        }
-
-        $response = $model->save();
-
-        if($response)
-        {
-          return self::success(Code::message(Code::HANDLE_SUCCESS));
-        }
-        else
-        {
-          return self::error(Code::HANDLE_FAILURE);
-        }
+        return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
@@ -118,8 +126,9 @@ class CoursewareController extends BaseController
     {
       $model = $this->_model::find($request->id);
 
-      $model->status = $model->status['value'] == 1 ? 2 : 1;
+      $field = $request->field;
 
+      $model->$field = $request->value;
       $model->save();
 
       return self::success(Code::message(Code::HANDLE_SUCCESS));

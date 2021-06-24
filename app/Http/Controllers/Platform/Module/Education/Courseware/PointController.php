@@ -1,8 +1,7 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Education\Courseware\Relevance\Relevance\Relevance;
+namespace App\Http\Controllers\Platform\Module\Education\Courseware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
@@ -10,32 +9,30 @@ use App\Http\Controllers\Platform\BaseController;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-05
+ * @dateTime 2021-06-23
  *
- * 课程级别控制器类
+ * 课程知识点控制器类
  */
 class PointController extends BaseController
 {
-  protected $_model = 'App\Models\Platform\Module\Education\Courseware\Relevance\Relevance\Relevance\Point';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Education\Courseware\Point';
 
-  protected $_where = [];
-
+  // 客户端搜索字段
   protected $_params = [
     'title',
-    'courseware_id',
-    'level_id',
-    'unit_id'
+    'courseware_id'
   ];
 
+  // 排序方式
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
   ];
 
+  // 关联对象
   protected $_relevance = [
     'list' => [
-      'courseware',
-      'level',
-      'unit',
+      'courseware'
     ]
   ];
 
@@ -75,25 +72,25 @@ class PointController extends BaseController
     }
     else
     {
-      $model = $this->_model::firstOrNew(['id' => $request->id]);
-
-      $model->organization_id = self::getOrganizationId();
-      $model->courseware_id   = $request->courseware_id;
-      $model->level_id        = $request->level_id;
-      $model->unit_id         = $request->unit_id;
-      $model->title           = $request->title;
-      $model->picture         = $request->picture;
-      $model->url             = $request->url;
-      $model->sort            = $request->sort;
-
-      $response = $model->save();
-
-      if($response)
+      try
       {
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
+
+        $model->organization_id = self::getOrganizationId();
+        $model->courseware_id   = $request->courseware_id;
+        $model->title           = $request->title;
+        $model->picture         = $request->picture;
+        $model->url             = $request->url;
+        $model->sort            = $request->sort;
+        $model->save();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
-      else
+      catch(\Exception $e)
       {
+        // 记录异常信息
+        self::record($e);
+
         return self::error(Code::HANDLE_FAILURE);
       }
     }

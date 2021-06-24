@@ -1,11 +1,11 @@
 <?php
-namespace App\Models\Api\Module\Education\Courseware\Relevance\Relevance\Relevance;
+namespace App\Models\Api\Module\Education\Courseware;
 
-use App\Models\Common\Module\Education\Courseware\Relevance\Relevance\Relevance\Point as Common;
+use App\Models\Common\Module\Education\Courseware\Point as Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-10-23
+ * @dateTime 2021-06-23
  *
  * 课件知识点模型类
  */

@@ -1,46 +1,37 @@
 <?php
-namespace App\Http\Controllers\Platform\Module\Education\Course\Relevance;
+namespace App\Http\Controllers\Platform\Module\Education\Courseware;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
-use App\Models\Common\Module\Education\Course\Relevance\Question;
+
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-10-21
+ * @dateTime 2021-06-24
  *
- * 课程礼包控制器类
+ * 课件老师控制器类
  */
-class PresentController extends BaseController
+class TeacherController extends BaseController
 {
-  protected $_model = 'App\Models\Platform\Module\Education\Course\Relevance\Present';
+  // 模型名称
+  protected $_model = 'App\Models\Platform\Module\Education\Courseware\Teacher';
 
-  // 默认查询条件
-  protected $_where = [];
-
-  // 查询条件
+  // 客户端搜索字段
   protected $_params = [
-    'title',
+    'title'
   ];
 
-  // 附加关联查询条件
-  protected $_addition = [];
-
+  // 排序方式
   protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
+    ['key' => 'sort', 'value' => 'desc'],
   ];
-
-  // 关联数组
-  protected $_relevance = [];
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-12
+   * @dateTime 2021-06-23
    * ------------------------------------------
    * 操作信息
    * ------------------------------------------
@@ -53,11 +44,15 @@ class PresentController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'title.required'   => '请您输入礼包名称',
+      'title.required'   => '请您输入讲师姓名',
+      'picture.required' => '请您上传讲师头像',
+      'mobile.required'  => '请您输入讲师电话',
     ];
 
     $rule = [
-      'title' => 'required'
+      'title'   => 'required',
+      'picture' => 'required',
+      'mobile'  => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -75,9 +70,12 @@ class PresentController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->title           = $request->title;
-        $model->description     = $request->description ?? '';
-
-        $response = $model->save();
+        $model->content         = $request->content;
+        $model->picture         = $request->picture;
+        $model->mobile          = $request->mobile;
+        $model->position        = $request->position;
+        $model->sort            = $request->sort ?? 0;
+        $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
