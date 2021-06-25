@@ -29,7 +29,7 @@ class ShareController extends BaseController
   /**
    * @api {post} /api/member/share/data 01. 会员分享数据
    * @apiDescription 获取学员分享配置
-   * @apiGroup 31. 会员分享模块
+   * @apiGroup 32. 会员分享模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

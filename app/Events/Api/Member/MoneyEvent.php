@@ -10,26 +10,24 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 佣金事件
+ * 金额事件
  */
 class MoneyEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $type      = null;
-  public $money     = null;
   public $member_id = null;
+  public $money     = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($type, $money, $member_id)
+  public function __construct($member_id, $money)
   {
-    $this->type      = $type;
-    $this->money     = $money;
     $this->member_id = $member_id;
+    $this->money     = $money;
   }
 
   /**

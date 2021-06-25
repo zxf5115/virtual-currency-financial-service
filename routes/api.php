@@ -237,9 +237,15 @@ $api->version('v1', [
 
           // 会员资产路由
           $api->group(['prefix'  => 'asset'], function ($api) {
-            $api->get('list', 'AssetController@list');
-            $api->get('income', 'AssetController@income');
-            $api->get('expend', 'AssetController@expend');
+            $api->get('data', 'AssetController@data');
+          });
+
+          // 会员资产明细路由
+          $api->group(['prefix'  => 'money'], function ($api) {
+            $api->get('list', 'MoneyController@list');
+            $api->get('income', 'MoneyController@income');
+            $api->get('expend', 'MoneyController@expend');
+            $api->post('handle', 'MoneyController@handle');
           });
 
           // 会员消息路由
