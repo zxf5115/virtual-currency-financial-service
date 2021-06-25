@@ -248,7 +248,10 @@ $api->version('v1', [
             $api->post('finish', 'NoticeController@finish');
           });
 
-
+          // 会员分享路由
+          $api->group(['prefix'  => 'share'], function ($api) {
+            $api->get('data', 'ShareController@data');
+          });
 
 
           // 会员关注路由
@@ -455,69 +458,32 @@ $api->version('v1', [
       $api->group(['namespace' => 'Education', 'prefix' => 'education'], function ($api) {
 
         // 课件路由
-        $api->group(['namespace' => 'Courseware', 'prefix' => 'courseware'], function ($api) {
+        $api->group(['prefix' => 'courseware'], function ($api) {
           $api->any('list', 'CoursewareController@list');
-          $api->get('select', 'CoursewareController@select');
+          $api->get('recommend', 'CoursewareController@recommend');
           $api->get('view/{id}', 'CoursewareController@view');
-          $api->get('index', 'CoursewareController@index');
 
           // 课件级别
-          $api->group(['namespace' => 'Relevance', 'prefix' => 'level'], function ($api) {
-            $api->any('list', 'LevelController@list');
-            $api->get('select', 'LevelController@select');
-            $api->get('view/{id}', 'LevelController@view');
+          $api->group(['namespace' => 'Courseware'], function ($api) {
 
-            // 课件单元
-            $api->group(['namespace' => 'Relevance', 'prefix' => 'unit'], function ($api) {
-              $api->any('list', 'UnitController@list');
-              $api->get('select', 'UnitController@select');
-              $api->get('unlock', 'UnitController@unlock');
-              $api->get('view/{id}', 'UnitController@view');
-
-              // 课件知识点
-              $api->group(['namespace' => 'Relevance', 'prefix' => 'point'], function ($api) {
-                $api->any('list', 'PointController@list');
-                $api->get('select', 'PointController@select');
-                $api->get('view/{id}', 'PointController@view');
-              });
+            // 课件分类
+            $api->group(['prefix' => 'category'], function ($api) {
+              $api->get('select', 'CategoryController@select');
             });
-          });
-        });
 
-
-        // 课程路由
-        $api->group(['namespace' => 'Course', 'prefix' => 'course'], function ($api) {
-          $api->any('list', 'CourseController@list');
-          $api->get('select', 'CourseController@select');
-          $api->get('view/{id}', 'CourseController@view');
-
-          $api->group(['namespace' => 'Relevance'], function ($api) {
-
-            // 课程老师路由
+            // 课件老师
             $api->group(['prefix' => 'teacher'], function ($api) {
-              $api->any('list', 'TeacherController@list');
               $api->get('select', 'TeacherController@select');
               $api->get('view/{id}', 'TeacherController@view');
             });
 
-            // 课程礼包路由
-            $api->group(['prefix' => 'present'], function ($api) {
-              $api->any('list', 'PresentController@list');
-              $api->get('select', 'PresentController@select');
-              $api->get('view/{id}', 'PresentController@view');
+            // 课件知识点
+            $api->group(['prefix' => 'point'], function ($api) {
+              $api->any('list', 'PointController@list');
+              $api->get('select', 'PointController@select');
+              $api->get('view/{id}', 'PointController@view');
             });
 
-            // 课程解锁路由
-            $api->group(['prefix' => 'unlock'], function ($api) {
-              $api->any('list', 'UnlockController@list');
-              $api->get('select', 'UnlockController@select');
-              $api->get('view/{id}', 'UnlockController@view');
-            });
-
-            // 课程分享路由
-            $api->group(['prefix' => 'share'], function ($api) {
-              $api->get('data', 'ShareController@data');
-            });
           });
         });
       });

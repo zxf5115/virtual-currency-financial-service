@@ -114,6 +114,27 @@ class Courseware extends Base
     );
   }
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-08
+   * ------------------------------------------
+   * 课件与课件老师关联函数
+   * ------------------------------------------
+   *
+   * 课件与课件老师关联函数
+   *
+   * @return [关联对象]
+   */
+  public function teacher()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Education\Courseware\Teacher',
+      'teacher_id',
+      'id'
+    );
+  }
+
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]

@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member\Course\Unit;
+namespace App\Events\Api\Education\Courseware\Point;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,29 +10,22 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 解锁课程单元知识点事件
+ * 课程知识点浏览事件
  */
-class UnlockEvent
+class WatchEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $member_id     = null;
-  public $course_id     = null;
-  public $courseware_id = null;
-  public $level_id      = null;
-
+  public $data_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($request)
+  public function __construct($data_id)
   {
-    $this->member_id     = auth('api')->user()->id;
-    $this->course_id     = $request['course_id'];
-    $this->courseware_id = $request['courseware_id'];
-    $this->level_id      = $request['level_id'];
+    $this->data_id = $data_id;
   }
 
   /**

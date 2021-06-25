@@ -141,6 +141,13 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Api\Information\BrowseEvent' => [
             'App\Listeners\Api\Information\BrowseListeners',
         ],
+
+
+
+        // 课程知识点浏览
+        'App\Events\Api\Education\Courseware\Point\WatchEvent' => [
+            'App\Listeners\Api\Education\Courseware\Point\WatchListeners',
+        ],
     ];
 
     /**
