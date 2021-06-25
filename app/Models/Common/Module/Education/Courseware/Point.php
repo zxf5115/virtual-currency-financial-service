@@ -62,11 +62,11 @@ class Point extends Base
    */
   public function memberPoint()
   {
-    return $this->hasMany(
-      'App\Models\Common\Module\Member\Relevance\Relevance\Relevance\Point',
-      'point_id',
-      'id'
-    );
+    // return $this->hasMany(
+    //   'App\Models\Common\Module\Member\Relevance\Relevance\Relevance\Point',
+    //   'point_id',
+    //   'id'
+    // );
   }
 
 
@@ -86,7 +86,7 @@ class Point extends Base
     parent::boot();
 
     static::updated(function($model) {
-      $model->memberPoint()->update(['status' => -1]);
+      // $model->memberPoint()->update(['status' => -1]);
     });
   }
 }
