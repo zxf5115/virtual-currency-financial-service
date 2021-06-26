@@ -409,38 +409,29 @@ $api->version('v1', [
             $api->post('delete', 'AddressController@delete');
           });
 
-          // 会员点赞路由
-          $api->group(['prefix'  => 'approval'], function ($api) {
-            $api->get('list', 'ApprovalController@list');
-            $api->get('select', 'ApprovalController@select');
-            $api->post('status', 'ApprovalController@status');
-            $api->post('handle', 'ApprovalController@handle');
-          });
 
           // 会员课程路由
-          $api->group(['prefix'  =>  'course'], function ($api) {
-            $api->get('list', 'CourseController@list');
-            $api->get('select', 'CourseController@select');
-            $api->get('center', 'CourseController@center');
-            $api->get('view/{id}', 'CourseController@view');
-            $api->get('status/{id}', 'CourseController@status');
-            $api->get('addition/{id}', 'CourseController@addition');
-            $api->post('apply', 'CourseController@apply');
-            $api->post('finish', 'CourseController@finish');
+          $api->group(['prefix'  =>  'courseware'], function ($api) {
+            $api->get('list', 'CoursewareController@list');
+            $api->get('select', 'CoursewareController@select');
+            $api->get('center', 'CoursewareController@center');
+            $api->get('view/{id}', 'CoursewareController@view');
+            $api->get('status/{id}', 'CoursewareController@status');
+            $api->get('addition/{id}', 'CoursewareController@addition');
+            $api->post('apply', 'CoursewareController@apply');
+            $api->post('finish', 'CoursewareController@finish');
 
-            // 会员课程单元路由
-            $api->group(['namespace' => 'Relevance', 'prefix'  =>  'unit'], function ($api) {
-              $api->get('list', 'UnitController@list');
-              $api->get('select', 'UnitController@select');
-              $api->get('view/{id}', 'UnitController@view');
+            // 会员课程知识点路由
+            $api->group(['namespace' => 'Courseware', 'prefix'  =>  'point'], function ($api) {
+              $api->get('list', 'PointController@list');
+              $api->get('select', 'PointController@select');
+              $api->get('view/{id}', 'PointController@view');
 
-              // 会员课程单元知识点路由
-              $api->group(['namespace' => 'Relevance', 'prefix'  =>  'point'], function ($api) {
-                $api->get('list', 'PointController@list');
-                $api->get('select', 'PointController@select');
-                $api->get('view/{id}', 'PointController@view');
-                $api->get('status/{id}', 'PointController@status');
-                $api->post('finish', 'PointController@finish');
+              // 会员课程知识点点赞路由
+              $api->group(['namespace' => 'Point', 'prefix'  =>  'approval'], function ($api) {
+                $api->get('list', 'ApprovalController@list');
+                $api->get('status', 'ApprovalController@status');
+                $api->post('handle', 'ApprovalController@handle');
               });
             });
           });

@@ -471,16 +471,23 @@ class BaseController extends Controller
    * @param string $field 关联字段
    * @return [type]
    */
-  public static function packRelevanceData($request, $field)
+  public static function packRelevanceData($request, $field, $is_json = false)
   {
     $response = [];
 
-    if(empty($request->$field))
+    $result = $request->$field;
+
+    if($is_json)
+    {
+      $result = json_decode($request->$field, true);
+    }
+
+    if(empty($result))
     {
       return $response;
     }
 
-    foreach($request->$field as $key => $item)
+    foreach($result as $key => $item)
     {
       $response[$key][$field]        = $item;
       $response[$key]['organization_id'] = static::getOrganizationId();

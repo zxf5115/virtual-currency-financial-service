@@ -10,24 +10,24 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 解锁课程单元知识点事件
+ * 课程知识点点赞事件
  */
-class UnlockEvent
+class ApprovalEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $point_id = null;
-
+  public $status = null;
+  public $data_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($request)
+  public function __construct($status, $data_id)
   {
-    $this->member_id = auth('api')->user()->id;
-    $this->point_id  = $request['id'];
+    $this->status  = $status;
+    $this->data_id = $data_id;
   }
 
   /**

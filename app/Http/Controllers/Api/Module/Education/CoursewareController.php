@@ -94,7 +94,7 @@ class CoursewareController extends BaseController
   /**
    * @api {get} /api/education/courseware/recommend 02. 推荐课程
    * @apiDescription 获取推荐课程数据
-   * @apiGroup 41. 课程模块 total
+   * @apiGroup 41. 课程模块
    *
    * @apiParam {int} category_id 课程分类编号
    * @apiParam {int} total 显示数量，默认显示4个

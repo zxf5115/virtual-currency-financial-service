@@ -119,6 +119,19 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\Order\GoodsListeners',
         ],
 
+
+
+
+
+        // 课程知识点点赞
+        'App\Events\Api\Member\Courseware\Point\ApprovalEvent' => [
+            'App\Listeners\Api\Member\Courseware\Point\ApprovalListeners',
+        ],
+
+
+
+
+
         // 支付
         'App\Events\Api\Member\Order\PayEvent' => [
             'App\Listeners\Api\Member\Order\PayListeners',
