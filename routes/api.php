@@ -307,6 +307,15 @@ $api->version('v1', [
           });
 
 
+          // 购物车路由
+          $api->group(['prefix'  => 'cart'], function ($api) {
+            $api->get('select', 'CartController@select');
+            $api->post('add', 'CartController@add');
+            $api->post('change', 'CartController@change');
+            $api->post('delete', 'CartController@delete');
+          });
+
+
           // 会员快讯路由
           $api->group(['namespace' => 'Flash', 'prefix'  => 'flash'], function ($api) {
 
@@ -394,22 +403,6 @@ $api->version('v1', [
           });
 
 
-
-
-
-
-
-          // 会员送货地址路由
-          $api->group(['prefix'  => 'address'], function ($api) {
-            $api->get('list', 'AddressController@list');
-            $api->get('select', 'AddressController@select');
-            $api->get('view/{id}', 'AddressController@view');
-            $api->get('default', 'AddressController@default');
-            $api->post('handle', 'AddressController@handle');
-            $api->post('delete', 'AddressController@delete');
-          });
-
-
           // 会员课程路由
           $api->group(['prefix'  =>  'courseware'], function ($api) {
             $api->get('list', 'CoursewareController@list');
@@ -435,16 +428,6 @@ $api->version('v1', [
               });
             });
           });
-
-
-          // 会员评论路由
-          $api->group(['prefix'  => 'comment'], function ($api) {
-            $api->get('list', 'CommentController@list');
-            $api->get('select', 'CommentController@select');
-            $api->post('handle', 'CommentController@handle');
-          });
-
-
 
         });
       });
