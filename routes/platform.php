@@ -419,7 +419,35 @@ $api->version('v1', [
             });
           });
         });
+      });
 
+
+
+
+
+      // 货币路由
+      $api->group(['prefix' => 'currency'], function ($api) {
+
+        $api->group(['namespace' => 'Currency'], function ($api) {
+          // 货币种类
+          $api->group(['prefix' => 'category'], function ($api) {
+            $api->get('list', 'CategoryController@list');
+            $api->get('select', 'CategoryController@select');
+            $api->get('view/{id}', 'CategoryController@view');
+            $api->post('status', 'CategoryController@status');
+            $api->post('handle', 'CategoryController@handle');
+            $api->post('delete/{id?}', 'CategoryController@delete');
+          });
+
+          // 货币交易
+          $api->group(['prefix' => 'symbol'], function ($api) {
+            $api->get('list', 'SymbolController@list');
+            $api->get('select', 'SymbolController@select');
+            $api->get('view/{id}', 'SymbolController@view');
+            $api->post('handle', 'SymbolController@handle');
+            $api->post('delete/{id?}', 'SymbolController@delete');
+          });
+        });
       });
 
 

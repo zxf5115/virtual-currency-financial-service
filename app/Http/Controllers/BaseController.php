@@ -72,6 +72,7 @@ class BaseController extends Controller
     // 模糊查询
     'like' => [
       'name',
+      'code',
       'title',
       'mobile',
       'content',

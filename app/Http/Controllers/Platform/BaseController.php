@@ -36,6 +36,7 @@ class BaseController extends Common
     // 模糊查询
     'like' => [
       'name',
+      'code',
       'title',
       'mobile',
       'nickname',
@@ -44,6 +45,7 @@ class BaseController extends Common
       'realname',
       'order_no',
       'weixin',
+      'symbol',
     ],
     // 时间查询
     'time' => [

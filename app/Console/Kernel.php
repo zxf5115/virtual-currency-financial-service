@@ -5,9 +5,9 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Crontab\Platform\Clear;
-use App\Crontab\Platform\Notice;
-use App\Crontab\Platform\Course;
 use App\Models\Platform\System\Config;
+use App\Crontab\Platform\Currency\Symbol;
+use App\Crontab\Platform\Currency\Category;
 
 class Kernel extends ConsoleKernel
 {
@@ -30,6 +30,11 @@ class Kernel extends ConsoleKernel
   {
     try
     {
+      define('ACCOUNT_ID', '123456');
+      define('ACCESS_KEY','XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXX');
+      define('SECRET_KEY', 'XXXXXXX-XXXXXXX-XXXXXX-XXXXX');
+
+
       // 清除日期（每月几号）
       // $clear_time = Config::getConfigValue('clear_time');
 
@@ -39,17 +44,20 @@ class Kernel extends ConsoleKernel
       //   $clear->action();
       // })->monthlyOn($clear_time, '04:00');
 
-      // 定时通知管理发货
+      // 定时获取货币交易对
       $schedule->call(function () {
-        $clear = new Notice();
-        $clear->action();
-      })->dailyAt('05：00');
+        $currency = new Symbol();
+        $currency->action();
+      })->quarterly();
+      // })->everyMinute();
 
-      // 定时下架结束的循环课程
+
+      // 定时获取货币种类
       $schedule->call(function () {
-        $course = new Course();
-        $course->action();
-      })->dailyAt('04:30');
+        $currency = new Category();
+        $currency->action();
+      })->quarterly();
+      // })->everyMinute();
     }
     catch(\Exception $e)
     {

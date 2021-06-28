@@ -9415,5 +9415,518 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/Community/CollectionController.php",
     "groupTitle": "74._社区收藏模块",
     "name": "PostApiMemberCommunityCollectionStatus"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/defi",
+    "title": "04. DeFi货币种类",
+    "description": "<p>获取主流货币种类数据</p>",
+    "group": "80._货币种类模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量，默认显示24个</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/defi"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategoryDefi"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/hot",
+    "title": "02. 热门货币种类",
+    "description": "<p>获取热门货币种类数据</p>",
+    "group": "80._货币种类模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量，默认显示8个</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/hot"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategoryHot"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/list?page={page}",
+    "title": "01. 货币种类列表",
+    "description": "<p>获取货币种类分页列表</p>",
+    "group": "80._货币种类模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币标题</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategoryListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/main",
+    "title": "03. 主流货币种类",
+    "description": "<p>获取主流货币种类数据</p>",
+    "group": "80._货币种类模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量，默认显示8个</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/main"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategoryMain"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/view/{id}",
+    "title": "05. 货币种类详情",
+    "description": "<p>获取货币种类详情</p>",
+    "group": "80._货币种类模块",
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategoryViewId"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/symbol/list?page={page}",
+    "title": "01. 货币交易对列表",
+    "description": "<p>获取货币交易对分页列表</p>",
+    "group": "81._货币交易对模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "symbol",
+            "description": "<p>货币标题</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "symbol",
+            "description": "<p>交易对</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "base_currency",
+            "description": "<p>交易对中的基础币种</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "quote_currency",
+            "description": "<p>交易对中的报价币种</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "state",
+            "description": "<p>交易对状态</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/symbol/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/SymbolController.php",
+    "groupTitle": "81._货币交易对模块",
+    "name": "GetApiCurrencySymbolListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/symbol/view/{id}",
+    "title": "02. 货币交易对详情",
+    "description": "<p>获取货币交易对详情</p>",
+    "group": "81._货币交易对模块",
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "symbol",
+            "description": "<p>交易对</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "base_currency",
+            "description": "<p>交易对中的基础币种</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "quote_currency",
+            "description": "<p>交易对中的报价币种</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "state",
+            "description": "<p>交易对状态</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/symbol/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/SymbolController.php",
+    "groupTitle": "81._货币交易对模块",
+    "name": "GetApiCurrencySymbolViewId"
   }
 ] });

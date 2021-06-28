@@ -202,6 +202,28 @@ $api->version('v1', [
       });
 
 
+      // 货币路由
+      $api->group(['prefix' => 'currency'], function ($api) {
+
+        $api->group(['namespace' => 'Currency'], function ($api) {
+          // 货币种类
+          $api->group(['prefix' => 'category'], function ($api) {
+            $api->get('list', 'CategoryController@list');
+            $api->get('hot', 'CategoryController@hot');
+            $api->get('main', 'CategoryController@main');
+            $api->get('defi', 'CategoryController@defi');
+            $api->get('view/{id}', 'CategoryController@view');
+          });
+
+          // 货币符号
+          $api->group(['prefix' => 'symbol'], function ($api) {
+            $api->get('list', 'SymbolController@list');
+            $api->get('view/{id}', 'SymbolController@view');
+          });
+        });
+      });
+
+
       // 贵宾路由
       $api->group(['prefix'  => 'vip'], function ($api) {
         $api->get('list', 'VipController@list');
