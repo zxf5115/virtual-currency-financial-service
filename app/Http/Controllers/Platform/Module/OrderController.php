@@ -2,8 +2,11 @@
 namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 use App\Http\Constant\Code;
+use App\Exports\OrderExport;
+use App\Models\Platform\System\Config;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -96,6 +99,57 @@ class OrderController extends BaseController
 
         return self::error(Code::HANDLE_FAILURE);
       }
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 导出订单
+   * ------------------------------------------
+   *
+   * 导出订单
+   *
+   * @param Request $request [description]
+   * @return [type]
+   */
+  public function export(Request $request)
+  {
+    try
+    {
+      $condition = self::getBaseWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      $relevance = self::getRelevanceData($this->_relevance, 'select');
+
+      $response = $this->_model::getList($condition, $relevance, $this->_order);
+
+      $dir = 'public/';
+
+      $filename = 'excel/'. '订单记录_'.time().'.xlsx';
+
+      Excel::store(new OrderExport($response), $dir . $filename);
+
+      $url = Config::getConfigValue('web_url');
+
+      $url = $url . '/storage/' . $filename;
+
+
+
+      return self::success($url);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
     }
   }
 }
