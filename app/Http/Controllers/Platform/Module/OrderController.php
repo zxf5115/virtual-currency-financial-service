@@ -20,6 +20,7 @@ class OrderController extends BaseController
   // 查询条件
   protected $_params = [
     'order_no',
+    'order_status',
   ];
 
   // 附加关联查询条件
@@ -28,7 +29,7 @@ class OrderController extends BaseController
       'title',
     ],
     'member' => [
-      'nickname',
+      'username',
     ],
   ];
 
@@ -51,44 +52,50 @@ class OrderController extends BaseController
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-29
    * ------------------------------------------
-   * 全部订单支付金额
+   * 取消订单
    * ------------------------------------------
    *
-   * 获取全部订单支付金额
+   * 取消订单
    *
    * @param Request $request 请求参数
    * @return [type]
    */
-  public function money(Request $request)
+  public function cancel(Request $request)
   {
-    try
+    $messages = [
+      'id.required'  => '请您输入订单编号',
+    ];
+
+    $rule = [
+      'id' => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
     {
-      $where = ['pay_status' => 1];
-
-      $condition = self::getBaseWhereData();
-
-      // 对用户请求进行过滤
-      $filter = $this->filter($request->all());
-
-      $condition = array_merge($condition, $this->_where, $filter, $where);
-
-      $data = $this->_model::getPluck('pay_money', $condition, false, false, true);
-
-      $response = 0;
-
-      foreach($data as $item)
-      {
-        $response = bcadd($response, $item, 2);
-      }
-
-      return self::success($response);
+      return $validation['message'];
     }
-    catch(\Exception $e)
+    else
     {
-      // 记录异常信息
-      self::record($e);
+      try
+      {
+        $model = $this->_model::getRow(['id' => $request->id]);
 
-      return self::error(Code::ERROR);
+        $model->order_status = 3;
+        $model->save();
+
+        return self::success(Code::message(Code::HANDLE_SUCCESS));
+
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
     }
   }
 }

@@ -456,8 +456,7 @@ $api->version('v1', [
         $api->any('list', 'OrderController@list');
         $api->get('select', 'OrderController@select');
         $api->get('view/{id}', 'OrderController@view');
-        $api->post('send', 'OrderController@send');
-        $api->get('money', 'OrderController@money');
+        $api->post('cancel', 'OrderController@cancel');
       });
     });
   });

@@ -25,11 +25,10 @@ class SmsEvent
    *
    * @return void
    */
-  public function __construct($type, $mobile, $code)
+  public function __construct($mobile, $type)
   {
     $this->type   = $type;
     $this->mobile = $mobile;
-    $this->code   = $code;
   }
 
   /**

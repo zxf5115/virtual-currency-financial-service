@@ -1,6 +1,7 @@
 <?php
 namespace App\Listeners\Common\Message;
 
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -96,23 +97,16 @@ class SmsListeners
    */
   protected function code($mobile, $code)
   {
-    $sms = app('easysms');
-
     try
     {
-        $sms->send($mobile, [
-            'template' => 'SMS_211830338',
-            'data' => [
-              'code' => $code
-            ]
-        ]);
-    }
-    catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception)
-    {
-      $message = $exception->getException('aliyun')->getMessage();
+      $content = '您当前登录验证码为: ' . $code . ', 10分钟内容有效。';
 
+      $this->send($mobile, $content);
+    }
+    catch (\Exception $e)
+    {
       // 记录异常信息
-      record($message);
+      record($e);
 
       return false;
     }
@@ -134,23 +128,16 @@ class SmsListeners
    */
   protected function registere($mobile, $code)
   {
-    $sms = app('easysms');
-
     try
     {
-        $sms->send($mobile, [
-            'template' => 'SMS_211770338',
-            'data' => [
-              'code' => $code
-            ]
-        ]);
-    }
-    catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception)
-    {
-      $message = $exception->getException('aliyun')->getMessage();
+      $content = '您当前登录验证码为: ' . $code . ', 10分钟内容有效。';
 
+      $this->send($mobile, $content);
+    }
+    catch (\Exception $e)
+    {
       // 记录异常信息
-      record($message);
+      record($e);
 
       return false;
     }
@@ -172,23 +159,16 @@ class SmsListeners
    */
   protected function reset($mobile, $code)
   {
-    $sms = app('easysms');
-
     try
     {
-        $sms->send($mobile, [
-            'template' => 'SMS_211725327',
-            'data' => [
-              'code' => $code
-            ]
-        ]);
-    }
-    catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception)
-    {
-      $message = $exception->getException('aliyun')->getMessage();
+      $content = '您当前登录验证码为: ' . $code . ', 10分钟内容有效。';
 
+      $this->send($mobile, $content);
+    }
+    catch (\Exception $e)
+    {
       // 记录异常信息
-      record($message);
+      record($e);
 
       return false;
     }
@@ -210,23 +190,16 @@ class SmsListeners
    */
   protected function change($mobile, $code)
   {
-    $sms = app('easysms');
-
     try
     {
-        $sms->send($mobile, [
-            'template' => 'SMS_211720306',
-            'data' => [
-              'code' => $code
-            ]
-        ]);
-    }
-    catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception)
-    {
-      $message = $exception->getException('aliyun')->getMessage();
+      $content = '您当前登录验证码为: ' . $code . ', 10分钟内容有效。';
 
+      $this->send($mobile, $content);
+    }
+    catch (\Exception $e)
+    {
       // 记录异常信息
-      record($message);
+      record($e);
 
       return false;
     }
@@ -248,23 +221,16 @@ class SmsListeners
    */
   protected function bind($mobile, $code)
   {
-    $sms = app('easysms');
-
     try
     {
-      $sms->send($mobile, [
-          'template' => 'SMS_211720306',
-          'data' => [
-            'code' => $code
-          ]
-      ]);
-    }
-    catch (\Overtrue\EasySms\Exceptions\NoGatewayAvailableException $exception)
-    {
-      $message = $exception->getException('aliyun')->getMessage();
+      $content = '您当前登录验证码为: ' . $code . ', 10分钟内容有效。';
 
+      $this->send($mobile, $content);
+    }
+    catch (\Exception $e)
+    {
       // 记录异常信息
-      record($message);
+      record($e);
 
       return false;
     }
@@ -323,6 +289,58 @@ class SmsListeners
 
       // 设置验证码时间为10分钟
       Redis::expire($key, 600);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return false;
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-29
+   * ------------------------------------------
+   * 函数功能简述
+   * ------------------------------------------
+   *
+   * 具体描述一些细节
+   *
+   * @param [type] $mobile 要发送电话号码
+   * @param [type] $content 发送内容
+   * @return [type]
+   */
+  public function send($mobile, $content)
+  {
+    try
+    {
+      $url = 'http://m.5c.com.cn/api/send/index.php';
+
+      $data = [
+        'apikey'       => getenv('SMS_APIKEY'),
+        'username'     => getenv('SMS_USERNAME'),
+        'password_md5' => md5(getenv('SMS_PASSWORD')),
+        'type'         => 'send',
+        'encode'       => 'UTF-8',
+        'mobile'       => '86' . $mobile,
+        'content'      => urlencode($content),
+      ];
+
+      $http = new Client();
+
+      $response = $http->post($url, ['form_params' => $data]);
+
+      if(200 == $response->getStatusCode())
+      {
+        return true;
+      }
+      else
+      {
+        record($response->getBody()->getContents());
+      }
     }
     catch(\Exception $e)
     {
