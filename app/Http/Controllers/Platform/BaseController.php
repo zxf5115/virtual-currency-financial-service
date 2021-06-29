@@ -46,6 +46,8 @@ class BaseController extends Common
       'order_no',
       'weixin',
       'symbol',
+      'base_currency',
+      'quote_currency',
     ],
     // 时间查询
     'time' => [

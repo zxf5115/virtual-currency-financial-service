@@ -452,30 +452,12 @@ $api->version('v1', [
 
 
       // 订单路由
-      $api->group(['namespace' => 'Order', 'prefix' => 'order'], function ($api) {
+      $api->group(['prefix' => 'order'], function ($api) {
         $api->any('list', 'OrderController@list');
         $api->get('select', 'OrderController@select');
         $api->get('view/{id}', 'OrderController@view');
         $api->post('send', 'OrderController@send');
         $api->get('money', 'OrderController@money');
-      });
-
-
-
-      // 财务路由
-      $api->group(['namespace' => 'Financial', 'prefix' => 'financial'], function ($api) {
-
-        $api->group(['prefix' => 'report'], function ($api) {
-          $api->get('data', 'ReportController@data');
-          $api->get('proportion', 'ReportController@proportion');
-          $api->get('trend', 'ReportController@trend');
-        });
-
-        $api->group(['prefix' => 'withdrawal'], function ($api) {
-
-          $api->any('list', 'WithdrawalController@list');
-          $api->post('handle', 'WithdrawalController@handle');
-        });
       });
     });
   });

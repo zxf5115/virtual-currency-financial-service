@@ -20,6 +20,8 @@ class SymbolController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'symbol',
+    'base_currency',
+    'quote_currency',
   ];
 
   // 排序条件

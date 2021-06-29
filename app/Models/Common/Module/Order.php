@@ -2,19 +2,18 @@
 namespace App\Models\Common\Module;
 
 use App\Models\Base;
-use App\Http\Constant\Status;
-use App\Enum\Module\Order\CourseEnum;
+use App\Enum\Module\Order\OrderEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-15
+ * @dateTime 2021-06-29
  *
- * 课程订单模型类
+ * 订单模型类
  */
 class Order extends Base
 {
   // 表名
-  protected $table = "module_course_order";
+  protected $table = "module_order";
 
   // 隐藏的属性
   protected $hidden = [
@@ -30,7 +29,7 @@ class Order extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
+   * @dateTime 2021-06-29
    * ------------------------------------------
    * 支付类型封装
    * ------------------------------------------
@@ -42,13 +41,13 @@ class Order extends Base
    */
   public function getPayTypeAttribute($value)
   {
-    return CourseEnum::getTypeStatus($value);
+    return OrderEnum::getTypeStatus($value);
   }
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
+   * @dateTime 2021-06-29
    * ------------------------------------------
    * 订单状态封装
    * ------------------------------------------
@@ -60,13 +59,13 @@ class Order extends Base
    */
   public function getPayStatusAttribute($value)
   {
-    return CourseEnum::getPayStatus($value);
+    return OrderEnum::getPayStatus($value);
   }
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
+   * @dateTime 2021-06-29
    * ------------------------------------------
    * 支付状态封装
    * ------------------------------------------
@@ -78,32 +77,16 @@ class Order extends Base
    */
   public function getOrderStatusAttribute($value)
   {
-    return CourseEnum::getOrderStatus($value);
+    return OrderEnum::getOrderStatus($value);
   }
 
 
   // 关联函数 ------------------------------------------------------
 
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 课程订单与课程关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与课程关联函数
-   *
-   * @return [关联对象]
-   */
-  public function course()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Education\Course\Course', 'course_id', 'id');
-  }
-
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-15
+   * @dateTime 2021-06-29
    * ------------------------------------------
    * 课程订单与课件关联函数
    * ------------------------------------------
@@ -114,30 +97,17 @@ class Order extends Base
    */
   public function courseware()
   {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Courseware', 'courseware_id', 'id');
+    return $this->belongsTo(
+      'App\Models\Common\Module\Education\Courseware',
+      'courseware_id',
+      'id'
+    );
   }
 
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 课程订单与课件级别关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与课件级别关联函数
-   *
-   * @return [关联对象]
-   */
-  public function level()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Education\Courseware\Relevance\Level', 'level_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
+   * @dateTime 2021-06-29
    * ------------------------------------------
    * 课程订单与学员关联函数
    * ------------------------------------------
@@ -148,57 +118,10 @@ class Order extends Base
    */
   public function member()
   {
-    return $this->belongsTo('App\Models\Common\Module\Member', 'member_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 课程订单与收货地址关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与收货地址关联函数
-   *
-   * @return [关联对象]
-   */
-  public function address()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Member\Relevance\Address', 'address_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 课程订单与物流关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与物流关联函数
-   *
-   * @return [关联对象]
-   */
-  public function logistics()
-  {
-    return $this->hasMany('App\Models\Common\Module\Order\Course\Logistics', 'order_id', 'id');
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-16
-   * ------------------------------------------
-   * 课程订单与会员课程关联函数
-   * ------------------------------------------
-   *
-   * 课程订单与会员课程关联函数
-   *
-   * @return [关联对象]
-   */
-  public function memberCourse()
-  {
-    return $this->belongsTo('App\Models\Common\Module\Member\Relevance\Course', 'member_id', 'member_id');
+    return $this->belongsTo(
+      'App\Models\Common\Module\Member',
+      'member_id',
+      'id'
+    );
   }
 }

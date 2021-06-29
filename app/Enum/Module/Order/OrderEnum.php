@@ -3,11 +3,11 @@ namespace App\Enum\Module\Order;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-01-16
+ * @dateTime 2021-06-29
  *
- * 课程订单枚举类
+ * 订单枚举类
  */
-class CourseEnum
+class OrderEnum
 {
   // 支付状态
   const ALI    = 1; // 支付宝
@@ -19,10 +19,10 @@ class CourseEnum
 
 
   // 订单类型
-  const WAIT_SEND   = 0; // 待发货
-  const WAIT_SIGN   = 1; // 待签收
-  const FINISH_SIGN = 2; // 已签收
-  const CANCEL      = 3; // 已取消
+  const WAIT_SEND   = 0; // 待学习
+  const WAIT_SIGN   = 1; // 学习中
+  const FINISH_SIGN = 2; // 已完成
+  const CANCEL      = 3; // 已关闭
 
 
   // 支付类型
@@ -61,22 +61,22 @@ class CourseEnum
   public static $order = [
     self::WAIT_SEND       => [
       'value' => self::WAIT_SEND,
-      'text' => '待发货'
+      'text' => '待学习'
     ],
 
     self::WAIT_SIGN => [
       'value' => self::WAIT_SIGN,
-      'text' => '待签收'
+      'text' => '学习中'
     ],
 
     self::FINISH_SIGN => [
       'value' => self::FINISH_SIGN,
-      'text' => '已签收'
+      'text' => '已完成'
     ],
 
     self::CANCEL => [
       'value' => self::CANCEL,
-      'text' => '已取消'
+      'text' => '已关闭'
     ],
   ];
 
