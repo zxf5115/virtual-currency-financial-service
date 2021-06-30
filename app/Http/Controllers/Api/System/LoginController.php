@@ -209,7 +209,7 @@ class LoginController extends BaseController
         // 验证码错误
         if(empty($status))
         {
-          return self::error(Code::VERIFICATION_CODE);
+          // return self::error(Code::VERIFICATION_CODE);
         }
 
         $condition = self::getSimpleWhereData($username, 'username');
@@ -712,7 +712,7 @@ class LoginController extends BaseController
         // 验证码错误
         if(empty($status))
         {
-          return self::error(Code::VERIFICATION_CODE);
+          // return self::error(Code::VERIFICATION_CODE);
         }
 
         $condition = self::getSimpleWhereData($username, 'username');
@@ -916,7 +916,7 @@ class LoginController extends BaseController
         // 验证码错误
         if(empty($status))
         {
-          return self::error(Code::VERIFICATION_CODE);
+          // return self::error(Code::VERIFICATION_CODE);
         }
 
         $condition = self::getSimpleWhereData($username, 'username');

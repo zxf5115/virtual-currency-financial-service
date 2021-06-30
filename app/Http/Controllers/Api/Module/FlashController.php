@@ -18,6 +18,11 @@ class FlashController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Flash';
 
+  // 客户端搜索字段
+  protected $_params = [
+    'category_id'
+  ];
+
 
   /**
    * @api {get} /api/flash/list?page={page} 01. 快讯列表
@@ -25,6 +30,7 @@ class FlashController extends BaseController
    * @apiGroup 51. 快讯模块
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} category_id 分类编号
    *
    * @apiSuccess (字段说明) {Number} id 快讯编号
    * @apiSuccess (字段说明) {String} title 快讯标题

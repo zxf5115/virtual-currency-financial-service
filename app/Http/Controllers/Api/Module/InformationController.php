@@ -20,6 +20,11 @@ class InformationController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Information';
 
+  // 客户端搜索字段
+  protected $_params = [
+    'category_id'
+  ];
+
 
   // 附加搜索条件
   protected $_addition = [
@@ -47,6 +52,7 @@ class InformationController extends BaseController
    * @apiGroup 61. 资讯模块
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} category_id 分类编号
    *
    * @apiSuccess (字段说明) {Number} id 资讯编号
    * @apiSuccess (字段说明) {String} title 资讯标题

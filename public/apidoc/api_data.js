@@ -6907,6 +6907,13 @@ define({ "api": [
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>分类编号</p>"
           }
         ]
       }
@@ -7353,6 +7360,13 @@ define({ "api": [
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>分类编号</p>"
           }
         ]
       }

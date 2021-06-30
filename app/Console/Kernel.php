@@ -48,15 +48,15 @@ class Kernel extends ConsoleKernel
       $schedule->call(function () {
         $currency = new Symbol();
         $currency->action();
-      })->quarterly();
-      // })->everyMinute();
+      // })->quarterly();
+      })->everyMinute();
 
 
       // 定时获取货币种类
-      $schedule->call(function () {
-        $currency = new Category();
-        $currency->action();
-      })->quarterly();
+      // $schedule->call(function () {
+      //   $currency = new Category();
+      //   $currency->action();
+      // })->quarterly();
       // })->everyMinute();
     }
     catch(\Exception $e)

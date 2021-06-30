@@ -33,33 +33,36 @@ class Symbol extends Controller
 
     try
     {
-      $model = new FireCurrency();
+      $this->initSocket();
 
-      $result = $model->get_common_symbols();
 
-      if(empty($result->data))
-      {
-        return false;
-      }
+      // $model = new FireCurrency();
 
-      foreach($result->data as $item)
-      {
-        // 将对象转换为数组
-        $data = (array)$item;
+      // $result = $model->get_common_symbols();
 
-        $model = SymbolModel::firstOrNew(['symbol' => $data['symbol']]);
+      // if(empty($result->data))
+      // {
+      //   return false;
+      // }
 
-        // 将已存在的货币去除
-        if(!empty($model->id))
-        {
-          continue;
-        }
+      // foreach($result->data as $item)
+      // {
+      //   // 将对象转换为数组
+      //   $data = (array)$item;
 
-        $model->base_currency  = $data['base-currency'];
-        $model->quote_currency = $data['quote-currency'];
-        $model->state          = $data['state'];
-        $model->save();
-      }
+      //   $model = SymbolModel::firstOrNew(['symbol' => $data['symbol']]);
+
+      //   // 将已存在的货币去除
+      //   if(!empty($model->id))
+      //   {
+      //     continue;
+      //   }
+
+      //   $model->base_currency  = $data['base-currency'];
+      //   $model->quote_currency = $data['quote-currency'];
+      //   $model->state          = $data['state'];
+      //   $model->save();
+      // }
 
       DB::commit();
     }
@@ -67,6 +70,75 @@ class Symbol extends Controller
     {
       DB::rollback();
 
+      record($e);
+
+      return false;
+    }
+  }
+
+
+
+  private function initSocket()
+  {
+    try
+    {
+      $client = new \WebSocket\Client("wss://api.huobi.pro/ws");
+
+      $data = [
+        'sub' => 'market.btcusdt.detail',
+        'id' => "btcusdtdetail" . time(),
+        ''
+      ];
+
+      $data = json_encode($data);
+
+      $client->send($data);
+
+      while (true)
+      {
+        try
+        {
+
+          $response = $client->receive();
+
+          $response = gzdecode($response);
+
+          $response = json_decode($response, true);
+
+          if(isset($response['ping']))
+          {
+            $data = [
+                "pong" => $response['ping']
+            ];
+
+            $data = json_encode($data);
+
+            $client->send($data);
+          }
+          else
+          {
+            \Log::error($response);
+
+            // if(!empty($response['status']) && 'ok' == $response['status'])
+            // {
+            //   if(!empty($response['data']))
+            //   {
+            //     \Log::error($response['data']);
+            //   }
+            // }
+          }
+        }
+        catch (\WebSocket\ConnectionException $e)
+        {
+          continue;
+        }
+      }
+
+
+      $client->close();
+    }
+    catch(\Exception $e)
+    {
       record($e);
 
       return false;
