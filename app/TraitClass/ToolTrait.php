@@ -94,6 +94,8 @@ trait ToolTrait
   {
     $response = [];
 
+    $result = [];
+
     if(empty($data['data']))
     {
       return $data;
@@ -105,9 +107,17 @@ trait ToolTrait
     {
       if(false !== $key = array_search($item[$field], $allocation))
       {
-        $response[$allocation[$key]][] = $item;
+        $result[$key][] = $item;
       }
     }
+
+    foreach($result as $k => $item)
+    {
+      $response[$k]['time'] = $allocation[$k];
+      $response[$k]['data'] = $item;
+    }
+
+    $response = array_values($response);
 
     $data['data'] = $response;
 
