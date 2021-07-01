@@ -16,12 +16,6 @@ class Parameter
   // 默认密码
   const PASSWORD = '123456';
 
-  // 红包描述
-  const MONEY_CONTENT = '红包提现';
-
   // 默认昵称
-  const NICKNAME = '未设置';
-
-  // 默认生日
-  const BIRTHDAY = '1970-01-01';
+  const NICKNAME = '币码翁';
 }

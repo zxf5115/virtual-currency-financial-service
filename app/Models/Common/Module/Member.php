@@ -20,7 +20,11 @@ class Member extends Base
   public $table = "module_member";
 
   // 可以批量修改的字段
-  public $fillable = ['username', 'password'];
+  public $fillable = [
+    'open_id',
+    'apply_id',
+    'username',
+  ];
 
   // 隐藏的属性
   public $hidden = [

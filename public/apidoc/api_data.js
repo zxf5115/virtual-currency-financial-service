@@ -2,7 +2,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/logout",
-    "title": "11. 退出",
+    "title": "12. 退出",
     "description": "<p>退出登录状态</p>",
     "group": "01._登录模块",
     "permission": [
@@ -43,7 +43,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/apple_login",
-    "title": "05. 苹果登录",
+    "title": "06. 苹果登录",
     "description": "<p>通过第三方软件-苹果，进行登录</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -157,6 +157,15 @@ define({ "api": [
             "field": "content",
             "description": "<p>角色描述</p>"
           }
+        ],
+        "字段说明|贵宾": [
+          {
+            "group": "字段说明|贵宾",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          }
         ]
       }
     },
@@ -173,7 +182,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/back_mobile",
-    "title": "10. 手机找回密码",
+    "title": "11. 手机找回密码",
     "description": "<p>通过手机号码找回密码</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -223,7 +232,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/bind_code",
-    "title": "08. 获取绑定验证码",
+    "title": "09. 获取绑定验证码",
     "description": "<p>获取登录手机号的绑定验证码</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -252,7 +261,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/bind_mobile",
-    "title": "07. 绑定手机号码",
+    "title": "08. 绑定手机号码",
     "description": "<p>绑定用的的手机号码</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -416,6 +425,15 @@ define({ "api": [
             "field": "content",
             "description": "<p>角色描述</p>"
           }
+        ],
+        "字段说明|贵宾": [
+          {
+            "group": "字段说明|贵宾",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          }
         ]
       }
     },
@@ -431,178 +449,8 @@ define({ "api": [
   },
   {
     "type": "post",
-    "url": "/api/register",
-    "title": "06. 用户注册",
-    "description": "<p>注册用户信息</p>",
-    "group": "01._登录模块",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "open_id",
-            "description": "<p>微信app编号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "apply_id",
-            "description": "<p>苹果登录编号</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "username",
-            "description": "<p>登录手机号码</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "avatar",
-            "description": "<p>会员头像</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "nickname",
-            "description": "<p>会员姓名</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "sex",
-            "description": "<p>会员性别</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "age",
-            "description": "<p>会员性别</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "province_id",
-            "description": "<p>省</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "city_id",
-            "description": "<p>市</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "region_id",
-            "description": "<p>县</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": true,
-            "field": "address",
-            "description": "<p>详细地址</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/register"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/System/LoginController.php",
-    "groupTitle": "01._登录模块",
-    "name": "PostApiRegister"
-  },
-  {
-    "type": "post",
-    "url": "/api/reset_code",
-    "title": "09. 重置验证码",
-    "description": "<p>获取重置验证码</p>",
-    "group": "01._登录模块",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "username",
-            "description": "<p>登录账户（18201018888）</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "响应": [
-          {
-            "group": "响应",
-            "type": "String",
-            "optional": false,
-            "field": "data",
-            "description": "<p>验证码</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/reset_code"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/System/LoginController.php",
-    "groupTitle": "01._登录模块",
-    "name": "PostApiReset_code"
-  },
-  {
-    "type": "post",
-    "url": "/api/sms_code",
-    "title": "03. 登录验证码",
-    "description": "<p>获取短信登录验证码</p>",
-    "group": "01._登录模块",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "username",
-            "description": "<p>登录账户（18201018926）</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/sms_code"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/System/LoginController.php",
-    "groupTitle": "01._登录模块",
-    "name": "PostApiSms_code"
-  },
-  {
-    "type": "post",
-    "url": "/api/sms_login",
-    "title": "02. 短信登录",
+    "url": "/api/oauth_login",
+    "title": "02. 一键登录",
     "description": "<p>短信登录</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -723,6 +571,331 @@ define({ "api": [
             "field": "content",
             "description": "<p>角色描述</p>"
           }
+        ],
+        "字段说明|贵宾": [
+          {
+            "group": "字段说明|贵宾",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/oauth_login"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/System/LoginController.php",
+    "groupTitle": "01._登录模块",
+    "name": "PostApiOauth_login"
+  },
+  {
+    "type": "post",
+    "url": "/api/register",
+    "title": "07. 用户注册",
+    "description": "<p>注册用户信息</p>",
+    "group": "01._登录模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "open_id",
+            "description": "<p>微信app编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "apply_id",
+            "description": "<p>苹果登录编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>登录手机号码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员姓名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "sex",
+            "description": "<p>会员性别</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "age",
+            "description": "<p>会员性别</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "province_id",
+            "description": "<p>省</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "city_id",
+            "description": "<p>市</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "region_id",
+            "description": "<p>县</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "address",
+            "description": "<p>详细地址</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/register"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/System/LoginController.php",
+    "groupTitle": "01._登录模块",
+    "name": "PostApiRegister"
+  },
+  {
+    "type": "post",
+    "url": "/api/reset_code",
+    "title": "10. 重置验证码",
+    "description": "<p>获取重置验证码</p>",
+    "group": "01._登录模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>登录账户（18201018888）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "响应": [
+          {
+            "group": "响应",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>验证码</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/reset_code"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/System/LoginController.php",
+    "groupTitle": "01._登录模块",
+    "name": "PostApiReset_code"
+  },
+  {
+    "type": "post",
+    "url": "/api/sms_code",
+    "title": "04. 登录验证码",
+    "description": "<p>获取短信登录验证码</p>",
+    "group": "01._登录模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>登录账户（18201018926）</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/sms_code"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/System/LoginController.php",
+    "groupTitle": "01._登录模块",
+    "name": "PostApiSms_code"
+  },
+  {
+    "type": "post",
+    "url": "/api/sms_login",
+    "title": "03. 短信登录",
+    "description": "<p>短信登录</p>",
+    "group": "01._登录模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "username",
+            "description": "<p>登录账户（18201018926）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "sms_code",
+            "description": "<p>短信验证码（7777）</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|令牌": [
+          {
+            "group": "字段说明|令牌",
+            "type": "String",
+            "optional": false,
+            "field": "token",
+            "description": "<p>身份令牌</p>"
+          }
+        ],
+        "字段说明|用户": [
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>会员编号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "role_id",
+            "description": "<p>角色编号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "open_id",
+            "description": "<p>微信编号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "apply_id",
+            "description": "<p>苹果编号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "inviter_id",
+            "description": "<p>邀请人编号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "Number",
+            "optional": false,
+            "field": "member_no",
+            "description": "<p>会员号</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "String",
+            "optional": false,
+            "field": "username",
+            "description": "<p>登录账户</p>"
+          },
+          {
+            "group": "字段说明|用户",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员昵称</p>"
+          }
+        ],
+        "字段说明|角色": [
+          {
+            "group": "字段说明|角色",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>角色编号</p>"
+          },
+          {
+            "group": "字段说明|角色",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>角色名称</p>"
+          },
+          {
+            "group": "字段说明|角色",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>角色描述</p>"
+          }
+        ],
+        "字段说明|贵宾": [
+          {
+            "group": "字段说明|贵宾",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
+          }
         ]
       }
     },
@@ -739,7 +912,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/weixin_login",
-    "title": "04. 微信登录",
+    "title": "05. 微信登录",
     "description": "<p>通过第三方软件-微信，进行登录</p>",
     "group": "01._登录模块",
     "parameter": {
@@ -852,6 +1025,15 @@ define({ "api": [
             "optional": false,
             "field": "content",
             "description": "<p>角色描述</p>"
+          }
+        ],
+        "字段说明|贵宾": [
+          {
+            "group": "字段说明|贵宾",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>贵宾标题</p>"
           }
         ]
       }
@@ -3044,126 +3226,6 @@ define({ "api": [
       }
     ],
     "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
-    "groupTitle": "22._会员关注模块",
-    "name": "GetApiMemberAttentionListPagePage"
-  },
-  {
-    "type": "get",
-    "url": "/api/member/attention/list?page={page}",
-    "title": "01. 会员关注列表",
-    "description": "<p>获取当前会员关注分页列表</p>",
-    "group": "22._会员关注模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "int",
-            "optional": false,
-            "field": "page",
-            "description": "<p>当前页数</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "字段说明|基础": [
-          {
-            "group": "字段说明|基础",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>会员关注编号</p>"
-          },
-          {
-            "group": "字段说明|基础",
-            "type": "Number",
-            "optional": false,
-            "field": "member_id",
-            "description": "<p>会员编号</p>"
-          },
-          {
-            "group": "字段说明|基础",
-            "type": "Number",
-            "optional": false,
-            "field": "attention_member_id",
-            "description": "<p>关注会员编号</p>"
-          },
-          {
-            "group": "字段说明|基础",
-            "type": "Number",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>关注时间</p>"
-          }
-        ],
-        "字段说明|关注人": [
-          {
-            "group": "字段说明|关注人",
-            "type": "Number",
-            "optional": false,
-            "field": "avatar",
-            "description": "<p>头像</p>"
-          },
-          {
-            "group": "字段说明|关注人",
-            "type": "Number",
-            "optional": false,
-            "field": "nickname",
-            "description": "<p>昵称</p>"
-          }
-        ],
-        "字段说明|被关注人": [
-          {
-            "group": "字段说明|被关注人",
-            "type": "Number",
-            "optional": false,
-            "field": "avatar",
-            "description": "<p>头像</p>"
-          },
-          {
-            "group": "字段说明|被关注人",
-            "type": "Number",
-            "optional": false,
-            "field": "nickname",
-            "description": "<p>昵称</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/attention/list"
-      }
-    ],
-    "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
     "groupTitle": "22._会员关注模块",
     "name": "GetApiMemberAttentionListPagePage"
@@ -3218,130 +3280,9 @@ define({ "api": [
       }
     ],
     "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
-    "groupTitle": "22._会员关注模块",
-    "name": "PostApiMemberAttentionHandle"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/attention/handle",
-    "title": "03. 关注操作",
-    "description": "<p>当前会员执行关注操作, 已经关注过，再次点击取消关注</p>",
-    "group": "22._会员关注模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "attention_member_id",
-            "description": "<p>关注编号</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/attention/handle"
-      }
-    ],
-    "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
     "groupTitle": "22._会员关注模块",
     "name": "PostApiMemberAttentionHandle"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/attention/status",
-    "title": "02. 是否关注会员",
-    "description": "<p>获取当前会员是否关注指定会员</p>",
-    "group": "22._会员关注模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Number",
-            "optional": false,
-            "field": "attention_member_id",
-            "description": "<p>关注会员编号</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "fields": {
-        "字段说明": [
-          {
-            "group": "字段说明",
-            "type": "Boolean",
-            "optional": false,
-            "field": "status",
-            "description": "<p>是否关注</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/attention/status"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
-    "groupTitle": "22._会员关注模块",
-    "name": "PostApiMemberAttentionStatus"
   },
   {
     "type": "post",
@@ -6059,6 +6000,701 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/member/order/list?page={page}",
+    "title": "01. 我的订单列表",
+    "description": "<p>获取当前会员课程订单列表(分页)</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|订单": [
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>订单编号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "order_no",
+            "description": "<p>订单号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "member_id",
+            "description": "<p>会员编号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_money",
+            "description": "<p>支付金额</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付类型</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_status",
+            "description": "<p>支付状态</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_time",
+            "description": "<p>支付时间</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "order_status",
+            "description": "<p>订单状态</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>创建时间</p>"
+          }
+        ],
+        "字段说明|课程": [
+          {
+            "group": "字段说明|课程",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>课程代码</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>课程名称</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>课程图片</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>课程内容</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>课程价格</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "point_total",
+            "description": "<p>课程集数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "watch_total",
+            "description": "<p>观看总数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_shelf",
+            "description": "<p>是否上架</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_trial",
+            "description": "<p>是否试看</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "GetApiMemberOrderListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/order/view/{id}",
+    "title": "02. 我的订单详情",
+    "description": "<p>获取当前会员课程订单的详情</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>订单编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|订单": [
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>订单编号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "order_no",
+            "description": "<p>订单号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "member_id",
+            "description": "<p>会员编号</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_money",
+            "description": "<p>支付金额</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付类型</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_status",
+            "description": "<p>支付状态</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "pay_time",
+            "description": "<p>支付时间</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "order_status",
+            "description": "<p>订单状态</p>"
+          },
+          {
+            "group": "字段说明|订单",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>创建时间</p>"
+          }
+        ],
+        "字段说明|课程": [
+          {
+            "group": "字段说明|课程",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>课程代码</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>课程名称</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>课程图片</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>课程内容</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>课程价格</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "point_total",
+            "description": "<p>课程集数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "watch_total",
+            "description": "<p>观看总数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_shelf",
+            "description": "<p>是否上架</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_trial",
+            "description": "<p>是否试看</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "GetApiMemberOrderViewId"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/order/cancel",
+    "title": "07. 订单取消",
+    "description": "<p>当前会员取消订单</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "order_id",
+            "description": "<p>订单编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/cancel"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderCancel"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/order/change",
+    "title": "04. 修改订单",
+    "description": "<p>当前会员修改订单</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "order_id",
+            "description": "<p>订单编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付类型 1 支付宝 2 微信 4 苹果</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/change"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderChange"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/order/finish",
+    "title": "06. 订单完成",
+    "description": "<p>当前会员标记订单完成</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "order_id",
+            "description": "<p>订单编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/finish"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderFinish"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/order/handle",
+    "title": "03. 创建订单",
+    "description": "<p>当前会员创建课程订单</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "courseware_id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pay_money",
+            "description": "<p>支付金额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付类型 1 支付宝 2 微信 4 苹果</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/order/pay",
+    "title": "05. 订单支付",
+    "description": "<p>当前会员订单支付</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "order_id",
+            "description": "<p>订单编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/pay"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderPay"
+  },
+  {
+    "type": "get",
     "url": "/api/member/courseware/list?page={page}",
     "title": "01. 我的课程列表",
     "description": "<p>获取当前会员的课程分页列表</p>",
@@ -6457,6 +7093,60 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
     "groupTitle": "35._会员课程模块",
     "name": "GetApiMemberCoursewareViewId"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/courseware/expense",
+    "title": "05. 课程学习",
+    "description": "<p>当前贵宾会员学习课程</p>",
+    "group": "35._会员课程模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/courseware/expense"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
+    "groupTitle": "35._会员课程模块",
+    "name": "PostApiMemberCoursewareExpense"
   },
   {
     "type": "post",
@@ -10151,6 +10841,236 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/Community/CollectionController.php",
     "groupTitle": "74._社区收藏模块",
     "name": "PostApiMemberCommunityCollectionStatus"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/community/attention/list?page={page}",
+    "title": "01. 我的关注列表",
+    "description": "<p>获取当前会员关注分页列表</p>",
+    "group": "75._社区关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>社区编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>社区标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>社区封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>社区内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>社区作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/community/attention/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "75._社区关注模块",
+    "name": "GetApiMemberCommunityAttentionListPagePage"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/community/attention/handle",
+    "title": "03. 关注操作",
+    "description": "<p>当前会员执行关注操作, 已经关注过，再次点击取消关注</p>",
+    "group": "75._社区关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>社区分类编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/community/attention/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "75._社区关注模块",
+    "name": "PostApiMemberCommunityAttentionHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/community/attention/status",
+    "title": "02. 是否关注社区",
+    "description": "<p>获取当前会员是否关注指定社区</p>",
+    "group": "75._社区关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>社区分类编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>是否关注</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/community/attention/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "75._社区关注模块",
+    "name": "PostApiMemberCommunityAttentionStatus"
   },
   {
     "type": "get",

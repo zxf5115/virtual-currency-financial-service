@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api\System;
 
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
@@ -44,6 +45,7 @@ class LoginController extends BaseController
    * @apiSuccess (字段说明|角色) {String} id 角色编号
    * @apiSuccess (字段说明|角色) {String} title 角色名称
    * @apiSuccess (字段说明|角色) {String} content 角色描述
+   * @apiSuccess (字段说明|贵宾) {String} title 贵宾标题
    *
    * @apiSampleRequest /api/login
    * @apiVersion 1.0.0
@@ -151,7 +153,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/sms_login 02. 短信登录
+   * @api {post} /api/oauth_login 02. 一键登录
    * @apiDescription 短信登录
    * @apiGroup 01. 登录模块
    * @apiParam {string} username 登录账户（18201018926）
@@ -170,6 +172,151 @@ class LoginController extends BaseController
    * @apiSuccess (字段说明|角色) {String} id 角色编号
    * @apiSuccess (字段说明|角色) {String} title 角色名称
    * @apiSuccess (字段说明|角色) {String} content 角色描述
+   * @apiSuccess (字段说明|贵宾) {String} title 贵宾标题
+   *
+   * @apiSampleRequest /api/oauth_login
+   * @apiVersion 1.0.0
+   */
+  public function oauth_login(Request $request)
+  {
+    $messages = [
+      'login_token.required' => '请输入登录令牌',
+    ];
+
+    $rule = [
+      'login_token' => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $url    = getenv('JG_OAUTH_URL');
+        $prikey = getenv('JG_PRIKEY');
+
+        $login_token = $request->login_token;
+
+        $http = new Client();
+
+        $response = $http->post($url, ['form_params' => ['loginToken' => $login_token]]);
+
+        if(200 == $response->getStatusCode())
+        {
+          $result = $response->getBody();
+
+          $result = json_decode($result, true);
+
+          $encrypted = $result['phone'];
+
+          $prefix = '-----BEGIN RSA PRIVATE KEY-----';
+          $suffix = '-----END RSA PRIVATE KEY-----';
+
+          $result = '';
+
+
+          $key = $prefix . "\n" . $prikey . "\n" . $suffix;
+          $r = openssl_private_decrypt(base64_decode($encrypted), $result, openssl_pkey_get_private($key));
+
+          echo $result . "\n";
+        }
+
+        // https://blog.csdn.net/liuqi1314520/article/details/111401522
+
+
+        dd($s);
+
+
+        $condition = self::getSimpleWhereData($username, 'username');
+
+        $response = Member::getRow($condition, ['role', 'vip']);
+
+        // 用户不存在, 自动注册
+        if(is_null($response))
+        {
+          Member::register('username', $username);
+
+          $response = Member::getRow($condition, ['role', 'vip']);
+        }
+
+        // 用户已禁用
+        if(2 == $response->status['value'])
+        {
+          return self::error(Code::MEMBER_DISABLE);
+        }
+
+        // 在特定时间内访问次数过多，就触发访问限制
+        if(Member::AccessRestrictions($response))
+        {
+          return self::error(Code::ACCESS_RESTRICTIONS);
+        }
+
+        // 认证用户密码是否可以登录
+        if (! $token = auth('api')->tokenById($response->id))
+        {
+          return self::error(Code::MEMBER_EMPTY);
+        }
+
+        // 获取客户端ip地址
+        $response->last_login_ip = $request->getClientIp();
+
+        $old_token = $response->remember_token;
+
+        if(!empty($old_token))
+        {
+          \JWTAuth::setToken($old_token)->invalidate();
+        }
+
+        // 记录登录信息
+        Member::login($response, $request);
+
+        return self::success([
+          'code' => 200,
+          'token' => $token,
+          'token_type' => 'bearer',
+          'expires_in' => auth('api')->factory()->getTTL() * 60,
+          'user_info' => $response
+        ]);
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::ERROR);
+      }
+    }
+  }
+
+
+
+  /**
+   * @api {post} /api/sms_login 03. 短信登录
+   * @apiDescription 短信登录
+   * @apiGroup 01. 登录模块
+   * @apiParam {string} username 登录账户（18201018926）
+   * @apiParam {string} sms_code 短信验证码（7777）
+   *
+   * @apiSuccess (字段说明|令牌) {String} token 身份令牌
+   * @apiSuccess (字段说明|用户) {Number} id 会员编号
+   * @apiSuccess (字段说明|用户) {Number} role_id 角色编号
+   * @apiSuccess (字段说明|用户) {Number} open_id 微信编号
+   * @apiSuccess (字段说明|用户) {Number} apply_id 苹果编号
+   * @apiSuccess (字段说明|用户) {Number} inviter_id 邀请人编号
+   * @apiSuccess (字段说明|用户) {Number} member_no 会员号
+   * @apiSuccess (字段说明|用户) {String} avatar 会员头像
+   * @apiSuccess (字段说明|用户) {String} username 登录账户
+   * @apiSuccess (字段说明|用户) {String} nickname 会员昵称
+   * @apiSuccess (字段说明|角色) {String} id 角色编号
+   * @apiSuccess (字段说明|角色) {String} title 角色名称
+   * @apiSuccess (字段说明|角色) {String} content 角色描述
+   * @apiSuccess (字段说明|贵宾) {String} title 贵宾标题
    *
    * @apiSampleRequest /api/sms_login
    * @apiVersion 1.0.0
@@ -216,10 +363,12 @@ class LoginController extends BaseController
 
         $response = Member::getRow($condition, ['role', 'vip']);
 
-        // 用户不存在
+        // 用户不存在, 自动注册
         if(is_null($response))
         {
-          return self::error(Code::MEMBER_EMPTY);
+          Member::register('username', $username);
+
+          $response = Member::getRow($condition, ['role', 'vip']);
         }
 
         // 用户已禁用
@@ -273,7 +422,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/sms_code 03. 登录验证码
+   * @api {post} /api/sms_code 04. 登录验证码
    * @apiDescription 获取短信登录验证码
    * @apiGroup 01. 登录模块
    * @apiParam {string} username 登录账户（18201018926）
@@ -306,14 +455,14 @@ class LoginController extends BaseController
       {
         $username = $request->username;
 
-        $condition = self::getSimpleWhereData($username, 'username');
+        // $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition);
+        // $response = Member::getRow($condition);
 
-        if(empty($response))
-        {
-          return self::error(Code::MEMBER_EMPTY);
-        }
+        // if(empty($response))
+        // {
+        //   return self::error(Code::MEMBER_EMPTY);
+        // }
 
         // 发送登录验证码
         event(new SmsEvent($username, 1));
@@ -332,7 +481,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/weixin_login 04. 微信登录
+   * @api {post} /api/weixin_login 05. 微信登录
    * @apiDescription 通过第三方软件-微信，进行登录
    * @apiGroup 01. 登录模块
    * @apiParam {string} open_id 微信OpenID
@@ -350,6 +499,7 @@ class LoginController extends BaseController
    * @apiSuccess (字段说明|角色) {String} id 角色编号
    * @apiSuccess (字段说明|角色) {String} title 角色名称
    * @apiSuccess (字段说明|角色) {String} content 角色描述
+   * @apiSuccess (字段说明|贵宾) {String} title 贵宾标题
    *
    * @apiSampleRequest /api/weixin_login
    * @apiVersion 1.0.0
@@ -436,7 +586,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/apple_login 05. 苹果登录
+   * @api {post} /api/apple_login 06. 苹果登录
    * @apiDescription 通过第三方软件-苹果，进行登录
    * @apiGroup 01. 登录模块
    * @apiParam {string} apply_id 苹果AppleID
@@ -454,6 +604,7 @@ class LoginController extends BaseController
    * @apiSuccess (字段说明|角色) {String} id 角色编号
    * @apiSuccess (字段说明|角色) {String} title 角色名称
    * @apiSuccess (字段说明|角色) {String} content 角色描述
+   * @apiSuccess (字段说明|贵宾) {String} title 贵宾标题
    *
    * @apiSampleRequest /api/apple_login
    * @apiVersion 1.0.0
@@ -544,7 +695,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/register 06. 用户注册
+   * @api {post} /api/register 07. 用户注册
    * @apiDescription 注册用户信息
    * @apiGroup 01. 登录模块
    *
@@ -676,7 +827,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/bind_mobile 07. 绑定手机号码
+   * @api {post} /api/bind_mobile 08. 绑定手机号码
    * @apiDescription 绑定用的的手机号码
    * @apiGroup 01. 登录模块
    *
@@ -757,7 +908,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/bind_code 08. 获取绑定验证码
+   * @api {post} /api/bind_code 09. 获取绑定验证码
    * @apiDescription 获取登录手机号的绑定验证码
    * @apiGroup 01. 登录模块
    *
@@ -814,8 +965,9 @@ class LoginController extends BaseController
     }
   }
 
+
   /**
-   * @api {post} /api/reset_code 09. 重置验证码
+   * @api {post} /api/reset_code 10. 重置验证码
    * @apiDescription 获取重置验证码
    * @apiGroup 01. 登录模块
    *
@@ -877,7 +1029,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {post} /api/back_mobile 10. 手机找回密码
+   * @api {post} /api/back_mobile 11. 手机找回密码
    * @apiDescription 通过手机号码找回密码
    * @apiGroup 01. 登录模块
    *
@@ -959,7 +1111,7 @@ class LoginController extends BaseController
 
 
   /**
-   * @api {get} /api/logout 11. 退出
+   * @api {get} /api/logout 12. 退出
    * @apiDescription 退出登录状态
    * @apiGroup 01. 登录模块
    * @apiPermission jwt

@@ -2,46 +2,28 @@
 namespace App\Http\Controllers\Api\Module\Member\Community;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Events\Api\Member\AttentionEvent;
+use App\Models\Api\Module\Community;
 use App\Http\Controllers\Api\BaseController;
 
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-07-01
  *
  * 会员关注控制器类
  */
 class AttentionController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Member\Attention';
-
-  // 排序条件
-  protected $_order = [
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
-
-  // 关联对像
-  protected $_relevance = [
-    'list' => [
-      'member',
-      'attention'
-    ],
-    'select' => [
-      'member',
-      'attention'
-    ]
-  ];
+  protected $_model = 'App\Models\Api\Module\Community\Attention';
 
 
   /**
-   * @api {get} /api/member/attention/list?page={page} 01. 会员关注列表
+   * @api {get} /api/member/community/attention/list?page={page} 01. 我的关注列表
    * @apiDescription 获取当前会员关注分页列表
-   * @apiGroup 22. 会员关注模块
+   * @apiGroup 75. 社区关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -51,33 +33,38 @@ class AttentionController extends BaseController
    *
    * @apiParam {int} page 当前页数
    *
-   * @apiSuccess (字段说明|基础) {Number} id 会员关注编号
-   * @apiSuccess (字段说明|基础) {Number} member_id 会员编号
-   * @apiSuccess (字段说明|基础) {Number} attention_member_id 关注会员编号
-   * @apiSuccess (字段说明|基础) {Number} create_time 关注时间
-   * @apiSuccess (字段说明|关注人) {Number} avatar 头像
-   * @apiSuccess (字段说明|关注人) {Number} nickname 昵称
-   * @apiSuccess (字段说明|被关注人) {Number} avatar 头像
-   * @apiSuccess (字段说明|被关注人) {Number} nickname 昵称
+   * @apiSuccess (字段说明) {Number} id 社区编号
+   * @apiSuccess (字段说明) {String} title 社区标题
+   * @apiSuccess (字段说明) {String} picture 社区封面
+   * @apiSuccess (字段说明) {String} content 社区内容
+   * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} create_time 发布时间
    *
-   * @apiSampleRequest /api/member/attention/list
+   * @apiSampleRequest /api/member/community/attention/list
    * @apiVersion 1.0.0
    */
   public function list(Request $request)
   {
     try
     {
-      $condition = self::getCurrentWhereData();
+      $condition = self::getSimpleWhereData();
 
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
 
-      $condition = array_merge($condition, $this->_where, $filter);
+      $result = $this->_model::getPluck('category_id', $condition, false, false, true);
+
+      $where = [
+        ['category_id', $result]
+      ];
+
+      $condition = array_merge($condition, $this->_where, $filter, $where);
 
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+      $response = Community::getPaging($condition, $relevance, $this->_order);
 
       return self::success($response);
     }
@@ -92,9 +79,9 @@ class AttentionController extends BaseController
 
 
   /**
-   * @api {post} /api/member/attention/status 02. 是否关注会员
-   * @apiDescription 获取当前会员是否关注指定会员
-   * @apiGroup 22. 会员关注模块
+   * @api {post} /api/member/community/attention/status 02. 是否关注社区
+   * @apiDescription 获取当前会员是否关注指定社区
+   * @apiGroup 75. 社区关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -102,21 +89,21 @@ class AttentionController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {Number} attention_member_id 关注会员编号
+   * @apiParam {Number} category_id 社区分类编号
    *
    * @apiSuccess (字段说明) {Boolean} status 是否关注
    *
-   * @apiSampleRequest /api/member/attention/status
+   * @apiSampleRequest /api/member/community/attention/status
    * @apiVersion 1.0.0
    */
   public function status(Request $request)
   {
     $messages = [
-      'attention_member_id.required' => '请您输入关注会员编号',
+      'category_id.required' => '请您输入社区分类编号',
     ];
 
     $rule = [
-      'attention_member_id' => 'required',
+      'category_id' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -134,7 +121,7 @@ class AttentionController extends BaseController
 
         $condition = self::getCurrentWhereData();
 
-        $where = ['attention_member_id' => $request->attention_member_id];
+        $where = ['category_id' => $request->category_id];
 
         $condition = array_merge($condition, $where);
 
@@ -159,9 +146,9 @@ class AttentionController extends BaseController
 
 
   /**
-   * @api {post} /api/member/attention/handle 03. 关注操作
+   * @api {post} /api/member/community/attention/handle 03. 关注操作
    * @apiDescription 当前会员执行关注操作, 已经关注过，再次点击取消关注
-   * @apiGroup 22. 会员关注模块
+   * @apiGroup 75. 社区关注模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -169,19 +156,19 @@ class AttentionController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} attention_member_id 关注编号
+   * @apiParam {string} category_id 社区分类编号
    *
-   * @apiSampleRequest /api/member/attention/handle
+   * @apiSampleRequest /api/member/community/attention/handle
    * @apiVersion 1.0.0
    */
   public function handle(Request $request)
   {
     $messages = [
-      'attention_member_id.required' => '请您输入关注编号',
+      'category_id.required' => '请您输入社区分类编号',
     ];
 
     $rule = [
-      'attention_member_id' => 'required',
+      'category_id' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -193,26 +180,17 @@ class AttentionController extends BaseController
     }
     else
     {
-      DB::beginTransaction();
-
       try
       {
         $response = $this->_model::createOrDelete([
-          'member_id'           => self::getCurrentId(),
-          'attention_member_id' => $request->attention_member_id
+          'member_id'   => self::getCurrentId(),
+          'category_id' => $request->category_id
         ]);
-
-        // 记录关注总数
-        event(new AttentionEvent($response, $request->attention_member_id));
-
-        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
-        DB::rollback();
-
         // 记录异常信息
         self::record($e);
 

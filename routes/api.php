@@ -15,6 +15,7 @@ $api->version('v1', [
   {
     $api->group(['namespace' => 'System'], function ($api) {
       $api->post('login', 'LoginController@login'); // 密码登录
+      $api->post('oauth_login', 'LoginController@oauth_login'); // 一键登录
       $api->post('sms_login', 'LoginController@sms_login'); // 短信登录
       $api->post('sms_code', 'LoginController@sms_code'); // 登录验证码
       $api->post('weixin_login', 'LoginController@weixin_login'); // 微信登录
@@ -401,28 +402,46 @@ $api->version('v1', [
             $api->post('handle', 'CommunityController@handle');
 
 
-            // 会员资讯关联路由
+            // 会员社区关联路由
             $api->group(['namespace' => 'Community'], function ($api) {
 
-              // 会员资讯评论路由
+              // 会员社区评论路由
               $api->group(['prefix'  => 'comment'], function ($api) {
                 $api->post('handle', 'CommentController@handle');
               });
 
-              // 会员资讯点赞路由
+              // 会员社区点赞路由
               $api->group(['prefix'  => 'approval'], function ($api) {
                 $api->get('list', 'ApprovalController@list');
                 $api->post('status', 'ApprovalController@status');
                 $api->post('handle', 'ApprovalController@handle');
               });
 
-              // 会员资讯收藏路由
+              // 会员社区收藏路由
               $api->group(['prefix'  => 'collection'], function ($api) {
                 $api->get('list', 'CollectionController@list');
                 $api->post('status', 'CollectionController@status');
                 $api->post('handle', 'CollectionController@handle');
               });
+
+              // 会员社区点赞路由
+              $api->group(['prefix'  => 'attention'], function ($api) {
+                $api->get('list', 'AttentionController@list');
+                $api->post('status', 'AttentionController@status');
+                $api->post('handle', 'AttentionController@handle');
+              });
             });
+          });
+
+          // 会员订单路由
+          $api->group(['prefix'  => 'order'], function ($api) {
+            $api->get('list', 'OrderController@list');
+            $api->get('view/{id}', 'OrderController@view');
+            $api->post('handle', 'OrderController@handle');
+            $api->post('change', 'OrderController@change');
+            $api->post('pay', 'OrderController@pay');
+            $api->post('finish', 'OrderController@finish');
+            $api->post('cancel', 'OrderController@cancel');
           });
 
 
@@ -432,6 +451,7 @@ $api->version('v1', [
             $api->get('status/{id}', 'CoursewareController@status');
             $api->get('view/{id}', 'CoursewareController@view');
             $api->post('finish', 'CoursewareController@finish');
+            $api->post('expense', 'CoursewareController@expense');
 
             // 会员课程知识点路由
             $api->group(['namespace' => 'Courseware', 'prefix'  =>  'point'], function ($api) {

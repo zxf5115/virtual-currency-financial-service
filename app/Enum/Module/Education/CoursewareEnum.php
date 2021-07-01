@@ -31,6 +31,20 @@ class CoursewareEnum extends BaseEnum
     ]
   ];
 
+
+  // 课程推荐
+  public static $source = [
+    self::YES => [
+      'value' => self::YES,
+      'text' => '购买'
+    ],
+
+    self::NO => [
+      'value' => self::NO,
+      'text' => '贵宾'
+    ]
+  ];
+
   // 课程推荐
   public static $finish = [
     self::WAIT => [
@@ -59,6 +73,24 @@ class CoursewareEnum extends BaseEnum
   public static function getStatus($code)
   {
     return self::$status[$code] ?: self::$status[self::NO];
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-10-24
+   * ------------------------------------------
+   * 课程来源状态值
+   * ------------------------------------------
+   *
+   * 课程来源状态值
+   *
+   * @param int $code 信息代码
+   * @return 信息内容
+   */
+  public static function getSourceStatus($code)
+  {
+    return self::$status[$code] ?: self::$source[self::YES];
   }
 
 

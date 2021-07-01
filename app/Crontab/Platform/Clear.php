@@ -1,7 +1,7 @@
 <?php
 namespace App\Crontab\Platform;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Platform\System\Log\Action;
 
 /**

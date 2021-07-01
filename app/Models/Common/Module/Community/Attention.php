@@ -65,11 +65,11 @@ class Attention extends Base
    *
    * @return [关联对象]
    */
-  public function community()
+  public function category()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Community',
-      'community_id',
+      'App\Models\Common\Module\Community\Category',
+      'category_id',
       'id'
     );
   }

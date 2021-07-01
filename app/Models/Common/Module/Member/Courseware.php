@@ -53,6 +53,22 @@ class Courseware extends Base
     return CoursewareEnum::getFinishStatus($value);
   }
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 课程来源封装
+   * ------------------------------------------
+   *
+   * 课程来源封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getSourceAttribute($value)
+  {
+    return CoursewareEnum::getSourceStatus($value);
+  }
 
 
   // 关联函数 ------------------------------------------------------

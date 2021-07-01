@@ -14,13 +14,12 @@ class Attention extends Common
 {
 
   // 隐藏的属性
-  protected $hidden = [
+  public $hidden = [
     'id',
     'organization_id',
     'community_id',
     'member_id',
     'status',
-    'create_time',
     'update_time'
   ];
 
@@ -39,11 +38,11 @@ class Attention extends Common
    *
    * @return [关联对象]
    */
-  public function community()
+  public function category()
   {
     return $this->belongsTo(
-      'App\Models\Api\Module\Community',
-      'community_id',
+      'App\Models\Api\Module\Community\Category',
+      'category_id',
       'id'
     );
   }

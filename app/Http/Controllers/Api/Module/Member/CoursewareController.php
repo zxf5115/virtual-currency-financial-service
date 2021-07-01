@@ -270,4 +270,65 @@ class CoursewareController extends BaseController
       }
     }
   }
+
+
+  /**
+   * @api {post} /api/member/courseware/expense 05. 课程学习
+   * @apiDescription 当前贵宾会员学习课程
+   * @apiGroup 35. 会员课程模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiParam {string} id 课程编号
+   *
+   * @apiSampleRequest /api/member/courseware/expense
+   * @apiVersion 1.0.0
+   */
+  public function expense(Request $request)
+  {
+    $messages = [
+      'id.required' => '请您输入课程编号'
+    ];
+
+    $rule = [
+      'id' => 'required'
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $model = $this->_model::firstOrNew([
+          'member_id' => self::getCurrentId(),
+          'courseware_id' => $request->id
+        ]);
+
+        if(empty($model->id))
+        {
+          $model->source = 2;
+          $model->save();;
+        }
+
+        return self::success(Code::message(Code::HANDLE_SUCCESS));
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
 }

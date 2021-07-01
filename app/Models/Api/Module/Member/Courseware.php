@@ -15,6 +15,7 @@ class Courseware extends Common
   public $hidden = [
     'organization_id',
     'member_id',
+    'source',
     'status',
     'update_time'
   ];

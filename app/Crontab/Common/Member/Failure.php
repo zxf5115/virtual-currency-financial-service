@@ -1,7 +1,7 @@
 <?php
 namespace App\Crontab\Common\Member;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller;
 use App\Models\Common\Module\Member\Vip;
 
 /**
@@ -29,7 +29,7 @@ class Failure extends Controller
     {
       $where = [
         'status' => 1,
-        ['vip_id', '!=', 1]
+        ['vip_id', '!=', 1],
         ['end_time', '<', time()]
       ];
 
