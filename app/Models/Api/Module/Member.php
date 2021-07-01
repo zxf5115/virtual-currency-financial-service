@@ -163,18 +163,40 @@ class Member extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-18
    * ------------------------------------------
-   * 会员与贵宾关联函数
+   * 会员与会员贵宾关联函数
    * ------------------------------------------
    *
-   * 会员与贵宾关联函数
+   * 会员与会员贵宾关联函数
    *
    * @return [关联对象]
    */
   public function vip()
   {
-    return $this->belongsTo(
+    return $this->belongsToMany(
       'App\Models\Api\Module\Vip',
-      'vip_id',
+      'module_member_vip',
+      'member_id',
+      'vip_id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 会员与会员贵宾关联函数
+   * ------------------------------------------
+   *
+   * 会员与会员贵宾关联函数
+   *
+   * @return [type]
+   */
+  public function vipRelevance()
+  {
+    return $this->hasOne(
+      'App\Models\Api\Module\Member\Vip',
+      'member_id',
       'id'
     );
   }

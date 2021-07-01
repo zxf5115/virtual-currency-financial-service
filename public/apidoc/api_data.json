@@ -3044,6 +3044,126 @@
       }
     ],
     "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "22._会员关注模块",
+    "name": "GetApiMemberAttentionListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/attention/list?page={page}",
+    "title": "01. 会员关注列表",
+    "description": "<p>获取当前会员关注分页列表</p>",
+    "group": "22._会员关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|基础": [
+          {
+            "group": "字段说明|基础",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>会员关注编号</p>"
+          },
+          {
+            "group": "字段说明|基础",
+            "type": "Number",
+            "optional": false,
+            "field": "member_id",
+            "description": "<p>会员编号</p>"
+          },
+          {
+            "group": "字段说明|基础",
+            "type": "Number",
+            "optional": false,
+            "field": "attention_member_id",
+            "description": "<p>关注会员编号</p>"
+          },
+          {
+            "group": "字段说明|基础",
+            "type": "Number",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>关注时间</p>"
+          }
+        ],
+        "字段说明|关注人": [
+          {
+            "group": "字段说明|关注人",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>头像</p>"
+          },
+          {
+            "group": "字段说明|关注人",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>昵称</p>"
+          }
+        ],
+        "字段说明|被关注人": [
+          {
+            "group": "字段说明|被关注人",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>头像</p>"
+          },
+          {
+            "group": "字段说明|被关注人",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/attention/list"
+      }
+    ],
+    "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
     "groupTitle": "22._会员关注模块",
     "name": "GetApiMemberAttentionListPagePage"
@@ -3098,9 +3218,130 @@
       }
     ],
     "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "22._会员关注模块",
+    "name": "PostApiMemberAttentionHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/attention/handle",
+    "title": "03. 关注操作",
+    "description": "<p>当前会员执行关注操作, 已经关注过，再次点击取消关注</p>",
+    "group": "22._会员关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "attention_member_id",
+            "description": "<p>关注编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/attention/handle"
+      }
+    ],
+    "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/AttentionController.php",
     "groupTitle": "22._会员关注模块",
     "name": "PostApiMemberAttentionHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/attention/status",
+    "title": "02. 是否关注会员",
+    "description": "<p>获取当前会员是否关注指定会员</p>",
+    "group": "22._会员关注模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "attention_member_id",
+            "description": "<p>关注会员编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Boolean",
+            "optional": false,
+            "field": "status",
+            "description": "<p>是否关注</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/attention/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
+    "groupTitle": "22._会员关注模块",
+    "name": "PostApiMemberAttentionStatus"
   },
   {
     "type": "post",
@@ -5818,6 +6059,461 @@
   },
   {
     "type": "get",
+    "url": "/api/member/courseware/list?page={page}",
+    "title": "01. 我的课程列表",
+    "description": "<p>获取当前会员的课程分页列表</p>",
+    "group": "35._会员课程模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|会员课程": [
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>会员课程编号</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "courseware_id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_finish",
+            "description": "<p>是否完成学习</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>添加时间</p>"
+          }
+        ],
+        "字段说明|课程": [
+          {
+            "group": "字段说明|课程",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>课程代码</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>课程名称</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>课程图片</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>课程内容</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>课程价格</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "point_total",
+            "description": "<p>课程集数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "watch_total",
+            "description": "<p>观看总数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_shelf",
+            "description": "<p>是否上架</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_trial",
+            "description": "<p>是否试看</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/courseware/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
+    "groupTitle": "35._会员课程模块",
+    "name": "GetApiMemberCoursewareListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/courseware/status/{id}",
+    "title": "02. 当前课程是否被购买",
+    "description": "<p>获取当前课程是否被当前会员购买</p>",
+    "group": "35._会员课程模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Boolean",
+            "optional": false,
+            "field": "true",
+            "description": "<p>|false 是否订阅</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/courseware/status/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
+    "groupTitle": "35._会员课程模块",
+    "name": "GetApiMemberCoursewareStatusId"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/courseware/view/{id}",
+    "title": "03. 我的课程详情",
+    "description": "<p>获取当前会员课程详情</p>",
+    "group": "35._会员课程模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|会员课程": [
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>会员课程编号</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "courseware_id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_finish",
+            "description": "<p>是否完成学习</p>"
+          },
+          {
+            "group": "字段说明|会员课程",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>添加时间</p>"
+          }
+        ],
+        "字段说明|课程": [
+          {
+            "group": "字段说明|课程",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>课程代码</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>课程名称</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>课程图片</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>课程内容</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>课程价格</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "point_total",
+            "description": "<p>课程集数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "watch_total",
+            "description": "<p>观看总数</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_shelf",
+            "description": "<p>是否上架</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_trial",
+            "description": "<p>是否试看</p>"
+          },
+          {
+            "group": "字段说明|课程",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/courseware/view/{id}"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
+    "groupTitle": "35._会员课程模块",
+    "name": "GetApiMemberCoursewareViewId"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/courseware/finish",
+    "title": "04. 完成课程",
+    "description": "<p>当前会员学习完成了课程</p>",
+    "group": "35._会员课程模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>课程编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/courseware/finish"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/CoursewareController.php",
+    "groupTitle": "35._会员课程模块",
+    "name": "PostApiMemberCoursewareFinish"
+  },
+  {
+    "type": "get",
     "url": "/api/education/courseware/category/select",
     "title": "01. 课程分类数据",
     "description": "<p>获取课程分类不分页列表</p>",
@@ -7176,8 +7872,8 @@
   {
     "type": "get",
     "url": "/api/member/flash/benefit/bearish",
-    "title": "02. 会员点赞列表(不分页)",
-    "description": "<p>获取当前会员点赞列表(不分页)</p>",
+    "title": "03. 会员利空操作",
+    "description": "<p>当前会员会员快讯利空操作</p>",
     "group": "54._会员快讯利益模块",
     "permission": [
       {
@@ -7204,43 +7900,15 @@
         }
       ]
     },
-    "success": {
+    "parameter": {
       "fields": {
-        "字段说明": [
+        "Parameter": [
           {
-            "group": "字段说明",
-            "type": "Number",
+            "group": "Parameter",
+            "type": "string",
             "optional": false,
-            "field": "id",
-            "description": "<p>会员点赞编号</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "Number",
-            "optional": false,
-            "field": "member_id",
-            "description": "<p>会员编号</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "Number",
-            "optional": false,
-            "field": "course_id",
-            "description": "<p>课程编号</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "Number",
-            "optional": false,
-            "field": "production_id",
-            "description": "<p>作品编号</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "Number",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>点赞时间</p>"
+            "field": "flash_id",
+            "description": "<p>快讯编号</p>"
           }
         ]
       }
@@ -7258,7 +7926,7 @@
   {
     "type": "get",
     "url": "/api/member/flash/benefit/bullish",
-    "title": "01. 会员利多操作",
+    "title": "02. 会员利多操作",
     "description": "<p>当前会员会员快讯利多操作</p>",
     "group": "54._会员快讯利益模块",
     "permission": [
@@ -7308,6 +7976,60 @@
     "filename": "app/Http/Controllers/Api/Module/Member/Flash/BenefitController.php",
     "groupTitle": "54._会员快讯利益模块",
     "name": "GetApiMemberFlashBenefitBullish"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/flash/benefit/status",
+    "title": "01. 快讯利益态度",
+    "description": "<p>当前会员是否发表快讯利益态度</p>",
+    "group": "54._会员快讯利益模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "flash_id",
+            "description": "<p>快讯编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/flash/benefit/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Flash/BenefitController.php",
+    "groupTitle": "54._会员快讯利益模块",
+    "name": "PostApiMemberFlashBenefitStatus"
   },
   {
     "type": "get",

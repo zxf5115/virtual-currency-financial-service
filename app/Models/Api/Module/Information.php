@@ -1,6 +1,7 @@
 <?php
 namespace App\Models\Api\Module;
 
+use App\Enum\Common\TimeEnum;
 use App\Models\Common\Module\Information as Common;
 
 
@@ -21,6 +22,24 @@ class Information extends Common
     'status',
     'update_time'
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 时间封装
+   * ------------------------------------------
+   *
+   * 时间封装
+   *
+   * @param int $value [数据库存在的值]
+   * @return 状态值
+   */
+  public function getCreateTimeAttribute($value)
+  {
+    return TimeEnum::formatDateTime($value);
+  }
 
 
 

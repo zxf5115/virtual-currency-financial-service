@@ -15,7 +15,11 @@ class Vip extends Base
   public $table = "module_member_vip";
 
   // 可以批量修改的字段
-  public $fillable = ['id'];
+  public $fillable = [
+    'id',
+    'organization_id',
+    'vip_id'
+  ];
 
   // 隐藏的属性
   public $hidden = [

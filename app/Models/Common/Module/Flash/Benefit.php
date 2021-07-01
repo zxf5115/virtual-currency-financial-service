@@ -1,18 +1,19 @@
 <?php
-namespace App\Models\Common\Module\Community;
+namespace App\Models\Common\Module\Flash;
 
 use App\Models\Base;
+use App\Enum\Module\Flash\BenefitEnum;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-07-01
  *
- * 社区点赞模型类
+ * 快讯利益模型类
  */
-class Approval extends Base
+class Benefit extends Base
 {
   // 表名
-  protected $table = "module_community_approval";
+  protected $table = "module_flash_benefit";
 
   // 隐藏的属性
   protected $hidden = [
@@ -25,10 +26,27 @@ class Approval extends Base
   // 批量添加
   protected $fillable = [
     'id',
-    'organization_id',
-    'community_id',
     'member_id',
+    'flash_id',
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-12-20
+   * ------------------------------------------
+   * 学员冻结状态封装
+   * ------------------------------------------
+   *
+   * 学员冻结状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getFeelStatusAttribute($value)
+  {
+    return BenefitEnum::getStatus($value);
+  }
 
 
 
@@ -36,20 +54,20 @@ class Approval extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-21
+   * @dateTime 2021-06-09
    * ------------------------------------------
-   * 社区点赞与社区关联函数
+   * 快讯利益置与快讯关联函数
    * ------------------------------------------
    *
-   * 社区点赞与社区关联函数
+   * 快讯利益置与快讯关联函数
    *
    * @return [关联对象]
    */
-  public function community()
+  public function flash()
   {
-    return $this->belongsTo(
-      'App\Models\Common\Module\Community',
-      'community_id',
+    return $this->hasMany(
+      'App\Models\Common\Module\Flash',
+      'flash_id',
       'id'
     );
   }

@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Events\Api\Flash\BenefitEvent;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -17,12 +18,72 @@ use App\Http\Controllers\Api\BaseController;
 class BenefitController extends BaseController
 {
   // 模型名称
-  protected $_model = 'App\Models\Api\Module\Flash';
+  protected $_model = 'App\Models\Api\Module\Flash\Benefit';
+
+
+  /**
+   * @api {post} /api/member/flash/benefit/status 01. 快讯利益态度
+   * @apiDescription 当前会员是否发表快讯利益态度
+   * @apiGroup 54. 会员快讯利益模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiSuccess (basic params) {Number} flash_id 快讯编号
+   *
+   * @apiSampleRequest /api/member/flash/benefit/status
+   * @apiVersion 1.0.0
+   */
+  public function status(Request $request)
+  {
+    $messages = [
+      'flash_id.required' => '请您输入快讯编号',
+    ];
+
+    $rule = [
+      'flash_id' => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      try
+      {
+        $status = true;
+
+        $condition = self::getCurrentWhereData();
+
+        $where = ['flash_id' => $request->flash_id];
+
+        $condition = array_merge($condition, $where);
+
+        $response = $this->_model::getRow($condition);
+
+        return self::success($response);
+      }
+      catch(\Exception $e)
+      {
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::ERROR);
+      }
+    }
+  }
 
 
 
   /**
-   * @api {get} /api/member/flash/benefit/bullish 01. 会员利多操作
+   * @api {get} /api/member/flash/benefit/bullish 02. 会员利多操作
    * @apiDescription 当前会员会员快讯利多操作
    * @apiGroup 54. 会员快讯利益模块
    * @apiPermission jwt
@@ -56,15 +117,29 @@ class BenefitController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
-        $model = $this->_model::find($request->flash_id);
-        $model->increment('bullish_total');
+        $model = $this->_model::firstOrNew([
+          'member_id' => self::getCurrentId(),
+          'flash_id' => $request->flash_id
+        ]);
+
+        $model->feel_status = 1;
+        $model->save();
+
+        // 利多
+        event(new BenefitEvent(1, $request->flash_id));
+
+        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 
@@ -75,8 +150,8 @@ class BenefitController extends BaseController
 
 
   /**
-   * @api {get} /api/member/flash/benefit/bearish 02. 会员点赞列表(不分页)
-   * @apiDescription 获取当前会员点赞列表(不分页)
+   * @api {get} /api/member/flash/benefit/bearish 03. 会员利空操作
+   * @apiDescription 当前会员会员快讯利空操作
    * @apiGroup 54. 会员快讯利益模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
@@ -85,11 +160,7 @@ class BenefitController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiSuccess (字段说明) {Number} id 会员点赞编号
-   * @apiSuccess (字段说明) {Number} member_id 会员编号
-   * @apiSuccess (字段说明) {Number} course_id 课程编号
-   * @apiSuccess (字段说明) {Number} production_id 作品编号
-   * @apiSuccess (字段说明) {Number} create_time 点赞时间
+   * @apiParam {string} flash_id 快讯编号
    *
    * @apiSampleRequest /api/member/flash/benefit/bearish
    * @apiVersion 1.0.0
@@ -113,15 +184,29 @@ class BenefitController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
-        $model = $this->_model::find($request->flash_id);
-        $model->increment('bearish_total');
+        $model = $this->_model::firstOrNew([
+          'member_id' => self::getCurrentId(),
+          'flash_id' => $request->flash_id
+        ]);
+
+        $model->feel_status = 2;
+        $model->save();
+
+        // 利空
+        event(new BenefitEvent(2, $request->flash_id));
+
+        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 

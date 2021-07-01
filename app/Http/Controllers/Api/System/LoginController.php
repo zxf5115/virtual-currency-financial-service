@@ -78,7 +78,7 @@ class LoginController extends BaseController
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition, ['role']);
+        $response = Member::getRow($condition, ['role', 'vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -214,7 +214,7 @@ class LoginController extends BaseController
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition, ['role']);
+        $response = Member::getRow($condition, ['role', 'vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -377,7 +377,7 @@ class LoginController extends BaseController
       {
         $condition = self::getSimpleWhereData($request->open_id, 'open_id');
 
-        $response = Member::getRow($condition, ['role']);
+        $response = Member::getRow($condition, ['role', 'vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -485,7 +485,7 @@ class LoginController extends BaseController
 
         $where = array_merge($condition, $where);
 
-        $response = Member::getRow($where, ['role']);
+        $response = Member::getRow($where, ['role', 'vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -646,6 +646,16 @@ class LoginController extends BaseController
         {
           $model->setting()->delete();
           $model->setting()->create($data);
+        }
+
+        $data = [
+          'vip_id'    => 1,
+        ];
+
+        if(!empty($data))
+        {
+          $model->vipRelevance()->delete();
+          $model->vipRelevance()->create($data);
         }
 
         DB::commit();

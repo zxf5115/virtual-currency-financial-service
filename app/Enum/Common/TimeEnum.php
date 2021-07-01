@@ -3,7 +3,7 @@ namespace App\Enum\Common;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2020-10-21
+ * @dateTime 2021-07-01
  *
  * 时间枚举类
  */
@@ -11,40 +11,45 @@ class TimeEnum
 {
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-21
+   * @dateTime 2021-07-01
    * ------------------------------------------
-   * 时长封装
+   * 格式化日期时间
    * ------------------------------------------
    *
-   * 时长封装
+   * 格式化日期时间
    *
    * @param int $value 时间（秒）
    * @return 时长信息
    */
-  public static function getTimeLength($value)
+  public static function formatDateTime($value)
   {
     if (empty($value))
     {
       return '暂无';
     }
 
-    $day = floor($value / (3600 * 24));
+    $timestamp = time() - $value;
 
-    $day = $day > 0 ? $day . ' 天 ' : '';
+    if(60 > $timestamp)
+    {
+      return '刚刚';
+    }
 
-    $hour = floor(($value % (3600 * 24)) / 3600);
+    if(3600 > $timestamp)
+    {
+      $minutes = floor($timestamp / 60);
 
-    $hour = $hour > 0 ? $hour . ' 小时 ' : '';
+      return $minutes . ' 分钟前 ';
+    }
 
-    $minutes = floor((($value % (3600 * 24)) % 3600) / 60);
+    if(86400 > $timestamp)
+    {
+      $hour = floor($timestamp / 3600);
 
-    $minutes = $minutes > 0 ? $minutes . ' 分钟 ' : '';
+      return $hour . ' 小时前 ';
+    }
 
-    $seconds = floor((($value % (3600 * 24)) % 3600 % 60) / 60);
-
-    $seconds = $seconds > 0 ? $seconds . ' 秒 ' : '';
-
-    return $day . $hour . $minutes . $seconds;
+    return date('Y-m-d', $value);
   }
 
 
@@ -90,5 +95,27 @@ class TimeEnum
       'text' => $text,
       'value' => $value,
     ];
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 格式化星期
+   * ------------------------------------------
+   *
+   * 格式化星期
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public static function formatWeek($value)
+  {
+    $week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+    $timestamp = date('w', $value);
+
+    return $week[$timestamp];
   }
 }

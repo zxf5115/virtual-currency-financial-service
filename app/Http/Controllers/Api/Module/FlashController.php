@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Module;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\TraitClass\ToolTrait;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -15,6 +16,8 @@ use App\Http\Controllers\Api\BaseController;
  */
 class FlashController extends BaseController
 {
+  use ToolTrait;
+
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Flash';
 
@@ -56,7 +59,9 @@ class FlashController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order, true);
+
+      $response = self::allocation($response, 'datetime');
 
       return self::success($response);
     }

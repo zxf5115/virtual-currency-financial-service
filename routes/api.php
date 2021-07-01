@@ -343,6 +343,7 @@ $api->version('v1', [
 
             // 会员快讯利益路由
             $api->group(['prefix'  => 'benefit'], function ($api) {
+              $api->post('status', 'BenefitController@status');
               $api->post('bullish', 'BenefitController@bullish');
               $api->post('bearish', 'BenefitController@bearish');
             });
@@ -428,12 +429,8 @@ $api->version('v1', [
           // 会员课程路由
           $api->group(['prefix'  =>  'courseware'], function ($api) {
             $api->get('list', 'CoursewareController@list');
-            $api->get('select', 'CoursewareController@select');
-            $api->get('center', 'CoursewareController@center');
-            $api->get('view/{id}', 'CoursewareController@view');
             $api->get('status/{id}', 'CoursewareController@status');
-            $api->get('addition/{id}', 'CoursewareController@addition');
-            $api->post('apply', 'CoursewareController@apply');
+            $api->get('view/{id}', 'CoursewareController@view');
             $api->post('finish', 'CoursewareController@finish');
 
             // 会员课程知识点路由
@@ -450,7 +447,6 @@ $api->version('v1', [
               });
             });
           });
-
         });
       });
 

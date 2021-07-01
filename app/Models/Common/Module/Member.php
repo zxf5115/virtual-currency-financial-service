@@ -191,6 +191,28 @@ class Member extends Base
    */
   public function vip()
   {
+    return $this->belongsToMany(
+      'App\Models\Common\Module\Vip',
+      'module_member_vip',
+      'member_id',
+      'vip_id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 会员与会员贵宾关联函数
+   * ------------------------------------------
+   *
+   * 会员与会员贵宾关联函数
+   *
+   * @return [type]
+   */
+  public function vipRelevance()
+  {
     return $this->hasOne(
       'App\Models\Common\Module\Member\Vip',
       'member_id',

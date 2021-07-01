@@ -1,55 +1,46 @@
 <?php
-namespace App\Models\Common\Module\Community;
+namespace App\Models\Api\Module\Flash;
 
-use App\Models\Base;
+use App\Models\Common\Module\Flash\Benefit as Common;
+
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
- * @dateTime 2021-06-11
+ * @dateTime 2021-07-01
  *
- * 社区点赞模型类
+ * 快讯利益模型类
  */
-class Approval extends Base
+class Benefit extends Common
 {
-  // 表名
-  protected $table = "module_community_approval";
-
   // 隐藏的属性
   protected $hidden = [
-    'update_time'
-  ];
-
-  // 追加到模型数组表单的访问器
-  protected $appends = [];
-
-  // 批量添加
-  protected $fillable = [
     'id',
     'organization_id',
-    'community_id',
+    'flash_id',
     'member_id',
+    'status',
+    'update_time'
   ];
-
 
 
   // 关联函数 ------------------------------------------------------
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-21
+   * @dateTime 2021-06-09
    * ------------------------------------------
-   * 社区点赞与社区关联函数
+   * 快讯利益置与快讯关联函数
    * ------------------------------------------
    *
-   * 社区点赞与社区关联函数
+   * 快讯利益置与快讯关联函数
    *
    * @return [关联对象]
    */
-  public function community()
+  public function flash()
   {
-    return $this->belongsTo(
-      'App\Models\Common\Module\Community',
-      'community_id',
+    return $this->hasMany(
+      'App\Models\Api\Module\Flash',
+      'flash_id',
       'id'
     );
   }
@@ -57,19 +48,19 @@ class Approval extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-21
+   * @dateTime 2021-06-11
    * ------------------------------------------
-   * 社区点赞与学员关联函数
+   * 评论与评论人关联表
    * ------------------------------------------
    *
-   * 社区点赞与学员关联函数
+   * 评论与评论人关联表
    *
    * @return [关联对象]
    */
   public function member()
   {
     return $this->belongsTo(
-      'App\Models\Common\Module\Member',
+      'App\Models\Api\Module\Member',
       'member_id',
       'id'
     );

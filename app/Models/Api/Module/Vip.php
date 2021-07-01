@@ -14,6 +14,7 @@ class Vip extends Common
   // 隐藏的属性
   public $hidden = [
     'organization_id',
+    'pivot',
     'status',
     'create_time',
     'update_time'

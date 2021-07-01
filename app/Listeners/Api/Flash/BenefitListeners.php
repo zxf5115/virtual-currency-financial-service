@@ -4,13 +4,13 @@ namespace App\Listeners\Api\Flash;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Models\Api\Module\Production\Production;
-use App\Events\Api\Member\Production\BenefitEvent;
+use App\Models\Api\Module\Flash;
+use App\Events\Api\Flash\BenefitEvent;
 
 /**
- * 作品点赞监听器
+ * 快讯利益监听器
  */
-class BenefitlListeners
+class BenefitListeners
 {
   /**
    * Create the event listener.
@@ -32,21 +32,22 @@ class BenefitlListeners
   {
     try
     {
-      $type          = $event->type;
-      $production_id = $event->production_id;
+      $type     = $event->type;
+      $flash_id = $event->flash_id;
 
-      $production = Production::getRow(['id' => $production_id]);
+      $flash = Flash::getRow(['id' => $flash_id]);
 
+      // 利多
       if(1 == $type)
       {
-        $production->increment('approval_total', 1);
+        $flash->increment('bullish_total', 1);
       }
       else
       {
-        $production->decrement('approval_total', 1);
+        $flash->increment('bearish_total', 1);
       }
 
-      $production->save();
+      $flash->save();
 
       return true;
     }

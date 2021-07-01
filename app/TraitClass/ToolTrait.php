@@ -1,8 +1,6 @@
 <?php
 namespace App\TraitClass;
 
-use App\Models\Platform\Module\Education\Course\Unit;
-
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2020-10-22
@@ -53,48 +51,6 @@ trait ToolTrait
   }
 
 
-
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-22
-   * ------------------------------------------
-   * 向上递归查找
-   * ------------------------------------------
-   *
-   * 向上递归查找
-   *
-   * @param string $id 起始查询id
-   * @return [type]
-   */
-  public static function upWardRecursive($id, &$response)
-  {
-    try
-    {
-      $model = Unit::find($id);
-
-      if(empty($model))
-      {
-        return $response;
-      }
-
-      array_push($response, $model->title);
-
-      if($model->parent_id > 0)
-      {
-        return self::upWardRecursive($model->parent_id, $response);
-      }
-
-      return $response;
-    }
-    catch (\Exception $e)
-    {
-      \Log::error($e);
-    }
-  }
-
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-10-22
@@ -120,5 +76,41 @@ trait ToolTrait
 
       self::getUnitDirectory($item, $response[$k]);
     }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 将结果集按照指定字段进行分组
+   * ------------------------------------------
+   *
+   * 将结果集按照指定字段进行分组
+   *
+   * @return [type]
+   */
+  public static function allocation($data, $field)
+  {
+    $response = [];
+
+    if(empty($data['data']))
+    {
+      return $data;
+    }
+
+    $allocation = array_column($data['data'], $field);
+
+    foreach($data['data'] as $k => $item)
+    {
+      if(false !== $key = array_search($item[$field], $allocation))
+      {
+        $response[$allocation[$key]][] = $item;
+      }
+    }
+
+    $data['data'] = $response;
+
+    return $data;
   }
 }

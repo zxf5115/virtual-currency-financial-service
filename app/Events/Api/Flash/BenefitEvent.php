@@ -10,24 +10,24 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 作品点赞事件
+ * 快讯利益事件
  */
 class BenefitEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
   public $type = null;
-  public $production_id = null;
+  public $flash_id = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($type, $production_id)
+  public function __construct($type, $flash_id)
   {
-    $this->type          = $type;
-    $this->production_id = $production_id;
+    $this->type     = $type;
+    $this->flash_id = $flash_id;
   }
 
   /**
