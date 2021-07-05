@@ -43,4 +43,25 @@ class Category extends Common
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-02
+   * ------------------------------------------
+   * 社区分类与货币交易对关联函数
+   * ------------------------------------------
+   *
+   * 社区分类与货币交易对关联函数
+   *
+   * @return [关联对象]
+   */
+  public function symbol()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Currency\symbol',
+      'symbol_id',
+      'id'
+    );
+  }
 }

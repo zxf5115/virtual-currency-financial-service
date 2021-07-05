@@ -24,6 +24,15 @@ class CategoryController extends BaseController
   ];
 
 
+  // 关联对象
+  protected $_relevance = [
+    'list' => [
+      'symbol'
+    ],
+    'select' => false,
+    'view' => false,
+  ];
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-10
@@ -57,9 +66,17 @@ class CategoryController extends BaseController
     {
       try
       {
+        $status = $this->_model::validationOnly('symbol_id', $request->symbol_id);
+
+        if($status)
+        {
+          return self::error(Code::CURRENT_DATA_EXIST);
+        }
+
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
+        $model->symbol_id       = $request->symbol_id;
         $model->title           = $request->title;
         $model->sort            = $request->sort;
         $model->save();

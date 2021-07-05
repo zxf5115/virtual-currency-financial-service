@@ -616,24 +616,69 @@ class Base extends Model
    */
   public static function createOrDelete($where)
   {
-    $model = static::firstOrNew($where);
-
-    // 如果数据不存在，保存数据
-    if(empty($model->id))
+    try
     {
-      $model->save();
+      $model = static::firstOrNew($where);
 
-      return true;
+      // 如果数据不存在，保存数据
+      if(empty($model->id))
+      {
+        $model->save();
+
+        return true;
+      }
+      // 如果数据存在，删除数据
+      else
+      {
+        $model->delete();
+
+        return false;
+      }
     }
-    // 如果数据存在，删除数据
-    else
+    catch(\Exception $e)
     {
-      $model->delete();
+      // 记录异常信息
+      record($e);
 
       return false;
     }
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-02
+   * ------------------------------------------
+   * 验证内容是否唯一
+   * ------------------------------------------
+   *
+   * 验证内容是否唯一
+   *
+   * @param [type] $field 内容名称
+   * @param [type] $value 内容信息
+   * @return [type]
+   */
+  public static function validationOnly($field, $value)
+  {
+    try
+    {
+      $model = static::getRow([$field => $value]);
+
+      if(!empty($model->id))
+      {
+        $response = true;
+      }
+
+      return $response;
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return false;
+    }
+  }
 
 
 
@@ -651,9 +696,19 @@ class Base extends Model
    */
   public static function getServerUrl()
   {
-    $response = Config::where(['title' => 'web_url'])->first();
+    try
+    {
+      $response = Config::where(['title' => 'web_url'])->first();
 
-    return $response['value'] ?: '';
+      return $response['value'] ?: '';
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return false;
+    }
   }
 
 

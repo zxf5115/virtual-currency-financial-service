@@ -11,18 +11,19 @@ namespace App\Http\Constant;
 class Code
 {
   // 公共错误
-  const SUCCESS          = 200;
-  const LOGOUT_SUCCESS   = 201;
-  const SEND_SUCCESS     = 202;
-  const REGISTER_SUCCESS = 203;
-  const ERROR            = 1000;
-  const NO_PERMISSION    = 1001;
-  const DELETE_SUCCESS   = 1002;
-  const DELETE_FAILURE   = 1003;
-  const HANDLE_SUCCESS   = 1004;
-  const HANDLE_FAILURE   = 1005;
-  const REQUEST_TOO_MUSH = 1006;
-  const CLEAR_FAILURE    = 1007;
+  const SUCCESS            = 200;
+  const LOGOUT_SUCCESS     = 201;
+  const SEND_SUCCESS       = 202;
+  const REGISTER_SUCCESS   = 203;
+  const ERROR              = 1000;
+  const NO_PERMISSION      = 1001;
+  const DELETE_SUCCESS     = 1002;
+  const DELETE_FAILURE     = 1003;
+  const HANDLE_SUCCESS     = 1004;
+  const HANDLE_FAILURE     = 1005;
+  const REQUEST_TOO_MUSH   = 1006;
+  const CLEAR_FAILURE      = 1007;
+  const CURRENT_DATA_EXIST = 1008;
 
   // 服务器错误
   const SERVER_ERROR        = 2000;
@@ -117,12 +118,6 @@ class Code
   // 学员未完成作业
   const HOMEWORK_EMPTY = 9006;
 
-
-  // 班级编号为空
-  const SQUAD_ID_EMPTY = 9008;
-
-  const SQUAD_EMPTY = 90081;
-
   // 当前课程类型为永久，无法删除
   const COURSE_CATEGORY_PERMANENT = 90091;
   // 当前课程类型未结束，无法删除
@@ -152,8 +147,6 @@ class Code
   // 收货地址不存在
   const ADDRESS_EMPTY = 9011;
 
-  // 老师暂无班级
-  const TEACHER_SQUAD_EMPTY = 9012;
 
   // 支付成功
   const PAY_SUCCESS = 10001;
@@ -164,18 +157,19 @@ class Code
   const INSUFFICIENT_FUND = 10003;
 
   public static $message = [
-    self::SUCCESS          => '成功',
-    self::LOGOUT_SUCCESS   => '成功退出',
-    self::SEND_SUCCESS     => '发送成功',
-    self::REGISTER_SUCCESS => '注册成功',
-    self::ERROR            => '未知错误',
-    self::NO_PERMISSION    => '没有权限',
-    self::DELETE_SUCCESS   => '删除成功',
-    self::DELETE_FAILURE   => '删除失败',
-    self::HANDLE_SUCCESS   => '操作成功',
-    self::HANDLE_FAILURE   => '操作失败',
-    self::REQUEST_TOO_MUSH => '您请求太频繁了，请休息一会',
-    self::CLEAR_FAILURE    => '清除失败',
+    self::SUCCESS            => '成功',
+    self::LOGOUT_SUCCESS     => '成功退出',
+    self::SEND_SUCCESS       => '发送成功',
+    self::REGISTER_SUCCESS   => '注册成功',
+    self::ERROR              => '未知错误',
+    self::NO_PERMISSION      => '没有权限',
+    self::DELETE_SUCCESS     => '删除成功',
+    self::DELETE_FAILURE     => '删除失败',
+    self::HANDLE_SUCCESS     => '操作成功',
+    self::HANDLE_FAILURE     => '操作失败',
+    self::REQUEST_TOO_MUSH   => '您请求太频繁了，请休息一会',
+    self::CLEAR_FAILURE      => '清除失败',
+    self::CURRENT_DATA_EXIST => '数据已存在',
 
 
     self::SERVER_ERROR        => '服务器错误',
@@ -231,10 +225,6 @@ class Code
 
     self::HOMEWORK_EMPTY => '学员未完成作业',
 
-    self::SQUAD_ID_EMPTY => '请选择要导出的班级',
-
-    self::SQUAD_EMPTY => '当前用户未加入班级',
-
     self::MEMBER_TARGET_EMPTY => '当前用户未达成条件',
 
 
@@ -261,7 +251,6 @@ class Code
     self::COURSEWARE_EMPTY => '课件不存在',
     self::COURSEWARE_LEVEL_EMPTY => '课件级别不存在',
     self::ADDRESS_EMPTY => '当前会员收货地址不存在',
-    self::TEACHER_SQUAD_EMPTY => '当前老师暂未开通班级',
 
     self::PAY_SUCCESS => '支付成功',
     self::PAY_ERROR => '支付失败',
