@@ -20,6 +20,7 @@ class TeacherController extends BaseController
   // 排序
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
+    ['key' => 'create_time', 'value' => 'desc'],
   ];
 
 

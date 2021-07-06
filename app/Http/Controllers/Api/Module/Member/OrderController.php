@@ -5,10 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Events\Api\Member\Order\PayEvent;
+use App\Events\Api\Member\AssetEvent;
+use App\Events\Api\Member\MoneyEvent;
+use App\Models\Common\Module\Member\Asset;
+use App\Events\Api\Member\CoursewareEvent;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Api\Module\Education\Courseware;
-use App\Models\Api\Module\Member\Relevance\Address;
 use App\Models\Api\Module\Member\Courseware as MemberCourseware;
 
 
@@ -219,10 +221,10 @@ class OrderController extends BaseController
           'courseware_id' => $request->courseware_id,
         ];
 
-        $MemberCourseware = MemberCourseware::getRow($where);
+        $memberCourseware = MemberCourseware::getRow($where);
 
         // 一门课程只能购买一次
-        if(!empty($MemberCourseware->id))
+        if(!empty($memberCourseware->id))
         {
           return self::error(Code::COURSE_EXITS);
         }
@@ -370,6 +372,8 @@ class OrderController extends BaseController
 
       try
       {
+        $member_id = self::getCurrentId();
+
         $condition = self::getCurrentWhereData();
 
         $where = ['id' => $request->order_id];
@@ -378,19 +382,49 @@ class OrderController extends BaseController
 
         $model = $this->_model::getRow($condition);
 
-        // 支付
-        $result = event(new PayEvent($model));
+        // 如果订单数据为空或者用户信息为空
+        if(empty($model) || empty($member_id))
+        {
+          return self::error(Code::DATA_ERROR);
+        }
+
+        // 获取当前用户资产
+        $asset = Asset::getRow(['member_id' => $member_id]);
+
+        // 如果当前用户没有资产信息
+        if(empty($asset))
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_EMPTY);
+        }
+
+        // 如果订单金额大于当前用户资产总额
+        if($model->pay_money > $asset->money)
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_DEFICIENCY);
+        }
+
+        // 添加课程
+        $result = event(new CoursewareEvent($member_id, $model->courseware_id));
+
+        if(empty($result[0]))
+        {
+          return self::error(Code::COURSEWARE_ADD_ERROR);
+        }
+
+        // 扣除费用
+        $result = event(new AssetEvent($member_id, $model->pay_money, 2));
 
         if(empty($result[0]))
         {
           return self::error(Code::PAY_ERROR);
         }
 
-        $response = $result[0];
+        // 增加资产消费记录
+        event(new MoneyEvent($member_id, $model->pay_money, 2));
 
         DB::commit();
 
-        return self::success($response);
+        return self::success(Code::message(Code::PAY_SUCCESS));
       }
       catch(\Exception $e)
       {

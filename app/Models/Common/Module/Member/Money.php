@@ -19,6 +19,7 @@ class Money extends Base
   public $fillable = [
     'id',
     'organization_id',
+    'member_id',
   ];
 
   // 隐藏的属性

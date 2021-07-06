@@ -27,6 +27,7 @@ class PointController extends BaseController
   // 排序方式
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
+    ['key' => 'create_time', 'value' => 'desc'],
   ];
 
   // 关联对象

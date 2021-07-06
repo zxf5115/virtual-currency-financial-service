@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Events\Api\Member\MoneyEvent;
+use App\Events\Api\Member\AssetEvent;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -214,7 +214,7 @@ class MoneyController extends BaseController
         $model->save();
 
         // 充值总金额
-        event(new MoneyEvent($member_id, $request->money));
+        event(new AssetEvent($member_id, $request->money));
 
         DB::commit();
 

@@ -4,11 +4,11 @@ namespace App\Listeners\Api\Member;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Events\Api\Member\MoneyEvent;
-use App\Models\Api\Module\Member\Money;
+use App\Events\Api\Member\AssetEvent;
+use App\Models\Api\Module\Member\Asset;
 
 /**
- * 金额流向监听器
+ * 金额监听器
  */
 class MoneyListeners
 {
@@ -25,10 +25,10 @@ class MoneyListeners
   /**
    * Handle the event.
    *
-   * @param  MoneyEvent  $event
+   * @param  AssetEvent  $event
    * @return void
    */
-  public function handle(MoneyEvent $event)
+  public function handle(AssetEvent $event)
   {
     try
     {
@@ -36,12 +36,18 @@ class MoneyListeners
       $money     = $event->money;
       $type      = $event->type;
 
-      $model = Money::firstOrNew(['id' => 0]);
-
-      $model->member_id = $member_id;
-      $model->type      = $type;
-      $model->money     = $money;
-      $model->save();
+      if(1 == $type)
+      {
+        $asset = Asset::firstOrCreate(['member_id' => $member_id]);
+        $asset->increment('money', $money);
+        $asset->save();
+      }
+      else
+      {
+        $asset = Asset::firstOrCreate(['member_id' => $member_id]);
+        $asset->decrement('money', $money);
+        $asset->save();
+      }
 
       return true;
     }

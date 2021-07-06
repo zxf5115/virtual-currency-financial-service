@@ -23,7 +23,8 @@ class Code
   const HANDLE_FAILURE     = 1005;
   const REQUEST_TOO_MUSH   = 1006;
   const CLEAR_FAILURE      = 1007;
-  const CURRENT_DATA_EXIST = 1008;
+  const DATA_ERROR         = 1008;
+  const CURRENT_DATA_EXIST = 1009;
 
   // 服务器错误
   const SERVER_ERROR        = 2000;
@@ -112,6 +113,12 @@ class Code
   const CURRENT_MOBILE_EMPTY = 90050;
   // 当前会员未认证
   const CERITFICATION_EMPTY = 90051;
+  // 当前会员资产不存在
+  const CURRENT_MEMBER_ASSET_EMPTY = 90052;
+  // 当前会员资产不足
+  const CURRENT_MEMBER_ASSET_DEFICIENCY = 90053;
+
+
   // 标签不能为空
   const LABEL_EMPTY = 9005;
 
@@ -132,11 +139,11 @@ class Code
   const CURRENT_TEACHER_EXIST = 90096;
 
 
-  // 商品不存在
-  const GOODS_EMPTY = 9007;
 
   // 课程不存在
   const COURSE_EMPTY = 9010;
+  const COURSEWARE_ADD_ERROR = 90101;
+
 
   // 课件不存在
   const COURSEWARE_EMPTY = 9012;
@@ -169,6 +176,7 @@ class Code
     self::HANDLE_FAILURE     => '操作失败',
     self::REQUEST_TOO_MUSH   => '您请求太频繁了，请休息一会',
     self::CLEAR_FAILURE      => '清除失败',
+    self::DATA_ERROR         => '数据错误',
     self::CURRENT_DATA_EXIST => '数据已存在',
 
 
@@ -212,6 +220,7 @@ class Code
     self::USER_ROLE_EMPTY => '请选择角色',
     self::USER_ALREADY_EXISTED => '用户已经存在',
 
+
     self::MEMBER_EMPTY         => '未存在该用户',
     self::MEMBER_ROLE_EMPTY    => '用户身份不存在',
     self::MEMBER_ARCHIVE_EMPTY => '请完善用户资料',
@@ -221,6 +230,11 @@ class Code
     self::BIND_WEIXIN       => '请先绑定微信',
     self::CURRENT_MOBILE_EMPTY => '当前手机不存在',
     self::CERITFICATION_EMPTY => '当前会员未认证',
+    self::CURRENT_MEMBER_ASSET_EMPTY => '当前会员暂无可用余额',
+    self::CURRENT_MEMBER_ASSET_DEFICIENCY => '当前会员可用余额不足',
+
+
+
     self::LABEL_EMPTY  => '标签不能为空',
 
     self::HOMEWORK_EMPTY => '学员未完成作业',
@@ -243,8 +257,8 @@ class Code
     self::CURRENT_TEACHER_EXIST => '当前课程老师已存在',
 
 
-    self::GOODS_EMPTY => '商品不存在',
     self::COURSE_EMPTY => '课程不存在',
+    self::COURSEWARE_ADD_ERROR => '课程添加失败',
     self::COURSE_APPLY_WAIT => '报名时间还未开始',
     self::COURSE_APPLY_END => '报名时间已经过了',
     self::COURSE_EXITS => '当前课程已购买，无需再次购买',

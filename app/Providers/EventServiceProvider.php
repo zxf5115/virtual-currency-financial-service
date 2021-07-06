@@ -52,6 +52,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\AttentionListeners',
         ],
 
+        // 会员课程
+        'App\Events\Api\Member\CoursewareEvent' => [
+            'App\Listeners\Api\Member\CoursewareListeners',
+        ],
+
         // 资讯点赞
         'App\Events\Api\Member\Information\ApprovalEvent' => [
             'App\Listeners\Api\Member\Information\ApprovalListeners',
@@ -72,9 +77,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\Community\CollectionListeners',
         ],
 
+        // 资产
+        'App\Events\Api\Member\AssetEvent' => [
+            'App\Listeners\Api\Member\AssetListeners',
+        ],
 
-
-        // 获取佣金
+        // 资产流向
         'App\Events\Api\Member\MoneyEvent' => [
             'App\Listeners\Api\Member\MoneyListeners',
         ],

@@ -10,7 +10,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 金额事件
+ * 金额流向事件
  */
 class MoneyEvent
 {
@@ -18,16 +18,18 @@ class MoneyEvent
 
   public $member_id = null;
   public $money     = null;
+  public $type      = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($member_id, $money)
+  public function __construct($member_id, $money, $type = 1)
   {
     $this->member_id = $member_id;
     $this->money     = $money;
+    $this->type      = $type;
   }
 
   /**

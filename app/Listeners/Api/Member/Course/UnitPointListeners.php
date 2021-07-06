@@ -137,7 +137,7 @@ class UnitPointListeners
     }
     catch(\Exception $e)
     {
-      \Log::error($e);
+      record($e);
 
       return false;
     }

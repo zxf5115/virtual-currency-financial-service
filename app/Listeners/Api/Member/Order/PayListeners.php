@@ -4,10 +4,7 @@ namespace App\Listeners\Api\Member\Order;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use Yansongda\Pay\Pay;
-use Yansongda\Pay\Log;
 use App\Events\Api\Member\Order\PayEvent;
-use Yansongda\Pay\Exceptions\GatewayException;
 
 /**
  * 支付监听器
@@ -39,9 +36,6 @@ class PayListeners
       // 订单信息
       $order = $event->order;
 
-      // h5支付
-      $is_h5 = $event->is_h5;
-
       if(empty($order))
       {
         return false;
@@ -52,19 +46,19 @@ class PayListeners
       // 微信支付
       if(2 == $type)
       {
-        $response = $this->wechat($order, $is_h5);
+        $response = $this->wechat($order);
       }
       // 支付宝支付
       else if(1 == $type)
       {
-        $response = $this->alipay($order, $is_h5);
+        $response = $this->alipay($order);
       }
 
       return $response;
     }
     catch(\Exception $e)
     {
-      \Log::error($e);
+      record($e);
 
       return false;
     }

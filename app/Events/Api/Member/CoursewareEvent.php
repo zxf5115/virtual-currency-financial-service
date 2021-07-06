@@ -1,5 +1,5 @@
 <?php
-namespace App\Events\Api\Member\Order;
+namespace App\Events\Api\Member;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -10,22 +10,30 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 /**
- * 支付事件
+ * 会员课程事件
  */
-class PayEvent
+class CoursewareEvent
 {
   use Dispatchable, InteractsWithSockets, SerializesModels;
 
-  public $order = null;
+  public $member_id = null;
+
+  public $courseware_id = null;
+
+  public $source = null;
 
   /**
    * Create a new event instance.
    *
    * @return void
    */
-  public function __construct($order)
+  public function __construct($member_id, $courseware_id, $source = 1)
   {
-    $this->order = $order;
+    $this->member_id = $member_id;
+
+    $this->courseware_id = $courseware_id;
+
+    $this->source = $source;
   }
 
   /**

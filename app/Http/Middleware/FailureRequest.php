@@ -45,7 +45,7 @@ class FailureRequest
     }
     catch(\Exception $e)
     {
-      \Log::error($e);
+      record($e);
     }
   }
 }
