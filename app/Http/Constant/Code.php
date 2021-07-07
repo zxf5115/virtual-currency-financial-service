@@ -87,6 +87,8 @@ class Code
   const COURSE_APPLY_END = 90024;
   // 当前课程已购买，无需再次购买
   const COURSE_EXITS = 90025;
+  // 订单课程不存在
+  const CURRENT_ORDER_COURSE_EXITS = 90026;
 
   // 用户不存在
   const USER_EMPTY  = 9003;
@@ -262,6 +264,7 @@ class Code
     self::COURSE_APPLY_WAIT => '报名时间还未开始',
     self::COURSE_APPLY_END => '报名时间已经过了',
     self::COURSE_EXITS => '当前课程已购买，无需再次购买',
+    self::CURRENT_ORDER_COURSE_EXITS => '当前订单课程不存在',
     self::COURSEWARE_EMPTY => '课件不存在',
     self::COURSEWARE_LEVEL_EMPTY => '课件级别不存在',
     self::ADDRESS_EMPTY => '当前会员收货地址不存在',

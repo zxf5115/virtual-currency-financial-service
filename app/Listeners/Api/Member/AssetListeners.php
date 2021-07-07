@@ -10,7 +10,7 @@ use App\Models\Api\Module\Member\Asset;
 /**
  * 金额监听器
  */
-class MoneyListeners
+class AssetListeners
 {
   /**
    * Create the event listener.

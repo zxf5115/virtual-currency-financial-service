@@ -20,7 +20,14 @@
           {{ $item['order_no'] ?? '' }}
         </td>
         <td height='25' style="text-align: center;vertical-align: center;">
-          {{ $item['courseware']['title'] ?? '' }}
+          @if(!empty($item['courseware']))
+            @foreach($item['courseware'] as $k => $courseware)
+              {{ $courseware['title'] }}
+              @if($k < (count($item['courseware']) - 1))
+                <br/>
+              @endif
+            @endforeach
+          @endif
         </td>
         <td height='25' style="text-align: center;vertical-align: center;">
           {{ $item['member']['nickname'] ?? '' }}

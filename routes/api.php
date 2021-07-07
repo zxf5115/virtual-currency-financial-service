@@ -440,6 +440,7 @@ $api->version('v1', [
             $api->post('handle', 'OrderController@handle');
             $api->post('change', 'OrderController@change');
             $api->post('pay', 'OrderController@pay');
+            $api->post('buy', 'OrderController@buy');
             $api->post('finish', 'OrderController@finish');
             $api->post('cancel', 'OrderController@cancel');
           });

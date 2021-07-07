@@ -140,8 +140,6 @@ class OrderController extends BaseController
 
       $url = $url . '/storage/' . $filename;
 
-
-
       return self::success($url);
     }
     catch(\Exception $e)

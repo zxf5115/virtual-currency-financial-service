@@ -10,9 +10,10 @@ namespace App\Enum\Module\Order;
 class OrderEnum
 {
   // 支付状态
-  const ALI    = 1; // 支付宝
-  const WECHAT = 2; // 微信
-  const APPLE  = 4; // 苹果
+  const ALI     = 1; // 支付宝
+  const WECHAT  = 2; // 微信
+  const BALANCE = 3; // 余额
+  const APPLE   = 4; // 苹果
 
   const WAIT    = 0; // 待支付
   const FINISH  = 1; // 已支付
@@ -35,6 +36,11 @@ class OrderEnum
     self::WECHAT => [
       'value' => self::WECHAT,
       'text' => '微信'
+    ],
+
+    self::BALANCE => [
+      'value' => self::BALANCE,
+      'text' => '余额'
     ],
 
     self::APPLE => [

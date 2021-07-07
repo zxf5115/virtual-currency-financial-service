@@ -176,9 +176,9 @@ class OrderController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {String} courseware_id 课程编号
+   * @apiParam {Array} courseware_id 课程编号数组
    * @apiParam {String} pay_money 支付金额
-   * @apiParam {String} pay_type 支付类型 1 支付宝 2 微信 4 苹果
+   * @apiParam {String} pay_type 支付类型 1 支付宝 2 微信 3 充值 4 苹果
    *
    * @apiSampleRequest /api/member/order/handle
    * @apiVersion 1.0.0
@@ -206,27 +206,32 @@ class OrderController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         // 判断课程是否存在
-        $courseware = Courseware::getRow(['id' => $request->courseware_id]);
-
-        if(empty($courseware))
+        foreach($request->courseware_id as $courseware_id)
         {
-          return self::error(Code::COURSE_EMPTY);
-        }
+          $courseware = Courseware::getRow(['id' => $courseware_id]);
 
-        $where = [
-          'member_id'     => self::getCurrentId(),
-          'courseware_id' => $request->courseware_id,
-        ];
+          if(empty($courseware))
+          {
+            return self::error(Code::COURSE_EMPTY);
+          }
 
-        $memberCourseware = MemberCourseware::getRow($where);
+          $where = [
+            'member_id'     => self::getCurrentId(),
+            'courseware_id' => $courseware_id,
+          ];
 
-        // 一门课程只能购买一次
-        if(!empty($memberCourseware->id))
-        {
-          return self::error(Code::COURSE_EXITS);
+          $memberCourseware = MemberCourseware::getRow($where);
+
+          // 一门课程只能购买一次
+          if(!empty($memberCourseware->id))
+          {
+            return self::error(Code::COURSE_EXITS);
+          }
         }
 
         $model = $this->_model::firstOrNew(['id' => $request->id]);
@@ -240,15 +245,26 @@ class OrderController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->member_id       = self::getCurrentId();
-        $model->courseware_id   = $request->courseware_id;
         $model->pay_money       = $request->pay_money;
         $model->pay_type        = $request->pay_type;
         $model->save();
+
+        $data = self::packRelevanceData($request, 'courseware_id');
+
+        if(!empty($data))
+        {
+          $model->coursewareRelevance()->delete();
+          $model->coursewareRelevance()->createMany($data);
+        }
+
+        DB::commit();
 
         return self::success($model);
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 
@@ -388,6 +404,10 @@ class OrderController extends BaseController
           return self::error(Code::DATA_ERROR);
         }
 
+        $model->pay_status = 1;
+        $model->pay_time   = time();
+        $model->save();
+
         // 获取当前用户资产
         $asset = Asset::getRow(['member_id' => $member_id]);
 
@@ -403,8 +423,162 @@ class OrderController extends BaseController
           return self::error(Code::CURRENT_MEMBER_ASSET_DEFICIENCY);
         }
 
+        $courseware = $model->coursewareRelevance()->pluck('courseware_id')->toArray();
+
+        if(empty($courseware))
+        {
+          return self::error(Code::CURRENT_ORDER_COURSE_EXITS);
+        }
+
         // 添加课程
-        $result = event(new CoursewareEvent($member_id, $model->courseware_id));
+        $result = event(new CoursewareEvent($member_id, $courseware));
+
+        if(empty($result[0]))
+        {
+          return self::error(Code::COURSEWARE_ADD_ERROR);
+        }
+
+        // 扣除费用
+        $result = event(new AssetEvent($member_id, $model->pay_money, 2));
+
+        if(empty($result[0]))
+        {
+          return self::error(Code::PAY_ERROR);
+        }
+
+        // 增加资产消费记录
+        event(new MoneyEvent($member_id, $model->pay_money, 2));
+
+        DB::commit();
+
+        return self::success(Code::message(Code::PAY_SUCCESS));
+      }
+      catch(\Exception $e)
+      {
+        DB::rollback();
+
+        // 记录异常信息
+        self::record($e);
+
+        return self::error(Code::HANDLE_FAILURE);
+      }
+    }
+  }
+
+
+  /**
+   * @api {post} /api/member/order/buy 06. 购物车购买
+   * @apiDescription 当前会员直接购买
+   * @apiGroup 35. 会员订单模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiParam {array} courseware_id 课程编号数组
+   * @apiParam {String} pay_money 支付金额
+   * @apiParam {String} pay_type 支付类型 1 支付宝 2 微信 3 充值 4 苹果
+   *
+   * @apiSampleRequest /api/member/order/buy
+   * @apiVersion 1.0.0
+   */
+  public function buy(Request $request)
+  {
+    $messages = [
+      'courseware_id.required' => '请您输入课程编号',
+      'pay_money.required'     => '请您输入支付金额',
+      'pay_type.required'      => '请您选择支付类型',
+    ];
+
+    $rule = [
+      'courseware_id' => 'required',
+      'pay_money'     => 'required',
+      'pay_type'      => 'required',
+    ];
+
+    // 验证用户数据内容是否正确
+    $validation = self::validation($request, $messages, $rule);
+
+    if(!$validation['status'])
+    {
+      return $validation['message'];
+    }
+    else
+    {
+      DB::beginTransaction();
+
+      try
+      {
+        $member_id = self::getCurrentId();
+
+        // 判断课程是否存在
+        foreach($request->courseware_id as $courseware_id)
+        {
+          $courseware = Courseware::getRow(['id' => $courseware_id]);
+
+          if(empty($courseware))
+          {
+            return self::error(Code::COURSE_EMPTY);
+          }
+
+          $where = [
+            'member_id'     => self::getCurrentId(),
+            'courseware_id' => $courseware_id,
+          ];
+
+          $memberCourseware = MemberCourseware::getRow($where);
+
+          // 一门课程只能购买一次
+          if(!empty($memberCourseware->id))
+          {
+            return self::error(Code::COURSE_EXITS);
+          }
+        }
+
+        // 获取当前用户资产
+        $asset = Asset::getRow(['member_id' => $member_id]);
+
+        // 如果当前用户没有资产信息
+        if(empty($asset))
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_EMPTY);
+        }
+
+        // 如果订单金额大于当前用户资产总额
+        if($request->pay_money > $asset->money)
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_DEFICIENCY);
+        }
+
+        $model = $this->_model::firstOrNew(['id' => $request->id]);
+
+        if(empty($request->id))
+        {
+          $rand = str_pad(rand(1, 999999), 6, 0, STR_PAD_LEFT);
+
+          $model->order_no = date('YmdHis') . $rand;
+        }
+
+        $model->organization_id = self::getOrganizationId();
+        $model->member_id       = self::getCurrentId();
+        $model->pay_money       = $request->pay_money;
+        $model->pay_type        = $request->pay_type;
+        $model->pay_status      = 1;
+        $model->pay_time        = time();
+        $model->save();
+
+        $data = self::packRelevanceData($request, 'courseware_id');
+
+        if(!empty($data))
+        {
+          $model->coursewareRelevance()->delete();
+          $model->coursewareRelevance()->createMany($data);
+        }
+
+        // 添加课程
+        $result = event(new CoursewareEvent($member_id, $request->courseware_id));
 
         if(empty($result[0]))
         {
@@ -441,7 +615,7 @@ class OrderController extends BaseController
 
 
   /**
-   * @api {post} /api/member/order/finish 06. 订单完成
+   * @api {post} /api/member/order/finish 07. 订单完成
    * @apiDescription 当前会员标记订单完成
    * @apiGroup 35. 会员订单模块
    * @apiPermission jwt
@@ -502,7 +676,7 @@ class OrderController extends BaseController
 
 
   /**
-   * @api {post} /api/member/order/cancel 07. 订单取消
+   * @api {post} /api/member/order/cancel 08. 订单取消
    * @apiDescription 当前会员取消订单
    * @apiGroup 35. 会员订单模块
    * @apiPermission jwt

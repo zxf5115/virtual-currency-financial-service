@@ -39,13 +39,16 @@ class CoursewareListeners
       $source = $event->source;
 
       // 会员课程
-      $model = Courseware::firstOrNew([
-        'member_id' => $member_id,
-        'courseware_id' => $courseware_id,
-      ]);
+      foreach($courseware_id as $item)
+      {
+        $model = Courseware::firstOrNew([
+          'member_id'     => $member_id,
+          'courseware_id' => $item,
+        ]);
 
-      $model->source = $source;
-      $model->save();
+        $model->source = $source;
+        $model->save();
+      }
 
       return true;
     }
