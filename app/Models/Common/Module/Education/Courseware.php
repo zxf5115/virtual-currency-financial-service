@@ -20,22 +20,41 @@ class Courseware extends Base
     'update_time'
   ];
 
-  // 追加到模型数组表单的访问器
-  public $appends = [];
-
   // 批量添加
   public $fillable = ['id'];
 
-  /**
-   * 转换属性类型
-   */
-  protected $casts = [
-    'status' => 'array',
-    'start_time' => 'datetime:Y-m-d',
-    'end_time' => 'datetime:Y-m-d',
-    'create_time' => 'datetime:Y-m-d H:i:s',
-    'update_time' => 'datetime:Y-m-d H:i:s',
+
+  // 追加到模型数组表单的访问器
+  public $appends = [
+    'point_total'
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-25
+   * ------------------------------------------
+   * 课程知识点数量封装
+   * ------------------------------------------
+   *
+   * 课程知识点数量封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getPointTotalAttribute($value)
+  {
+    $response = 0;
+
+    if(!empty($this->point))
+    {
+      $response = count($this->point);
+
+      unset($this->point);
+    }
+
+    return $response;
+  }
 
 
   /**

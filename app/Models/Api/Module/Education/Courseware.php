@@ -21,39 +21,6 @@ class Courseware extends Common
   ];
 
 
-  // 追加到模型数组表单的访问器
-  public $appends = [
-    'point_total'
-  ];
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-25
-   * ------------------------------------------
-   * 课程知识点数量封装
-   * ------------------------------------------
-   *
-   * 课程知识点数量封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getPointTotalAttribute($value)
-  {
-    $response = 0;
-
-    if(!empty($this->point))
-    {
-      $response = count($this->point);
-
-      unset($this->point);
-    }
-
-    return $response;
-  }
-
-
   // 关联函数 ------------------------------------------------------
 
   /**

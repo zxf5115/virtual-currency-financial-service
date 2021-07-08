@@ -26,6 +26,16 @@ class Order extends Base
   // 批量添加
   protected $fillable = ['id'];
 
+  /**
+   * 转换属性类型
+   */
+  protected $casts = [
+    'status' => 'array',
+    'pay_time' => 'datetime:Y-m-d H:i:s',
+    'create_time' => 'datetime:Y-m-d H:i:s',
+    'update_time' => 'datetime:Y-m-d H:i:s',
+  ];
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -120,6 +130,26 @@ class Order extends Base
   {
     return $this->hasMany(
       'App\Models\Common\Module\Order\Courseware',
+      'order_id',
+      'id',
+    );
+  }
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-08
+   * ------------------------------------------
+   * 课程订单与课程订单日志关联函数
+   * ------------------------------------------
+   *
+   * 课程订单与课程订单日志关联函数
+   *
+   * @return [关联对象]
+   */
+  public function log()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Order\Log',
       'order_id',
       'id',
     );

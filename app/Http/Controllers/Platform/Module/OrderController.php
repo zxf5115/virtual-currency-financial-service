@@ -46,6 +46,7 @@ class OrderController extends BaseController
     'view' => [
       'courseware',
       'member',
+      'log',
     ]
   ];
 
