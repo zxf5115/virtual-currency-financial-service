@@ -161,10 +161,21 @@ $api->version('v1', [
         $api->get('select', 'MemberController@select');
         $api->get('view/{id}', 'MemberController@view');
         $api->post('handle', 'MemberController@handle');
-        $api->post('enable', 'MemberController@enable');
+        $api->post('status', 'MemberController@status');
         $api->post('delete', 'MemberController@delete');
 
         $api->group(['namespace'  =>  'Member'], function ($api) {
+
+          // 会员角色路由
+          $api->group(['prefix'  =>  'role'], function ($api) {
+            $api->any('list', 'RoleController@list');
+            $api->get('select', 'RoleController@select');
+            $api->get('view/{id}', 'RoleController@view');
+            $api->post('handle', 'RoleController@handle');
+            $api->post('delete', 'RoleController@delete');
+            $api->any('permission/{id}', 'RoleController@permission');
+          });
+
 
           // 会员认证路由
           $api->group(['prefix'  =>  'certification'], function ($api) {
@@ -186,16 +197,6 @@ $api->version('v1', [
               $api->get('select', 'CourseController@select');
             });
           });
-        });
-
-        // 会员角色路由
-        $api->group(['prefix'  =>  'role'], function ($api) {
-          $api->any('list', 'RoleController@list');
-          $api->get('select', 'RoleController@select');
-          $api->get('view/{id}', 'RoleController@view');
-          $api->post('handle', 'RoleController@handle');
-          $api->post('delete', 'RoleController@delete');
-          $api->any('permission/{id}', 'RoleController@permission');
         });
       });
 

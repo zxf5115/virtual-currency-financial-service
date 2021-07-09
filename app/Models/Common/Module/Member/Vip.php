@@ -56,7 +56,7 @@ class Vip extends Base
    *
    * @return [关联对象]
    */
-  public function vip()
+  public function gvip()
   {
     return $this->belongsTo(
       'App\Models\Common\Module\Vip',

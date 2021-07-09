@@ -28,13 +28,16 @@ class MemberController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'vip.vip',
+      'vip',
+      'vipRelevance',
       'asset',
-      'archive'
+      'archive',
+      'certification'
     ],
     'view' => [
       'archive',
-      'vip.vip',
+      'vip',
+      'vipRelevance',
       'asset',
       'archive',
       'certification',
@@ -90,10 +93,10 @@ class MemberController extends BaseController
           $model->password = $this->_model::generate(Parameter::PASSWORD);
         }
 
-        $model->username = $request->username;
-        $model->nickname = $request->nickname;
-        $model->avatar   = $request->avatar ?: '';
-        $model->status   = intval($request->status);
+        $model->username     = $request->username;
+        $model->nickname     = $request->nickname;
+        $model->avatar       = $request->avatar ?: '';
+        $model->audit_status = $request->audit_status ?? 1;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
@@ -121,14 +124,15 @@ class MemberController extends BaseController
    * @param Request $request [description]
    * @return [type]
    */
-  public function enable(Request $request)
+  public function status(Request $request)
   {
     try
     {
       $model = $this->_model::find($request->id);
 
-      $model->status = $model->status['value'] == 1 ? 2 : 1;
+      $field = $request->field;
 
+      $model->$field = $request->value;
       $model->save();
 
       return self::success(Code::message(Code::HANDLE_SUCCESS));

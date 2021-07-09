@@ -21,4 +21,28 @@ class Vip extends Common
     'create_time',
     'update_time'
   ];
+
+
+  // 关联函数 ------------------------------------------------------
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-08
+   * ------------------------------------------
+   * 会员贵宾与贵宾关联函数
+   * ------------------------------------------
+   *
+   * 会员贵宾与贵宾关联函数
+   *
+   * @return [关联对象]
+   */
+  public function gvip()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Vip',
+      'vip_id',
+      'id'
+    );
+  }
 }

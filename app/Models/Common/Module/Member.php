@@ -59,6 +59,24 @@ class Member extends Base
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-12-20
    * ------------------------------------------
+   * 学员审核状态封装
+   * ------------------------------------------
+   *
+   * 学员审核状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getAuditStatusAttribute($value)
+  {
+    return MemberEnum::getAuditStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-12-20
+   * ------------------------------------------
    * 学员冻结状态封装
    * ------------------------------------------
    *
