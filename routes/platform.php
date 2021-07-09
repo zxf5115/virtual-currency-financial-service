@@ -461,6 +461,8 @@ $api->version('v1', [
         $api->get('select', 'OrderController@select');
         $api->get('view/{id}', 'OrderController@view');
         $api->post('cancel', 'OrderController@cancel');
+        $api->post('handle', 'OrderController@handle');
+        $api->post('delete', 'OrderController@delete');
         $api->post('export', 'OrderController@export');
       });
     });
