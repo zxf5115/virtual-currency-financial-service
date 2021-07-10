@@ -152,7 +152,8 @@ $api->version('v1', [
 
       // 公共路由
       $api->group(['namespace' => 'Common', 'prefix'  =>  'common'], function ($api) {
-        $api->get('area/list', 'AreaController@list'); // 民族路由
+        $api->get('area/list', 'AreaController@list'); // 地区路由
+        $api->get('single/audit', 'SingleController@audit'); // 审核状态路由
       });
 
       // 会员路由
@@ -217,6 +218,7 @@ $api->version('v1', [
         $api->get('select', 'AdvertisingController@select');
         $api->get('view/{id}', 'AdvertisingController@view');
         $api->post('handle', 'AdvertisingController@handle');
+        $api->post('status', 'AdvertisingController@status');
         $api->post('delete', 'AdvertisingController@delete');
 
         // 广告位路由

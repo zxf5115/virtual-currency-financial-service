@@ -20,7 +20,9 @@ class CoursewareController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'title'
+    'category_id',
+    'title',
+    'create_time',
   ];
 
   // 排序方式
@@ -105,41 +107,6 @@ class CoursewareController extends BaseController
 
         return self::error(Code::HANDLE_FAILURE);
       }
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-01-05
-   * ------------------------------------------
-   * 启用（停用）课程类型
-   * ------------------------------------------
-   *
-   * 启用（停用）课程类型
-   *
-   * @param Request $request [description]
-   * @return [type]
-   */
-  public function status(Request $request)
-  {
-    try
-    {
-      $model = $this->_model::find($request->id);
-
-      $field = $request->field;
-
-      $model->$field = $request->value;
-      $model->save();
-
-      return self::success(Code::message(Code::HANDLE_SUCCESS));
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::HANDLE_FAILURE);
     }
   }
 }

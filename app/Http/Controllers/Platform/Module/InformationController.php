@@ -21,7 +21,8 @@ class InformationController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'category_id',
-    'title'
+    'title',
+    'create_time'
   ];
 
   // 关联对象

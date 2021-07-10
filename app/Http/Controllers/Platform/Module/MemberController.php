@@ -114,41 +114,6 @@ class MemberController extends BaseController
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-02-25
-   * ------------------------------------------
-   * 禁用（解禁）学员账户
-   * ------------------------------------------
-   *
-   * 禁用（解禁）学员账户
-   *
-   * @param Request $request [description]
-   * @return [type]
-   */
-  public function status(Request $request)
-  {
-    try
-    {
-      $model = $this->_model::find($request->id);
-
-      $field = $request->field;
-
-      $model->$field = $request->value;
-      $model->save();
-
-      return self::success(Code::message(Code::HANDLE_SUCCESS));
-    }
-    catch(\Exception $e)
-    {
-      // 记录异常信息
-      self::record($e);
-
-      return self::error(Code::HANDLE_FAILURE);
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-20
    * ------------------------------------------
    * 初始化密码

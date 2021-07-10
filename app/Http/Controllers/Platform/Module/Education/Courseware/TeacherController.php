@@ -45,15 +45,17 @@ class TeacherController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'title.required'   => '请您输入讲师姓名',
-      'picture.required' => '请您上传讲师头像',
-      'mobile.required'  => '请您输入讲师电话',
+      'title.required'    => '请您输入讲师姓名',
+      'picture.required'  => '请您上传讲师头像',
+      'mobile.required'   => '请您输入讲师电话',
+      'position.required' => '请您输入讲师头衔',
     ];
 
     $rule = [
-      'title'   => 'required',
-      'picture' => 'required',
-      'mobile'  => 'required',
+      'title'    => 'required',
+      'picture'  => 'required',
+      'mobile'   => 'required',
+      'position' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -71,10 +73,10 @@ class TeacherController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->title           = $request->title;
-        $model->content         = $request->content;
         $model->picture         = $request->picture;
         $model->mobile          = $request->mobile;
         $model->position        = $request->position;
+        $model->content         = $request->content ?? '';
         $model->sort            = $request->sort ?? 0;
         $model->save();
 

@@ -18,7 +18,8 @@ class Flash extends Common
   protected $hidden = [
     'organization_id',
     'category_id',
-    'member_id',
+    'user_id',
+    'audit_status',
     'status',
     'update_time'
   ];

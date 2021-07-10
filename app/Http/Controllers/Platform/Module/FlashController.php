@@ -20,13 +20,16 @@ class FlashController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'category_id',
-    'title'
+    'title',
+    'audit_status',
+    'create_time'
   ];
 
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'category'
+      'category',
+      'user'
     ],
     'select' => false,
     'view' => [
@@ -81,6 +84,7 @@ class FlashController extends BaseController
         $model->content         = $request->content;
         $model->bullish_total   = $request->bullish_total ?? 0;
         $model->bearish_total   = $request->bearish_total ?? 0;
+        $model->audit_status    = $request->audit_status ?? 1;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

@@ -130,6 +130,7 @@ $api->version('v1', [
       // 快讯路由
       $api->group(['prefix'  => 'flash'], function ($api) {
         $api->get('list', 'FlashController@list');
+        $api->get('recommend', 'FlashController@recommend');
         $api->get('view/{id}', 'FlashController@view');
 
         // 快讯关联路由

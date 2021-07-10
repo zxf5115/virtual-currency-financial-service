@@ -21,6 +21,11 @@ class FlashController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Flash';
 
+  // 默认查询条件
+  protected $_where = [
+    'audit_status' => 1
+  ];
+
   // 客户端搜索字段
   protected $_params = [
     'category_id'
@@ -40,6 +45,7 @@ class FlashController extends BaseController
    * @apiSuccess (字段说明) {String} content 快讯内容
    * @apiSuccess (字段说明) {String} bullish_total 利多总数
    * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_recommend 首页推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/flash/list
@@ -76,7 +82,56 @@ class FlashController extends BaseController
 
 
   /**
-   * @api {get} /api/flash/view/{id} 02. 快讯详情
+   * @api {get} /api/flash/recommend 02. 推荐快讯
+   * @apiDescription 获取推荐快讯数据
+   * @apiGroup 51. 快讯模块
+   *
+   * @apiParam {int} category_id 分类编号
+   * @apiParam {int} total 显示数量，默认显示4个
+   *
+   * @apiSuccess (字段说明) {Number} id 快讯编号
+   * @apiSuccess (字段说明) {String} title 快讯标题
+   * @apiSuccess (字段说明) {String} content 快讯内容
+   * @apiSuccess (字段说明) {String} bullish_total 利多总数
+   * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_recommend 首页推荐
+   * @apiSuccess (字段说明) {String} create_time 发布时间
+   *
+   * @apiSampleRequest /api/flash/recommend
+   * @apiVersion 1.0.0
+   */
+  public function recommend(Request $request)
+  {
+    try
+    {
+      $condition = self::getSimpleWhereData(1, 'is_recommend');
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      $total = $request->total ?? 4;
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'recommend');
+
+      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+  /**
+   * @api {get} /api/flash/view/{id} 03. 快讯详情
    * @apiDescription 获取快讯详情
    * @apiGroup 51. 快讯模块
    *
@@ -85,6 +140,7 @@ class FlashController extends BaseController
    * @apiSuccess (字段说明) {String} content 快讯内容
    * @apiSuccess (字段说明) {String} bullish_total 利多总数
    * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_recommend 首页推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/flash/view/{id}
