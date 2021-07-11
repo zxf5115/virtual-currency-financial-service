@@ -10,20 +10,42 @@ namespace App\Enum\Module\Information;
 class InformationEnum
 {
   // 是否推荐状态
-  const WAIT   = 0; // 未推荐
-  const FINISH = 1; // 已推荐
+  const YES = 1; // 是
+  const NO  = 2; // 否
 
+  // 审核状态
+  const WAIT    = 0;
+  const SUCCESS = 1;
+  const ERROR   = 2;
 
   // 是否推荐状态
-  public static $recommend = [
-    self::WAIT       => [
-      'value' => self::WAIT,
-      'text' => '未推荐'
+  public static $status = [
+    self::YES       => [
+      'value' => self::YES,
+      'text' => '是'
     ],
 
-    self::FINISH       => [
-      'value' => self::FINISH,
-      'text' => '已推荐'
+    self::NO       => [
+      'value' => self::NO,
+      'text' => '否'
+    ]
+  ];
+
+  // 快讯利益
+  public static $audit = [
+    self::WAIT => [
+      'value' => self::WAIT,
+      'text' => '待审核'
+    ],
+
+    self::SUCCESS => [
+      'value' => self::SUCCESS,
+      'text' => '审核通过'
+    ],
+
+    self::ERROR => [
+      'value' => self::ERROR,
+      'text' => '审核不通过'
     ]
   ];
 
@@ -40,8 +62,26 @@ class InformationEnum
    * @param int $code 信息代码
    * @return 信息内容
    */
-  public static function getRecommendStatus($code)
+  public static function getStatus($code)
   {
-    return self::$recommend[$code] ?: self::$recommend[self::WAIT];
+    return self::$status[$code] ?: self::$status[self::WAIT];
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-10
+   * ------------------------------------------
+   * 审核状态状态值
+   * ------------------------------------------
+   *
+   * 审核状态状态值
+   *
+   * @param int $code 信息代码
+   * @return 信息内容
+   */
+  public static function getAuditStatus($code)
+  {
+    return self::$audit[$code] ?: self::$audit[self::WAIT];
   }
 }

@@ -323,33 +323,43 @@ $api->version('v1', [
       });
 
 
-      // 标签路由
-      $api->group(['prefix' => 'label'], function ($api) {
-        $api->any('list', 'LabelController@list');
-        $api->get('select', 'LabelController@select');
-        $api->get('view/{id}', 'LabelController@view');
-        $api->post('handle', 'LabelController@handle');
-        $api->post('delete/{id?}', 'LabelController@delete');
-      });
-
-
       // 资讯路由
       $api->group(['prefix' => 'information'], function ($api) {
         $api->any('list', 'InformationController@list');
         $api->get('select', 'InformationController@select');
         $api->get('view/{id}', 'InformationController@view');
-        $api->post('recommend', 'InformationController@recommend');
+        $api->post('status', 'InformationController@status');
         $api->post('handle', 'InformationController@handle');
         $api->post('delete/{id?}', 'InformationController@delete');
 
-        // 资讯分类路由
-        $api->group(['namespace' => 'Information', 'prefix' => 'category'], function ($api) {
-          $api->any('list', 'CategoryController@list');
-          $api->get('select', 'CategoryController@select');
-          $api->get('view/{id}', 'CategoryController@view');
-          $api->post('status', 'CategoryController@status');
-          $api->post('handle', 'CategoryController@handle');
-          $api->post('delete/{id?}', 'CategoryController@delete');
+        $api->group(['namespace' => 'Information'], function ($api) {
+          // 资讯分类路由
+          $api->group(['prefix' => 'category'], function ($api) {
+            $api->any('list', 'CategoryController@list');
+            $api->get('select', 'CategoryController@select');
+            $api->get('view/{id}', 'CategoryController@view');
+            $api->post('status', 'CategoryController@status');
+            $api->post('handle', 'CategoryController@handle');
+            $api->post('delete/{id?}', 'CategoryController@delete');
+          });
+
+          // 标签路由
+          $api->group(['prefix' => 'label'], function ($api) {
+            $api->any('list', 'LabelController@list');
+            $api->get('select', 'LabelController@select');
+            $api->get('view/{id}', 'LabelController@view');
+            $api->post('handle', 'LabelController@handle');
+            $api->post('delete/{id?}', 'LabelController@delete');
+          });
+
+          // 敏感词路由
+          $api->group(['prefix' => 'sensitive'], function ($api) {
+            $api->any('list', 'SensitiveController@list');
+            $api->get('select', 'SensitiveController@select');
+            $api->get('view/{id}', 'SensitiveController@view');
+            $api->post('handle', 'SensitiveController@handle');
+            $api->post('delete/{id?}', 'SensitiveController@delete');
+          });
         });
       });
 

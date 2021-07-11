@@ -19,6 +19,7 @@ class Information extends Common
     'organization_id',
     'category_id',
     'member_id',
+    'audit_status',
     'status',
     'update_time'
   ];

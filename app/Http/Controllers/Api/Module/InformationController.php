@@ -20,6 +20,11 @@ class InformationController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Information';
 
+  // 默认查询条件
+  protected $_where = [
+    'audit_status' => 1
+  ];
+
   // 客户端搜索字段
   protected $_params = [
     'category_id'
@@ -61,7 +66,9 @@ class InformationController extends BaseController
    * @apiSuccess (字段说明) {String} source 资讯来源
    * @apiSuccess (字段说明) {String} author 资讯作者
    * @apiSuccess (字段说明) {String} read_total 阅读总数
+   * @apiSuccess (字段说明) {String} is_top 是否置顶
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} is_comment 是否可以评论
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/information/list
@@ -109,7 +116,9 @@ class InformationController extends BaseController
    * @apiSuccess (字段说明) {String} source 资讯来源
    * @apiSuccess (字段说明) {String} author 资讯作者
    * @apiSuccess (字段说明) {String} read_total 阅读总数
+   * @apiSuccess (字段说明) {String} is_top 是否置顶
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} is_comment 是否可以评论
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/information/recommend
@@ -162,6 +171,9 @@ class InformationController extends BaseController
    * @apiSuccess (字段说明) {String} source 资讯来源
    * @apiSuccess (字段说明) {String} author 资讯作者
    * @apiSuccess (字段说明) {String} read_total 阅读总数
+   * @apiSuccess (字段说明) {String} is_top 是否置顶
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} is_comment 是否可以评论
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/information/related
@@ -207,7 +219,9 @@ class InformationController extends BaseController
    * @apiSuccess (字段说明|资讯) {String} source 资讯来源
    * @apiSuccess (字段说明|资讯) {String} author 资讯作者
    * @apiSuccess (字段说明|资讯) {String} read_total 阅读总数
+   * @apiSuccess (字段说明|资讯) {String} is_top 是否置顶
    * @apiSuccess (字段说明|资讯) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明|资讯) {String} is_comment 是否可以评论
    * @apiSuccess (字段说明|资讯) {String} create_time 发布时间
    * @apiSuccess (字段说明|标签) {String} title 标签名字
    *

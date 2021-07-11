@@ -17,8 +17,6 @@ class Label extends Base
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'status',
-    'create_time',
     'update_time'
   ];
 

@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Platform\Module;
+namespace App\Http\Controllers\Platform\Module\Information;
 
 use Illuminate\Http\Request;
 

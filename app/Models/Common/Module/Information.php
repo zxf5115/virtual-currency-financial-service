@@ -18,7 +18,6 @@ class Information extends Base
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'status',
     'update_time'
   ];
 
@@ -31,7 +30,7 @@ class Information extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-20
+   * @dateTime 2021-07-11
    * ------------------------------------------
    * 是否推荐状态封装
    * ------------------------------------------
@@ -43,7 +42,61 @@ class Information extends Base
    */
   public function getIsRecommendAttribute($value)
   {
-    return InformationEnum::getRecommendStatus($value);
+    return InformationEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-11
+   * ------------------------------------------
+   * 是否置顶状态封装
+   * ------------------------------------------
+   *
+   * 是否置顶状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsTopAttribute($value)
+  {
+    return InformationEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-11
+   * ------------------------------------------
+   * 是否评论状态封装
+   * ------------------------------------------
+   *
+   * 是否评论状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsCommentAttribute($value)
+  {
+    return InformationEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-10
+   * ------------------------------------------
+   * 审核状态封装
+   * ------------------------------------------
+   *
+   * 审核状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getAuditStatusAttribute($value)
+  {
+    return InformationEnum::getAuditStatus($value);
   }
 
 
