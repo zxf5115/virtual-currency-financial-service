@@ -360,6 +360,12 @@ $api->version('v1', [
             $api->post('handle', 'SensitiveController@handle');
             $api->post('delete/{id?}', 'SensitiveController@delete');
           });
+
+          // 评论路由
+          $api->group(['prefix' => 'comment'], function ($api) {
+            $api->any('list', 'CommentController@list');
+            $api->post('delete/{id?}', 'CommentController@delete');
+          });
         });
       });
 
@@ -369,7 +375,7 @@ $api->version('v1', [
         $api->any('list', 'CommunityController@list');
         $api->get('select', 'CommunityController@select');
         $api->get('view/{id}', 'CommunityController@view');
-        $api->post('hot', 'CommunityController@hot');
+        $api->post('status', 'CommunityController@status');
         $api->post('handle', 'CommunityController@handle');
         $api->post('delete/{id?}', 'CommunityController@delete');
 

@@ -154,6 +154,7 @@ $api->version('v1', [
         $api->get('list', 'InformationController@list');
         $api->get('recommend', 'InformationController@recommend');
         $api->get('related', 'InformationController@related');
+        $api->get('similar', 'InformationController@similar');
         $api->get('view/{id}', 'InformationController@view');
 
         // 资讯关联路由
@@ -176,6 +177,7 @@ $api->version('v1', [
       $api->group(['prefix'  => 'community'], function ($api) {
         $api->get('list', 'CommunityController@list');
         $api->get('hot', 'CommunityController@hot');
+        $api->get('recommend', 'CommunityController@recommend');
         $api->get('view/{id}', 'CommunityController@view');
 
         // 社区关联路由

@@ -41,6 +41,7 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
    * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/community/list
@@ -75,7 +76,60 @@ class CommunityController extends BaseController
 
 
   /**
-   * @api {get} /api/community/hot 02. 热门社区数据
+   * @api {get} /api/community/recommend 02. 推荐社区数据
+   * @apiDescription 获取推荐社区数据列表
+   * @apiGroup 71. 社区模块
+   *
+   * @apiParam {int} total 显示数量，默认显示6个
+   *
+   * @apiSuccess (字段说明) {Number} id 社区编号
+   * @apiSuccess (字段说明) {String} title 社区标题
+   * @apiSuccess (字段说明) {String} picture 社区封面
+   * @apiSuccess (字段说明) {String} content 社区内容
+   * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} create_time 发布时间
+   *
+   * @apiSampleRequest /api/community/recommend
+   * @apiVersion 1.0.0
+   */
+  public function recommend(Request $request)
+  {
+    try
+    {
+      $where = [
+        'is_recommend' => 1
+      ];
+
+      $condition = self::getSimpleWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter, $where);
+
+      $total = $request->total ?? 6;
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
+
+      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+    /**
+   * @api {get} /api/community/hot 03. 热门社区数据
    * @apiDescription 获取热门社区数据列表
    * @apiGroup 71. 社区模块
    *
@@ -87,6 +141,7 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
    * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/community/hot
@@ -137,6 +192,7 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
    * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/community/view/{id}

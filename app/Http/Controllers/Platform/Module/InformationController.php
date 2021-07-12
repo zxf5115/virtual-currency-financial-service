@@ -34,7 +34,8 @@ class InformationController extends BaseController
     'select' => false,
     'view' => [
       'category',
-      'label'
+      'label',
+      'similar'
     ],
   ];
 
@@ -102,6 +103,14 @@ class InformationController extends BaseController
         {
           $model->labelRelevance()->delete();
           $model->labelRelevance()->createMany($label);
+        }
+
+        $similar = self::packRelevanceData($request, 'similar_information_id');
+
+        if(!empty($similar))
+        {
+          $model->similar()->delete();
+          $model->similar()->createMany($similar);
         }
 
         DB::commit();

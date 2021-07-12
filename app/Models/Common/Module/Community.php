@@ -28,10 +28,9 @@ class Community extends Base
   // 批量添加
   protected $fillable = ['id'];
 
-
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-20
+   * @dateTime 2021-07-12
    * ------------------------------------------
    * 是否热门状态封装
    * ------------------------------------------
@@ -43,7 +42,25 @@ class Community extends Base
    */
   public function getIsHotAttribute($value)
   {
-    return CommunityEnum::getHotStatus($value);
+    return CommunityEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-12
+   * ------------------------------------------
+   * 是否推荐状态封装
+   * ------------------------------------------
+   *
+   * 是否推荐状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsRecommendAttribute($value)
+  {
+    return CommunityEnum::getStatus($value);
   }
 
 

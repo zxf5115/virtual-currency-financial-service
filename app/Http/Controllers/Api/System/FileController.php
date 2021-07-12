@@ -40,7 +40,7 @@ class FileController extends BaseController
     {
       $category = $request->category ?? 'file';
 
-      $response = File::file_base64('file', $category);
+      $response = File::file_base64($request->file, $category);
 
       // 如果返回错误代码
       if(false === strpos($response, 'http'))
@@ -85,7 +85,7 @@ class FileController extends BaseController
     {
       $category = $request->category ?? 'picture';
 
-      $response = File::picture_base64('file', $category);
+      $response = File::picture_base64($request->file, $category);
 
       // 如果返回错误代码
       if(false === strpos($response, 'http'))

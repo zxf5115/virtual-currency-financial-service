@@ -166,6 +166,26 @@ class Information extends Base
     );
   }
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-12
+   * ------------------------------------------
+   * 资讯与关联资讯关联函数
+   * ------------------------------------------
+   *
+   * 资讯与关联资讯关联函数
+   *
+   * @return [关联对象]
+   */
+  public function similar()
+  {
+    return $this->hasMany(
+      'App\Models\Common\Module\Information\Similar',
+      'information_id',
+      'id',
+    );
+  }
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]

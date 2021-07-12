@@ -5,6 +5,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 use App\Crontab\Platform\Clear;
+use App\Crontab\Common\Flash\Crawler;
 use App\Models\Platform\System\Config;
 use App\Crontab\Common\Member\Failure;
 use App\Crontab\Platform\Currency\Symbol;
@@ -46,11 +47,17 @@ class Kernel extends ConsoleKernel
       // })->monthlyOn($clear_time, '04:00');
 
       // 清除失效贵宾数据
+      // $schedule->call(function () {
+      //   $clear = new Failure();
+      //   $clear->action();
+      // })->everyMinute();
+
+
+      // 抓取金色财经数据
       $schedule->call(function () {
-        $clear = new Failure();
+        $clear = new Crawler();
         $clear->action();
       })->everyMinute();
-
 
 
 

@@ -6404,8 +6404,76 @@
   },
   {
     "type": "post",
+    "url": "/api/member/order/buy",
+    "title": "06. 购物车购买",
+    "description": "<p>当前会员直接购买</p>",
+    "group": "35._会员订单模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "array",
+            "optional": false,
+            "field": "courseware_id",
+            "description": "<p>课程编号数组</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pay_money",
+            "description": "<p>支付金额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>支付类型 1 支付宝 2 微信 3 充值 4 苹果</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/order/buy"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/OrderController.php",
+    "groupTitle": "35._会员订单模块",
+    "name": "PostApiMemberOrderBuy"
+  },
+  {
+    "type": "post",
     "url": "/api/member/order/cancel",
-    "title": "07. 订单取消",
+    "title": "08. 订单取消",
     "description": "<p>当前会员取消订单</p>",
     "group": "35._会员订单模块",
     "permission": [
@@ -6520,7 +6588,7 @@
   {
     "type": "post",
     "url": "/api/member/order/finish",
-    "title": "06. 订单完成",
+    "title": "07. 订单完成",
     "description": "<p>当前会员标记订单完成</p>",
     "group": "35._会员订单模块",
     "permission": [
@@ -6607,10 +6675,10 @@
         "Parameter": [
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "Array",
             "optional": false,
             "field": "courseware_id",
-            "description": "<p>课程编号</p>"
+            "description": "<p>课程编号数组</p>"
           },
           {
             "group": "Parameter",
@@ -6624,7 +6692,7 @@
             "type": "String",
             "optional": false,
             "field": "pay_type",
-            "description": "<p>支付类型 1 支付宝 2 微信 4 苹果</p>"
+            "description": "<p>支付类型 1 支付宝 2 微信 3 充值 4 苹果</p>"
           }
         ]
       }
@@ -8346,6 +8414,13 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_recommend",
+            "description": "<p>首页推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "create_time",
             "description": "<p>发布时间</p>"
           }
@@ -8364,8 +8439,99 @@
   },
   {
     "type": "get",
+    "url": "/api/flash/recommend",
+    "title": "02. 推荐快讯",
+    "description": "<p>获取推荐快讯数据</p>",
+    "group": "51._快讯模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>分类编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量，默认显示4个</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>快讯编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>快讯标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>快讯内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "bullish_total",
+            "description": "<p>利多总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "bearish_total",
+            "description": "<p>利空总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>首页推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/flash/recommend"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/FlashController.php",
+    "groupTitle": "51._快讯模块",
+    "name": "GetApiFlashRecommend"
+  },
+  {
+    "type": "get",
     "url": "/api/flash/view/{id}",
-    "title": "02. 快讯详情",
+    "title": "03. 快讯详情",
     "description": "<p>获取快讯详情</p>",
     "group": "51._快讯模块",
     "success": {
@@ -8405,6 +8571,13 @@
             "optional": false,
             "field": "bearish_total",
             "description": "<p>利空总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>首页推荐</p>"
           },
           {
             "group": "字段说明",
@@ -8839,8 +9012,22 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_top",
+            "description": "<p>是否置顶</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_comment",
+            "description": "<p>是否可以评论</p>"
           },
           {
             "group": "字段说明",
@@ -8937,8 +9124,22 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_top",
+            "description": "<p>是否置顶</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_comment",
+            "description": "<p>是否可以评论</p>"
           },
           {
             "group": "字段说明",
@@ -9035,6 +9236,27 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_top",
+            "description": "<p>是否置顶</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_comment",
+            "description": "<p>是否可以评论</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "create_time",
             "description": "<p>发布时间</p>"
           }
@@ -9113,8 +9335,22 @@
             "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
+            "field": "is_top",
+            "description": "<p>是否置顶</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "is_comment",
+            "description": "<p>是否可以评论</p>"
           },
           {
             "group": "字段说明|资讯",

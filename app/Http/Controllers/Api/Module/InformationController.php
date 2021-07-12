@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
 use App\Events\Api\Information\BrowseEvent;
+use App\Models\Api\Module\Information\Similar;
 
 
 /**
@@ -39,12 +40,17 @@ class InformationController extends BaseController
   ];
 
 
+  // 排序方式
+  protected $_order = [
+    ['key' => 'is_top', 'value' => 'desc'],
+    ['key' => 'create_time', 'value' => 'desc'],
+  ];
+
+
   // 关联对象
   protected $_relevance = [
     'list' => false,
-    'related' => [
-      'labelRelevance'
-    ],
+    'similar' => false,
     'view' => [
       'label'
     ],
@@ -158,12 +164,12 @@ class InformationController extends BaseController
 
 
   /**
-   * @api {get} /api/information/related?page={page} 03. 相关资讯列表
-   * @apiDescription 获取相关资讯分页列表
+   * @api {get} /api/information/similar 03. 相关资讯数据
+   * @apiDescription 获取相关资讯不分页数据列表
    * @apiGroup 61. 资讯模块
    *
-   * @apiParam {int} page 当前页数
-   * @apiParam {int} label_id 标签编号
+   * @apiParam {int} id 资讯编号
+   * @apiParam {int} total 显示数量(默认4个)
    *
    * @apiSuccess (字段说明) {Number} id 资讯编号
    * @apiSuccess (字段说明) {String} title 资讯标题
@@ -176,24 +182,27 @@ class InformationController extends BaseController
    * @apiSuccess (字段说明) {String} is_comment 是否可以评论
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
-   * @apiSampleRequest /api/information/related
+   * @apiSampleRequest /api/information/similar
    * @apiVersion 1.0.0
    */
-  public function related(Request $request)
+  public function similar(Request $request)
   {
     try
     {
-      $condition = self::getSimpleWhereData();
+      $total = $request->total ?? 4;
 
-      // 对用户请求进行过滤
-      $filter = $this->filter($request->all());
+      $condition = self::getSimpleWhereData($request->id, 'information_id');
 
-      $condition = array_merge($condition, $this->_where, $filter);
+      $information_id = Similar::getPluck('similar_information_id', $condition, false, false, true);
+
+      $where = [
+        ['id', $information_id]
+      ];
 
       // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'related');
+      $relevance = self::getRelevanceData($this->_relevance, 'similar');
 
-      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+      $response = $this->_model::getList($where, $relevance, $this->_order, false, $total);
 
       return self::success($response);
     }

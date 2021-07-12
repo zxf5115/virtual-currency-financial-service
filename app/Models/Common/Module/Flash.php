@@ -26,7 +26,14 @@ class Flash extends Base
   protected $appends = [];
 
   // 批量添加
-  protected $fillable = ['id'];
+  protected $fillable = [
+    'id',
+    'category_id',
+    'user_id',
+    'title',
+    'content',
+    'create_time',
+  ];
 
 
 

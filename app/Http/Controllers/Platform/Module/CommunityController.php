@@ -20,7 +20,8 @@ class CommunityController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'category_id',
-    'title'
+    'title',
+    'create_time',
   ];
 
   // 关联对象
@@ -81,57 +82,8 @@ class CommunityController extends BaseController
         $model->picture         = $request->picture ?? '';
         $model->content         = $request->content;
         $model->author          = $request->author ?? '';
-        $model->save();
-
-        return self::success(Code::message(Code::HANDLE_SUCCESS));
-      }
-      catch(\Exception $e)
-      {
-        // 记录异常信息
-        self::record($e);
-
-        return self::error(Code::HANDLE_FAILURE);
-      }
-    }
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-10
-   * ------------------------------------------
-   * 是否热门
-   * ------------------------------------------
-   *
-   * 是否热门
-   *
-   * @param Request $request [请求参数]
-   * @return [type]
-   */
-  public function hot(Request $request)
-  {
-    $messages = [
-      'id.required' => '请您选择社区标题',
-    ];
-
-    $rule = [
-      'id' => 'required',
-    ];
-
-    // 验证用户数据内容是否正确
-    $validation = self::validation($request, $messages, $rule);
-
-    if(!$validation['status'])
-    {
-      return $validation['message'];
-    }
-    else
-    {
-      try
-      {
-        $model = $this->_model::find($request->id);
-
-        $model->is_hot = $model->is_hot == 1 ? 0 : 1;
+        $model->is_hot          = $request->is_hot ?? 2;
+        $model->is_recommend    = $request->is_recommend ?? 2;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

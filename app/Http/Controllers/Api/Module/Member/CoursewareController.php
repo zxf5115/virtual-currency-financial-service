@@ -29,7 +29,7 @@ class CoursewareController extends BaseController
 
   // 排序方式
   protected $_order = [
-    ['key' => 'is_top', 'value' => 'desc'],
+    ['key' => 'sort', 'value' => 'desc'],
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 

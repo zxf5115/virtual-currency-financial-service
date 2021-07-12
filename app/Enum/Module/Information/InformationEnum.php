@@ -64,7 +64,7 @@ class InformationEnum
    */
   public static function getStatus($code)
   {
-    return self::$status[$code] ?: self::$status[self::WAIT];
+    return self::$status[$code] ?: self::$status[self::YES];
   }
 
 
