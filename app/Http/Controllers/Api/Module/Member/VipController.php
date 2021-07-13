@@ -5,7 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Events\Api\Member\AttentionEvent;
+use App\Events\Api\Member\AssetEvent;
+use App\Events\Api\Member\MoneyEvent;
+use App\Models\Common\Module\Member\Asset;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -85,10 +87,12 @@ class VipController extends BaseController
   {
     $messages = [
       'vip_id.required' => '请您输入贵宾编号',
+      'money.required'  => '请您输入支付金额',
     ];
 
     $rule = [
       'vip_id' => 'required',
+      'money' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -104,14 +108,40 @@ class VipController extends BaseController
 
       try
       {
-        $model = $this->_model::firstOrNew(['id' => $request->id]);
+        $member_id = self::getCurrentId();
 
-        $model->member_id = self::getCurrentId();
-        $model->vip_id    = $request->vip_id;
+        // 获取当前用户资产
+        $asset = Asset::getRow(['member_id' => $member_id]);
+
+        // 如果当前用户没有资产信息
+        if(empty($asset))
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_EMPTY);
+        }
+
+        // 如果支付金额大于当前用户资产总额
+        if($request->money > $asset->money)
+        {
+          return self::error(Code::CURRENT_MEMBER_ASSET_DEFICIENCY);
+        }
+
+        $model = $this->_model::firstOrNew([
+          'member_id' => $member_id,
+        ]);
+
+        $model->vip_id = $request->vip_id;
         $model->save();
 
-        // 支付
-        // event(new PayEvent($response, $request->money));
+        // 扣除费用
+        $result = event(new AssetEvent($member_id, $request->money, 2));
+
+        if(empty($result[0]))
+        {
+          return self::error(Code::PAY_ERROR);
+        }
+
+        // 增加资产消费记录
+        event(new MoneyEvent($member_id, $request->money, 2));
 
         DB::commit();
 

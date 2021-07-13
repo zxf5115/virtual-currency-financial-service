@@ -15,9 +15,12 @@ class MoneyEnum extends BaseEnum
   const INCOME = 1; // 充值
   const EXPEND = 2; // 消费
 
-  const WAIT = 0; // 待提现
-  const FINISH = 1; //已同意
-  const ERROR = 2; //已失败
+  const FINISH = 1; //已确认
+  const WAIT   = 2; // 待确认
+
+  const NONE   = 0; // 无
+  const WEIXIN = 1; // 微信
+  const ALIPAY = 2; // 支付宝
 
   // 红包类型封装
   public static $type = [
@@ -32,47 +35,34 @@ class MoneyEnum extends BaseEnum
     ]
   ];
 
-  // 提现类型封装
-  public static $withdrawal_type = [
-    self::INCOME => [
-      'value' => self::INCOME,
-      'text' => '支付宝提现'
-    ],
-
-    self::EXPEND => [
-      'value' => self::EXPEND,
-      'text' => '微信提现'
-    ]
-  ];
-
-  // 提现状态封装
-  public static $withdrawal_status = [
-    self::WAIT => [
-      'value' => self::WAIT,
-      'text' => '已申请'
-    ],
-
+  // 确认状态封装
+  public static $confirm = [
     self::FINISH => [
       'value' => self::FINISH,
-      'text' => '已到账'
+      'text' => '已确认'
     ],
 
-    self::ERROR => [
-      'value' => self::ERROR,
-      'text' => '已失败'
+    self::WAIT => [
+      'value' => self::WAIT,
+      'text' => '待确认'
     ]
   ];
 
-  // 审核类型封装
-  public static $audit_type = [
-    self::INCOME => [
-      'value' => self::INCOME,
-      'text' => '人工审核'
+  // 确认状态封装
+  public static $pay = [
+    self::NONE => [
+      'value' => self::NONE,
+      'text' => '无'
     ],
 
-    self::EXPEND => [
-      'value' => self::EXPEND,
-      'text' => '自动审核'
+    self::WEIXIN => [
+      'value' => self::WEIXIN,
+      'text' => '微信'
+    ],
+
+    self::ALIPAY => [
+      'value' => self::ALIPAY,
+      'text' => '支付宝'
     ]
   ];
 
@@ -97,52 +87,35 @@ class MoneyEnum extends BaseEnum
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-24
+   * @dateTime 2021-07-13
    * ------------------------------------------
-   * 提现方式封装
+   * 确认状态封装
    * ------------------------------------------
    *
-   * 提现方式封装
+   * 确认状态封装
    *
    * @param int $code 状态代码
    * @return 状态信息
    */
-  public static function getWithdrawalTypeStatus($code)
+  public static function getConfirmStatus($code)
   {
-    return self::$withdrawal_type[$code] ?: self::$withdrawal_type[self::INCOME];
+    return self::$confirm[$code] ?: self::$confirm[self::WAIT];
   }
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-24
+   * @dateTime 2021-07-13
    * ------------------------------------------
-   * 提现状态封装
-   * ------------------------------------------
-   *
-   * 提现状态封装
-   *
-   * @param int $code 状态代码
-   * @return 状态信息
-   */
-  public static function getWithdrawalStatus($code)
-  {
-    return self::$withdrawal_status[$code] ?: self::$withdrawal_status[self::WAIT];
-  }
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-12-24
-   * ------------------------------------------
-   * 审核方式封装
+   * 支付类型封装
    * ------------------------------------------
    *
-   * 审核方式封装
+   * 支付类型封装
    *
    * @param int $code 状态代码
    * @return 状态信息
    */
-  public static function getAuditTypeStatus($code)
+  public static function getPayType($code)
   {
-    return self::$audit_type[$code] ?: self::$audit_type[self::INCOME];
+    return self::$pay[$code] ?: self::$pay[self::NONE];
   }
 }

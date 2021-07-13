@@ -18,6 +18,7 @@ class Vip extends Base
   public $fillable = [
     'id',
     'organization_id',
+    'member_id',
     'vip_id'
   ];
 

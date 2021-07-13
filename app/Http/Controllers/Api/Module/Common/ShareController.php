@@ -11,28 +11,28 @@ use App\Http\Controllers\Api\BaseController;
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2020-12-30
  *
- * 联系客服控制器类
+ * 分享控制器类
  */
-class ServiceController extends BaseController
+class ShareController extends BaseController
 {
   // 模型名称
   protected $_model = 'App\Models\Api\System\Config';
 
   // 默认查询条件
   protected $_where = [
-    'category_id' => 9
+    'category_id' => 4
   ];
 
 
   /**
-   * @api {post} /api/common/service/data 11. 客服联系方式
-   * @apiDescription 获取客服联系方式
+   * @api {post} /api/common/share/data 10. 分享公共数据
+   * @apiDescription 获取分享公共数据
    * @apiGroup 02. 公共模块
    *
-   * @apiSuccess (basic params) {String} service_mobile 客服电话
-   * @apiSuccess (basic params) {String} service_wechat 客服微信号
+   * @apiSuccess (basic params) {String} share_qrcode 分享二维码
+   * @apiSuccess (basic params) {String} share_content 分享内容
    *
-   * @apiSampleRequest /api/common/service/data
+   * @apiSampleRequest /api/common/share/data
    * @apiVersion 1.0.0
    */
   public function data(Request $request)

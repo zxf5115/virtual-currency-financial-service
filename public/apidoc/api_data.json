@@ -1438,14 +1438,7 @@
         "basic params": [
           {
             "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "id",
-            "description": "<p>自增编号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
+            "type": "String",
             "optional": false,
             "field": "service_mobile",
             "description": "<p>客服电话</p>"
@@ -1456,13 +1449,6 @@
             "optional": false,
             "field": "service_wechat",
             "description": "<p>客服微信号</p>"
-          },
-          {
-            "group": "basic params",
-            "type": "Number",
-            "optional": false,
-            "field": "service_qrcode",
-            "description": "<p>客服微信二维码</p>"
           }
         ]
       }
@@ -1476,6 +1462,42 @@
     "filename": "app/Http/Controllers/Api/Module/Common/ServiceController.php",
     "groupTitle": "02._公共模块",
     "name": "PostApiCommonServiceData"
+  },
+  {
+    "type": "post",
+    "url": "/api/common/share/data",
+    "title": "10. 分享公共数据",
+    "description": "<p>获取分享公共数据</p>",
+    "group": "02._公共模块",
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "String",
+            "optional": false,
+            "field": "share_qrcode",
+            "description": "<p>分享二维码</p>"
+          },
+          {
+            "group": "basic params",
+            "type": "String",
+            "optional": false,
+            "field": "share_content",
+            "description": "<p>分享内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/common/share/data"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Common/ShareController.php",
+    "groupTitle": "02._公共模块",
+    "name": "PostApiCommonShareData"
   },
   {
     "type": "post",
@@ -3473,8 +3495,76 @@
   },
   {
     "type": "post",
+    "url": "/api/member/invitation/data",
+    "title": "02. 邀请人数据",
+    "description": "<p>获取当前用户邀请数据</p>",
+    "group": "23._会员邀请模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "invitation_code",
+            "description": "<p>邀请码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "invitation_content",
+            "description": "<p>邀请说明</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "qrcode",
+            "description": "<p>二维码图片</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/invitation/data"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/InvitationController.php",
+    "groupTitle": "23._会员邀请模块",
+    "name": "PostApiMemberInvitationData"
+  },
+  {
+    "type": "post",
     "url": "/api/member/invitation/handle",
-    "title": "03. 邀请操作",
+    "title": "04. 邀请操作",
     "description": "<p>当前会员执行邀请操作, 已经邀请过，再次点击取消邀请</p>",
     "group": "23._会员邀请模块",
     "permission": [
@@ -3510,7 +3600,7 @@
             "type": "string",
             "optional": false,
             "field": "invitation_member_id",
-            "description": "<p>作品编号</p>"
+            "description": "<p>邀请人编号</p>"
           }
         ]
       }
@@ -3528,7 +3618,7 @@
   {
     "type": "post",
     "url": "/api/member/invitation/status",
-    "title": "02. 是否邀请会员",
+    "title": "03. 是否邀请会员",
     "description": "<p>获取当前会员邀请的详情</p>",
     "group": "23._会员邀请模块",
     "permission": [
@@ -5463,6 +5553,128 @@
   },
   {
     "type": "get",
+    "url": "/api/member/money/expend",
+    "title": "03. 我的消费记录",
+    "description": "<p>获取当前会员的消费记录</p>",
+    "group": "33._会员资产明细模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>收支金额</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>收支时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/money/expend"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/MoneyController.php",
+    "groupTitle": "33._会员资产明细模块",
+    "name": "GetApiMemberMoneyExpend"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/money/income",
+    "title": "02. 我的充值记录",
+    "description": "<p>获取当前会员的充值记录</p>",
+    "group": "33._会员资产明细模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "money",
+            "description": "<p>收支金额</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>收支时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/money/income"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/MoneyController.php",
+    "groupTitle": "33._会员资产明细模块",
+    "name": "GetApiMemberMoneyIncome"
+  },
+  {
+    "type": "get",
     "url": "/api/member/money/list",
     "title": "01. 我的收支记录",
     "description": "<p>获取当前会员的收支记录</p>",
@@ -5531,67 +5743,6 @@
   },
   {
     "type": "post",
-    "url": "/api/member/money/expend",
-    "title": "03. 我的消费记录",
-    "description": "<p>获取当前会员的消费记录</p>",
-    "group": "33._会员资产明细模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "字段说明": [
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "money",
-            "description": "<p>收支金额</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>收支时间</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/money/expend"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/MoneyController.php",
-    "groupTitle": "33._会员资产明细模块",
-    "name": "PostApiMemberMoneyExpend"
-  },
-  {
-    "type": "post",
     "url": "/api/member/money/handle",
     "title": "04. 充值操作",
     "description": "<p>当前会员充值</p>",
@@ -5630,6 +5781,13 @@
             "optional": false,
             "field": "money",
             "description": "<p>充值金额</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "pay_type",
+            "description": "<p>充值方式</p>"
           }
         ]
       }
@@ -5643,67 +5801,6 @@
     "filename": "app/Http/Controllers/Api/Module/Member/MoneyController.php",
     "groupTitle": "33._会员资产明细模块",
     "name": "PostApiMemberMoneyHandle"
-  },
-  {
-    "type": "post",
-    "url": "/api/member/money/income",
-    "title": "02. 我的充值记录",
-    "description": "<p>获取当前会员的充值记录</p>",
-    "group": "33._会员资产明细模块",
-    "permission": [
-      {
-        "name": "jwt"
-      }
-    ],
-    "header": {
-      "fields": {
-        "Header": [
-          {
-            "group": "Header",
-            "type": "String",
-            "optional": false,
-            "field": "Authorization",
-            "description": "<p>身份令牌</p>"
-          }
-        ]
-      },
-      "examples": [
-        {
-          "title": "Header-Example:",
-          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "success": {
-      "fields": {
-        "字段说明": [
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "money",
-            "description": "<p>收支金额</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>收支时间</p>"
-          }
-        ]
-      }
-    },
-    "sampleRequest": [
-      {
-        "url": "/api/member/money/income"
-      }
-    ],
-    "version": "1.0.0",
-    "filename": "app/Http/Controllers/Api/Module/Member/MoneyController.php",
-    "groupTitle": "33._会员资产明细模块",
-    "name": "PostApiMemberMoneyIncome"
   },
   {
     "type": "get",
@@ -9163,9 +9260,9 @@
   },
   {
     "type": "get",
-    "url": "/api/information/related?page={page}",
-    "title": "03. 相关资讯列表",
-    "description": "<p>获取相关资讯分页列表</p>",
+    "url": "/api/information/similar",
+    "title": "03. 相关资讯数据",
+    "description": "<p>获取相关资讯不分页数据列表</p>",
     "group": "61._资讯模块",
     "parameter": {
       "fields": {
@@ -9174,15 +9271,15 @@
             "group": "Parameter",
             "type": "int",
             "optional": false,
-            "field": "page",
-            "description": "<p>当前页数</p>"
+            "field": "id",
+            "description": "<p>资讯编号</p>"
           },
           {
             "group": "Parameter",
             "type": "int",
             "optional": false,
-            "field": "label_id",
-            "description": "<p>标签编号</p>"
+            "field": "total",
+            "description": "<p>显示数量(默认4个)</p>"
           }
         ]
       }
@@ -9265,13 +9362,13 @@
     },
     "sampleRequest": [
       {
-        "url": "/api/information/related"
+        "url": "/api/information/similar"
       }
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/InformationController.php",
     "groupTitle": "61._资讯模块",
-    "name": "GetApiInformationRelatedPagePage"
+    "name": "GetApiInformationSimilar"
   },
   {
     "type": "get",
@@ -10227,7 +10324,7 @@
   {
     "type": "get",
     "url": "/api/community/hot",
-    "title": "02. 热门社区数据",
+    "title": "03. 热门社区数据",
     "description": "<p>获取热门社区数据列表</p>",
     "group": "71._社区模块",
     "parameter": {
@@ -10287,6 +10384,13 @@
             "optional": false,
             "field": "is_hot",
             "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
           },
           {
             "group": "字段说明",
@@ -10376,6 +10480,13 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "create_time",
             "description": "<p>发布时间</p>"
           }
@@ -10391,6 +10502,97 @@
     "filename": "app/Http/Controllers/Api/Module/CommunityController.php",
     "groupTitle": "71._社区模块",
     "name": "GetApiCommunityListPagePage"
+  },
+  {
+    "type": "get",
+    "url": "/api/community/recommend",
+    "title": "02. 推荐社区数据",
+    "description": "<p>获取推荐社区数据列表</p>",
+    "group": "71._社区模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量，默认显示6个</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>社区编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>社区标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>社区封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>社区内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>社区作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/community/recommend"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/CommunityController.php",
+    "groupTitle": "71._社区模块",
+    "name": "GetApiCommunityRecommend"
   },
   {
     "type": "get",
@@ -10442,6 +10644,13 @@
             "optional": false,
             "field": "is_hot",
             "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
           },
           {
             "group": "字段说明",
@@ -11311,7 +11520,7 @@
   {
     "type": "get",
     "url": "/api/currency/category/defi",
-    "title": "04. DeFi货币种类",
+    "title": "05. DeFi货币种类",
     "description": "<p>获取主流货币种类数据</p>",
     "group": "80._货币种类模块",
     "parameter": {
@@ -11388,7 +11597,7 @@
   {
     "type": "get",
     "url": "/api/currency/category/hot",
-    "title": "02. 热门货币种类",
+    "title": "03. 热门货币种类",
     "description": "<p>获取热门货币种类数据</p>",
     "group": "80._货币种类模块",
     "parameter": {
@@ -11549,7 +11758,7 @@
   {
     "type": "get",
     "url": "/api/currency/category/main",
-    "title": "03. 主流货币种类",
+    "title": "04. 主流货币种类",
     "description": "<p>获取主流货币种类数据</p>",
     "group": "80._货币种类模块",
     "parameter": {
@@ -11622,6 +11831,83 @@
     "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
     "groupTitle": "80._货币种类模块",
     "name": "GetApiCurrencyCategoryMain"
+  },
+  {
+    "type": "get",
+    "url": "/api/currency/category/select",
+    "title": "02. 货币种类数据",
+    "description": "<p>获取货币种类不分页数据列表</p>",
+    "group": "80._货币种类模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量(默认显示20个)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币种类编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "code",
+            "description": "<p>货币种类代码</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>货币种类名称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_main",
+            "description": "<p>是否主流</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_defi",
+            "description": "<p>是否DeFi</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/category/select"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/CategoryController.php",
+    "groupTitle": "80._货币种类模块",
+    "name": "GetApiCurrencyCategorySelect"
   },
   {
     "type": "get",
@@ -11709,6 +11995,13 @@
             "optional": false,
             "field": "symbol",
             "description": "<p>货币标题</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "quote_currency",
+            "description": "<p>报价币种(默认传usdt)</p>"
           }
         ]
       }
@@ -11743,6 +12036,13 @@
             "optional": false,
             "field": "quote_currency",
             "description": "<p>交易对中的报价币种</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>交易对简介</p>"
           },
           {
             "group": "字段说明",
@@ -11805,6 +12105,13 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "content",
+            "description": "<p>交易对简介</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "state",
             "description": "<p>交易对状态</p>"
           }
@@ -11820,5 +12127,224 @@
     "filename": "app/Http/Controllers/Api/Module/Currency/SymbolController.php",
     "groupTitle": "81._货币交易对模块",
     "name": "GetApiCurrencySymbolViewId"
+  },
+  {
+    "type": "get",
+    "url": "/api/member/currency/optional/list?page={page}",
+    "title": "01. 自选货币列表",
+    "description": "<p>获取当前自选货币分页列表</p>",
+    "group": "83._自选货币模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|货币交易对": [
+          {
+            "group": "字段说明|货币交易对",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>货币编号</p>"
+          },
+          {
+            "group": "字段说明|货币交易对",
+            "type": "String",
+            "optional": false,
+            "field": "symbol",
+            "description": "<p>交易对</p>"
+          },
+          {
+            "group": "字段说明|货币交易对",
+            "type": "String",
+            "optional": false,
+            "field": "base_currency",
+            "description": "<p>交易对中的基础币种</p>"
+          },
+          {
+            "group": "字段说明|货币交易对",
+            "type": "String",
+            "optional": false,
+            "field": "quote_currency",
+            "description": "<p>交易对中的报价币种</p>"
+          },
+          {
+            "group": "字段说明|货币交易对",
+            "type": "String",
+            "optional": false,
+            "field": "state",
+            "description": "<p>交易对状态</p>"
+          }
+        ],
+        "字段说明|会员": [
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "字段说明|会员",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/currency/optional/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Currency/OptionalController.php",
+    "groupTitle": "83._自选货币模块",
+    "name": "GetApiMemberCurrencyOptionalListPagePage"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/currency/optional/handle",
+    "title": "03. 加入货币自选",
+    "description": "<p>当前会员执行加入自选作, 已经加入过，再次点击取消加入</p>",
+    "group": "83._自选货币模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "symbol_id",
+            "description": "<p>货币交易对编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/currency/optional/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Currency/OptionalController.php",
+    "groupTitle": "83._自选货币模块",
+    "name": "PostApiMemberCurrencyOptionalHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/currency/optional/status",
+    "title": "02. 是否加入自选",
+    "description": "<p>获取当前自选货币的详情</p>",
+    "group": "83._自选货币模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "symbol_id",
+            "description": "<p>货币交易对编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/currency/optional/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Currency/OptionalController.php",
+    "groupTitle": "83._自选货币模块",
+    "name": "PostApiMemberCurrencyOptionalStatus"
   }
 ]

@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\Api\Module\Member;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Events\Api\Member\MoneyEvent;
 use App\Http\Controllers\Api\BaseController;
 
 

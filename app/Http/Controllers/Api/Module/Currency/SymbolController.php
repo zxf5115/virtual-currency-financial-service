@@ -24,6 +24,7 @@ class SymbolController extends BaseController
   // 查询条件
   protected $_params = [
     'symbol',
+    'quote_currency',
   ];
 
   // 排序
@@ -40,11 +41,13 @@ class SymbolController extends BaseController
    *
    * @apiParam {int} page 当前页数
    * @apiParam {String} symbol 货币标题
+   * @apiParam {String} quote_currency 报价币种(默认传usdt)
    *
    * @apiSuccess (字段说明) {Number} id 货币编号
    * @apiSuccess (字段说明) {String} symbol 交易对
    * @apiSuccess (字段说明) {String} base_currency 交易对中的基础币种
    * @apiSuccess (字段说明) {String} quote_currency 交易对中的报价币种
+   * @apiSuccess (字段说明) {String} content 交易对简介
    * @apiSuccess (字段说明) {String} state 交易对状态
    *
    * @apiSampleRequest /api/currency/symbol/list
@@ -86,6 +89,7 @@ class SymbolController extends BaseController
    * @apiSuccess (字段说明) {String} symbol 交易对
    * @apiSuccess (字段说明) {String} base_currency 交易对中的基础币种
    * @apiSuccess (字段说明) {String} quote_currency 交易对中的报价币种
+   * @apiSuccess (字段说明) {String} content 交易对简介
    * @apiSuccess (字段说明) {String} state 交易对状态
    *
    * @apiSampleRequest /api/currency/symbol/view/{id}

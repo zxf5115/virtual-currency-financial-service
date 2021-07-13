@@ -58,7 +58,7 @@ class ShareController extends BaseController
       $member_id = self::getCurrentId();
 
       $response['invitation_code'] = 'BMW' . str_pad($member_id, 6, 0, STR_PAD_LEFT);
-
+dd($response);
       $filename = md5(time() . rand(1, 9999999)). '.png';
 
       $uri = storage_path('app/public/qrcode/' . $filename);

@@ -92,57 +92,15 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Api\Member\Share\MoneyListeners',
         ],
 
-        // 确认管理老师
-        'App\Events\Api\Member\Course\TeacherEvent' => [
-            'App\Listeners\Api\Member\Course\TeacherListeners',
-        ],
-
-        // 添加课程信息
-        'App\Events\Api\Member\Course\UnitPointEvent' => [
-            'App\Listeners\Api\Member\Course\UnitPointListeners',
-        ],
-
-        // 完成课程单元学习
-        'App\Events\Api\Member\Course\UnitFinishEvent' => [
-            'App\Listeners\Api\Member\Course\UnitFinishListeners',
-        ],
-
-        // 解锁课程单元
-        'App\Events\Api\Member\Course\Unit\UnlockEvent' => [
-            'App\Listeners\Api\Member\Course\Unit\UnlockListeners',
-        ],
-
-        // 解锁课程知识点
-        'App\Events\Api\Member\Course\Unit\Point\UnlockEvent' => [
-            'App\Listeners\Api\Member\Course\Unit\Point\UnlockListeners',
-        ],
-
-        // 购买课程
-        'App\Events\Api\Member\Order\CourseEvent' => [
-            'App\Listeners\Api\Member\Order\CourseListeners',
-        ],
-
-        // 购买商品
-        'App\Events\Api\Member\Order\GoodsEvent' => [
-            'App\Listeners\Api\Member\Order\GoodsListeners',
-        ],
-
-
-
-
-
         // 课程知识点点赞
         'App\Events\Api\Member\Courseware\Point\ApprovalEvent' => [
             'App\Listeners\Api\Member\Courseware\Point\ApprovalListeners',
         ],
 
 
-
-
-
         // 支付
-        'App\Events\Api\Member\Order\PayEvent' => [
-            'App\Listeners\Api\Member\Order\PayListeners',
+        'App\Events\Api\Member\PayEvent' => [
+            'App\Listeners\Api\Member\PayListeners',
         ],
 
 

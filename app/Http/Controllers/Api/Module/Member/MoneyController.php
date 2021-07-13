@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Events\Api\Member\AssetEvent;
+use App\Events\Api\Member\PayEvent;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -19,6 +19,11 @@ class MoneyController extends BaseController
 {
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Member\Money';
+
+  // 客户端搜索字段
+  protected $_where = [
+    'confirm_status' => 1
+  ];
 
 
   /**
@@ -68,7 +73,7 @@ class MoneyController extends BaseController
 
 
   /**
-   * @api {post} /api/member/money/income 02. 我的充值记录
+   * @api {get} /api/member/money/income 02. 我的充值记录
    * @apiDescription 获取当前会员的充值记录
    * @apiGroup 33. 会员资产明细模块
    * @apiPermission jwt
@@ -117,7 +122,7 @@ class MoneyController extends BaseController
 
 
   /**
-   * @api {post} /api/member/money/expend 03. 我的消费记录
+   * @api {get} /api/member/money/expend 03. 我的消费记录
    * @apiDescription 获取当前会员的消费记录
    * @apiGroup 33. 会员资产明细模块
    * @apiPermission jwt
@@ -177,6 +182,7 @@ class MoneyController extends BaseController
    * }
    *
    * @apiParam {string} money 充值金额
+   * @apiParam {string} pay_type 充值方式
    *
    * @apiSampleRequest /api/member/money/handle
    * @apiVersion 1.0.0
@@ -184,11 +190,13 @@ class MoneyController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'money.required' => '请您输入充值金额',
+      'money.required'    => '请您输入充值金额',
+      'pay_type.required' => '请您选择充值方式',
     ];
 
     $rule = [
-      'money' => 'required',
+      'money'    => 'required',
+      'pay_type' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -211,10 +219,11 @@ class MoneyController extends BaseController
         $model->member_id = $member_id;
         $model->type      = 1;
         $model->money     = $request->money;
+        $model->pay_type  = $request->pay_type;
         $model->save();
 
-        // 充值总金额
-        event(new AssetEvent($member_id, $request->money));
+        // 支付
+        event(new PayEvent($model));
 
         DB::commit();
 

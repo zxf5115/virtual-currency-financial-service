@@ -76,7 +76,54 @@ class CategoryController extends BaseController
 
 
   /**
-   * @api {get} /api/currency/category/hot 02. 热门货币种类
+   * @api {get} /api/currency/category/select 02. 货币种类数据
+   * @apiDescription 获取货币种类不分页数据列表
+   * @apiGroup 80. 货币种类模块
+   *
+   * @apiParam {String} total 显示数量(默认显示20个)
+   *
+   * @apiSuccess (字段说明) {Number} id 货币种类编号
+   * @apiSuccess (字段说明) {String} code 货币种类代码
+   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} is_main 是否主流
+   * @apiSuccess (字段说明) {String} is_defi 是否DeFi
+   *
+   * @apiSampleRequest /api/currency/category/select
+   * @apiVersion 1.0.0
+   */
+  public function select(Request $request)
+  {
+    try
+    {
+      $total = $request->total ?? 20;
+
+      $condition = self::getSimpleWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'select');
+
+      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+  /**
+   * @api {get} /api/currency/category/hot 03. 热门货币种类
    * @apiDescription 获取热门货币种类数据
    * @apiGroup 80. 货币种类模块
    *
@@ -123,7 +170,7 @@ class CategoryController extends BaseController
 
 
   /**
-   * @api {get} /api/currency/category/main 03. 主流货币种类
+   * @api {get} /api/currency/category/main 04. 主流货币种类
    * @apiDescription 获取主流货币种类数据
    * @apiGroup 80. 货币种类模块
    *
@@ -170,7 +217,7 @@ class CategoryController extends BaseController
 
 
   /**
-   * @api {get} /api/currency/category/defi 04. DeFi货币种类
+   * @api {get} /api/currency/category/defi 05. DeFi货币种类
    * @apiDescription 获取主流货币种类数据
    * @apiGroup 80. 货币种类模块
    *

@@ -50,6 +50,42 @@ class Money extends Base
   }
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-13
+   * ------------------------------------------
+   * 确认状态封装
+   * ------------------------------------------
+   *
+   * 确认状态封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getConfirmStatusAttribute($value)
+  {
+    return MoneyEnum::getConfirmStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-13
+   * ------------------------------------------
+   * 支付类型封装
+   * ------------------------------------------
+   *
+   * 支付类型封装
+   *
+   * @param int $value 状态值
+   * @return 状态信息
+   */
+  public function getPayTypeAttribute($value)
+  {
+    return MoneyEnum::getPayType($value);
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
   /**

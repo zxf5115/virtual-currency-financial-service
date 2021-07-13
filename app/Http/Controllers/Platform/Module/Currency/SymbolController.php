@@ -74,6 +74,7 @@ class SymbolController extends BaseController
         $model->symbol          = $request->symbol;
         $model->base_currency   = $request->base_currency;
         $model->quote_currency  = $request->quote_currency;
+        $model->content         = $request->content ?? '';
         $model->state           = $request->state ?? 'online';
         $model->sort            = $request->sort ?? 0;
         $model->save();

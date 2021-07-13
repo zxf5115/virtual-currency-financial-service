@@ -70,6 +70,11 @@ $api->version('v1', [
           $api->any('apple', 'NotifyController@apple');
         });
 
+        // 分享路由
+        $api->group(['prefix' => 'share'], function ($api) {
+          $api->post('data', 'ShareController@data');
+        });
+
         // 客服路由
         $api->group(['prefix' => 'service'], function ($api) {
           $api->post('data', 'ServiceController@data');
@@ -213,6 +218,7 @@ $api->version('v1', [
           // 货币种类
           $api->group(['prefix' => 'category'], function ($api) {
             $api->get('list', 'CategoryController@list');
+            $api->get('select', 'CategoryController@select');
             $api->get('hot', 'CategoryController@hot');
             $api->get('main', 'CategoryController@main');
             $api->get('defi', 'CategoryController@defi');
@@ -280,11 +286,6 @@ $api->version('v1', [
             $api->post('finish', 'NoticeController@finish');
           });
 
-          // 会员分享路由
-          $api->group(['prefix'  => 'share'], function ($api) {
-            $api->get('data', 'ShareController@data');
-          });
-
 
           // 会员关注路由
           $api->group(['prefix'  => 'attention'], function ($api) {
@@ -296,6 +297,7 @@ $api->version('v1', [
           // 会员邀请路由
           $api->group(['prefix'  => 'invitation'], function ($api) {
             $api->get('list', 'InvitationController@list');
+            $api->post('data', 'InvitationController@data');
             $api->post('status', 'InvitationController@status');
             $api->post('handle', 'InvitationController@handle');
           });
@@ -466,14 +468,25 @@ $api->version('v1', [
               // 会员课程知识点点赞路由
               $api->group(['namespace' => 'Point', 'prefix'  =>  'approval'], function ($api) {
                 $api->get('list', 'ApprovalController@list');
-                $api->get('status', 'ApprovalController@status');
+                $api->post('status', 'ApprovalController@status');
                 $api->post('handle', 'ApprovalController@handle');
               });
             });
           });
+
+
+          // 会员货币路由
+          $api->group(['namespace' => 'Currency', 'prefix'  => 'currency'], function ($api) {
+
+            // 自选货币路由
+            $api->group(['prefix'  => 'optional'], function ($api) {
+              $api->get('list', 'OptionalController@list');
+              $api->post('status', 'OptionalController@status');
+              $api->post('handle', 'OptionalController@handle');
+            });
+          });
         });
       });
-
 
 
       // 教育中心路由

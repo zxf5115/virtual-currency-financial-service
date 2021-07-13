@@ -10,17 +10,8 @@ use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
 use Yansongda\Pay\Exceptions\GatewayException;
 
-use App\Models\Api\System\Config;
-use App\Events\Api\Member\MoneyEvent;
-use App\Events\Api\Member\TargetEvent;
-use App\Models\Api\Module\Order\Goods;
-use App\Models\Api\Module\Order\Course;
-use App\Models\Api\Module\Member;
-use App\Events\Api\Member\Order\GoodsEvent;
-use App\Events\Api\Member\Order\CourseEvent;
-use App\Events\Api\Member\Course\TeacherEvent;
-use App\Events\Api\Member\Course\UnitPointEvent;
-use App\Events\Api\Member\Share\MoneyEvent as ShareMoneyEvent;
+use App\Events\Api\Member\AssetEvent;
+use App\Models\Common\Module\Member\Money;
 
 
 /**
@@ -61,73 +52,22 @@ class NotifyController extends BaseController
       Log::info('订单编号====' . $order_no);
 
       $where = [
-        'order_no' => $order_no
+        'id'     => $order_no,
+        'status' => 1
       ];
 
-      $model = Goods::getRow($where);
+      $model = Money::getRow($where);
 
-      if(!empty($model))
+      if(empty($model->id))
       {
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
+        return false;
       }
-      else
-      {
-        $model = Course::getRow($where);
 
-        if(empty($model))
-        {
-          Log::info('课程订单不存在');
+      $model->confirm_status = 1;
+      $model->save();
 
-          return false;
-        }
-
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
-
-        // 记录销售总数
-        event(new CourseEvent($model->course_id));
-
-        // 添加课程单元知识点
-        event(new UnitPointEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 报名成功添加管理老师
-        event(new TeacherEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 获取系统课id
-        $system_class_id = Config::getConfigValue('system_class');
-
-        // 获取体验课id
-        $trial_class_id = Config::getConfigValue('trial_class');
-
-        // 学员购买体验课后
-        if($trial_class_id == $model->courseware_id)
-        {
-          $user = Member::getRow(['id' => $model->member_id]);
-
-          // 如果存在邀请人
-          if(!empty($user) && 0 != $user->inviter_id && $model->member_id != $user->inviter_id)
-          {
-            // 获取红包
-            event(new MoneyEvent(1, 0, $user->inviter_id));
-
-            // 成为老师目标
-            event(new TargetEvent($user->inviter_id, 2));
-          }
-        }
-        else if($system_class_id == $model->courseware_id)
-        {
-          // 老师获取分红
-          event(new ShareMoneyEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-          // 成为老师目标
-          event(new TargetEvent($model->member_id, 1));
-        }
-      }
+      // 充值
+      event(new AssetEvent($model->member_id, $model->money));
 
       Log::info('支付成功');
 
@@ -175,77 +115,22 @@ class NotifyController extends BaseController
       Log::info('订单编号====' . $order_no);
 
       $where = [
-        'order_no' => $order_no
+        'id'     => $order_no,
+        'status' => 1
       ];
 
-      $model = Goods::getRow($where);
+      $model = Money::getRow($where);
 
-      if(!empty($model))
+      if(empty($model->id))
       {
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
-
-        // 记录兑换总数
-        event(new GoodsEvent($model->goods_id));
+        return false;
       }
-      else
-      {
-        $model = Course::getRow($where);
 
-        if(empty($model))
-        {
-          Log::info('课程订单不存在');
+      $model->confirm_status = 1;
+      $model->save();
 
-          return false;
-        }
-
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
-
-        // 记录销售总数
-        event(new CourseEvent($model->course_id));
-
-        // 添加课程单元知识点
-        event(new UnitPointEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 报名成功添加管理老师
-        event(new TeacherEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 获取系统课id
-        $system_class_id = Config::getConfigValue('system_class');
-
-        // 获取体验课id
-        $trial_class_id = Config::getConfigValue('trial_class');
-
-
-        // 学员购买体验课后
-        if($trial_class_id == $model->courseware_id)
-        {
-          $user = Member::getRow(['id' => $model->member_id]);
-
-          // 如果存在邀请人
-          if(!empty($user) && 0 != $user->inviter_id && $model->member_id != $user->inviter_id)
-          {
-            // 获取红包
-            event(new MoneyEvent(1, 0, $user->inviter_id));
-
-            // 成为老师目标
-            event(new TargetEvent($user->inviter_id, 2));
-          }
-        }
-        else if($system_class_id == $model->courseware_id)
-        {
-          // 老师获取分红
-          event(new ShareMoneyEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-          // 成为老师目标
-          event(new TargetEvent($model->member_id, 1));
-        }
-      }
+      // 充值
+      event(new AssetEvent($model->member_id, $model->money));
 
       Log::info('支付成功');
 
@@ -285,88 +170,22 @@ class NotifyController extends BaseController
       $order_no = $request->order_no;
 
       $where = [
-        'id' => $order_no
+        'id'     => $order_no,
+        'status' => 1
       ];
 
-      $model = Goods::getRow($where);
+      $model = Money::getRow($where);
 
-      if(!empty($model))
+      if(empty($model->id))
       {
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
-
-        // $logistics = $model->logistics;
-
-        // foreach($logistics as $item)
-        // {
-        //   if(2 != $item->logistics_status['value'])
-        //   {
-        //     $item->logistics_status = 2;
-        //     $item->save();
-        //   }
-        // }
-
-        // 记录兑换总数
-        event(new GoodsEvent($model->goods_id));
+        return false;
       }
-      else
-      {
-        $model = Course::getRow($where);
 
-        if(empty($model))
-        {
-          Log::info('课程订单不存在');
+      $model->confirm_status = 1;
+      $model->save();
 
-          return false;
-        }
-
-        $model->pay_status = 1;
-        $model->pay_time   = time();
-
-        $model->save();
-
-        // 记录销售总数
-        event(new CourseEvent($model->course_id));
-
-        // 添加课程单元知识点
-        event(new UnitPointEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 报名成功添加管理老师
-        event(new TeacherEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-        // 获取系统课id
-        $system_class_id = Config::getConfigValue('system_class');
-
-        // 获取体验课id
-        $trial_class_id = Config::getConfigValue('trial_class');
-
-
-        // 学员购买体验课后
-        if($trial_class_id == $model->courseware_id)
-        {
-          $user = Member::getRow(['id' => $model->member_id]);
-
-          // 如果存在邀请人
-          if(!empty($user) && 0 != $user->inviter_id)
-          {
-            // 获取红包
-            event(new MoneyEvent(1, 0, $user->inviter_id));
-
-            // 成为老师目标
-            event(new TargetEvent($user->inviter_id, 2));
-          }
-        }
-        else if($system_class_id == $model->courseware_id)
-        {
-          // 老师获取分红
-          event(new ShareMoneyEvent($model->course_id, $model->courseware_id, $model->level_id, $model->member_id));
-
-          // 成为老师目标
-          event(new TargetEvent($model->member_id, 1));
-        }
-      }
+      // 充值
+      event(new AssetEvent($model->member_id, $model->money));
 
       Log::info('支付成功');
 

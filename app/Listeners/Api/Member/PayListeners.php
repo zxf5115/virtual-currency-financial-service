@@ -1,10 +1,10 @@
 <?php
-namespace App\Listeners\Api\Member\Order;
+namespace App\Listeners\Api\Member;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-use App\Events\Api\Member\Order\PayEvent;
+use App\Events\Api\Member\PayEvent;
 
 /**
  * 支付监听器
@@ -80,33 +80,21 @@ class PayListeners
   {
     try
     {
-      $pay_money = intval(bcmul($order->pay_money, 100));
+      $pay_money = intval(bcmul($order->money, 100));
 
       $data = [
-        'out_trade_no' => $order->order_no,
+        'out_trade_no' => $order->id,
         'body'         => '订单支付',
         'total_fee'    => $pay_money
       ];
 
       $config  = config('pay.wechat');
 
-      // 如果是H5支付
-      if($is_h5)
-      {
-        $data['openid'] = auth('api')->user()->public_id;
+      $result = Pay::wechat($config)->app($data);
 
-        $result = Pay::wechat($config)->mp($data);
+      $content = $result->getContent() ?? '';
 
-        $response = $result;
-      }
-      else
-      {
-        $result = Pay::wechat($config)->app($data);
-
-        $content = $result->getContent() ?? '';
-
-        $response = json_decode($content, true) ?? [];
-      }
+      $response = json_decode($content, true) ?? [];
 
       return $response;
     }
@@ -143,26 +131,16 @@ class PayListeners
     try
     {
       $data = [
-        'out_trade_no' => $order->order_no,
+        'out_trade_no' => $order->id,
         'subject'      => '订单支付',
-        'total_amount' => $order->pay_money
+        'total_amount' => $order->money
       ];
 
       $config  = config('pay.alipay');
 
-      // 如果是H5支付
-      if($is_h5)
-      {
-        $result = Pay::alipay($config)->wap($data);
+      $result = Pay::alipay($config)->app($data);
 
-        $response = $result->getContent() ?? '';
-      }
-      else
-      {
-        $result = Pay::alipay($config)->app($data);
-
-        $response = $result->getContent() ?? '';
-      }
+      $response = $result->getContent() ?? '';
 
       return $response;
     }

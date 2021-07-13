@@ -16,6 +16,7 @@ class Money extends Common
     'id',
     'organization_id',
     'member_id',
+    'confirm_status',
     'status',
     'update_time'
   ];
