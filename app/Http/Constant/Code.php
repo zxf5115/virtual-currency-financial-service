@@ -193,7 +193,7 @@ class Code
 
     self::TOKEN_EMPTY         => '请先登录',
     self::TOKEN_ERROR         => 'Token丢失',
-    self::TOKEN_EXPIRED       => '请从新登录',
+    self::TOKEN_EXPIRED       => '请重新登录',
     self::TOKEN_NO_VERIFIED   => '非法账户，无法解析',
 
     self::API_ERROR        => '接口错误',

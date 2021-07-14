@@ -30,6 +30,24 @@ class Information extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-14
+   * ------------------------------------------
+   * 是否专题状态封装
+   * ------------------------------------------
+   *
+   * 是否专题状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsSubjectAttribute($value)
+  {
+    return InformationEnum::getStatus($value);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-07-11
    * ------------------------------------------
    * 是否推荐状态封装
@@ -123,6 +141,26 @@ class Information extends Base
     );
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-14
+   * ------------------------------------------
+   * 资讯与资讯专题关联函数
+   * ------------------------------------------
+   *
+   * 资讯与资讯专题关联函数
+   *
+   * @return [关联对象]
+   */
+  public function subject()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Information\Subject',
+      'subject_id',
+      'id'
+    );
+  }
 
 
   /**

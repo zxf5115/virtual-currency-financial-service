@@ -26,6 +26,43 @@ class Sensitive extends Base
   protected $fillable = ['id'];
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-14
+   * ------------------------------------------
+   * 屏蔽敏感词
+   * ------------------------------------------
+   *
+   * 屏蔽敏感词
+   *
+   * @param [type] $content 输入内容
+   * @return [type]
+   */
+  public static function shield($content)
+  {
+    try
+    {
+      $result = self::getPluck('title', ['status' => 1]);
+
+      foreach($result as $item)
+      {
+        if(false !== strpos($content, $item))
+        {
+          $content = str_replace($item, '***', $content);
+        }
+      }
+
+      return $content;
+    }
+    catch(\Exception $e)
+    {
+      record($e);
+
+      return false;
+    }
+  }
+
+
   // 关联函数 ------------------------------------------------------
 
   /**

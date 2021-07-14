@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
+use App\Models\Common\Module\Information\Sensitive;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -29,11 +30,13 @@ class InformationController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => [
-      'category'
+      'category',
+      'subject',
     ],
     'select' => false,
     'view' => [
       'category',
+      'subject',
       'label',
       'similar'
     ],
@@ -83,13 +86,15 @@ class InformationController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->category_id     = $request->category_id;
+        $model->subject_id      = $request->subject_id;
         $model->member_id       = self::getCurrentId();
-        $model->title           = $request->title;
+        $model->title           = Sensitive::shield($request->title);
         $model->picture         = $request->picture ?? '';
-        $model->content         = $request->content;
+        $model->content         = Sensitive::shield($request->content);
         $model->source          = $request->source ?? '';
         $model->author          = $request->author ?? '';
         $model->read_total      = $request->read_total ?? 0;
+        $model->is_subject      = $request->is_subject ?? 2;
         $model->is_top          = $request->is_top ?? 2;
         $model->is_recommend    = $request->is_recommend ?? 2;
         $model->is_comment      = $request->is_comment ?? 2;

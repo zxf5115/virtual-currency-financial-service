@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Common\Module\Information\Sensitive;
 
 
 /**
@@ -66,7 +67,7 @@ class CommentController extends BaseController
         $model->member_id      = self::getCurrentId();
         $model->parent_id      = $request->parent_id ?? 0;
         $model->information_id = $request->information_id;
-        $model->content        = $request->content;
+        $model->content        = Sensitive::shield($request->content);
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

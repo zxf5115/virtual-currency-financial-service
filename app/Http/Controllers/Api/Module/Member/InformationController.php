@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Common\Module\Information\Sensitive;
 
 
 /**
@@ -196,9 +197,9 @@ class InformationController extends BaseController
 
         $model->category_id = $request->category_id;
         $model->member_id   = self::getCurrentId();
-        $model->title       = $request->title;
+        $model->title       = Sensitive::shield($request->title);
         $model->picture     = $request->picture;
-        $model->content     = $request->content;
+        $model->content     = Sensitive::shield($request->content);
         $model->source      = $request->source;
         $model->author      = $request->author;
         $model->save();

@@ -67,6 +67,28 @@ class Information extends Common
     );
   }
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-14
+   * ------------------------------------------
+   * 资讯与资讯专题关联函数
+   * ------------------------------------------
+   *
+   * 资讯与资讯专题关联函数
+   *
+   * @return [关联对象]
+   */
+  public function subject()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Information\Subject',
+      'subject_id',
+      'id'
+    );
+  }
+
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-09

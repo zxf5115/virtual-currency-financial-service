@@ -28,7 +28,9 @@ class InformationController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'category_id'
+    'category_id',
+    'subject_id',
+    'is_subject',
   ];
 
 
@@ -64,6 +66,8 @@ class InformationController extends BaseController
    *
    * @apiParam {int} page 当前页数
    * @apiParam {int} category_id 分类编号
+   * @apiParam {int} subject_id 专题编号
+   * @apiParam {int} is_subject 是否专题(普通资讯、专题资讯)
    *
    * @apiSuccess (字段说明) {Number} id 资讯编号
    * @apiSuccess (字段说明) {String} title 资讯标题

@@ -9049,6 +9049,20 @@ define({ "api": [
             "optional": false,
             "field": "category_id",
             "description": "<p>分类编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "subject_id",
+            "description": "<p>专题编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "is_subject",
+            "description": "<p>是否专题(普通资讯、专题资讯)</p>"
           }
         ]
       }
@@ -10120,6 +10134,42 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/Information/CollectionController.php",
     "groupTitle": "64._资讯收藏模块",
     "name": "PostApiMemberInformationCollectionStatus"
+  },
+  {
+    "type": "get",
+    "url": "/api/information/subject/select",
+    "title": "01. 资讯专题数据",
+    "description": "<p>获取资讯专题不分页列表数据</p>",
+    "group": "65._资讯专题模块",
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯专题编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯专题标题</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/information/subject/select"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Information/SubjectController.php",
+    "groupTitle": "65._资讯专题模块",
+    "name": "GetApiInformationSubjectSelect"
   },
   {
     "type": "get",

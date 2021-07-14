@@ -343,6 +343,16 @@ $api->version('v1', [
             $api->post('delete/{id?}', 'CategoryController@delete');
           });
 
+          // 资讯专题路由
+          $api->group(['prefix' => 'subject'], function ($api) {
+            $api->any('list', 'SubjectController@list');
+            $api->get('select', 'SubjectController@select');
+            $api->get('view/{id}', 'SubjectController@view');
+            $api->post('status', 'SubjectController@status');
+            $api->post('handle', 'SubjectController@handle');
+            $api->post('delete/{id?}', 'SubjectController@delete');
+          });
+
           // 标签路由
           $api->group(['prefix' => 'label'], function ($api) {
             $api->any('list', 'LabelController@list');

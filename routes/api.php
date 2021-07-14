@@ -170,6 +170,11 @@ $api->version('v1', [
             $api->get('select', 'CategoryController@select');
           });
 
+          // 资讯专题路由
+          $api->group(['prefix'  => 'subject'], function ($api) {
+            $api->get('select', 'SubjectController@select');
+          });
+
           // 资讯评论路由
           $api->group(['prefix'  => 'comment'], function ($api) {
             $api->get('select', 'CommentController@select');
