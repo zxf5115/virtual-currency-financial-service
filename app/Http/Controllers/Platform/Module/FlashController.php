@@ -79,7 +79,7 @@ class FlashController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->category_id     = $request->category_id;
-        $model->member_id       = self::getCurrentId();
+        $model->user_id         = self::getCurrentId();
         $model->title           = $request->title;
         $model->content         = $request->content;
         $model->bullish_total   = $request->bullish_total ?? 0;

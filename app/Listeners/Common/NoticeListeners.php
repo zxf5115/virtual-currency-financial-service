@@ -44,7 +44,7 @@ class NoticeListeners
       // 系统通知
       if(1 == $type)
       {
-        $this->system();
+        $this->system($be_member_id);
       }
       // 回复我的
       else if(2 == $type)
@@ -74,17 +74,17 @@ class NoticeListeners
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-10-29
+   * @dateTime 2021-06-13
    * ------------------------------------------
-   * 获取登录验证码
+   * 系统通知
    * ------------------------------------------
    *
-   * 获取登录验证码
+   * 系统通知
    *
    * @param [type] $be_member_id 待处理会员编号
    * @return [type]
    */
-  protected function system()
+  protected function system($be_member_id)
   {
     try
     {
