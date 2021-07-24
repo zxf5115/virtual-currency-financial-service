@@ -17,7 +17,6 @@ class Community extends Common
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'category_id',
     'member_id',
     'status',
     'update_time'

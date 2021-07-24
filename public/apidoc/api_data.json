@@ -5236,6 +5236,13 @@
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>社区分类编号</p>"
           }
         ]
       }
@@ -10477,6 +10484,13 @@
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "category_id",
+            "description": "<p>社区分类编号</p>"
           }
         ]
       }
@@ -11389,49 +11403,14 @@
             "type": "Number",
             "optional": false,
             "field": "id",
-            "description": "<p>社区编号</p>"
+            "description": "<p>社区分类编号</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
             "field": "title",
-            "description": "<p>社区标题</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "picture",
-            "description": "<p>社区封面</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "content",
-            "description": "<p>社区内容</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "author",
-            "description": "<p>社区作者</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "is_hot",
-            "description": "<p>是否热门</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "create_time",
-            "description": "<p>发布时间</p>"
+            "description": "<p>社区分类标题</p>"
           }
         ]
       }

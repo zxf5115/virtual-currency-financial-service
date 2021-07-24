@@ -20,7 +20,7 @@ class CommunityController extends BaseController
 
   // 默认查询条件
   protected $_where = [
-    'is_hot' => 1
+    // 'is_hot' => 1
   ];
 
   // 客户端搜索字段
@@ -34,6 +34,7 @@ class CommunityController extends BaseController
    * @apiGroup 71. 社区模块
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} category_id 社区分类编号
    *
    * @apiSuccess (字段说明) {Number} id 社区编号
    * @apiSuccess (字段说明) {String} title 社区标题

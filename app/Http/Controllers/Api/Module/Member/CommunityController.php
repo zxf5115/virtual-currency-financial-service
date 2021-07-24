@@ -18,6 +18,10 @@ class CommunityController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Community';
 
+  // 客户端搜索字段
+  protected $_params = [
+    'category_id',
+  ];
 
   /**
    * @api {get} /api/member/community/list?page={page} 01. 我的社区列表
@@ -31,6 +35,7 @@ class CommunityController extends BaseController
    * }
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} category_id 社区分类编号
    *
    * @apiSuccess (字段说明) {Number} id 社区编号
    * @apiSuccess (字段说明) {String} title 社区标题

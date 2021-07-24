@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Module\Member\Community;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
-use App\Models\Api\Module\Community;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Api\Module\Community\Category;
 
 
 /**
@@ -33,13 +33,8 @@ class AttentionController extends BaseController
    *
    * @apiParam {int} page 当前页数
    *
-   * @apiSuccess (字段说明) {Number} id 社区编号
-   * @apiSuccess (字段说明) {String} title 社区标题
-   * @apiSuccess (字段说明) {String} picture 社区封面
-   * @apiSuccess (字段说明) {String} content 社区内容
-   * @apiSuccess (字段说明) {String} author 社区作者
-   * @apiSuccess (字段说明) {String} is_hot 是否热门
-   * @apiSuccess (字段说明) {String} create_time 发布时间
+   * @apiSuccess (字段说明) {Number} id 社区分类编号
+   * @apiSuccess (字段说明) {String} title 社区分类标题
    *
    * @apiSampleRequest /api/member/community/attention/list
    * @apiVersion 1.0.0
@@ -56,7 +51,7 @@ class AttentionController extends BaseController
       $result = $this->_model::getPluck('category_id', $condition, false, false, true);
 
       $where = [
-        ['category_id', $result]
+        ['id', $result]
       ];
 
       $condition = array_merge($condition, $this->_where, $filter, $where);
@@ -64,7 +59,7 @@ class AttentionController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = Community::getPaging($condition, $relevance, $this->_order);
+      $response = Category::getPaging($condition, $relevance, $this->_order);
 
       return self::success($response);
     }
