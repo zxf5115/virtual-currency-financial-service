@@ -23,5 +23,24 @@ class Point extends Common
 
   // 关联函数 ------------------------------------------------------
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-23
+   * ------------------------------------------
+   * 课件知识点与课件关联函数
+   * ------------------------------------------
+   *
+   * 课件知识点与课件关联函数
+   *
+   * @return [关联对象]
+   */
+  public function courseware()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Education\Courseware',
+      'courseware_id',
+      'id'
+    );
+  }
 
 }

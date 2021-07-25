@@ -30,6 +30,16 @@ class PointController extends BaseController
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 
+  // 关联数组
+  protected $_relevance = [
+    'list' => false,
+    'select' => false,
+    'view' => [
+      'courseware.teacher',
+      'courseware.recommend',
+    ]
+  ];
+
 
   /**
    * @api {get} /api/education/courseware/point/list?page={page} 01. 课程知识点列表

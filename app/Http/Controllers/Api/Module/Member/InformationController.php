@@ -156,8 +156,7 @@ class InformationController extends BaseController
    * @apiParam {string} title 资讯标题
    * @apiParam {string} picture 资讯封面
    * @apiParam {string} content 资讯内容
-   * @apiParam {string} source 资讯来源
-   * @apiParam {string} author 资讯作者
+   * @apiParam {string} [source] 资讯来源
    *
    * @apiSampleRequest /api/member/information/handle
    * @apiVersion 1.0.0
@@ -169,8 +168,6 @@ class InformationController extends BaseController
       'title.required'       => '请您输入资讯标题',
       'picture.required'     => '请您输入资讯封面',
       'content.required'     => '请您输入资讯内容',
-      'source.required'      => '请您输入资讯来源',
-      'author.required'      => '请您输入资讯作者',
     ];
 
     $rule = [
@@ -178,8 +175,6 @@ class InformationController extends BaseController
       'title'       => 'required',
       'picture'     => 'required',
       'content'     => 'required',
-      'source'      => 'required',
-      'author'      => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -200,8 +195,8 @@ class InformationController extends BaseController
         $model->title       = Sensitive::shield($request->title);
         $model->picture     = $request->picture;
         $model->content     = Sensitive::shield($request->content);
-        $model->source      = $request->source;
-        $model->author      = $request->author;
+        $model->source      = $request->source ?? '';
+        $model->author      = self::getCurrentNickname();
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

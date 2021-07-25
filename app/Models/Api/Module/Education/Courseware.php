@@ -64,6 +64,30 @@ class Courseware extends Common
   }
 
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-25
+   * ------------------------------------------
+   * 课件与相关课件关联函数
+   * ------------------------------------------
+   *
+   * 课件与相关课件关联函数
+   *
+   * @return [关联对象]
+   */
+  public function recommend()
+  {
+    return $this->hasMany(
+      'App\Models\Api\Module\Education\Courseware',
+      'category_id',
+      'category_id'
+    )->where(['is_recommend' => 1])
+     ->orderBy('sort', 'desc')
+     ->limit(4);
+  }
+
+
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]

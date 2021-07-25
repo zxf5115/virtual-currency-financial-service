@@ -280,6 +280,33 @@ class BaseController extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2020-03-07
    * ------------------------------------------
+   * 获取当前用户昵称
+   * ------------------------------------------
+   *
+   * 获取当前用户的用户昵称
+   *
+   * @return 用户编号
+   */
+  public static function getCurrentNickname()
+  {
+    try
+    {
+      return auth('api')->user()->nickname ?? '';
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return 0;
+    }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-03-07
+   * ------------------------------------------
    * 获取当前用户角色编号
    * ------------------------------------------
    *
