@@ -2,6 +2,9 @@
 namespace App\Models\Api\Module;
 
 use App\Enum\Common\TimeEnum;
+use App\Models\Api\Module\Member\Attention;
+use App\Models\Api\Module\Information\Approval;
+use App\Models\Api\Module\Information\Collection;
 use App\Models\Common\Module\Information as Common;
 
 
@@ -41,6 +44,124 @@ class Information extends Common
   {
     return TimeEnum::formatDateTime($value);
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-30
+   * ------------------------------------------
+   * 是否关注作者
+   * ------------------------------------------
+   *
+   * 是否关注作者
+   *
+   * @param [type] $member_id 当前用户编号
+   * @param [type] $id 资讯编号
+   * @return [type]
+   */
+  public static function getIsAttention($member_id, $id)
+  {
+    if(empty($member_id))
+    {
+      return false;
+    }
+
+    $information = self::getRow(['id' => $id]);
+
+    if(empty($information->id))
+    {
+      return false;
+    }
+
+    $attention_member_id = $information->member_id;
+
+    $where = [
+      'member_id'           => $member_id,
+      'attention_member_id' => $attention_member_id
+    ];
+
+    $result = Attention::getRow($where);
+
+    if(empty($result->id))
+    {
+      return false;
+    }
+
+    return true;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-30
+   * ------------------------------------------
+   * 是否点赞资讯
+   * ------------------------------------------
+   *
+   * 是否点赞资讯
+   *
+   * @param [type] $member_id 当前用户编号
+   * @param [type] $id 资讯编号
+   * @return [type]
+   */
+  public static function getIsApproval($member_id, $id)
+  {
+    if(empty($member_id))
+    {
+      return false;
+    }
+
+    $where = [
+      'member_id' => $member_id,
+      'information_id' => $id
+    ];
+
+    $result = Approval::getRow($where);
+
+    if(empty($result->id))
+    {
+      return false;
+    }
+
+    return true;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-30
+   * ------------------------------------------
+   * 是否点赞收藏
+   * ------------------------------------------
+   *
+   * 是否点赞收藏
+   *
+   * @param [type] $member_id 当前用户编号
+   * @param [type] $id 资讯编号
+   * @return [type]
+   */
+  public static function getIsCollection($member_id, $id)
+  {
+    if(empty($member_id))
+    {
+      return false;
+    }
+
+    $where = [
+      'member_id' => $member_id,
+      'information_id' => $id
+    ];
+
+    $result = Collection::getRow($where);
+
+    if(empty($result->id))
+    {
+      return false;
+    }
+
+    return true;
+  }
+
 
 
 

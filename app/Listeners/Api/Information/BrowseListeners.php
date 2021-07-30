@@ -47,13 +47,15 @@ class BrowseListeners
         $model->save();
       }
 
-      $member_id = auth('api')->user()->id;
+      $member_id = auth('api')->user()->id ?? 0;
 
-      Browse::firstOrCreate([
-        'information_id' => $data_id,
-        'member_id'      => $member_id
-      ]);
-
+      if(!empty($member_id))
+      {
+        Browse::firstOrCreate([
+          'information_id' => $data_id,
+          'member_id'      => $member_id
+        ]);
+      }
     }
     catch(\Exception $e)
     {

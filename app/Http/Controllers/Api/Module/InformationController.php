@@ -310,6 +310,12 @@ class InformationController extends BaseController
 
       $response = $this->_model::getRow($condition, $relevance);
 
+      $member_id = self::getCurrentId();
+
+      $response['is_attention']  = $this->_model::getIsAttention($member_id, $id);
+      $response['is_approval']   = $this->_model::getIsApproval($member_id, $id);
+      $response['is_collection'] = $this->_model::getIsCollection($member_id, $id);
+
       // 记录资讯浏览总数
       event(new BrowseEvent($id));
 
