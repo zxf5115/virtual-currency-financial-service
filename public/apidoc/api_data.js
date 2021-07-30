@@ -4486,16 +4486,9 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "string",
-            "optional": false,
+            "optional": true,
             "field": "source",
             "description": "<p>资讯来源</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "author",
-            "description": "<p>资讯作者</p>"
           }
         ]
       }
@@ -9282,7 +9275,7 @@ define({ "api": [
   {
     "type": "get",
     "url": "/api/information/similar",
-    "title": "03. 相关资讯数据",
+    "title": "04. 相关资讯数据",
     "description": "<p>获取相关资讯不分页数据列表</p>",
     "group": "61._资讯模块",
     "parameter": {
@@ -9393,8 +9386,113 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/information/subject",
+    "title": "03. 专题资讯数据",
+    "description": "<p>获取专题资讯不分页数据列表</p>",
+    "group": "61._资讯模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "total",
+            "description": "<p>显示数量(默认4个)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_top",
+            "description": "<p>是否置顶</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_comment",
+            "description": "<p>是否可以评论</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/information/subject"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/InformationController.php",
+    "groupTitle": "61._资讯模块",
+    "name": "GetApiInformationSubject"
+  },
+  {
+    "type": "get",
     "url": "/api/information/view/{id}",
-    "title": "04. 资讯详情",
+    "title": "05. 资讯详情",
     "description": "<p>获取资讯详情</p>",
     "group": "61._资讯模块",
     "success": {
