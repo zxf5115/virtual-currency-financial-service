@@ -35,10 +35,7 @@ class FailureRequest
 
       if(empty($result->id))
       {
-        $headers = ['content-type' => 'application/json'];
-
-        $response = \Response::json(['status' => -102, 'message' => '请从新登录']);
-        return $response->withHeaders($headers);
+        return error(Code::TOKEN_EXPIRED);
       }
 
       return $next($request);

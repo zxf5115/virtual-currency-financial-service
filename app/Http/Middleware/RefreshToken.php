@@ -39,7 +39,7 @@ class RefreshToken extends BaseMiddleware
     catch(UnauthorizedHttpException $e)
     {
       // 请先登录
-      return self::error(Code::TOKEN_EMPTY);
+      return error(Code::TOKEN_EMPTY);
     }
 
     // 如果Token不能解析的情况下
@@ -55,7 +55,7 @@ class RefreshToken extends BaseMiddleware
         }
 
         // 请先登录
-        return self::error(Code::TOKEN_EMPTY);
+        return error(Code::TOKEN_EMPTY);
       }
       catch (TokenExpiredException $exception)
       {
@@ -71,42 +71,17 @@ class RefreshToken extends BaseMiddleware
         catch (JWTException $exception)
         {
           // 如果捕获到此异常，即代表 refresh 也过期了，用户无法刷新令牌，需要重新登录。
-          return self::error(Code::TOKEN_EXPIRED);
+          return error(Code::TOKEN_EXPIRED);
         }
       }
     }
     catch(TokenInvalidException $e)
     {
       // 非法账户，无法解析
-      return self::error(Code::TOKEN_NO_VERIFIED);
+      return error(Code::TOKEN_NO_VERIFIED);
     }
 
     // 在响应头中返回新的 token
     return $this->setAuthenticationHeader($next($request), $token);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2020-07-07
-   * ------------------------------------------
-   * 失败信息
-   * ------------------------------------------
-   *
-   * 返回错误信息
-   *
-   * @param integer $code 错误代码
-   * @return 错误信息
-   */
-  public static function error($code = Code::ERROR)
-  {
-    $headers = ['content-type' => 'application/json'];
-
-    $response = \Response::json([
-      'status' => $code,
-      'message' => Code::message($code)
-    ]);
-
-    return $response->withHeaders($headers);
   }
 }

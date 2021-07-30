@@ -52,6 +52,7 @@ class InformationController extends BaseController
   // 关联对象
   protected $_relevance = [
     'list' => false,
+    'subject' => false,
     'similar' => false,
     'view' => [
       'label'
@@ -166,9 +167,64 @@ class InformationController extends BaseController
   }
 
 
+  /**
+   * @api {get} /api/information/subject 03. 专题资讯数据
+   * @apiDescription 获取专题资讯不分页数据列表
+   * @apiGroup 61. 资讯模块
+   *
+   * @apiParam {int} total 显示数量(默认4个)
+   *
+   * @apiSuccess (字段说明) {Number} id 资讯编号
+   * @apiSuccess (字段说明) {String} title 资讯标题
+   * @apiSuccess (字段说明) {String} content 资讯内容
+   * @apiSuccess (字段说明) {String} source 资讯来源
+   * @apiSuccess (字段说明) {String} author 资讯作者
+   * @apiSuccess (字段说明) {String} read_total 阅读总数
+   * @apiSuccess (字段说明) {String} is_top 是否置顶
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} is_comment 是否可以评论
+   * @apiSuccess (字段说明) {String} create_time 发布时间
+   *
+   * @apiSampleRequest /api/information/subject
+   * @apiVersion 1.0.0
+   */
+  public function subject(Request $request)
+  {
+    try
+    {
+      $where = [
+        'is_subject' => 1
+      ];
+
+      $total = $request->total ?? 4;
+
+      $condition = self::getSimpleWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter, $where);
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'subject');
+
+      $response = $this->_model::getList($where, $relevance, $this->_order, false, $total);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
 
   /**
-   * @api {get} /api/information/similar 03. 相关资讯数据
+   * @api {get} /api/information/similar 04. 相关资讯数据
    * @apiDescription 获取相关资讯不分页数据列表
    * @apiGroup 61. 资讯模块
    *
@@ -221,7 +277,7 @@ class InformationController extends BaseController
 
 
   /**
-   * @api {get} /api/information/view/{id} 04. 资讯详情
+   * @api {get} /api/information/view/{id} 05. 资讯详情
    * @apiDescription 获取资讯详情
    * @apiGroup 61. 资讯模块
    *

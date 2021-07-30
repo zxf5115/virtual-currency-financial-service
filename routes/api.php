@@ -158,6 +158,7 @@ $api->version('v1', [
       $api->group(['prefix'  => 'information'], function ($api) {
         $api->get('list', 'InformationController@list');
         $api->get('recommend', 'InformationController@recommend');
+        $api->get('subject', 'InformationController@subject');
         $api->get('related', 'InformationController@related');
         $api->get('similar', 'InformationController@similar');
         $api->get('view/{id}', 'InformationController@view');
