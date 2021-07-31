@@ -29,16 +29,15 @@ class CommentController extends BaseController
 
   // 关联对像
   protected $_relevance = [
-    'select' => [
-      'children.member',
+    'list' => [
       'member',
     ]
   ];
 
 
   /**
-   * @api {get} /api/flash/comment/select 01. 快讯评论数据
-   * @apiDescription 获取快讯评论不分页列表数据
+   * @api {get} /api/flash/comment/list?page={page} 01. 快讯评论列表
+   * @apiDescription 获取快讯评论分页列表
    * @apiGroup 52. 快讯评论模块
    *
    * @apiParam {string} flash_id 快讯编号
@@ -48,10 +47,10 @@ class CommentController extends BaseController
    * @apiSuccess (字段说明|评论人) {String} avatar 评论人头像
    * @apiSuccess (字段说明|评论人) {String} nickname 评论人昵称
    *
-   * @apiSampleRequest /api/flash/comment/select
+   * @apiSampleRequest /api/flash/comment/list
    * @apiVersion 1.0.0
    */
-  public function select(Request $request)
+  public function list(Request $request)
   {
     try
     {
@@ -63,9 +62,11 @@ class CommentController extends BaseController
       $condition = array_merge($condition, $this->_where, $filter);
 
       // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'select');
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order);
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order, true);
+
+      $response['data'] = $this->_model::getChildData($response['data']);
 
       return self::success($response);
     }

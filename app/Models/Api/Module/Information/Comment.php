@@ -16,14 +16,67 @@ class Comment extends Common
 
   // 隐藏的属性
   protected $hidden = [
-    'id',
     'organization_id',
-    'parent_id',
     'information_id',
     'member_id',
     'status',
     'update_time'
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-31
+   * ------------------------------------------
+   * 获取子集数据
+   * ------------------------------------------
+   *
+   * 具体描述一些细节
+   *
+   * @param [type] $data [description]
+   * @return [type]
+   */
+  public static function getChildData($data)
+  {
+    try
+    {
+      $response = [];
+
+      if(empty($data))
+      {
+        $data;
+      }
+
+      foreach($data as $key => $item)
+      {
+        $where = [
+          'parent_id' => $item['id']
+        ];
+
+        $order = [['key' => 'create_time', 'value' => 'desc']];
+
+        $response = self::getList($where, 'member', $order, true);
+
+        if(empty($response))
+        {
+          continue;
+        }
+
+        $data[$key]['child'] = $response;
+
+        $data[$key]['child'] = self::getChildData($response);
+      }
+
+      return $data;
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
 
 
   // 关联函数 ------------------------------------------------------
@@ -46,25 +99,6 @@ class Comment extends Common
       'information_id',
       'id'
     );
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-09
-   * ------------------------------------------
-   * 无限评论封装
-   * ------------------------------------------
-   *
-   * 无限评论封装
-   *
-   * @return [type]
-   */
-  public function children()
-  {
-    return $this->hasMany(__CLASS__, ['information_id', 'parent_id'], ['information_id', 'parent_id'])
-                ->with('children')
-                ->where(['status'=>1]);
   }
 
 

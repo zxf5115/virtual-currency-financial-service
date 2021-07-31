@@ -148,7 +148,7 @@ $api->version('v1', [
 
           // 快讯评论路由
           $api->group(['prefix'  => 'comment'], function ($api) {
-            $api->get('select', 'CommentController@select');
+            $api->get('list', 'CommentController@list');
           });
         });
       });
@@ -178,7 +178,7 @@ $api->version('v1', [
 
           // 资讯评论路由
           $api->group(['prefix'  => 'comment'], function ($api) {
-            $api->get('select', 'CommentController@select');
+            $api->get('list', 'CommentController@list');
           });
         });
       });
@@ -201,7 +201,7 @@ $api->version('v1', [
 
           // 社区评论路由
           $api->group(['prefix'  => 'comment'], function ($api) {
-            $api->get('select', 'CommentController@select');
+            $api->get('list', 'CommentController@list');
           });
         });
       });

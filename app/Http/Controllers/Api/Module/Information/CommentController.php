@@ -29,18 +29,18 @@ class CommentController extends BaseController
 
   // 关联对像
   protected $_relevance = [
-    'select' => [
-      'children.member',
+    'list' => [
       'member',
     ]
   ];
 
 
   /**
-   * @api {get} /api/information/comment/select 01. 资讯评论数据
-   * @apiDescription 获取资讯评论不分页列表数据
+   * @api {get} /api/information/comment/list?page={page} 01. 资讯评论列表
+   * @apiDescription 获取资讯评论分页列表
    * @apiGroup 62. 资讯评论模块
    *
+   * @apiParam {int} page 当前页数
    * @apiParam {string} information_id 资讯编号
    *
    * @apiSuccess (字段说明|评论) {String} content 评论内容
@@ -50,10 +50,10 @@ class CommentController extends BaseController
    * @apiSuccess (字段说明|被评论人) {String} avatar 被评论人头像
    * @apiSuccess (字段说明|被评论人) {String} nickname 被评论人昵称
    *
-   * @apiSampleRequest /api/information/comment/select
+   * @apiSampleRequest /api/information/comment/list
    * @apiVersion 1.0.0
    */
-  public function select(Request $request)
+  public function list(Request $request)
   {
     try
     {
@@ -65,9 +65,11 @@ class CommentController extends BaseController
       $condition = array_merge($condition, $this->_where, $filter);
 
       // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'select');
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order);
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order, true);
+
+      $response['data'] = $this->_model::getChildData($response['data']);
 
       return self::success($response);
     }

@@ -8761,9 +8761,9 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/api/flash/comment/select",
-    "title": "01. 快讯评论数据",
-    "description": "<p>获取快讯评论不分页列表数据</p>",
+    "url": "/api/flash/comment/list?page={page}",
+    "title": "01. 快讯评论列表",
+    "description": "<p>获取快讯评论分页列表</p>",
     "group": "52._快讯评论模块",
     "parameter": {
       "fields": {
@@ -8816,13 +8816,13 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "/api/flash/comment/select"
+        "url": "/api/flash/comment/list"
       }
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Flash/CommentController.php",
     "groupTitle": "52._快讯评论模块",
-    "name": "GetApiFlashCommentSelect"
+    "name": "GetApiFlashCommentListPagePage"
   },
   {
     "type": "post",
@@ -9662,13 +9662,20 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/api/information/comment/select",
-    "title": "01. 资讯评论数据",
-    "description": "<p>获取资讯评论不分页列表数据</p>",
+    "url": "/api/information/comment/list?page={page}",
+    "title": "01. 资讯评论列表",
+    "description": "<p>获取资讯评论分页列表</p>",
     "group": "62._资讯评论模块",
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
           {
             "group": "Parameter",
             "type": "string",
@@ -9733,13 +9740,13 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "/api/information/comment/select"
+        "url": "/api/information/comment/list"
       }
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Information/CommentController.php",
     "groupTitle": "62._资讯评论模块",
-    "name": "GetApiInformationCommentSelect"
+    "name": "GetApiInformationCommentListPagePage"
   },
   {
     "type": "post",
@@ -10899,13 +10906,20 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "/api/community/comment/select",
-    "title": "01. 社区评论数据",
-    "description": "<p>获取社区评论不分页列表数据</p>",
+    "url": "/api/community/comment/list?page={page}",
+    "title": "01. 社区评论列表",
+    "description": "<p>获取社区评论分页列表</p>",
     "group": "72._社区评论模块",
     "parameter": {
       "fields": {
         "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
           {
             "group": "Parameter",
             "type": "string",
@@ -10970,13 +10984,13 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "/api/community/comment/select"
+        "url": "/api/community/comment/list"
       }
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Community/CommentController.php",
     "groupTitle": "72._社区评论模块",
-    "name": "GetApiCommunityCommentSelect"
+    "name": "GetApiCommunityCommentListPagePage"
   },
   {
     "type": "post",

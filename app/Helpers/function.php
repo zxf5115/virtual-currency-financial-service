@@ -1,6 +1,82 @@
 <?php
 use App\Http\Constant\Code;
 
+
+
+/**
+ * @author zhangxiaofei [<1326336909@qq.com>]
+ * @dateTime 2021-07-31
+ * ------------------------------------------
+ * 无限制分类
+ * ------------------------------------------
+ *
+ * 无限制分类
+ *
+ * @param array $list [description]
+ * @param string $id 当前节点名字
+ * @param string $pid 上级节点名字
+ * @param string $child 子节点名字
+ * @param integer $root 根节点数值
+ * @return [type]
+ */
+function tree($list = [], $id = 'id', $pid = 'parent_id', $child = 'child', $root = 0)
+{
+  // 创建Tree
+  $response = [];
+
+  if(is_array($list))
+  {
+    // 创建基于主键的数组引用
+    $refer = [];
+
+    foreach ($list as $key => $data)
+    {
+      $refer[$data[$id]] = &$list[$key];
+    }
+
+    //转出ID对内容
+    foreach ($list as $key => $data)
+    {
+      // 判断是否存在parent
+      $parent_id = $data[$pid];
+
+      if ($root == $parent_id)
+      {
+        $response[] =& $list[$key];
+      }
+      else
+      {
+        if(isset($refer[$parent_id]))
+        {
+          $parent = &$refer[$parent_id];
+          $parent[$child][] = &$list[$key];
+        }
+      }
+    }
+  }
+
+  return $response;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2020-12-28
