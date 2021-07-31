@@ -3889,8 +3889,29 @@ define({ "api": [
             "group": "字段说明|投诉",
             "type": "String",
             "optional": false,
+            "field": "title",
+            "description": "<p>投诉标题</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
             "field": "content",
             "description": "<p>投诉内容</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
+            "field": "customer_name",
+            "description": "<p>客户姓名</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
+            "field": "contact",
+            "description": "<p>联系方式</p>"
           },
           {
             "group": "字段说明|投诉",
@@ -3966,8 +3987,29 @@ define({ "api": [
             "group": "字段说明|投诉",
             "type": "String",
             "optional": false,
+            "field": "title",
+            "description": "<p>投诉标题</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
             "field": "content",
             "description": "<p>投诉内容</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
+            "field": "customer_name",
+            "description": "<p>客户姓名</p>"
+          },
+          {
+            "group": "字段说明|投诉",
+            "type": "String",
+            "optional": false,
+            "field": "contact",
+            "description": "<p>联系方式</p>"
           },
           {
             "group": "字段说明|投诉",
@@ -4043,8 +4085,29 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
+            "field": "title",
+            "description": "<p>投诉标题（不可为空）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
             "field": "content",
-            "description": "<p>投诉内容（不可为空）</p>"
+            "description": "<p>投诉内容</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "customer_name",
+            "description": "<p>客户姓名（不可为空）</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "contact",
+            "description": "<p>联系方式（不可为空）</p>"
           }
         ]
       }

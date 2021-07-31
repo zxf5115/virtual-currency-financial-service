@@ -43,7 +43,10 @@ class ComplainController extends BaseController
    * @apiParam {int} category_id 投诉位编号
    *
    * @apiSuccess (字段说明|投诉) {Number} id 投诉编号
+   * @apiSuccess (字段说明|投诉) {String} title 投诉标题
    * @apiSuccess (字段说明|投诉) {String} content 投诉内容
+   * @apiSuccess (字段说明|投诉) {String} customer_name 客户姓名
+   * @apiSuccess (字段说明|投诉) {String} contact 联系方式
    * @apiSuccess (字段说明|投诉) {Number} create_time 投诉时间
    * @apiSuccess (字段说明|投诉分类) {Number} title 投诉分类标题
    *
@@ -90,7 +93,10 @@ class ComplainController extends BaseController
    * }
    *
    * @apiSuccess (字段说明|投诉) {Number} id 投诉编号
+   * @apiSuccess (字段说明|投诉) {String} title 投诉标题
    * @apiSuccess (字段说明|投诉) {String} content 投诉内容
+   * @apiSuccess (字段说明|投诉) {String} customer_name 客户姓名
+   * @apiSuccess (字段说明|投诉) {String} contact 联系方式
    * @apiSuccess (字段说明|投诉) {Number} create_time 投诉时间
    * @apiSuccess (字段说明|投诉分类) {Number} title 投诉分类标题
    *
@@ -131,7 +137,10 @@ class ComplainController extends BaseController
    * }
    *
    * @apiParam {string} category_id 投诉类型（不可为空）
-   * @apiParam {string} content 投诉内容（不可为空）
+   * @apiParam {string} title 投诉标题（不可为空）
+   * @apiParam {string} content 投诉内容
+   * @apiParam {string} customer_name 客户姓名（不可为空）
+   * @apiParam {string} contact 联系方式（不可为空）
    *
    * @apiSampleRequest /api/member/complain/handle
    * @apiVersion 1.0.0
@@ -139,13 +148,17 @@ class ComplainController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'category_id.required' => '请您输入投诉类似',
-      'content.required'     => '请您输入投诉内容',
+      'category_id.required'   => '请您输入投诉分类',
+      'title.required'         => '请您输入投诉标题',
+      'customer_name.required' => '请您输入客户姓名',
+      'contact.required'       => '请您输入联系方式',
     ];
 
     $rule = [
-      'category_id' => 'required',
-      'content' => 'required',
+      'category_id'   => 'required',
+      'title' => 'required',
+      'customer_name' => 'required',
+      'contact'       => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -161,9 +174,12 @@ class ComplainController extends BaseController
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
-        $model->category_id = $request->category_id;
-        $model->member_id   = self::getCurrentId();
-        $model->content     = $request->content;
+        $model->category_id   = $request->category_id;
+        $model->member_id     = self::getCurrentId();
+        $model->title         = $request->title;
+        $model->content       = $request->content ?? '';
+        $model->customer_name = $request->customer_name;
+        $model->contact       = $request->contact;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
