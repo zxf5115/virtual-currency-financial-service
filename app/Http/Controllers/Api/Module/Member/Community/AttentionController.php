@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api\Module\Member\Community;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Community;
 use App\Http\Controllers\Api\BaseController;
-use App\Models\Api\Module\Community\Category;
 
 
 /**
@@ -20,6 +20,11 @@ class AttentionController extends BaseController
   protected $_model = 'App\Models\Api\Module\Community\Attention';
 
 
+  // 查询条件
+  protected $_params = [
+    'category_id',
+  ];
+
   /**
    * @api {get} /api/member/community/attention/list?page={page} 01. 我的关注列表
    * @apiDescription 获取当前会员关注分页列表
@@ -32,9 +37,15 @@ class AttentionController extends BaseController
    * }
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} [category_id] 社区分类编号
    *
-   * @apiSuccess (字段说明) {Number} id 社区分类编号
-   * @apiSuccess (字段说明) {String} title 社区分类标题
+   * @apiSuccess (字段说明) {Number} id 社区编号
+   * @apiSuccess (字段说明) {String} title 社区标题
+   * @apiSuccess (字段说明) {String} picture 社区封面
+   * @apiSuccess (字段说明) {String} content 社区内容
+   * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} create_time 发布时间
    *
    * @apiSampleRequest /api/member/community/attention/list
    * @apiVersion 1.0.0
@@ -48,10 +59,19 @@ class AttentionController extends BaseController
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
 
-      $result = $this->_model::getPluck('category_id', $condition, false, false, true);
+      $category = [];
+
+      if(!empty($request->category_id))
+      {
+        $category = ['category_id' => $request->category_id];
+      }
+
+      $where = array_merge($condition, $this->_where, $category);
+
+      $result = $this->_model::getPluck('category_id', $where, false, false, true);
 
       $where = [
-        ['id', $result]
+        ['category_id', $result]
       ];
 
       $condition = array_merge($condition, $this->_where, $filter, $where);
@@ -59,7 +79,7 @@ class AttentionController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = Category::getPaging($condition, $relevance, $this->_order);
+      $response = Community::getPaging($condition, $relevance, $this->_order);
 
       return self::success($response);
     }

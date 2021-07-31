@@ -80,8 +80,53 @@ class SymbolController extends BaseController
     }
   }
 
+
   /**
-   * @api {get} /api/currency/symbol/view/{id} 02. 货币交易对详情
+   * @api {get} /api/currency/symbol/quote 02. 货币交易报价币种
+   * @apiDescription 获取交易对中的报价币种不分页数据
+   * @apiGroup 81. 货币交易对模块
+   *
+   * @apiParam {String} [total] 显示数量，默认显示6条
+   *
+   * @apiSuccess (字段说明) {String} data 交易对中的报价币种
+   *
+   * @apiSampleRequest /api/currency/symbol/quote
+   * @apiVersion 1.0.0
+   */
+  public function quote(Request $request)
+  {
+    try
+    {
+      $condition = self::getSimpleWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $total = $request->total ?? 6;
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'select');
+
+      $response = $this->_model::getPluck('quote_currency', $condition, $relevance, $this->_order, true);
+
+      $response = array_unique($response);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+  /**
+   * @api {get} /api/currency/symbol/view/{id} 03. 货币交易对详情
    * @apiDescription 获取货币交易对详情
    * @apiGroup 81. 货币交易对模块
    *

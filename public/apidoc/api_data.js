@@ -9116,14 +9116,14 @@ define({ "api": [
           {
             "group": "Parameter",
             "type": "int",
-            "optional": false,
+            "optional": true,
             "field": "subject_id",
             "description": "<p>专题编号</p>"
           },
           {
             "group": "Parameter",
             "type": "int",
-            "optional": false,
+            "optional": true,
             "field": "is_subject",
             "description": "<p>是否专题(普通资讯、专题资讯)</p>"
           }
@@ -11552,6 +11552,13 @@ define({ "api": [
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": true,
+            "field": "category_id",
+            "description": "<p>社区分类编号</p>"
           }
         ]
       }
@@ -11564,14 +11571,49 @@ define({ "api": [
             "type": "Number",
             "optional": false,
             "field": "id",
-            "description": "<p>社区分类编号</p>"
+            "description": "<p>社区编号</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
             "field": "title",
-            "description": "<p>社区分类标题</p>"
+            "description": "<p>社区标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>社区封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>社区内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>社区作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
           }
         ]
       }
@@ -12256,8 +12298,50 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/currency/symbol/quote",
+    "title": "02. 货币交易报价币种",
+    "description": "<p>获取交易对中的报价币种不分页数据</p>",
+    "group": "81._货币交易对模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": true,
+            "field": "total",
+            "description": "<p>显示数量，默认显示6条</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "data",
+            "description": "<p>交易对中的报价币种</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/currency/symbol/quote"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Currency/SymbolController.php",
+    "groupTitle": "81._货币交易对模块",
+    "name": "GetApiCurrencySymbolQuote"
+  },
+  {
+    "type": "get",
     "url": "/api/currency/symbol/view/{id}",
-    "title": "02. 货币交易对详情",
+    "title": "03. 货币交易对详情",
     "description": "<p>获取货币交易对详情</p>",
     "group": "81._货币交易对模块",
     "success": {

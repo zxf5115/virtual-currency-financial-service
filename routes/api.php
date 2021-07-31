@@ -234,6 +234,7 @@ $api->version('v1', [
           // 货币符号
           $api->group(['prefix' => 'symbol'], function ($api) {
             $api->get('list', 'SymbolController@list');
+            $api->get('quote', 'SymbolController@quote');
             $api->get('view/{id}', 'SymbolController@view');
           });
         });
