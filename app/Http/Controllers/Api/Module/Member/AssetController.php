@@ -48,10 +48,7 @@ class AssetController extends BaseController
 
       $condition = array_merge($condition, $this->_where, $filter);
 
-      // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'data');
-
-      $response = $this->_model::getRow($condition, $relevance, $this->_order);
+      $response = $this->_model::getRow($condition);
 
       return self::success($response);
     }
