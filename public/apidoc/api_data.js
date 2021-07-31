@@ -12302,19 +12302,6 @@ define({ "api": [
     "title": "02. 货币交易报价币种",
     "description": "<p>获取交易对中的报价币种不分页数据</p>",
     "group": "81._货币交易对模块",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": true,
-            "field": "total",
-            "description": "<p>显示数量，默认显示6条</p>"
-          }
-        ]
-      }
-    },
     "success": {
       "fields": {
         "字段说明": [

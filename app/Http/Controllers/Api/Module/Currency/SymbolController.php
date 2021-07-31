@@ -86,8 +86,6 @@ class SymbolController extends BaseController
    * @apiDescription 获取交易对中的报价币种不分页数据
    * @apiGroup 81. 货币交易对模块
    *
-   * @apiParam {String} [total] 显示数量，默认显示6条
-   *
    * @apiSuccess (字段说明) {String} data 交易对中的报价币种
    *
    * @apiSampleRequest /api/currency/symbol/quote
@@ -101,8 +99,6 @@ class SymbolController extends BaseController
 
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
-
-      $total = $request->total ?? 6;
 
       $condition = array_merge($condition, $this->_where, $filter);
 
