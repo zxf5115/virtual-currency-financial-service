@@ -156,8 +156,7 @@ class LoginController extends BaseController
    * @api {post} /api/oauth_login 02. 一键登录
    * @apiDescription 短信登录
    * @apiGroup 01. 登录模块
-   * @apiParam {string} username 登录账户（18201018926）
-   * @apiParam {string} sms_code 短信验证码（7777）
+   * @apiParam {string} login_token 登录令牌
    *
    * @apiSuccess (字段说明|令牌) {String} token 身份令牌
    * @apiSuccess (字段说明|用户) {Number} id 会员编号

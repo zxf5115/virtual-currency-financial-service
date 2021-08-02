@@ -70,8 +70,8 @@ class SettingController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} order_switch 订单开关
-   * @apiParam {string} activity_switch 活动开关
+   * @apiParam {string} order_switch 订单开关 1 推送 2 不推送
+   * @apiParam {string} activity_switch 活动开关 1 推送 2 不推送
    *
    * @apiSampleRequest /api/member/setting/handle
    * @apiVersion 1.0.0
