@@ -42,6 +42,11 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\Common\Message\EmailListeners',
         ],
 
+        // 发送邮件
+        'App\Events\Common\Push\AuroraEvent' => [
+            'App\Listeners\Common\Push\AuroraListeners',
+        ],
+
         // 系统通知
         'App\Events\Common\NoticeEvent' => [
             'App\Listeners\Common\NoticeListeners',

@@ -4,6 +4,7 @@
 /public/storage
 /public/logs
 /public/cert
+/public/jpush.log
 .env
 .env.backup
 .phpunit.result.cache
