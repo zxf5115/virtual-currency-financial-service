@@ -460,15 +460,8 @@
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "username",
-            "description": "<p>登录账户（18201018926）</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "sms_code",
-            "description": "<p>短信验证码（7777）</p>"
+            "field": "login_token",
+            "description": "<p>登录令牌</p>"
           }
         ]
       }
@@ -4666,14 +4659,14 @@
             "type": "string",
             "optional": false,
             "field": "order_switch",
-            "description": "<p>订单开关</p>"
+            "description": "<p>订单开关 1 推送 2 不推送</p>"
           },
           {
             "group": "Parameter",
             "type": "string",
             "optional": false,
             "field": "activity_switch",
-            "description": "<p>活动开关</p>"
+            "description": "<p>活动开关 1 推送 2 不推送</p>"
           }
         ]
       }
