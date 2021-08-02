@@ -27,12 +27,6 @@ class CoursewareController extends BaseController
     'is_finish'
   ];
 
-  // 排序方式
-  protected $_order = [
-    ['key' => 'sort', 'value' => 'desc'],
-    ['key' => 'create_time', 'value' => 'desc'],
-  ];
-
   // 关联对象
   protected $_relevance = [
     'list' => [
