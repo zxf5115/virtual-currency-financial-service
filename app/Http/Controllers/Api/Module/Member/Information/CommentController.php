@@ -34,6 +34,7 @@ class CommentController extends BaseController
    *
    * @apiParam {string} information_id 资讯编号
    * @apiParam {string} [parent_id] 上级评论编号, 0为初始评论
+   * @apiParam {string} be_member_id 被评论人编号
    * @apiParam {string} content 评论内容
    *
    * @apiSampleRequest /api/member/information/comment/handle
@@ -64,9 +65,10 @@ class CommentController extends BaseController
       {
         $model = new $this->_model();
 
-        $model->member_id      = self::getCurrentId();
         $model->parent_id      = $request->parent_id ?? 0;
         $model->information_id = $request->information_id;
+        $model->be_member_id   = $request->be_member_id ?? 0;
+        $model->member_id      = self::getCurrentId();
         $model->content        = Sensitive::shield($request->content);
         $model->save();
 

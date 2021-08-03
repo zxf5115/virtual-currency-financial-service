@@ -33,6 +33,7 @@ class CommentController extends BaseController
    *
    * @apiParam {string} flash_id 快讯编号
    * @apiParam {string} [parent_id] 上级评论编号, 0为初始评论
+   * @apiParam {string} be_member_id 被评论人编号
    * @apiParam {string} content 评论内容
    *
    * @apiSampleRequest /api/member/flash/comment/handle
@@ -65,10 +66,11 @@ class CommentController extends BaseController
       {
         $model = new $this->_model();
 
-        $model->member_id = self::getCurrentId();
-        $model->parent_id = $request->parent_id ?? 0;
-        $model->flash_id  = $request->flash_id;
-        $model->content   = $request->content;
+        $model->parent_id    = $request->parent_id ?? 0;
+        $model->flash_id     = $request->flash_id;
+        $model->be_member_id = $request->be_member_id ?? 0;
+        $model->member_id    = self::getCurrentId();
+        $model->content      = $request->content;
         $model->save();
 
         DB::commit();

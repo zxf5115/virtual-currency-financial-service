@@ -72,6 +72,27 @@ class Comment extends Base
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-03
+   * ------------------------------------------
+   * 评论与被评论人关联表
+   * ------------------------------------------
+   *
+   * 评论与被评论人关联表
+   *
+   * @return [关联对象]
+   */
+  public function bemember()
+  {
+    return $this->belongsTo(
+      'App\Models\Common\Module\Member',
+      'be_member_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-06-11
    * ------------------------------------------
    * 评论与评论人关联表

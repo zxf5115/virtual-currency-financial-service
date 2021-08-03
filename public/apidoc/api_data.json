@@ -8763,6 +8763,13 @@
         "Parameter": [
           {
             "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "string",
             "optional": false,
             "field": "flash_id",
@@ -8818,6 +8825,71 @@
     "name": "GetApiFlashCommentListPagePage"
   },
   {
+    "type": "get",
+    "url": "/api/flash/comment/other",
+    "title": "02. 快讯其他评论数据",
+    "description": "<p>获取快讯其他评论数据</p>",
+    "group": "52._快讯评论模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "flash_id",
+            "description": "<p>快讯编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|评论": [
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>评论时间</p>"
+          }
+        ],
+        "字段说明|评论人": [
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>评论人头像</p>"
+          },
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>评论人昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/flash/comment/other"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Flash/CommentController.php",
+    "groupTitle": "52._快讯评论模块",
+    "name": "GetApiFlashCommentOther"
+  },
+  {
     "type": "post",
     "url": "/api/member/flash/comment/handle",
     "title": "02. 快讯评论操作",
@@ -8864,6 +8936,13 @@
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "be_member_id",
+            "description": "<p>被评论人编号</p>"
           },
           {
             "group": "Parameter",
@@ -9742,6 +9821,87 @@
     "name": "GetApiInformationCommentListPagePage"
   },
   {
+    "type": "get",
+    "url": "/api/information/comment/other",
+    "title": "02. 资讯其他评论数据",
+    "description": "<p>获取资讯其他评论数据</p>",
+    "group": "62._资讯评论模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "information_id",
+            "description": "<p>资讯编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|评论": [
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>评论时间</p>"
+          }
+        ],
+        "字段说明|评论人": [
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>评论人头像</p>"
+          },
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>评论人昵称</p>"
+          }
+        ],
+        "字段说明|被评论人": [
+          {
+            "group": "字段说明|被评论人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>被评论人头像</p>"
+          },
+          {
+            "group": "字段说明|被评论人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>被评论人昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/information/comment/other"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Information/CommentController.php",
+    "groupTitle": "62._资讯评论模块",
+    "name": "GetApiInformationCommentOther"
+  },
+  {
     "type": "post",
     "url": "/api/member/information/comment/handle",
     "title": "02. 资讯评论操作",
@@ -9788,6 +9948,13 @@
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "be_member_id",
+            "description": "<p>被评论人编号</p>"
           },
           {
             "group": "Parameter",
@@ -10986,6 +11153,87 @@
     "name": "GetApiCommunityCommentListPagePage"
   },
   {
+    "type": "get",
+    "url": "/api/community/comment/other",
+    "title": "02. 社区剩余评论数据",
+    "description": "<p>获取社区剩余评论数据</p>",
+    "group": "72._社区评论模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "community_id",
+            "description": "<p>社区编号</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|评论": [
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>评论时间</p>"
+          }
+        ],
+        "字段说明|评论人": [
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>评论人头像</p>"
+          },
+          {
+            "group": "字段说明|评论人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>评论人昵称</p>"
+          }
+        ],
+        "字段说明|被评论人": [
+          {
+            "group": "字段说明|被评论人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>被评论人头像</p>"
+          },
+          {
+            "group": "字段说明|被评论人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>被评论人昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/community/comment/other"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Community/CommentController.php",
+    "groupTitle": "72._社区评论模块",
+    "name": "GetApiCommunityCommentOther"
+  },
+  {
     "type": "post",
     "url": "/api/member/community/comment/handle",
     "title": "02. 社区评论操作",
@@ -11032,6 +11280,13 @@
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "be_member_id",
+            "description": "<p>被评论人编号</p>"
           },
           {
             "group": "Parameter",
