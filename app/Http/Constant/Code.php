@@ -165,6 +165,9 @@ class Code
   // 金额不足
   const INSUFFICIENT_FUND = 10003;
 
+  // 已经加入购物车
+  const ALREADY_ADD_CART = 10004;
+
   public static $message = [
     self::SUCCESS            => '成功',
     self::LOGOUT_SUCCESS     => '成功退出',
@@ -273,6 +276,8 @@ class Code
     self::PAY_ERROR => '支付失败',
 
     self::INSUFFICIENT_FUND => '账户金额不足',
+    self::ALREADY_ADD_CART => '已经加入购物车',
+
   ];
 
 

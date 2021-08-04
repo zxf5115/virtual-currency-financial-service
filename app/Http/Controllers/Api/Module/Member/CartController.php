@@ -123,12 +123,22 @@ class CartController extends BaseController
     {
       try
       {
-        $model = $this->_model::firstOrNew(['id' => $request->id]);
+        $member_id     = self::getCurrentId();
+        $courseware_id = $request->courseware_id;
 
-        $model->member_id     = self::getCurrentId();
-        $model->courseware_id = $request->courseware_id;
-        $model->total         = $request->total;
-        $model->save();
+        $model = $this->_model::firstOrNew([
+          'member_id' => $member_id,
+          'courseware_id' => $courseware_id
+        ]);
+
+        if(empty($model->id))
+        {
+          $model->save();
+        }
+        else
+        {
+          return self::error(Code::ALREADY_ADD_CART);
+        }
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
