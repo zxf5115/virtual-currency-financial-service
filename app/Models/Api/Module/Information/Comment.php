@@ -17,7 +17,6 @@ class Comment extends Common
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'information_id',
     'member_id',
     'status',
     'update_time'
@@ -40,7 +39,7 @@ class Comment extends Common
   {
     try
     {
-      $response = [];
+      $response = 0;
 
       if(empty($data))
       {
@@ -50,7 +49,7 @@ class Comment extends Common
       foreach($data as $key => $item)
       {
         $where = [
-          'parent_id' => $item['id']
+          'comment_id' => $item['id']
         ];
 
         $order = [['key' => 'create_time', 'value' => 'desc']];
@@ -62,7 +61,11 @@ class Comment extends Common
           continue;
         }
 
-        $data[$key]['child'] = $response;
+        $total = count($response);
+
+        $data[$key]['other_total'] = ($total > 3) ? ($total - 3) : 0;
+
+        $data[$key]['children'] = array_splice($response, 0, 3);
       }
 
       return $data;
@@ -115,10 +118,9 @@ class Comment extends Common
    */
   public function children()
   {
-    return $this->hasMany(__CLASS__, 'information_id', 'information_id')
-                ->where([['parent_id', '<>', 0], 'status'=>1])
-                ->orderBy('create_time', 'desc')
-                ->limit(3);
+    return $this->hasMany(__CLASS__, ['information_id', 'comment_id'], ['information_id', 'id'])
+                ->where([['comment_id', '<>', 0], 'status'=>1])
+                ->orderBy('create_time', 'desc');
   }
 
 

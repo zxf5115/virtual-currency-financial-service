@@ -19,12 +19,13 @@ class CommentController extends BaseController
 
   // 默认查询条件
   protected $_where = [
-    'parent_id' => 0
+    'comment_id' => 0
   ];
 
   // 客户端搜索字段
   protected $_params = [
     'community_id',
+    'comment_id'
   ];
 
   // 关联对像
@@ -75,6 +76,8 @@ class CommentController extends BaseController
 
       $response = $this->_model::getPaging($condition, $relevance, $this->_order, true);
 
+      $response['data'] = $this->_model::getChildData($response['data']);
+
       return self::success($response);
     }
     catch(\Exception $e)
@@ -93,6 +96,7 @@ class CommentController extends BaseController
    * @apiGroup 72. 社区评论模块
    *
    * @apiParam {string} community_id 社区编号
+   * @apiParam {string} comment_id 基础评论编号
    *
    * @apiSuccess (字段说明|评论) {String} content 评论内容
    * @apiSuccess (字段说明|评论) {String} create_time 评论时间
@@ -108,16 +112,12 @@ class CommentController extends BaseController
   {
     try
     {
-      $where = [
-        ['parent_id', '<>', 0]
-      ];
-
       $condition = self::getSimpleWhereData();
 
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
 
-      $condition = array_merge($condition, $filter, $where);
+      $condition = array_merge($condition, $filter);
 
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'other');

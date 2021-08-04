@@ -32,6 +32,7 @@ class CommentController extends BaseController
    *
    * @apiParam {string} community_id 社区编号
    * @apiParam {string} [parent_id] 上级评论编号, 0为初始评论
+   * @apiParam {string} [comment_id] 基础评论编号, 0为初始评论
    * @apiParam {string} be_member_id 被评论人编号
    * @apiParam {string} content 评论内容
    *
@@ -64,6 +65,7 @@ class CommentController extends BaseController
         $model = new $this->_model();
 
         $model->parent_id    = $request->parent_id ?? 0;
+        $model->comment_id   = $request->comment_id ?? 0;
         $model->community_id = $request->community_id;
         $model->be_member_id = $request->be_member_id ?? 0;
         $model->member_id    = self::getCurrentId();
