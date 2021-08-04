@@ -8839,6 +8839,13 @@ define({ "api": [
             "optional": false,
             "field": "flash_id",
             "description": "<p>快讯编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>基础评论编号</p>"
           }
         ]
       }
@@ -8936,6 +8943,13 @@ define({ "api": [
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "comment_id",
+            "description": "<p>基础评论编号, 0为初始评论</p>"
           },
           {
             "group": "Parameter",
@@ -9835,6 +9849,13 @@ define({ "api": [
             "optional": false,
             "field": "information_id",
             "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>基础评论编号</p>"
           }
         ]
       }
@@ -9948,6 +9969,13 @@ define({ "api": [
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "comment_id",
+            "description": "<p>基础评论编号, 0为初始评论</p>"
           },
           {
             "group": "Parameter",
@@ -11167,6 +11195,13 @@ define({ "api": [
             "optional": false,
             "field": "community_id",
             "description": "<p>社区编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>基础评论编号</p>"
           }
         ]
       }
@@ -11280,6 +11315,13 @@ define({ "api": [
             "optional": true,
             "field": "parent_id",
             "description": "<p>上级评论编号, 0为初始评论</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": true,
+            "field": "comment_id",
+            "description": "<p>基础评论编号, 0为初始评论</p>"
           },
           {
             "group": "Parameter",
