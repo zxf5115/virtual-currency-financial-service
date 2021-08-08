@@ -720,6 +720,11 @@ class OrderController extends BaseController
 
         $model = $this->_model::getRow($condition);
 
+        if(empty($model->id))
+        {
+          return self::error(Code::CURRENT_ORDER_EMPTY);
+        }
+
         if(0 != $model->order_status['value'])
         {
           return self::error(Code::CURRENT_ORDER_NO_CANCEL);
