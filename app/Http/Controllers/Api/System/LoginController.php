@@ -198,39 +198,59 @@ class LoginController extends BaseController
       try
       {
         $url    = getenv('JG_OAUTH_URL');
-        $prikey = getenv('JG_PRIKEY');
+
+        $key = getenv('JPUSH_APP_KEY');
+        $secret = getenv('JPUSH_APP_MASTER_SECRET');
 
         $login_token = $request->login_token;
 
-        $http = new Client();
+        $data = json_encode(['loginToken' => $login_token]);
 
-        $response = $http->post($url, ['form_params' => ['loginToken' => $login_token]]);
+        $ch = curl_init();
 
-        if(200 == $response->getStatusCode())
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_USERPWD, "$key:$secret");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_HTTPHEADER,array('Content-Type:application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_POST, 1);
+
+        if(false === $result = curl_exec($ch))
         {
-          $result = $response->getBody();
-
-          $result = json_decode($result, true);
-
-          $encrypted = $result['phone'];
-
-          $prefix = '-----BEGIN RSA PRIVATE KEY-----';
-          $suffix = '-----END RSA PRIVATE KEY-----';
-
-          $result = '';
-
-
-          $key = $prefix . "\n" . $prikey . "\n" . $suffix;
-          $r = openssl_private_decrypt(base64_decode($encrypted), $result, openssl_pkey_get_private($key));
-
-          echo $result . "\n";
+          return self::error(Code::ERROR);
         }
 
-        // https://blog.csdn.net/liuqi1314520/article/details/111401522
+        curl_close($ch);
 
+        $result = json_decode($result, true);
 
-        dd($s);
+        if(empty($result['phone']))
+        {
+          return self::error(Code::ERROR);
+        }
 
+        $encrypted = $result['phone'];
+
+        $key = '-----BEGIN PRIVATE KEY-----
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALZKEnH84lVa6zCy
+vrv8uncCibvZ39ALdHLm9hWB58jEbYU8mRsTkms+4hygAgZzU8T5c3Jq3w1TFwwq
+nT0R6UT9uth6oMGCudK4cZ9CzH37TVmfq79FG5Y4IpuEa7QoVeKkLPHfZvmU0Ads
+ph8a36iFKuUp9RSWtM9Otni2OgW/AgMBAAECgYEAiahoQ4JYHWMaZt0k4muZGJRn
+FOAUf1SXLMozncxLEDceCdbYPDVMhgan1DwVK2/eG8rRHt+L79EGf56SvXKQN82f
+0PMUBj0us7lpImScpfbjyAkYANqnfnzuumBrktlW9tAFTHR3G7lrkBBMX4ZAsHpO
+sNgvJkwCrWBaRlLPfrkCQQDk3wq5BpRwSy1XciSxHLA2EPfAQYcvFLs+iRkVP+AP
+WqeiYh7kL3WpAsYaSxV5Lw1ExdlaoLglBaVO1kN3oi31AkEAy+WH0Tqest4fWCtB
+iWO7URnFvz2kMkSHOjsbXkhhU70R475ln0kUp41gIXoXCoM+Xw6uwnRvLGbb0Iw8
+mtFAYwJAc/TdRekjg9FS458dH+7dCEeIfou0phHm3EQxxSZbquvPSuJTrGCvSDXz
+kJbCBmfkXRewi84p/ffiTRMZk59DkQJAHhQqSQ9gwfpKnXMkI+R2iaxHo8KwKko5
+uLlnfC0pTnUh4nr/+tOJHH6ao9Wi+IYL+XHtDfqnO+Ggo89MUXp1CQJAVQFXIsnG
+XZBWlZNYS1MYhK1dLwMRIz+op+XrORpxu3+piNHUw+VcQB2/sARKSDINfAgQg2Z/
+BCJ1DmmcAMkT1w==
+-----END PRIVATE KEY-----';
+
+        openssl_private_decrypt(base64_decode($encrypted), $username, openssl_pkey_get_private($key));
 
         $condition = self::getSimpleWhereData($username, 'username');
 
@@ -1004,7 +1024,7 @@ class LoginController extends BaseController
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = $this->_model::getRow($condition);
+        $response = Member::getRow($condition);
 
         if(empty($response->id))
         {
@@ -1082,14 +1102,14 @@ class LoginController extends BaseController
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $model = $this->_model::getRow($condition);
+        $model = Member::getRow($condition);
 
         if(empty($model->id))
         {
           return self::error(Code::MEMBER_EMPTY);
         }
 
-        $password = $this->_model::generate($request->password);
+        $password = Member::generate($request->password);
 
         $model->password = $password;
         $model->save();
