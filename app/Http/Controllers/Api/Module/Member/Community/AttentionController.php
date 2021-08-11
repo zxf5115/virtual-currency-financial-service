@@ -25,6 +25,16 @@ class AttentionController extends BaseController
     'category_id',
   ];
 
+
+  // 关联对像
+  protected $_relevance = [
+    'list' => [
+      'category',
+      'member',
+    ]
+  ];
+
+
   /**
    * @api {get} /api/member/community/attention/list?page={page} 01. 我的关注列表
    * @apiDescription 获取当前会员关注分页列表
@@ -39,13 +49,17 @@ class AttentionController extends BaseController
    * @apiParam {int} page 当前页数
    * @apiParam {int} [category_id] 社区分类编号
    *
-   * @apiSuccess (字段说明) {Number} id 社区编号
-   * @apiSuccess (字段说明) {String} title 社区标题
-   * @apiSuccess (字段说明) {String} picture 社区封面
-   * @apiSuccess (字段说明) {String} content 社区内容
-   * @apiSuccess (字段说明) {String} author 社区作者
-   * @apiSuccess (字段说明) {String} is_hot 是否热门
-   * @apiSuccess (字段说明) {String} create_time 发布时间
+   * @apiSuccess (字段说明|资讯) {Number} id 社区编号
+   * @apiSuccess (字段说明|资讯) {String} title 社区标题
+   * @apiSuccess (字段说明|资讯) {String} picture 社区封面
+   * @apiSuccess (字段说明|资讯) {String} content 社区内容
+   * @apiSuccess (字段说明|资讯) {String} author 社区作者
+   * @apiSuccess (字段说明|资讯) {String} is_hot 是否热门
+   * @apiSuccess (字段说明|资讯) {String} comment_total 评论数量
+   * @apiSuccess (字段说明|资讯) {String} create_time 发布时间
+   * @apiSuccess (字段说明|资讯分类) {String} title 资讯分类标题
+   * @apiSuccess (字段说明|发布人) {String} avatar 发布人头像
+   * @apiSuccess (字段说明|发布人) {String} nickname 发布人昵称
    *
    * @apiSampleRequest /api/member/community/attention/list
    * @apiVersion 1.0.0

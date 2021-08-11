@@ -101,7 +101,7 @@ class Community extends Base
    */
   public function comment()
   {
-    return $this->belongsTo(
+    return $this->hasMany(
       'App\Models\Common\Module\Community\Comment',
       'community_id',
       'id'

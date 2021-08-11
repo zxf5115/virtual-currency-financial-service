@@ -11869,55 +11869,87 @@
     },
     "success": {
       "fields": {
-        "字段说明": [
+        "字段说明|资讯": [
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "Number",
             "optional": false,
             "field": "id",
             "description": "<p>社区编号</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "title",
             "description": "<p>社区标题</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "picture",
             "description": "<p>社区封面</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "content",
             "description": "<p>社区内容</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "author",
             "description": "<p>社区作者</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "is_hot",
             "description": "<p>是否热门</p>"
           },
           {
-            "group": "字段说明",
+            "group": "字段说明|资讯",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明|资讯",
             "type": "String",
             "optional": false,
             "field": "create_time",
             "description": "<p>发布时间</p>"
+          }
+        ],
+        "字段说明|资讯分类": [
+          {
+            "group": "字段说明|资讯分类",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯分类标题</p>"
+          }
+        ],
+        "字段说明|发布人": [
+          {
+            "group": "字段说明|发布人",
+            "type": "String",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>发布人头像</p>"
+          },
+          {
+            "group": "字段说明|发布人",
+            "type": "String",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>发布人昵称</p>"
           }
         ]
       }
