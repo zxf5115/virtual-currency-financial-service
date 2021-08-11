@@ -75,7 +75,9 @@ class Crawler extends Controller
             {
               $data = $this->getImageBase64Data($vo['url']);
 
-              $picture = File::picture_base64($data, 'flash');
+              $url = File::picture_base64($data, 'flash');
+
+              $picture = '<img src="'.$url.'" style="width: 300px;" class="fr-fic fr-dii">';
 
               $content = $content . $picture;
             }
