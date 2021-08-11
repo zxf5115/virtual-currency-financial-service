@@ -9203,6 +9203,13 @@
             "group": "Parameter",
             "type": "int",
             "optional": true,
+            "field": "title",
+            "description": "<p>标题信息</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": true,
             "field": "subject_id",
             "description": "<p>专题编号</p>"
           },
