@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Events\Common\Push\AuroraEvent;
 use App\Events\Api\Member\AttentionEvent;
 use App\Http\Controllers\Api\BaseController;
 
@@ -204,6 +205,18 @@ class AttentionController extends BaseController
 
         // 记录关注总数
         event(new AttentionEvent($response, $request->attention_member_id));
+
+        $nickname = self::getCurrentNickname();
+
+        $content = $nickname . '关注了您';
+
+        $data = [
+          'title'     => '关注消息',
+          'content'   => $content,
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $request->attention_member_id));
 
         DB::commit();
 

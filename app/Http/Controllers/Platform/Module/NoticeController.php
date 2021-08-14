@@ -2,8 +2,10 @@
 namespace App\Http\Controllers\Platform\Module;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Platform\BaseController;
 
 /**
@@ -17,15 +19,14 @@ class NoticeController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Platform\Module\Notice';
 
-  // 客户端搜索字段
-  protected $_params = [
-    'category_id',
-    'content',
+  // 默认查询条件
+  protected $_where = [
+    'category_id' => 1
   ];
 
-  // 关联对象
-  protected $_relevance = [
-    'category'
+  // 客户端搜索字段
+  protected $_params = [
+    'content',
   ];
 
 
@@ -44,12 +45,10 @@ class NoticeController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'category_id.required' => '请您选择分类标题',
       'content.required'     => '请您输入通知内容',
     ];
 
     $rule = [
-      'category_id' => 'required',
       'content'     => 'required',
     ];
 
@@ -62,19 +61,33 @@ class NoticeController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->category_id     = $request->category_id;
+        $model->category_id     = 1;
         $model->content         = $request->content;
         $model->save();
+
+        $data = [
+          'title'   => '系统公告',
+          'content' => $request->content ?? ''
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(3, $data));
+
+        DB::commit();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         record($e);
 

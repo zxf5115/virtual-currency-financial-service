@@ -2,8 +2,11 @@
 namespace App\Http\Controllers\Api\Module\Member\Community;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Community;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -181,6 +184,8 @@ class CollectionController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $this->_model::createOrDelete([
@@ -188,10 +193,32 @@ class CollectionController extends BaseController
           'community_id' => $request->community_id
         ]);
 
+        // 社区数据
+        $community = Community::getRow(['id' => $request->community_id]);
+
+        if(!empty($community->id))
+        {
+          $nickname = self::getCurrentNickname();
+
+          $content = $nickname . '收藏了您的' .$community->title;
+
+          $data = [
+            'title'     => '社区收藏消息',
+            'content'   => $content,
+          ];
+
+          // 消息推送
+          event(new AuroraEvent(1, $data, $community->member_id));
+        }
+
+        DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 

@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Information;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
 use App\Events\Api\Member\Information\ApprovalEvent;
 
@@ -196,6 +198,24 @@ class ApprovalController extends BaseController
 
         // 记录点赞资讯总数
         event(new ApprovalEvent($status, $request->information_id));
+
+        // 资讯数据
+        $information = Information::getRow(['id' => $request->information_id]);
+
+        if(!empty($information->id))
+        {
+          $nickname = self::getCurrentNickname();
+
+          $content = $nickname . '点赞了您的' .$information->title;
+
+          $data = [
+            'title'     => '资讯点赞消息',
+            'content'   => $content,
+          ];
+
+          // 消息推送
+          event(new AuroraEvent(1, $data, $information->member_id));
+        }
 
         DB::commit();
 

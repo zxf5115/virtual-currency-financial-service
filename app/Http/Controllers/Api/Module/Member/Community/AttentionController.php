@@ -2,10 +2,12 @@
 namespace App\Http\Controllers\Api\Module\Member\Community;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
-use App\Models\Api\Module\Community;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
+use App\Models\Api\Module\Community\Category;
 
 
 /**
@@ -216,10 +218,29 @@ class AttentionController extends BaseController
           'category_id' => $request->category_id
         ]);
 
+        // 社区分类数据
+        $category = Category::getRow(['id' => $request->category_id]);
+
+        if(!empty($category->id))
+        {
+          $content = '您关注了' .$category->title;
+
+          $data = [
+            'title'     => '社区关注消息',
+            'content'   => $content,
+          ];
+
+          // 消息推送
+          event(new AuroraEvent(1, $data, self::getCurrentId()));
+        }
+
+        DB::commit();
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 

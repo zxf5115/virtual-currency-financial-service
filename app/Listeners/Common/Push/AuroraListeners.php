@@ -34,7 +34,7 @@ class AuroraListeners
   {
     try
     {
-      // 验证码类型
+      // 推送消息类型
       $type   = $event->type;
       // 推送数据
       $data   = $event->data;
@@ -93,7 +93,7 @@ class AuroraListeners
 
       // 开始推送
       $response = JpushService::androidOrIosPushByAlias($params);
-dd($response);
+
       return $response;
     }
     catch (\Exception $e)

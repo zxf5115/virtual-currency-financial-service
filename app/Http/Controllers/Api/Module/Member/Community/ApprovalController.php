@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Community;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
 use App\Events\Api\Member\Community\ApprovalEvent;
 
@@ -194,6 +196,24 @@ class ApprovalController extends BaseController
 
         // 记录点赞社区总数
         event(new ApprovalEvent($status, $request->community_id));
+
+        // 社区数据
+        $community = Community::getRow(['id' => $request->community_id]);
+
+        if(!empty($community->id))
+        {
+          $nickname = self::getCurrentNickname();
+
+          $content = $nickname . '点赞了您的' .$community->title;
+
+          $data = [
+            'title'     => '社区点赞消息',
+            'content'   => $content,
+          ];
+
+          // 消息推送
+          event(new AuroraEvent(1, $data, $community->member_id));
+        }
 
         DB::commit();
 

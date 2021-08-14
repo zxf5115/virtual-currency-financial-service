@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Platform\System;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
 
 use App\Http\Constant\Code;
 use App\Http\Controllers\Platform\BaseController;
@@ -12,21 +11,20 @@ use App\Models\Platform\System\User\Message;
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2020-07-17
- *
- * Message接口控制器类
+ *s
+ * 站内信控制器类
  */
 class MessageController extends BaseController
 {
+  // 模型名称
   protected $_model = 'App\Models\Platform\System\Message';
 
-  protected $_where = [];
-
-  protected $_params = [];
-
+  // 排序方式
   protected $_order = [
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 
+  // 关联对象
   protected $_relevance = [
     'user',
   ];

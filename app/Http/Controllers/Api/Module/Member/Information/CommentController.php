@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Information;
+use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Common\Module\Information\Sensitive;
 
@@ -62,6 +64,8 @@ class CommentController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $model = new $this->_model();
@@ -74,10 +78,32 @@ class CommentController extends BaseController
         $model->content        = Sensitive::shield($request->content);
         $model->save();
 
+        // 资讯数据
+        $information = Information::getRow(['id' => $request->information_id]);
+
+        if(!empty($information->id))
+        {
+          $nickname = self::getCurrentNickname();
+
+          $content = $nickname . '评论了您的' .$information->title;
+
+          $data = [
+            'title'     => '资讯评论消息',
+            'content'   => $content,
+          ];
+
+          // 消息推送
+          event(new AuroraEvent(1, $data, $information->member_id));
+        }
+
+        DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 
