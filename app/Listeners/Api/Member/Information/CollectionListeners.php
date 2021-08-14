@@ -43,7 +43,10 @@ class CollectionListeners
       }
       else
       {
-        $project->decrement('collection_total', 1);
+        if($project->approval_total > 0)
+        {
+          $project->decrement('collection_total', 1);
+        }
       }
 
       return true;

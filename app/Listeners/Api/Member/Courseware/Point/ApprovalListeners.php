@@ -50,8 +50,15 @@ class ApprovalListeners
       }
       else
       {
-        $archive->decrement('approval_total', 1);
-        $point->decrement('approval_total', 1);
+        if($archive->approval_total > 0)
+        {
+          $archive->decrement('approval_total', 1);
+        }
+
+        if($point->approval_total > 0)
+        {
+          $point->decrement('approval_total', 1);
+        }
       }
 
       return true;

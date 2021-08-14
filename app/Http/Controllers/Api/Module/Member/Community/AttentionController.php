@@ -223,7 +223,9 @@ class AttentionController extends BaseController
 
         if(!empty($category->id))
         {
-          $content = '您关注了' .$category->title;
+          $data = $status ? '关注' : '取消关注';
+
+          $content = '您'. $data .'了' .$category->title;
 
           $data = [
             'title'     => '社区关注消息',

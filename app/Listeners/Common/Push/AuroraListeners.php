@@ -136,7 +136,7 @@ class AuroraListeners
       // 推送类型 1-别名 2-注册id 3-全部
       $params['type'] = 1;
       // 别名
-      $params['alias'] = $member_id;
+      $params['alias'] = strval($member_id);
 
       // 开始推送
       $response = JpushService::androidOrIosPushByAlias($params);

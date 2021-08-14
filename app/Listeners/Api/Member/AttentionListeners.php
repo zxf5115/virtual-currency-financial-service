@@ -45,7 +45,10 @@ class AttentionListeners
       }
       else
       {
-        $model->decrement('fans_total', 1);
+        if($model->fans_total > 0)
+        {
+          $model->decrement('fans_total', 1);
+        }
       }
 
       // 关注
@@ -57,7 +60,10 @@ class AttentionListeners
       }
       else
       {
-        $model->decrement('attention_total', 1);
+        if($model->attention_total > 0)
+        {
+          $model->decrement('attention_total', 1);
+        }
       }
 
       return true;

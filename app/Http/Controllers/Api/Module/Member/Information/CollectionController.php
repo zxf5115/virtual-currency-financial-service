@@ -202,7 +202,9 @@ class CollectionController extends BaseController
         {
           $nickname = self::getCurrentNickname();
 
-          $content = $nickname . '收藏了您的' .$information->title;
+          $data = $status ? '收藏' : '取消收藏';
+
+          $content = $nickname . $data . '了您的' .$information->title;
 
           $data = [
             'title'     => '资讯收藏消息',

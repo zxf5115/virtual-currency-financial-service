@@ -204,7 +204,9 @@ class ApprovalController extends BaseController
         {
           $nickname = self::getCurrentNickname();
 
-          $content = $nickname . '点赞了您的' .$community->title;
+          $data = $status ? '点赞' : '取消点赞';
+
+          $content = $nickname . $data . '了您的' .$community->title;
 
           $data = [
             'title'     => '社区点赞消息',

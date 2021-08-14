@@ -5,5 +5,5 @@ return [
   'master_secret' => env('JPUSH_APP_MASTER_SECRET'),
 
   // 环境 true-生产环境 false-开发环境
-  'environment' => env('JPUSH_APNS_PRODUCTION', true)
+  'environment' => env('JPUSH_APNS_PRODUCTION', false)
 ];
