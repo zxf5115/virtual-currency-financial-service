@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Community;
 use App\Events\Common\Push\AuroraEvent;
 use App\Http\Controllers\Api\BaseController;
 use App\Models\Api\Module\Community\Category;

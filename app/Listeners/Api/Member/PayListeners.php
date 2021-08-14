@@ -6,6 +6,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Events\Api\Member\PayEvent;
 
+use Yansongda\Pay\Log;
+use Yansongda\Pay\Pay;
+use Yansongda\Pay\Exceptions\GatewayException;
+
 /**
  * 支付监听器
  */
