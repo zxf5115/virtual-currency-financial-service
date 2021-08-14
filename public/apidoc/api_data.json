@@ -10854,6 +10854,13 @@
             "optional": false,
             "field": "category_id",
             "description": "<p>社区分类编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "member_id",
+            "description": "<p>会员编号</p>"
           }
         ]
       }
