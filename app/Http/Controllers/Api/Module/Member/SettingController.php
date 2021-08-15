@@ -30,8 +30,7 @@ class SettingController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiSuccess (字段说明) {String} order_switch 订单开关
-   * @apiSuccess (字段说明) {String} activity_switch 活动开关
+   * @apiSuccess (字段说明) {String} push_switch 推送开关
    *
    * @apiSampleRequest /api/member/setting/data
    * @apiVersion 1.0.0
@@ -70,8 +69,7 @@ class SettingController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} order_switch 订单开关 1 推送 2 不推送
-   * @apiParam {string} activity_switch 活动开关 1 推送 2 不推送
+   * @apiParam {string} push_switch 推送开关 1 推送 2 不推送
    *
    * @apiSampleRequest /api/member/setting/handle
    * @apiVersion 1.0.0
@@ -79,13 +77,11 @@ class SettingController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'order_switch.required'    => '请您输入订单开关',
-      'activity_switch.required' => '请您输入活动开关',
+      'push_switch.required'    => '请您输入订单开关',
     ];
 
     $rule = [
-      'order_switch'    => 'required',
-      'activity_switch' => 'required',
+      'push_switch'    => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -100,8 +96,7 @@ class SettingController extends BaseController
       try
       {
         $model = $this->_model::getRow(['member_id' => self::getCurrentId()]);
-        $model->order_switch    = $request->order_switch;
-        $model->activity_switch = $request->activity_switch;
+        $model->push_switch    = $request->push_switch;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

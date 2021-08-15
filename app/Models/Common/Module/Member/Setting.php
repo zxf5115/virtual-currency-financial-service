@@ -35,30 +35,12 @@ class Setting extends Base
    * 订单开关封装
    * ------------------------------------------
    *
-   * 订单开关封装
+   * 推送开关封装
    *
    * @param int $value 状态值
    * @return 状态信息
    */
-  public function getOrderSwitchAttribute($value)
-  {
-    return SettingEnum::getSwitchStatus($value);
-  }
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-11
-   * ------------------------------------------
-   * 活动开关封装
-   * ------------------------------------------
-   *
-   * 活动开关封装
-   *
-   * @param int $value 状态值
-   * @return 状态信息
-   */
-  public function getActivitySwitchAttribute($value)
+  public function getPushSwitchAttribute($value)
   {
     return SettingEnum::getSwitchStatus($value);
   }

@@ -808,8 +808,7 @@ BCJ1DmmcAMkT1w==
         }
 
         $data = [
-          'order_switch'    => 1,
-          'activity_switch' => 1,
+          'push_switch'    => 1,
         ];
 
         if(!empty($data))

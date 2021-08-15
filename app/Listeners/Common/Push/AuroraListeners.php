@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 
 use App\Modules\Jpush\JpushService;
 use App\Events\Common\Push\AuroraEvent;
+use App\Models\Common\Module\Member\Setting;
 
 /**
  * 极光消息推送监听器
@@ -40,6 +41,14 @@ class AuroraListeners
       $data   = $event->data;
       // 推送人别名
       $member_id = $event->member_id;
+
+      // 获取用户推送设置信息
+      $setting= Setting::getRow(['member_id' => $member_id]);
+
+      if(empty($setting->id) || 2 == $setting->push_switch['value'])
+      {
+        return false;
+      }
 
       // 私信消息
       if(1 == $type)

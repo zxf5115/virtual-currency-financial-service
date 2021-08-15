@@ -87,6 +87,8 @@ class AttentionController extends BaseController
 
       $result = $this->_model::getPluck('category_id', $where, false, false, true);
 
+      $condition = self::getCurrentWhereData();
+
       $where = [
         ['category_id', $result]
       ];

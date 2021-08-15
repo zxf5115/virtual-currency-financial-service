@@ -2,6 +2,7 @@
 namespace App\Models\Api\Module;
 
 use App\Enum\Common\TimeEnum;
+use App\Models\Common\Module\Community\Approval;
 use App\Models\Common\Module\Community as Common;
 
 
@@ -24,7 +25,8 @@ class Community extends Common
 
   // 追加到模型数组表单的访问器
   protected $appends = [
-    'comment_total'
+    'comment_total',
+    'is_approval'
   ];
 
 
@@ -62,14 +64,46 @@ class Community extends Common
   {
     $comment = $this->comment ?? '';
 
+    unset($this->comment);
+
     if(empty($comment))
     {
       return 0;
     }
 
-    unset($this->comment);
-
     return count($comment);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 资讯评论数量封装
+   * ------------------------------------------
+   *
+   * 资讯评论数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsApprovalAttribute($value)
+  {
+    $community_id = $this->id ?? '';
+
+    $where = [
+      'member_id'    => auth('api')->user()->id,
+      'community_id' => $community_id
+    ];
+
+    $approval = Approval::getRow($where);
+
+    if(empty($approval->id))
+    {
+      return false;
+    }
+
+    return true;
   }
 
 

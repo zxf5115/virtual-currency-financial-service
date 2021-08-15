@@ -4597,15 +4597,8 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "order_switch",
-            "description": "<p>订单开关</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "activity_switch",
-            "description": "<p>活动开关</p>"
+            "field": "push_switch",
+            "description": "<p>推送开关</p>"
           }
         ]
       }
@@ -4658,15 +4651,8 @@
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "order_switch",
-            "description": "<p>订单开关 1 推送 2 不推送</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "activity_switch",
-            "description": "<p>活动开关 1 推送 2 不推送</p>"
+            "field": "push_switch",
+            "description": "<p>推送开关 1 推送 2 不推送</p>"
           }
         ]
       }
