@@ -20,7 +20,6 @@ class Information extends Common
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'category_id',
     'audit_status',
     'status',
     'update_time'
