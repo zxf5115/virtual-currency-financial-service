@@ -29,6 +29,12 @@ class CommunityController extends BaseController
     'member_id'
   ];
 
+
+  // 关联对象
+  protected $_relevance = [
+    'category'
+  ];
+
   /**
    * @api {get} /api/community/list?page={page} 01. 社区列表
    * @apiDescription 获取社区分页列表
