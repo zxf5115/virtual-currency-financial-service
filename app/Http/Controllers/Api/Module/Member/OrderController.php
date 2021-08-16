@@ -252,6 +252,11 @@ class OrderController extends BaseController
 
         $data = self::packRelevanceData($request, 'courseware_id');
 
+        foreach($data as &$item)
+        {
+          $item['member_id'] = self::getCurrentId();
+        }
+
         if(!empty($data))
         {
           $model->coursewareRelevance()->delete();
