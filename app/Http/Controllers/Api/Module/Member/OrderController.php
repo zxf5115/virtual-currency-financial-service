@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Constant\Code;
 use App\Events\Api\Member\AssetEvent;
 use App\Events\Api\Member\MoneyEvent;
+use App\Events\Common\Push\AuroraEvent;
 use App\Models\Common\Module\Member\Asset;
 use App\Events\Api\Member\CoursewareEvent;
 use App\Http\Controllers\Api\BaseController;
@@ -312,6 +313,8 @@ class OrderController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $condition = self::getCurrentWhereData();
@@ -336,10 +339,22 @@ class OrderController extends BaseController
         $order->pay_type   = $request->pay_type;
         $order->save();
 
+        $data = [
+          'title'     => '订单消息',
+          'content'   => '您的订单已修改',
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $order->member_id));
+
+        DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 
@@ -448,6 +463,14 @@ class OrderController extends BaseController
 
         // 增加资产消费记录
         event(new MoneyEvent($member_id, $model->pay_money, 2));
+
+        $data = [
+          'title'     => '订单消息',
+          'content'   => '您的订单已支付',
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $model->member_id));
 
         DB::commit();
 
@@ -649,6 +672,8 @@ class OrderController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $condition = self::getCurrentWhereData();
@@ -662,10 +687,22 @@ class OrderController extends BaseController
         $model->order_status = 2;
         $model->save();
 
+        $data = [
+          'title'     => '订单消息',
+          'content'   => '您的订单已完成',
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $model->member_id));
+
+        DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 
@@ -710,6 +747,8 @@ class OrderController extends BaseController
     }
     else
     {
+      DB::beginTransaction();
+
       try
       {
         $condition = self::getCurrentWhereData();
@@ -733,10 +772,22 @@ class OrderController extends BaseController
         $model->order_status = 3;
         $model->save();
 
+        $data = [
+          'title'     => '订单消息',
+          'content'   => '您的订单已取消',
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $model->member_id));
+
+        DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)
       {
+        DB::rollback();
+
         // 记录异常信息
         self::record($e);
 

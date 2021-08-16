@@ -26,7 +26,8 @@ class Flash extends Common
 
   // 附加数据
   protected $appends = [
-    'datetime'
+    'description',
+    'datetime',
   ];
 
   /**
@@ -35,6 +36,24 @@ class Flash extends Common
   protected $casts = [
     'create_time' => 'datetime:H:i',
   ];
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 时间封装
+   * ------------------------------------------
+   *
+   * 时间封装
+   *
+   * @param int $value [数据库存在的值]
+   * @return 状态值
+   */
+  public function getDescriptionAttribute($value)
+  {
+    return strip_tags($this->content);
+  }
 
 
   /**

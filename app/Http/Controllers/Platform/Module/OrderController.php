@@ -8,6 +8,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Constant\Code;
 use App\Exports\OrderExport;
 use App\Models\Platform\System\Config;
+use App\Events\Common\Push\AuroraEvent;
 use App\Models\Platform\Module\Order\Log;
 use App\Http\Controllers\Platform\BaseController;
 
@@ -166,6 +167,14 @@ class OrderController extends BaseController
         $log->username  = self::getCurrentName();
         $log->content   = '取消订单';
         $log->save();
+
+        $data = [
+          'title'     => '订单消息',
+          'content'   => '您的订单已取消',
+        ];
+
+        // 消息推送
+        event(new AuroraEvent(1, $data, $model->member_id));
 
         DB::commit();
 
