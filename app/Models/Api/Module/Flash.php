@@ -2,6 +2,7 @@
 namespace App\Models\Api\Module;
 
 use App\Enum\Common\TimeEnum;
+use App\Models\Common\Module\Flash\Benefit;
 use App\Models\Common\Module\Flash as Common;
 
 
@@ -35,6 +36,12 @@ class Flash extends Common
    */
   protected $casts = [
     'create_time' => 'datetime:H:i',
+  ];
+
+
+  // 追加到模型数组表单的访问器
+  protected $appends = [
+    'is_benefit'
   ];
 
 
@@ -77,6 +84,38 @@ class Flash extends Common
     return $datetime.$week;
   }
 
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 资讯评论数量封装
+   * ------------------------------------------
+   *
+   * 资讯评论数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsBenefitAttribute($value)
+  {
+    $flash_id = $this->id ?? '';
+
+    $where = [
+      'member_id' => auth('api')->user()->id,
+      'flash_id'  => $flash_id
+    ];
+
+    $response = Benefit::getRow($where);
+
+    if(empty($response->id))
+    {
+      return 0;
+    }
+
+    return $response->feel_status ?? 0;
+  }
 
 
   // 关联函数 ------------------------------------------------------
