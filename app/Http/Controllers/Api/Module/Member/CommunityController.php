@@ -148,7 +148,6 @@ class CommunityController extends BaseController
       'title.required'       => '请您输入社区标题',
       'picture.required'     => '请您输入社区封面',
       'content.required'     => '请您输入社区内容',
-      'author.required'      => '请您输入社区作者',
     ];
 
     $rule = [
@@ -156,7 +155,6 @@ class CommunityController extends BaseController
       'title'       => 'required',
       'picture'     => 'required',
       'content'     => 'required',
-      'author'      => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -177,7 +175,7 @@ class CommunityController extends BaseController
         $model->title       = $request->title;
         $model->picture     = $request->picture;
         $model->content     = $request->content;
-        $model->author      = $request->author;
+        $model->author      = self::getCurrentNickname();
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

@@ -29,6 +29,7 @@ class Flash extends Common
   protected $appends = [
     'description',
     'datetime',
+    'is_benefit'
   ];
 
   /**
@@ -36,12 +37,6 @@ class Flash extends Common
    */
   protected $casts = [
     'create_time' => 'datetime:H:i',
-  ];
-
-
-  // 追加到模型数组表单的访问器
-  protected $appends = [
-    'is_benefit'
   ];
 
 

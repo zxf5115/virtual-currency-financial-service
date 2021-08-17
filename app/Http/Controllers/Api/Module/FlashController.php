@@ -45,6 +45,7 @@ class FlashController extends BaseController
    * @apiSuccess (字段说明) {String} content 快讯内容
    * @apiSuccess (字段说明) {String} bullish_total 利多总数
    * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_benefit 利空利多 0 未知 1 利多 2 利空
    * @apiSuccess (字段说明) {String} is_recommend 首页推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
@@ -94,6 +95,7 @@ class FlashController extends BaseController
    * @apiSuccess (字段说明) {String} content 快讯内容
    * @apiSuccess (字段说明) {String} bullish_total 利多总数
    * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_benefit 利空利多 0 未知 1 利多 2 利空
    * @apiSuccess (字段说明) {String} is_recommend 首页推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
@@ -140,6 +142,7 @@ class FlashController extends BaseController
    * @apiSuccess (字段说明) {String} content 快讯内容
    * @apiSuccess (字段说明) {String} bullish_total 利多总数
    * @apiSuccess (字段说明) {String} bearish_total 利空总数
+   * @apiSuccess (字段说明) {String} is_benefit 利空利多 0 未知 1 利多 2 利空
    * @apiSuccess (字段说明) {String} is_recommend 首页推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
