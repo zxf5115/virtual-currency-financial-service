@@ -28,7 +28,7 @@ class Clear extends Controller
     try
     {
       // 清除结束时间点
-      $timestamp = strtotime('-1 month');
+      $timestamp = strtotime('-3 month');
 
       // 清除行为日志信息
       Action::where([['create_time', '<', $timestamp]])->delete();
