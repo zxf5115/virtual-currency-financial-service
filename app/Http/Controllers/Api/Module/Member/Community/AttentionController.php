@@ -216,7 +216,7 @@ class AttentionController extends BaseController
     {
       try
       {
-        $response = $this->_model::createOrDelete([
+        $status = $this->_model::createOrDelete([
           'member_id'   => self::getCurrentId(),
           'category_id' => $request->category_id
         ]);
@@ -240,6 +240,7 @@ class AttentionController extends BaseController
         }
 
         DB::commit();
+
         return self::success(Code::message(Code::HANDLE_SUCCESS));
       }
       catch(\Exception $e)

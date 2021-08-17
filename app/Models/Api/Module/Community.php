@@ -25,6 +25,7 @@ class Community extends Common
   // 追加到模型数组表单的访问器
   protected $appends = [
     'comment_total',
+    'collection_total',
     'is_approval'
   ];
 
@@ -71,6 +72,33 @@ class Community extends Common
     }
 
     return count($comment);
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 资讯收藏数量封装
+   * ------------------------------------------
+   *
+   * 资讯收藏数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getCollectionTotalAttribute($value)
+  {
+    $collection = $this->collection ?? '';
+
+    unset($this->collection);
+
+    if(empty($collection))
+    {
+      return 0;
+    }
+
+    return count($collection);
   }
 
 
@@ -146,6 +174,27 @@ class Community extends Common
   {
     return $this->hasMany(
       'App\Models\Api\Module\Community\Comment',
+      'community_id',
+      'id'
+    );
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-06-09
+   * ------------------------------------------
+   * 社区与社区收藏关联函数
+   * ------------------------------------------
+   *
+   * 社区与社区收藏关联函数
+   *
+   * @return [关联对象]
+   */
+  public function collection()
+  {
+    return $this->hasMany(
+      'App\Models\Api\Module\Community\Collection',
       'community_id',
       'id'
     );

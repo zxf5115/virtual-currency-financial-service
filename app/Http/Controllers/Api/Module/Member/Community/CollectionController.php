@@ -188,7 +188,7 @@ class CollectionController extends BaseController
 
       try
       {
-        $this->_model::createOrDelete([
+        $status = $this->_model::createOrDelete([
           'member_id' => self::getCurrentId(),
           'community_id' => $request->community_id
         ]);

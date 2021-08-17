@@ -10788,6 +10788,41 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "collection_total",
+            "description": "<p>收藏数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_approval",
+            "description": "<p>是否点赞</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_hot",
             "description": "<p>是否热门</p>"
           },
@@ -10900,6 +10935,41 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "collection_total",
+            "description": "<p>收藏数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_approval",
+            "description": "<p>是否点赞</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>是否推荐</p>"
           },
@@ -10984,6 +11054,41 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "collection_total",
+            "description": "<p>收藏数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_approval",
+            "description": "<p>是否点赞</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_hot",
             "description": "<p>是否热门</p>"
           },
@@ -11057,6 +11162,41 @@
             "optional": false,
             "field": "author",
             "description": "<p>社区作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "collection_total",
+            "description": "<p>收藏数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_approval",
+            "description": "<p>是否点赞</p>"
           },
           {
             "group": "字段说明",

@@ -50,6 +50,11 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
    * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} read_total 阅读数量
+   * @apiSuccess (字段说明) {String} approval_total 点赞数量
+   * @apiSuccess (字段说明) {String} comment_total 评论数量
+   * @apiSuccess (字段说明) {String} collection_total 收藏数量
+   * @apiSuccess (字段说明) {String} is_approval 是否点赞
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
    *
@@ -96,6 +101,11 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} picture 社区封面
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} read_total 阅读数量
+   * @apiSuccess (字段说明) {String} approval_total 点赞数量
+   * @apiSuccess (字段说明) {String} comment_total 评论数量
+   * @apiSuccess (字段说明) {String} collection_total 收藏数量
+   * @apiSuccess (字段说明) {String} is_approval 是否点赞
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
@@ -149,6 +159,11 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} picture 社区封面
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} read_total 阅读数量
+   * @apiSuccess (字段说明) {String} approval_total 点赞数量
+   * @apiSuccess (字段说明) {String} comment_total 评论数量
+   * @apiSuccess (字段说明) {String} collection_total 收藏数量
+   * @apiSuccess (字段说明) {String} is_approval 是否点赞
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
@@ -200,6 +215,11 @@ class CommunityController extends BaseController
    * @apiSuccess (字段说明) {String} picture 社区封面
    * @apiSuccess (字段说明) {String} content 社区内容
    * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} read_total 阅读数量
+   * @apiSuccess (字段说明) {String} approval_total 点赞数量
+   * @apiSuccess (字段说明) {String} comment_total 评论数量
+   * @apiSuccess (字段说明) {String} collection_total 收藏数量
+   * @apiSuccess (字段说明) {String} is_approval 是否点赞
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_recommend 是否推荐
    * @apiSuccess (字段说明) {String} create_time 发布时间
@@ -217,6 +237,8 @@ class CommunityController extends BaseController
       $relevance = self::getRelevanceData($this->_relevance, 'view');
 
       $response = $this->_model::getRow($condition, $relevance);
+
+      $response->increment('read_total');
 
       return self::success($response);
     }
