@@ -41,6 +41,7 @@ class MoneyListeners
       $model->member_id = $member_id;
       $model->type      = $type;
       $model->money     = $money;
+      $model->confirm_status = $type == 2 ? 1 : 2;
       $model->save();
 
       return true;
