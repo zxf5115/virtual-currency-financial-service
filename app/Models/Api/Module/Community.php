@@ -3,6 +3,7 @@ namespace App\Models\Api\Module;
 
 use App\Enum\Common\TimeEnum;
 use App\Models\Common\Module\Community\Approval;
+use App\Models\Common\Module\Community\Attention;
 use App\Models\Common\Module\Community as Common;
 
 
@@ -26,7 +27,8 @@ class Community extends Common
   protected $appends = [
     'comment_total',
     'collection_total',
-    'is_approval'
+    'is_approval',
+    'is_attention'
   ];
 
 
@@ -118,12 +120,67 @@ class Community extends Common
   {
     $community_id = $this->id ?? '';
 
+    $member_id = auth('api')->user()->id ?? 0;
+
+    if(empty($member_id))
+    {
+      return false;
+    }
+
     $where = [
-      'member_id'    => auth('api')->user()->id,
+      'member_id'    => $member_id,
       'community_id' => $community_id
     ];
 
     $approval = Approval::getRow($where);
+
+    if(empty($approval->id))
+    {
+      return false;
+    }
+
+    return true;
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 资讯评论数量封装
+   * ------------------------------------------
+   *
+   * 资讯评论数量封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsAttentionAttribute($value)
+  {
+    $community_id = $this->id ?? '';
+
+    $community = self::getRow(['id' => $community_id]);
+
+    if(empty($community))
+    {
+      return false;
+    }
+
+    $category_id = $community->category_id;
+
+    $member_id = auth('api')->user()->id ?? 0;
+
+    if(empty($member_id))
+    {
+      return false;
+    }
+
+    $where = [
+      'member_id'   => $member_id,
+      'category_id' => $category_id
+    ];
+
+    $approval = Attention::getRow($where);
 
     if(empty($approval->id))
     {

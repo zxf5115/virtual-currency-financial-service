@@ -97,8 +97,15 @@ class Flash extends Common
   {
     $flash_id = $this->id ?? '';
 
+    $member_id = auth('api')->user()->id ?? 0;
+
+    if(empty($member_id))
+    {
+      return 0;
+    }
+
     $where = [
-      'member_id' => auth('api')->user()->id,
+      'member_id' => $member_id,
       'flash_id'  => $flash_id
     ];
 
