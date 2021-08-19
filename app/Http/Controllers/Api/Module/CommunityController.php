@@ -32,7 +32,8 @@ class CommunityController extends BaseController
 
   // 关联对象
   protected $_relevance = [
-    'category'
+    'category',
+    'member'
   ];
 
   /**
