@@ -367,6 +367,12 @@ $api->version('v1', [
             // 会员快讯评论路由
             $api->group(['prefix'  => 'comment'], function ($api) {
               $api->post('handle', 'CommentController@handle');
+
+              // 会员社区评论点赞路由
+              $api->group(['namespace' => 'Comment', 'prefix'  => 'approval'], function ($api) {
+                $api->post('status', 'ApprovalController@status');
+                $api->post('handle', 'ApprovalController@handle');
+              });
             });
           });
 
@@ -391,6 +397,12 @@ $api->version('v1', [
               // 会员资讯评论路由
               $api->group(['prefix'  => 'comment'], function ($api) {
                 $api->post('handle', 'CommentController@handle');
+
+                // 会员社区评论点赞路由
+                $api->group(['namespace' => 'Comment', 'prefix'  => 'approval'], function ($api) {
+                  $api->post('status', 'ApprovalController@status');
+                  $api->post('handle', 'ApprovalController@handle');
+                });
               });
 
               // 会员资讯点赞路由
@@ -423,6 +435,12 @@ $api->version('v1', [
               // 会员社区评论路由
               $api->group(['prefix'  => 'comment'], function ($api) {
                 $api->post('handle', 'CommentController@handle');
+
+                // 会员社区评论点赞路由
+                $api->group(['namespace' => 'Comment', 'prefix'  => 'approval'], function ($api) {
+                  $api->post('status', 'ApprovalController@status');
+                  $api->post('handle', 'ApprovalController@handle');
+                });
               });
 
               // 会员社区点赞路由
@@ -439,7 +457,7 @@ $api->version('v1', [
                 $api->post('handle', 'CollectionController@handle');
               });
 
-              // 会员社区点赞路由
+              // 会员社区关注路由
               $api->group(['prefix'  => 'attention'], function ($api) {
                 $api->get('list', 'AttentionController@list');
                 $api->post('status', 'AttentionController@status');

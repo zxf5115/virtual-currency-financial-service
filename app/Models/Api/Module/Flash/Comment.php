@@ -1,8 +1,8 @@
 <?php
 namespace App\Models\Api\Module\Flash;
 
+use App\Models\Api\Module\Flash\Comment\Approval;
 use App\Models\Common\Module\Flash\Comment as Common;
-
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -21,6 +21,12 @@ class Comment extends Common
     'member_id',
     'status',
     'update_time'
+  ];
+
+
+  // 追加到模型数组表单的访问器
+  protected $appends = [
+    'approval_total'
   ];
 
 
@@ -79,6 +85,29 @@ class Comment extends Common
       return self::error(Code::ERROR);
     }
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-01
+   * ------------------------------------------
+   * 点赞数量封装
+   * ------------------------------------------
+   *
+   * 点赞数量封装
+   *
+   * @param int $value [数据库存在的值]
+   * @return 状态值
+   */
+  public function getApprovalTotalAttribute($value)
+  {
+    $comment_id = $this->id;
+
+    $response = Approval::getCount(['comment_id' => $comment_id]);
+
+    return $response;
+  }
+
 
 
   // 关联函数 ------------------------------------------------------

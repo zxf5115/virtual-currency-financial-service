@@ -29,7 +29,7 @@ class BrowseController extends BaseController
   /**
    * @api {get} /api/member/information/browse/list?page={page} 01. 我的浏览历史列表
    * @apiDescription 获取我的浏览历史分页列表
-   * @apiGroup 65. 资讯浏览历史模块
+   * @apiGroup 66. 资讯浏览历史模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -83,7 +83,7 @@ class BrowseController extends BaseController
   /**
    * @api {post} /api/member/information/browse/clear 02. 清除浏览历史
    * @apiDescription 当前会员清除浏览历史
-   * @apiGroup 65. 资讯浏览历史模块
+   * @apiGroup 66. 资讯浏览历史模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:

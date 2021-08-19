@@ -51,6 +51,7 @@ class CommentController extends BaseController
    * @apiParam {string} community_id 社区编号
    *
    * @apiSuccess (字段说明|评论) {String} content 评论内容
+   * @apiSuccess (字段说明|评论) {String} approval_total 点赞数量
    * @apiSuccess (字段说明|评论) {String} create_time 评论时间
    * @apiSuccess (字段说明|评论人) {String} avatar 评论人头像
    * @apiSuccess (字段说明|评论人) {String} nickname 评论人昵称
@@ -99,6 +100,7 @@ class CommentController extends BaseController
    * @apiParam {string} comment_id 基础评论编号
    *
    * @apiSuccess (字段说明|评论) {String} content 评论内容
+   * @apiSuccess (字段说明|评论) {String} approval_total 点赞数量
    * @apiSuccess (字段说明|评论) {String} create_time 评论时间
    * @apiSuccess (字段说明|评论人) {String} avatar 评论人头像
    * @apiSuccess (字段说明|评论人) {String} nickname 评论人昵称

@@ -8553,6 +8553,13 @@ define({ "api": [
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_benefit",
+            "description": "<p>利空利多 0 未知 1 利多 2 利空</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>首页推荐</p>"
           },
@@ -8644,6 +8651,13 @@ define({ "api": [
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_benefit",
+            "description": "<p>利空利多 0 未知 1 利多 2 利空</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>首页推荐</p>"
           },
@@ -8715,6 +8729,13 @@ define({ "api": [
             "group": "字段说明",
             "type": "String",
             "optional": false,
+            "field": "is_benefit",
+            "description": "<p>利空利多 0 未知 1 利多 2 利空</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
             "field": "is_recommend",
             "description": "<p>首页推荐</p>"
           },
@@ -8773,6 +8794,13 @@ define({ "api": [
             "optional": false,
             "field": "content",
             "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
           },
           {
             "group": "字段说明|评论",
@@ -8845,6 +8873,13 @@ define({ "api": [
             "optional": false,
             "field": "content",
             "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
           },
           {
             "group": "字段说明|评论",
@@ -8963,6 +8998,114 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/Flash/CommentController.php",
     "groupTitle": "52._快讯评论模块",
     "name": "PostApiMemberFlashCommentHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/flash/comment/approval/handle",
+    "title": "02. 点赞操作",
+    "description": "<p>当前会员执行快讯评论点赞操作, 已经点赞过，再次点击取消点赞</p>",
+    "group": "53._快讯评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/flash/comment/approval/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Flash/Comment/ApprovalController.php",
+    "groupTitle": "53._快讯评论点赞模块",
+    "name": "PostApiMemberFlashCommentApprovalHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/flash/comment/approval/status",
+    "title": "01. 评论是否点赞",
+    "description": "<p>获取当前会员点赞的详情</p>",
+    "group": "53._快讯评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/flash/comment/approval/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Flash/Comment/ApprovalController.php",
+    "groupTitle": "53._快讯评论点赞模块",
+    "name": "PostApiMemberFlashCommentApprovalStatus"
   },
   {
     "type": "get",
@@ -9779,6 +9922,13 @@ define({ "api": [
             "group": "字段说明|评论",
             "type": "String",
             "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
             "field": "create_time",
             "description": "<p>评论时间</p>"
           }
@@ -9862,6 +10012,13 @@ define({ "api": [
             "optional": false,
             "field": "content",
             "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
           },
           {
             "group": "字段说明|评论",
@@ -10532,7 +10689,7 @@ define({ "api": [
     "url": "/api/member/information/browse/list?page={page}",
     "title": "01. 我的浏览历史列表",
     "description": "<p>获取我的浏览历史分页列表</p>",
-    "group": "65._资讯浏览历史模块",
+    "group": "66._资讯浏览历史模块",
     "permission": [
       {
         "name": "jwt"
@@ -10647,7 +10804,7 @@ define({ "api": [
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/Information/BrowseController.php",
-    "groupTitle": "65._资讯浏览历史模块",
+    "groupTitle": "66._资讯浏览历史模块",
     "name": "GetApiMemberInformationBrowseListPagePage"
   },
   {
@@ -10655,7 +10812,7 @@ define({ "api": [
     "url": "/api/member/information/browse/clear",
     "title": "02. 清除浏览历史",
     "description": "<p>当前会员清除浏览历史</p>",
-    "group": "65._资讯浏览历史模块",
+    "group": "66._资讯浏览历史模块",
     "permission": [
       {
         "name": "jwt"
@@ -10688,8 +10845,116 @@ define({ "api": [
     ],
     "version": "1.0.0",
     "filename": "app/Http/Controllers/Api/Module/Member/Information/BrowseController.php",
-    "groupTitle": "65._资讯浏览历史模块",
+    "groupTitle": "66._资讯浏览历史模块",
     "name": "PostApiMemberInformationBrowseClear"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/comment/approval/handle",
+    "title": "02. 点赞操作",
+    "description": "<p>当前会员执行资讯评论点赞操作, 已经点赞过，再次点击取消点赞</p>",
+    "group": "67._资讯评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/comment/approval/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/Comment/ApprovalController.php",
+    "groupTitle": "67._资讯评论点赞模块",
+    "name": "PostApiMemberInformationCommentApprovalHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/information/comment/approval/status",
+    "title": "01. 评论是否点赞",
+    "description": "<p>获取当前会员点赞的详情</p>",
+    "group": "67._资讯评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/comment/approval/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/Comment/ApprovalController.php",
+    "groupTitle": "67._资讯评论点赞模块",
+    "name": "PostApiMemberInformationCommentApprovalStatus"
   },
   {
     "type": "get",
@@ -11272,6 +11537,13 @@ define({ "api": [
             "group": "字段说明|评论",
             "type": "String",
             "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
             "field": "create_time",
             "description": "<p>评论时间</p>"
           }
@@ -11355,6 +11627,13 @@ define({ "api": [
             "optional": false,
             "field": "content",
             "description": "<p>评论内容</p>"
+          },
+          {
+            "group": "字段说明|评论",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
           },
           {
             "group": "字段说明|评论",
@@ -12224,6 +12503,114 @@ define({ "api": [
     "filename": "app/Http/Controllers/Api/Module/Member/Community/AttentionController.php",
     "groupTitle": "75._社区关注模块",
     "name": "PostApiMemberCommunityAttentionStatus"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/community/comment/approval/handle",
+    "title": "02. 点赞操作",
+    "description": "<p>当前会员执行社区评论点赞操作, 已经点赞过，再次点击取消点赞</p>",
+    "group": "76._社区评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/community/comment/approval/handle"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/Comment/ApprovalController.php",
+    "groupTitle": "76._社区评论点赞模块",
+    "name": "PostApiMemberCommunityCommentApprovalHandle"
+  },
+  {
+    "type": "post",
+    "url": "/api/member/community/comment/approval/status",
+    "title": "01. 评论是否点赞",
+    "description": "<p>获取当前会员点赞的详情</p>",
+    "group": "76._社区评论点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "Number",
+            "optional": false,
+            "field": "comment_id",
+            "description": "<p>评论编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/community/comment/approval/status"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Community/Comment/ApprovalController.php",
+    "groupTitle": "76._社区评论点赞模块",
+    "name": "PostApiMemberCommunityCommentApprovalStatus"
   },
   {
     "type": "get",
