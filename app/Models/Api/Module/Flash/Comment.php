@@ -26,6 +26,7 @@ class Comment extends Common
 
   // 追加到模型数组表单的访问器
   protected $appends = [
+    'is_approval',
     'approval_total'
   ];
 
@@ -84,6 +85,45 @@ class Comment extends Common
 
       return self::error(Code::ERROR);
     }
+  }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 是否点赞封装
+   * ------------------------------------------
+   *
+   * 是否点赞封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public function getIsApprovalAttribute($value)
+  {
+    $comment_id = $this->id ?? '';
+
+    $member_id = auth('api')->user()->id ?? 0;
+
+    if(empty($member_id))
+    {
+      return false;
+    }
+
+    $where = [
+      'member_id'  => $member_id,
+      'comment_id' => $comment_id
+    ];
+
+    $approval = Approval::getRow($where);
+
+    if(empty($approval->id))
+    {
+      return false;
+    }
+
+    return true;
   }
 
 
