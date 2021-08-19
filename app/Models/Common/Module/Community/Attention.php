@@ -18,7 +18,7 @@ class Attention extends Base
   public $fillable = [
     'id',
     'organization_id',
-    'community_id',
+    'category_id',
     'member_id',
   ];
 
