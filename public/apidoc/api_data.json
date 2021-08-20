@@ -13442,10 +13442,10 @@
           },
           {
             "group": "字段说明",
-            "type": "String",
+            "type": "Array",
             "optional": false,
-            "field": "state",
-            "description": "<p>交易对状态</p>"
+            "field": "api",
+            "description": "<p>第三方接口数据</p>"
           }
         ]
       }
@@ -13539,13 +13539,6 @@
             "optional": false,
             "field": "content",
             "description": "<p>交易对简介</p>"
-          },
-          {
-            "group": "字段说明",
-            "type": "String",
-            "optional": false,
-            "field": "state",
-            "description": "<p>交易对状态</p>"
           }
         ]
       }
