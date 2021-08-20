@@ -48,6 +48,9 @@ class BaseController extends Common
       'symbol',
       'base_currency',
       'quote_currency',
+      'slug',
+      'symbol',
+      'fullname',
     ],
     // 时间查询
     'time' => [

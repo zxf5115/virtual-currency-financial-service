@@ -17,10 +17,6 @@ class SymbolController extends BaseController
   // 模型
   protected $_model = 'App\Models\Api\Module\Currency\Symbol';
 
-  protected $_where = [
-    'state' => 'online'
-  ];
-
   // 查询条件
   protected $_params = [
     'symbol',
@@ -41,14 +37,14 @@ class SymbolController extends BaseController
    *
    * @apiParam {int} page 当前页数
    * @apiParam {String} symbol 货币标题
-   * @apiParam {String} quote_currency 报价币种(默认传usdt)
+   * @apiParam {String} quote_currency 报价币种(默认传USDT)
    *
    * @apiSuccess (字段说明) {Number} id 货币编号
+   * @apiSuccess (字段说明) {String} market 交易所名称
    * @apiSuccess (字段说明) {String} symbol 交易对
    * @apiSuccess (字段说明) {String} base_currency 交易对中的基础币种
    * @apiSuccess (字段说明) {String} quote_currency 交易对中的报价币种
    * @apiSuccess (字段说明) {String} content 交易对简介
-   * @apiSuccess (字段说明) {String} state 交易对状态
    *
    * @apiSampleRequest /api/currency/symbol/list
    * @apiVersion 1.0.0
@@ -127,11 +123,11 @@ class SymbolController extends BaseController
    * @apiGroup 81. 货币交易对模块
    *
    * @apiSuccess (字段说明) {Number} id 货币编号
+   * @apiSuccess (字段说明) {String} market 交易所名称
    * @apiSuccess (字段说明) {String} symbol 交易对
    * @apiSuccess (字段说明) {String} base_currency 交易对中的基础币种
    * @apiSuccess (字段说明) {String} quote_currency 交易对中的报价币种
    * @apiSuccess (字段说明) {String} content 交易对简介
-   * @apiSuccess (字段说明) {String} state 交易对状态
    *
    * @apiSampleRequest /api/currency/symbol/view/{id}
    * @apiVersion 1.0.0

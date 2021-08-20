@@ -24,10 +24,16 @@ class Category extends Base
   protected $appends = [];
 
   // 批量添加
-  protected $fillable = [
-    'id',
-    'code',
-    'title'
+  protected $fillable = ['id'];
+
+  /**
+   * 转换属性类型
+   */
+  protected $casts = [
+    'status' => 'array',
+    'issue_time' => 'datetime:Y-m-d H:i:s',
+    'create_time' => 'datetime:Y-m-d H:i:s',
+    'update_time' => 'datetime:Y-m-d H:i:s',
   ];
 
   /**

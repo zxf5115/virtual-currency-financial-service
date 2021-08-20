@@ -19,6 +19,7 @@ class SymbolController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
+    'market',
     'symbol',
     'base_currency',
     'quote_currency',
@@ -71,11 +72,11 @@ class SymbolController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
+        $model->market          = $request->market ?? '';
         $model->symbol          = $request->symbol;
         $model->base_currency   = $request->base_currency;
         $model->quote_currency  = $request->quote_currency;
         $model->content         = $request->content ?? '';
-        $model->state           = $request->state ?? 'online';
         $model->sort            = $request->sort ?? 0;
         $model->save();
 

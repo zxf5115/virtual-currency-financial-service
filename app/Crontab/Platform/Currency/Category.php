@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use App\Models\Common\Module\Currency\Category as CategoryModel;
 
-use App\Helpers\FireCurrency;
-
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-27
@@ -33,29 +31,45 @@ class Category extends Controller
 
     try
     {
-      $model = new FireCurrency();
-
-      $result = $model->get_common_currencys();
-
-      if(empty($result->data))
+      for($i = 0; $i < 50; $i++)
       {
-        return false;
-      }
+        $url = 'https://data.mifengcha.com/api/v3/symbols?api_key=WMDSHUHF23V6W2NYVF8UOHL7HXZBSZGA0UMGOJPK&size=100&page='.$i;
 
-      foreach($result->data as $item)
-      {
-        $model = CategoryModel::firstOrNew(['code' => $item]);
+        $result = json_decode($this->curl($url));
 
-        // 将已存在的货币去除
-        if(!empty($model->id))
+        if(empty($result))
         {
-          continue;
+          return false;
         }
 
-        $model->title = strtoupper($item);
-        $model->save();
-      }
+        foreach($result as $item)
+        {
+          $model = CategoryModel::firstOrNew(['slug' => $item->slug]);
 
+          // 将已存在的货币去除
+          if(!empty($model->id))
+          {
+            continue;
+          }
+
+          // 将已停止更新的货币去除
+          if('disable' == $item->status)
+          {
+            continue;
+          }
+
+          $model->slug             = $item->slug ?? '';
+          $model->symbol           = $item->symbol ?? '';
+          $model->fullname         = $item->fullname ?? '';
+          $model->logo_url         = $item->logoUrl ?? '';
+          $model->market_cap_usd   = $item->marketCapUsd ?? '';
+          $model->available_supply = $item->availableSupply ?? '';
+          $model->total_supply     = $item->totalSupply ?? '';
+          $model->max_supply       = $item->maxSupply ?? '';
+          $model->issue_time       = strtotime($item->issueDate);
+          $model->save();
+        }
+      }
 
       DB::commit();
     }
@@ -67,5 +81,42 @@ class Category extends Controller
 
       return false;
     }
+  }
+
+
+
+  private function curl($url, $is_post = false, $postdata=[])
+  {
+    $ch = curl_init();
+
+    curl_setopt($ch,CURLOPT_URL, $url);
+
+    if($is_post)
+    {
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+    }
+
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch,CURLOPT_HEADER,0);
+    curl_setopt($ch, CURLOPT_TIMEOUT,60);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt ($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json",]);
+
+    if(curl_exec($ch) === false)
+    {
+       echo 'Curl error: ' . curl_error($ch);
+    }
+    else
+    {
+      $output = curl_exec($ch);
+
+      $info = curl_getinfo($ch);
+
+      return $output;
+    }
+
+    curl_close($ch);
   }
 }

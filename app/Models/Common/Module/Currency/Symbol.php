@@ -31,22 +31,4 @@ class Symbol extends Base
     'quote_currency',
     'state'
   ];
-
-
-  /**
-   * @author zhangxiaofei [<1326336909@qq.com>]
-   * @dateTime 2021-06-28
-   * ------------------------------------------
-   * 交易对封装
-   * ------------------------------------------
-   *
-   * 交易对封装
-   *
-   * @param int $value [数据库存在的值]
-   * @return 状态值
-   */
-  public function getStateAttribute($value)
-  {
-    return SymbolEnum::getStatus($value);
-  }
 }

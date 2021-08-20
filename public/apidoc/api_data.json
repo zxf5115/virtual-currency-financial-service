@@ -12645,15 +12645,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -12722,15 +12771,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -12806,15 +12904,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -12883,15 +13030,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -12960,15 +13156,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -13024,15 +13269,64 @@
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "code",
-            "description": "<p>货币种类代码</p>"
+            "field": "slug",
+            "description": "<p>币种名称</p>"
           },
           {
             "group": "字段说明",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币种类名称</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "fullname",
+            "description": "<p>币种全称</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "logo_url",
+            "description": "<p>图标链接</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market_cap_usd",
+            "description": "<p>币种市值</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "available_supply",
+            "description": "<p>流通量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "total_supply",
+            "description": "<p>发行总量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "max_supply",
+            "description": "<p>最大发行量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "issue_time",
+            "description": "<p>上市时间</p>"
           },
           {
             "group": "字段说明",
@@ -13096,7 +13390,7 @@
             "type": "String",
             "optional": false,
             "field": "quote_currency",
-            "description": "<p>报价币种(默认传usdt)</p>"
+            "description": "<p>报价币种(默认传USDT)</p>"
           }
         ]
       }
@@ -13110,6 +13404,13 @@
             "optional": false,
             "field": "id",
             "description": "<p>货币编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market",
+            "description": "<p>交易所名称</p>"
           },
           {
             "group": "字段说明",
@@ -13203,6 +13504,13 @@
             "optional": false,
             "field": "id",
             "description": "<p>货币编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "market",
+            "description": "<p>交易所名称</p>"
           },
           {
             "group": "字段说明",

@@ -38,8 +38,15 @@ class CategoryController extends BaseController
    * @apiParam {String} title 货币标题
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
@@ -83,8 +90,15 @@ class CategoryController extends BaseController
    * @apiParam {String} total 显示数量(默认显示20个)
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
@@ -130,8 +144,15 @@ class CategoryController extends BaseController
    * @apiParam {int} total 显示数量，默认显示8个
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
@@ -177,8 +198,15 @@ class CategoryController extends BaseController
    * @apiParam {int} total 显示数量，默认显示8个
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
@@ -224,8 +252,15 @@ class CategoryController extends BaseController
    * @apiParam {int} total 显示数量，默认显示24个
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
@@ -269,8 +304,15 @@ class CategoryController extends BaseController
    * @apiGroup 80. 货币种类模块
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
-   * @apiSuccess (字段说明) {String} code 货币种类代码
-   * @apiSuccess (字段说明) {String} title 货币种类名称
+   * @apiSuccess (字段说明) {String} slug 币种名称
+   * @apiSuccess (字段说明) {String} symbol 币种符号
+   * @apiSuccess (字段说明) {String} fullname 币种全称
+   * @apiSuccess (字段说明) {String} logo_url 图标链接
+   * @apiSuccess (字段说明) {String} market_cap_usd 币种市值
+   * @apiSuccess (字段说明) {String} available_supply 流通量
+   * @apiSuccess (字段说明) {String} total_supply 发行总量
+   * @apiSuccess (字段说明) {String} max_supply 最大发行量
+   * @apiSuccess (字段说明) {String} issue_time 上市时间
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi

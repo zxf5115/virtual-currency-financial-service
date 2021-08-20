@@ -19,8 +19,9 @@ class CategoryController extends BaseController
 
   // 客户端搜索字段
   protected $_params = [
-    'code',
-    'title',
+    'slug',
+    'symbol',
+    'fullname',
   ];
 
   // 排序条件
@@ -45,13 +46,13 @@ class CategoryController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'code.required'  => '请您输入货币代码',
-      'title.required' => '请您输入货币标题',
+      'slug.required'   => '请您输入币种名称',
+      'symbol.required' => '请您输入币种符号',
     ];
 
     $rule = [
-      'code'  => 'required',
-      'title' => 'required',
+      'slug'   => 'required',
+      'symbol' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -67,13 +68,20 @@ class CategoryController extends BaseController
       {
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
-        $model->organization_id = self::getOrganizationId();
-        $model->code            = $request->code;
-        $model->title           = $request->title;
-        $model->is_hot          = $request->is_hot;
-        $model->is_main         = $request->is_main;
-        $model->is_defi         = $request->is_defi;
-        $model->sort            = $request->sort ?? 0;
+        $model->organization_id  = self::getOrganizationId();
+        $model->slug             = $request->slug;
+        $model->symbol           = $request->symbol;
+        $model->fullname         = $request->fullname;
+        $model->logo_url         = $request->logo_url;
+        $model->market_cap_usd   = $request->market_cap_usd;
+        $model->available_supply = $request->available_supply;
+        $model->total_supply     = $request->total_supply;
+        $model->max_supply       = $request->max_supply;
+        $model->issue_time       = strtotime($request->issue_time);
+        $model->is_hot           = $request->is_hot;
+        $model->is_main          = $request->is_main;
+        $model->is_defi          = $request->is_defi;
+        $model->sort             = $request->sort ?? 0;
         $model->save();
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));

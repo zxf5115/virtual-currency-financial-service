@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Routing\Controller;
 use App\Models\Common\Module\Currency\Symbol as SymbolModel;
 
-use App\Helpers\FireCurrency;
-
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-28
@@ -33,36 +31,36 @@ class Symbol extends Controller
 
     try
     {
-      $this->initSocket();
+      for($i = 10; $i < 100; $i++)
+      {
+        $url = 'https://data.mifengcha.com/api/v3/tickers?api_key=WMDSHUHF23V6W2NYVF8UOHL7HXZBSZGA0UMGOJPK&size=100&page='.$i;
 
+        $result = json_decode($this->curl($url));
 
-      // $model = new FireCurrency();
+        if(empty($result))
+        {
+          return false;
+        }
 
-      // $result = $model->get_common_symbols();
+        foreach($result as $item)
+        {
+          $model = SymbolModel::firstOrNew(['symbol' => $item->m]);
 
-      // if(empty($result->data))
-      // {
-      //   return false;
-      // }
+          // 将已存在的货币去除
+          if(!empty($model->id))
+          {
+            continue;
+          }
 
-      // foreach($result->data as $item)
-      // {
-      //   // 将对象转换为数组
-      //   $data = (array)$item;
+          $data = explode('_', $item->m);
 
-      //   $model = SymbolModel::firstOrNew(['symbol' => $data['symbol']]);
-
-      //   // 将已存在的货币去除
-      //   if(!empty($model->id))
-      //   {
-      //     continue;
-      //   }
-
-      //   $model->base_currency  = $data['base-currency'];
-      //   $model->quote_currency = $data['quote-currency'];
-      //   $model->state          = $data['state'];
-      //   $model->save();
-      // }
+          $model->market         = $data[0] ?? '';
+          $model->symbol         = $item->m ?? '';
+          $model->base_currency  = $data[1] ?? '';
+          $model->quote_currency = $data[2] ?? '';
+          $model->save();
+        }
+      }
 
       DB::commit();
     }
@@ -75,6 +73,46 @@ class Symbol extends Controller
       return false;
     }
   }
+
+
+
+
+
+  private function curl($url, $is_post = false, $postdata=[])
+  {
+    $ch = curl_init();
+
+    curl_setopt($ch,CURLOPT_URL, $url);
+
+    if($is_post)
+    {
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+    }
+
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($ch,CURLOPT_HEADER,0);
+    curl_setopt($ch, CURLOPT_TIMEOUT,60);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+    curl_setopt ($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json",]);
+
+    if(curl_exec($ch) === false)
+    {
+       echo 'Curl error: ' . curl_error($ch);
+    }
+    else
+    {
+      $output = curl_exec($ch);
+
+      $info = curl_getinfo($ch);
+
+      return $output;
+    }
+
+    curl_close($ch);
+  }
+
 
 
 
