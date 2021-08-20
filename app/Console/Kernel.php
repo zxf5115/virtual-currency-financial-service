@@ -38,41 +38,40 @@ class Kernel extends ConsoleKernel
 
 
       // 清除日期（每月几号）
-      // $clear_time = Config::getConfigValue('clear_time');
+      $clear_time = Config::getConfigValue('clear_time');
 
-      // // // 清除平台数据
-      // $schedule->call(function () {
-      //   $clear = new Clear();
-      //   $clear->action();
-      // })->monthlyOn($clear_time, '04:00');
+      // 清除平台数据
+      $schedule->call(function () {
+        $clear = new Clear();
+        $clear->action();
+      })->monthlyOn($clear_time, '04:00');
 
       // // 清除失效贵宾数据
-      // $schedule->call(function () {
-      //   $clear = new Failure();
-      //   $clear->action();
-      // })->everyMinute();
+      $schedule->call(function () {
+        $clear = new Failure();
+        $clear->action();
+      })->everyMinute();
 
 
       // 抓取金色财经数据
-      // $schedule->call(function () {
-      //   $clear = new Crawler();
-      //   $clear->action();
-      // })->everyMinute();
-
+      $schedule->call(function () {
+        $clear = new Crawler();
+        $clear->action();
+      })->hourly();
 
 
       // // 定时获取货币交易对
       $schedule->call(function () {
         $currency = new Symbol();
         $currency->action();
-      })->everyMinute();
+      })->yearly();
 
 
       // 定时获取货币种类
-      // $schedule->call(function () {
-      //   $currency = new Category();
-      //   $currency->action();
-      // })->yearly();
+      $schedule->call(function () {
+        $currency = new Category();
+        $currency->action();
+      })->yearly();
     }
     catch(\Exception $e)
     {

@@ -45,6 +45,7 @@ class SymbolController extends BaseController
    * @apiSuccess (字段说明) {String} base_currency 交易对中的基础币种
    * @apiSuccess (字段说明) {String} quote_currency 交易对中的报价币种
    * @apiSuccess (字段说明) {String} content 交易对简介
+   * @apiSuccess (字段说明) {Array} api 第三方接口数据
    *
    * @apiSampleRequest /api/currency/symbol/list
    * @apiVersion 1.0.0
@@ -63,7 +64,18 @@ class SymbolController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order, true);
+
+      $data = $response['data'] ?? '';
+
+      if(!empty($data))
+      {
+        $symbol = array_column($data, 'symbol');
+
+        $symbol = implode(',', $symbol);
+
+        $response['api'] = $this->_model::getData($symbol);
+      }
 
       return self::success($response);
     }

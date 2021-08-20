@@ -31,9 +31,20 @@ class Symbol extends Controller
 
     try
     {
+      $api_key = getenv('CURRENCY_API_KEY');
+      $url = getenv('CURRENCY_SYMBOL_URL');
+
       for($i = 10; $i < 100; $i++)
       {
-        $url = 'https://data.mifengcha.com/api/v3/tickers?api_key=WMDSHUHF23V6W2NYVF8UOHL7HXZBSZGA0UMGOJPK&size=100&page='.$i;
+        $params = [
+          'api_key' => $api_key,
+          'size'    => 100,
+          'page'    => $i
+        ];
+
+        $param = http_build_query($params);
+
+        $url = $url . '?' . $param;
 
         $result = json_decode($this->curl($url));
 

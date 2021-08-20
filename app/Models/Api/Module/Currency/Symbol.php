@@ -15,7 +15,6 @@ class Symbol extends Common
   // 隐藏的属性
   protected $hidden = [
     'organization_id',
-    'state',
     'sort',
     'status',
     'create_time',
@@ -23,4 +22,36 @@ class Symbol extends Common
   ];
 
 
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-07-12
+   * ------------------------------------------
+   * 是否热门状态封装
+   * ------------------------------------------
+   *
+   * 是否热门状态封装
+   *
+   * @param [type] $value [description]
+   * @return [type]
+   */
+  public static function getData($symbol)
+  {
+    $api_key = getenv('CURRENCY_API_KEY');
+
+    $url = getenv('CURRENCY_SYMBOL_URL');
+
+    $params = [
+      'api_key'     => $api_key,
+      'market_pair' => $symbol
+    ];
+
+    $param = http_build_query($params);
+
+    $url = $url . '?' . $param;
+
+    $response = json_decode(curl($url));
+
+    return $response;
+  }
 }

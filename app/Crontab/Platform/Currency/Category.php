@@ -31,9 +31,20 @@ class Category extends Controller
 
     try
     {
+      $api_key = getenv('CURRENCY_API_KEY');
+      $url = getenv('CURRENCY_CATEGORY_URL');
+
       for($i = 0; $i < 50; $i++)
       {
-        $url = 'https://data.mifengcha.com/api/v3/symbols?api_key=WMDSHUHF23V6W2NYVF8UOHL7HXZBSZGA0UMGOJPK&size=100&page='.$i;
+        $params = [
+          'api_key' => $api_key,
+          'size'    => 100,
+          'page'    => $i
+        ];
+
+        $param = http_build_query($params);
+
+        $url = $url . '?' . $param;
 
         $result = json_decode($this->curl($url));
 
