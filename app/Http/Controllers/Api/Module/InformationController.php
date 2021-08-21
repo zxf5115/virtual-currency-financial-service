@@ -56,7 +56,8 @@ class InformationController extends BaseController
     'subject' => false,
     'similar' => false,
     'view' => [
-      'label'
+      'label',
+      'member'
     ],
   ];
 
