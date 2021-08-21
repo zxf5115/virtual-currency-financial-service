@@ -33,7 +33,10 @@ class CoursewareController extends BaseController
   // 关联数组
   protected $_relevance = [
     'list' => false,
-    'recommend' => false,
+    'recommend' => [
+      'category',
+      'teacher'
+    ],
     'view' => [
       'category',
       'teacher'
