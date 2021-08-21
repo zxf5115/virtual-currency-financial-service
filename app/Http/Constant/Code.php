@@ -119,6 +119,8 @@ class Code
   const CURRENT_MEMBER_ASSET_EMPTY = 90052;
   // 当前会员资产不足
   const CURRENT_MEMBER_ASSET_DEFICIENCY = 90053;
+  // 被关注用户不存在
+  const ATTENTION_MEMBER_EMPTY = 90054;
 
 
   // 标签不能为空
@@ -237,7 +239,7 @@ class Code
     self::CERITFICATION_EMPTY => '当前会员未认证',
     self::CURRENT_MEMBER_ASSET_EMPTY => '当前会员暂无可用余额',
     self::CURRENT_MEMBER_ASSET_DEFICIENCY => '当前会员可用余额不足',
-
+    self::ATTENTION_MEMBER_EMPTY => '被关注用户不存在',
 
 
     self::LABEL_EMPTY  => '标签不能为空',

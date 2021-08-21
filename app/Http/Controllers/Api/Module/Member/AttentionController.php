@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Member;
 use App\Events\Common\Push\AuroraEvent;
 use App\Events\Api\Member\AttentionEvent;
 use App\Http\Controllers\Api\BaseController;
@@ -198,6 +199,13 @@ class AttentionController extends BaseController
 
       try
       {
+        $result = Member::getRow(['id' => $request->attention_member_id]);
+
+        if(empty($result->id))
+        {
+          return self::error(Code::ATTENTION_MEMBER_EMPTY);
+        }
+
         $response = $this->_model::createOrDelete([
           'member_id'           => self::getCurrentId(),
           'attention_member_id' => $request->attention_member_id
