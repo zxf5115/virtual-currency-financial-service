@@ -77,7 +77,7 @@ class CommunityController extends BaseController
 
         $model->organization_id = self::getOrganizationId();
         $model->category_id     = $request->category_id;
-        $model->member_id       = self::getCurrentId();
+        $model->member_id       = 1;
         $model->title           = $request->title;
         $model->picture         = $request->picture ?? '';
         $model->content         = $request->content;
