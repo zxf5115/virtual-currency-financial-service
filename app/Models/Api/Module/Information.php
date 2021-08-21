@@ -271,4 +271,25 @@ class Information extends Common
       'id'
     );
   }
+
+
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2021-08-11
+   * ------------------------------------------
+   * 资讯与会员关联函数
+   * ------------------------------------------
+   *
+   * 资讯与会员关联函数
+   *
+   * @return [type]
+   */
+  public function member()
+  {
+    return $this->belongsTo(
+      'App\Models\Api\Module\Member',
+      'member_id',
+      'id'
+    );
+  }
 }
