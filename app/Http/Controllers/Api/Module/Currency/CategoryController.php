@@ -185,7 +185,12 @@ class CategoryController extends BaseController
 
         $slug = implode(',', $slug);
 
-        $response['api'] = $this->_model::getData($slug);
+        $result = $this->_model::getData($slug);
+
+        foreach($response as $key => &$item)
+        {
+          $item['api'] = $result[$key];
+        }
       }
 
       return self::success($response);
@@ -241,17 +246,20 @@ class CategoryController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'main');
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+      $response = $this->_model::getList($condition, $relevance, $this->_order, true, $total);
 
-      $data = $response['data'] ?? '';
-
-      if(!empty($data))
+      if(!empty($response))
       {
-        $slug = array_column($data, 'slug');
+        $slug = array_column($response, 'slug');
 
         $slug = implode(',', $slug);
 
-        $response['api'] = $this->_model::getData($slug);
+        $result = $this->_model::getData($slug);
+
+        foreach($response as $key => &$item)
+        {
+          $item['api'] = $result[$key];
+        }
       }
 
       return self::success($response);
@@ -305,17 +313,20 @@ class CategoryController extends BaseController
       $total = $request->total ?? 24;
 
       // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'defi');
+      $response = $this->_model::getList($condition, $relevance, $this->_order, true, $total);
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
-
-      if(!empty($data))
+      if(!empty($response))
       {
-        $slug = array_column($data, 'slug');
+        $slug = array_column($response, 'slug');
 
         $slug = implode(',', $slug);
 
-        $response['api'] = $this->_model::getData($slug);
+        $result = $this->_model::getData($slug);
+
+        foreach($response as $key => &$item)
+        {
+          $item['api'] = $result[$key];
+        }
       }
 
       return self::success($response);
