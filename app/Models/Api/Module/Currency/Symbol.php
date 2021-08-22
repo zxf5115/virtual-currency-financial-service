@@ -27,10 +27,10 @@ class Symbol extends Common
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-07-12
    * ------------------------------------------
-   * 是否热门状态封装
+   * 获取第三方数据
    * ------------------------------------------
    *
-   * 是否热门状态封装
+   * 获取第三方数据
    *
    * @param [type] $value [description]
    * @return [type]

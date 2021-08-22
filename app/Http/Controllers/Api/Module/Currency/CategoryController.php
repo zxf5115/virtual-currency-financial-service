@@ -156,6 +156,7 @@ class CategoryController extends BaseController
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
+   * @apiSuccess (字段说明) {Array} api 第三方接口数据
    *
    * @apiSampleRequest /api/currency/category/hot
    * @apiVersion 1.0.0
@@ -177,6 +178,17 @@ class CategoryController extends BaseController
       $relevance = self::getRelevanceData($this->_relevance, 'hot');
 
       $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      $data = $response['data'] ?? '';
+
+      if(!empty($data))
+      {
+        $slug = array_column($data, 'slug');
+
+        $slug = implode(',', $slug);
+
+        $response['api'] = $this->_model::getData($slug);
+      }
 
       return self::success($response);
     }
@@ -210,6 +222,7 @@ class CategoryController extends BaseController
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
+   * @apiSuccess (字段说明) {Array} api 第三方接口数据
    *
    * @apiSampleRequest /api/currency/category/main
    * @apiVersion 1.0.0
@@ -231,6 +244,17 @@ class CategoryController extends BaseController
       $relevance = self::getRelevanceData($this->_relevance, 'main');
 
       $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      $data = $response['data'] ?? '';
+
+      if(!empty($data))
+      {
+        $slug = array_column($data, 'slug');
+
+        $slug = implode(',', $slug);
+
+        $response['api'] = $this->_model::getData($slug);
+      }
 
       return self::success($response);
     }
@@ -264,6 +288,7 @@ class CategoryController extends BaseController
    * @apiSuccess (字段说明) {String} is_hot 是否热门
    * @apiSuccess (字段说明) {String} is_main 是否主流
    * @apiSuccess (字段说明) {String} is_defi 是否DeFi
+   * @apiSuccess (字段说明) {Array} api 第三方接口数据
    *
    * @apiSampleRequest /api/currency/category/defi
    * @apiVersion 1.0.0
@@ -285,6 +310,15 @@ class CategoryController extends BaseController
       $relevance = self::getRelevanceData($this->_relevance, 'defi');
 
       $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+
+      if(!empty($data))
+      {
+        $slug = array_column($data, 'slug');
+
+        $slug = implode(',', $slug);
+
+        $response['api'] = $this->_model::getData($slug);
+      }
 
       return self::success($response);
     }

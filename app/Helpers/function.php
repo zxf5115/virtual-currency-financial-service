@@ -94,7 +94,7 @@ function curl($url, $is_post = false, $postdata=[])
 
   if(curl_exec($ch) === false)
   {
-     echo 'Curl error: ' . curl_error($ch);
+     record(curl_error($ch));
   }
   else
   {
