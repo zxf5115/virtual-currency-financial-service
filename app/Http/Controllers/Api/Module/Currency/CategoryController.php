@@ -179,11 +179,9 @@ class CategoryController extends BaseController
 
       $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
 
-      $data = $response['data'] ?? '';
-
-      if(!empty($data))
+      if(!empty($response))
       {
-        $slug = array_column($data, 'slug');
+        $slug = array_column($response, 'slug');
 
         $slug = implode(',', $slug);
 
