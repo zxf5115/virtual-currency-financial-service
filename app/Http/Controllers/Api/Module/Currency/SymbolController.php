@@ -74,7 +74,12 @@ class SymbolController extends BaseController
 
         $symbol = implode(',', $symbol);
 
-        $response['api'] = $this->_model::getData($symbol);
+        $result = $this->_model::getData($symbol);
+
+        foreach($response['data'] as $key => &$item)
+        {
+          $item['api'] = $result[$key];
+        }
       }
 
       return self::success($response);
