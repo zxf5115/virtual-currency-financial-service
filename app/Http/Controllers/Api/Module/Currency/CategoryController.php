@@ -177,7 +177,7 @@ class CategoryController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'hot');
 
-      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
+      $response = $this->_model::getList($condition, $relevance, $this->_order, true, $total);
 
       if(!empty($response))
       {
