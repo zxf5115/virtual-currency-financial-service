@@ -18,9 +18,11 @@ class MoneyEnum extends BaseEnum
   const FINISH = 1; //已确认
   const WAIT   = 2; // 待确认
 
-  const NONE   = 0; // 无
-  const WEIXIN = 1; // 微信
-  const ALIPAY = 2; // 支付宝
+  const NONE    = 0; // 无
+  const WEIXIN  = 1; // 微信
+  const ALIPAY  = 2; // 支付宝
+  const BALANCE = 3; // 余额
+  const APPLE   = 4; // 苹果
 
   // 红包类型封装
   public static $type = [
@@ -63,6 +65,16 @@ class MoneyEnum extends BaseEnum
     self::ALIPAY => [
       'value' => self::ALIPAY,
       'text' => '支付宝'
+    ],
+
+    self::BALANCE => [
+      'value' => self::BALANCE,
+      'text' => '余额'
+    ],
+
+    self::APPLE => [
+      'value' => self::APPLE,
+      'text' => '苹果'
     ]
   ];
 
