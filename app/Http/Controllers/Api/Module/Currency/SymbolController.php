@@ -76,9 +76,12 @@ class SymbolController extends BaseController
 
         $result = $this->_model::getData($symbol);
 
-        foreach($response['data'] as $key => &$item)
+        if(is_array($result))
         {
-          $item['api'] = $result[$key];
+          foreach($response['data'] as $key => &$item)
+          {
+            $item['api'] = $result[$key];
+          }
         }
       }
 

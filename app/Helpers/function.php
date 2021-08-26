@@ -69,59 +69,41 @@ function tree($list = [], $id = 'id', $pid = 'parent_id', $child = 'child', $roo
  * 第三方接口请求
  *
  * @param [type] $url 请求地址
- * @param boolean $is_post 是否post
- * @param array $postdata post参数
+ * @param array $data post数据
  * @return [type]
  */
-function curl($url, $is_post = false, $postdata=[])
+function curl($url, $data = [])
 {
   $ch = curl_init();
 
   curl_setopt($ch,CURLOPT_URL, $url);
 
-  if($is_post)
+  if(!empty($data))
   {
     curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postdata));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
   }
 
-  curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
-  curl_setopt($ch,CURLOPT_HEADER,0);
-  curl_setopt($ch, CURLOPT_TIMEOUT,60);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($ch, CURLOPT_HEADER, 0);
+  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-  curl_setopt ($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json",]);
+  curl_setopt($ch, CURLOPT_HTTPHEADER, ["Content-Type: application/json"]);
 
   if(curl_exec($ch) === false)
   {
-     record(curl_error($ch));
+    record(curl_error($ch));
   }
-  else
-  {
-    $output = curl_exec($ch);
 
-    $info = curl_getinfo($ch);
+  $output = curl_exec($ch);
 
-    return $output;
-  }
+  $info = curl_getinfo($ch);
 
   curl_close($ch);
+
+  return $output;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

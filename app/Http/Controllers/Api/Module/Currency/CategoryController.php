@@ -187,9 +187,12 @@ class CategoryController extends BaseController
 
         $result = $this->_model::getData($slug);
 
-        foreach($response as $key => &$item)
+        if(is_array($result))
         {
-          $item['api'] = $result[$key];
+          foreach($response as $key => &$item)
+          {
+            $item['api'] = $result[$key];
+          }
         }
       }
 
@@ -256,9 +259,12 @@ class CategoryController extends BaseController
 
         $result = $this->_model::getData($slug);
 
-        foreach($response as $key => &$item)
+        if(is_array($result))
         {
-          $item['api'] = $result[$key];
+          foreach($response as $key => &$item)
+          {
+            $item['api'] = $result[$key];
+          }
         }
       }
 
@@ -323,9 +329,12 @@ class CategoryController extends BaseController
 
         $result = $this->_model::getData($slug);
 
-        foreach($response as $key => &$item)
+        if(is_array($result))
         {
-          $item['api'] = $result[$key];
+          foreach($response as $key => &$item)
+          {
+            $item['api'] = $result[$key];
+          }
         }
       }
 
