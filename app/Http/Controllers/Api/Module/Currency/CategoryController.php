@@ -19,7 +19,7 @@ class CategoryController extends BaseController
 
   // 查询条件
   protected $_params = [
-    'title',
+    'symbol',
   ];
 
   // 排序
@@ -35,7 +35,7 @@ class CategoryController extends BaseController
    * @apiGroup 80. 货币种类模块
    *
    * @apiParam {int} page 当前页数
-   * @apiParam {String} title 货币标题
+   * @apiParam {String} symbol 币种符号
    *
    * @apiSuccess (字段说明) {Number} id 货币种类编号
    * @apiSuccess (字段说明) {String} slug 币种名称

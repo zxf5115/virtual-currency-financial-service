@@ -156,7 +156,7 @@ class NotifyController extends BaseController
    * @apiDescription 获取微信支付回调
    * @apiGroup 02. 公共模块
    *
-   * @apiParam {int} order_no 订单号
+   * @apiParam {int} order_no 订单号(创建支付订单id)
    * @apiParam {int} is_box 是否为沙盒
    * @apiParam {int} receipt 苹果凭证
    *
