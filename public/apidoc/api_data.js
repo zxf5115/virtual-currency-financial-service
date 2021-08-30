@@ -1373,7 +1373,21 @@ define({ "api": [
             "type": "int",
             "optional": false,
             "field": "order_no",
-            "description": "<p>订单号</p>"
+            "description": "<p>订单号(创建支付订单id)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "is_box",
+            "description": "<p>是否为沙盒</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "receipt",
+            "description": "<p>苹果凭证</p>"
           }
         ]
       }
@@ -12724,6 +12738,13 @@ define({ "api": [
             "optional": false,
             "field": "is_defi",
             "description": "<p>是否DeFi</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "Array",
+            "optional": false,
+            "field": "api",
+            "description": "<p>第三方接口数据</p>"
           }
         ]
       }
@@ -12850,6 +12871,13 @@ define({ "api": [
             "optional": false,
             "field": "is_defi",
             "description": "<p>是否DeFi</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "Array",
+            "optional": false,
+            "field": "api",
+            "description": "<p>第三方接口数据</p>"
           }
         ]
       }
@@ -12884,8 +12912,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "String",
             "optional": false,
-            "field": "title",
-            "description": "<p>货币标题</p>"
+            "field": "symbol",
+            "description": "<p>币种符号</p>"
           }
         ]
       }
@@ -13109,6 +13137,13 @@ define({ "api": [
             "optional": false,
             "field": "is_defi",
             "description": "<p>是否DeFi</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "Array",
+            "optional": false,
+            "field": "api",
+            "description": "<p>第三方接口数据</p>"
           }
         ]
       }
