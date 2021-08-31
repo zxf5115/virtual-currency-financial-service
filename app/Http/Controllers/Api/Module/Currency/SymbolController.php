@@ -111,6 +111,8 @@ class SymbolController extends BaseController
   {
     try
     {
+      $response = [];
+
       $condition = self::getSimpleWhereData();
 
       // 对用户请求进行过滤
@@ -121,9 +123,18 @@ class SymbolController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'select');
 
-      $response = $this->_model::getPluck('quote_currency', $condition, $relevance, $this->_order, true);
+      $result = $this->_model::getPluck('quote_currency', $condition, $relevance, $this->_order, true);
 
-      $response = array_unique($response);
+      $result = array_unique($result);
+
+      $key = 0;
+
+      foreach($result as $item)
+      {
+        $response[$key]['title'] = $item;
+
+        $key++;
+      }
 
       return self::success($response);
     }

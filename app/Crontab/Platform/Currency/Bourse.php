@@ -4,15 +4,15 @@ namespace App\Crontab\Platform\Currency;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Routing\Controller;
-use App\Models\Common\Module\Currency\Symbol as SymbolModel;
+use App\Models\Common\Module\Currency\Bourse as BourseModel;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
  * @dateTime 2021-06-28
  *
- * 货币交易定时任务
+ * 货币交易所定时任务
  */
-class Symbol extends Controller
+class Bourse extends Controller
 {
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
@@ -32,9 +32,9 @@ class Symbol extends Controller
     try
     {
       $api_key = getenv('CURRENCY_API_KEY');
-      $url = getenv('CURRENCY_SYMBOL_URL');
+      $url = getenv('CURRENCY_BOURSE_URL');
 
-      for($i = 0; $i < 50; $i++)
+      for($i = 0; $i < 10; $i++)
       {
         $params = [
           'api_key' => $api_key,
@@ -55,7 +55,7 @@ class Symbol extends Controller
 
         foreach($result as $item)
         {
-          $model = SymbolModel::firstOrNew(['symbol' => $item->m]);
+          $model = BourseModel::firstOrNew(['slug' => $item->slug]);
 
           // 将已存在的货币去除
           if(!empty($model->id))
@@ -63,12 +63,8 @@ class Symbol extends Controller
             continue;
           }
 
-          $data = explode('_', $item->m);
-
-          $model->market         = $data[0] ?? '';
-          $model->symbol         = $item->m ?? '';
-          $model->base_currency  = $data[1] ?? '';
-          $model->quote_currency = $data[2] ?? '';
+          $model->slug     = $item->slug ?? '';
+          $model->fullname = $item->fullname ?? '';
           $model->save();
         }
       }
@@ -78,7 +74,7 @@ class Symbol extends Controller
     catch(\Exception $e)
     {
       DB::rollback();
-
+dd($e);
       record($e);
 
       return false;
