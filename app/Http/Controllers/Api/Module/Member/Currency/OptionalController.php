@@ -63,7 +63,7 @@ class OptionalController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $symbol_id = $this->_model::getPluck('symbol_id', $condition);
+      $symbol_id = $this->_model::getPluck('symbol_id', $condition, false, false, true);
 
       $condition = self::getSimpleWhereData();
 
