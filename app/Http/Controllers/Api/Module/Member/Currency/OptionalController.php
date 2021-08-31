@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Module\Member\Currency;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Currency\Symbol;
 use App\Http\Controllers\Api\BaseController;
 
 
@@ -18,12 +19,9 @@ class OptionalController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Currency\Optional';
 
-  // 关联对像
-  protected $_relevance = [
-    'list' => [
-      'symbol',
-      'member',
-    ]
+  // 排序
+  protected $_order = [
+    ['key' => 'create_time', 'value' => 'desc'],
   ];
 
 
@@ -65,7 +63,36 @@ class OptionalController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'list');
 
-      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+      $symbol_id = $this->_model::getPluck('symbol_id', $condition);
+
+      $condition = self::getSimpleWhereData();
+
+      $where = [
+        ['id', $symbol_id]
+      ];
+
+      $condition = array_merge($condition, $where);
+
+      $response = Symbol::getPaging($condition, $relevance, $this->_order, true);
+
+      $data = $response['data'] ?? '';
+
+      if(!empty($data))
+      {
+        $symbol = array_column($data, 'symbol');
+
+        $symbol = implode(',', $symbol);
+
+        $result = Symbol::getData($symbol);
+
+        if(is_array($result))
+        {
+          foreach($response['data'] as $key => &$item)
+          {
+            $item['api'] = $result[$key];
+          }
+        }
+      }
 
       return self::success($response);
     }
