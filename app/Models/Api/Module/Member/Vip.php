@@ -16,7 +16,6 @@ class Vip extends Common
     'id',
     'organization_id',
     'member_id',
-    'vip_id',
     'status',
     'create_time',
     'update_time'
