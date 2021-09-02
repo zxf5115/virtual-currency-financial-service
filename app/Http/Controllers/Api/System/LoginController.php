@@ -80,7 +80,7 @@ class LoginController extends BaseController
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition, ['role', 'vip']);
+        $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -254,14 +254,14 @@ BCJ1DmmcAMkT1w==
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition, ['role', 'vip']);
+        $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
 
         // 用户不存在, 自动注册
         if(is_null($response))
         {
           Member::register('username', $username);
 
-          $response = Member::getRow($condition, ['role', 'vip']);
+          $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
         }
 
         // 用户已禁用
@@ -380,14 +380,14 @@ BCJ1DmmcAMkT1w==
 
         $condition = self::getSimpleWhereData($username, 'username');
 
-        $response = Member::getRow($condition, ['role', 'vip']);
+        $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
 
         // 用户不存在, 自动注册
         if(is_null($response))
         {
           Member::register('username', $username);
 
-          $response = Member::getRow($condition, ['role', 'vip']);
+          $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
         }
 
         // 用户已禁用
@@ -546,7 +546,7 @@ BCJ1DmmcAMkT1w==
       {
         $condition = self::getSimpleWhereData($request->open_id, 'open_id');
 
-        $response = Member::getRow($condition, ['role', 'vip']);
+        $response = Member::getRow($condition, ['role', 'vipRelevance.vip']);
 
         // 用户不存在
         if(is_null($response))
@@ -655,7 +655,7 @@ BCJ1DmmcAMkT1w==
 
         $where = array_merge($condition, $where);
 
-        $response = Member::getRow($where, ['role', 'vip']);
+        $response = Member::getRow($where, ['role', 'vipRelevance.vip']);
 
         // 用户不存在
         if(is_null($response))
