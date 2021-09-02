@@ -43,6 +43,11 @@ class ApprovalListeners
 
       $point = Point::getRow(['id' => $data_id]);
 
+      if(empty($point))
+      {
+        return false;
+      }
+
       if($status)
       {
         $archive->increment('approval_total', 1);

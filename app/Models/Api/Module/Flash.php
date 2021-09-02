@@ -116,7 +116,7 @@ class Flash extends Common
       return 0;
     }
 
-    return $response->feel_status ?? 0;
+    return $response->feel_status['value'] ?? 0;
   }
 
 
