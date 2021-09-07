@@ -189,6 +189,7 @@ $api->version('v1', [
       // 社区路由
       $api->group(['prefix'  => 'community'], function ($api) {
         $api->get('list', 'CommunityController@list');
+        $api->get('symbol', 'CommunityController@symbol');
         $api->get('hot', 'CommunityController@hot');
         $api->get('recommend', 'CommunityController@recommend');
         $api->get('view/{id}', 'CommunityController@view');
