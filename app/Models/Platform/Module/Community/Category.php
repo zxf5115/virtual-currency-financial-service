@@ -50,7 +50,7 @@ class Category extends Common
   public function symbol()
   {
     return $this->belongsTo(
-      'App\Models\Platform\Module\Currency\symbol',
+      'App\Models\Platform\Module\Currency\Symbol',
       'symbol_id',
       'id'
     );
