@@ -67,7 +67,7 @@ class CategoryController extends BaseController
     {
       try
       {
-        $status = $this->_model::validationOnly('symbol_id', $request->symbol_id);
+        $status = $this->_model::validationOnly('symbol_id', $request);
 
         if($status)
         {

@@ -658,15 +658,19 @@ class Base extends Model
    * @param [type] $value 内容信息
    * @return [type]
    */
-  public static function validationOnly($field, $value)
+  public static function validationOnly($field, $request)
   {
     try
     {
       $response = false;
 
-      $model = static::getRow([$field => $value]);
+      $id = $request->id ?? 0;
 
-      if(!empty($model->id))
+      $symbol_id = $request->symbol_id;
+
+      $model = static::getRow([$field => $symbol_id]);
+
+      if(!empty($model->id) && $model->id != $id)
       {
         $response = true;
       }
