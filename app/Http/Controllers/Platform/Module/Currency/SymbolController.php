@@ -31,6 +31,44 @@ class SymbolController extends BaseController
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 
+  /**
+   * @author zhangxiaofei [<1326336909@qq.com>]
+   * @dateTime 2020-02-12
+   * ------------------------------------------
+   * 获取列表信息
+   * ------------------------------------------
+   *
+   * 获取列表信息
+   *
+   * @param Request $request [请求参数]
+   * @return [type]
+   */
+  public function select(Request $request)
+  {
+    try
+    {
+      $condition = self::getBaseWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      $relevance = self::getRelevanceData($this->_relevance, 'select');
+
+      $response = $this->_model::getList($condition, $relevance, $this->_order, false, 500);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
 
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
