@@ -662,6 +662,8 @@ class Base extends Model
   {
     try
     {
+      $response = false;
+
       $model = static::getRow([$field => $value]);
 
       if(!empty($model->id))
