@@ -135,6 +135,8 @@ class CommunityController extends BaseController
         return self::success([]);
       }
 
+      $request['category_id'] = $result->id;
+
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
 
