@@ -11009,7 +11009,7 @@
   {
     "type": "get",
     "url": "/api/community/hot",
-    "title": "03. 热门社区数据",
+    "title": "04. 热门社区数据",
     "description": "<p>获取热门社区数据列表</p>",
     "group": "71._社区模块",
     "parameter": {
@@ -11275,7 +11275,7 @@
   {
     "type": "get",
     "url": "/api/community/recommend",
-    "title": "02. 推荐社区数据",
+    "title": "03. 推荐社区数据",
     "description": "<p>获取推荐社区数据列表</p>",
     "group": "71._社区模块",
     "parameter": {
@@ -11400,8 +11400,141 @@
   },
   {
     "type": "get",
+    "url": "/api/community/symbol?page={page}",
+    "title": "02. 交易对社区列表",
+    "description": "<p>获取社区分页列表</p>",
+    "group": "71._社区模块",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "symbol",
+            "description": "<p>交易对</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "Number",
+            "optional": false,
+            "field": "id",
+            "description": "<p>社区编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>社区标题</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>社区封面</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>社区内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>社区作者</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_hot",
+            "description": "<p>是否热门</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "approval_total",
+            "description": "<p>点赞数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "comment_total",
+            "description": "<p>评论数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "collection_total",
+            "description": "<p>收藏数量</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_approval",
+            "description": "<p>是否点赞</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/community/symbol"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/CommunityController.php",
+    "groupTitle": "71._社区模块",
+    "name": "GetApiCommunitySymbolPagePage"
+  },
+  {
+    "type": "get",
     "url": "/api/community/view/{id}",
-    "title": "04. 社区详情",
+    "title": "05. 社区详情",
     "description": "<p>获取社区详情</p>",
     "group": "71._社区模块",
     "success": {

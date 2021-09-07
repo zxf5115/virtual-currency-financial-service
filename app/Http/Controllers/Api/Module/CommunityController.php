@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api\Module;
 use Illuminate\Http\Request;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Currency\Symbol;
 use App\Http\Controllers\Api\BaseController;
-
+use App\Models\Api\Module\Community\Category;
 
 /**
  * @author zhangxiaofei [<1326336909@qq.com>]
@@ -89,9 +90,75 @@ class CommunityController extends BaseController
     }
   }
 
+  /**
+   * @api {get} /api/community/symbol?page={page} 02. 交易对社区列表
+   * @apiDescription 获取社区分页列表
+   * @apiGroup 71. 社区模块
+   *
+   * @apiParam {int} page 当前页数
+   * @apiParam {string} symbol 交易对
+   *
+   * @apiSuccess (字段说明) {Number} id 社区编号
+   * @apiSuccess (字段说明) {String} title 社区标题
+   * @apiSuccess (字段说明) {String} picture 社区封面
+   * @apiSuccess (字段说明) {String} content 社区内容
+   * @apiSuccess (字段说明) {String} author 社区作者
+   * @apiSuccess (字段说明) {String} is_hot 是否热门
+   * @apiSuccess (字段说明) {String} read_total 阅读数量
+   * @apiSuccess (字段说明) {String} approval_total 点赞数量
+   * @apiSuccess (字段说明) {String} comment_total 评论数量
+   * @apiSuccess (字段说明) {String} collection_total 收藏数量
+   * @apiSuccess (字段说明) {String} is_approval 是否点赞
+   * @apiSuccess (字段说明) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明) {String} create_time 发布时间
+   *
+   * @apiSampleRequest /api/community/symbol
+   * @apiVersion 1.0.0
+   */
+  public function symbol(Request $request)
+  {
+    try
+    {
+      $condition = self::getSimpleWhereData();
+
+      $symbol = Symbol::getRow(['symbol' => $request->symbol]);
+
+      if(empty($symbol))
+      {
+        return self::success([]);
+      }
+
+      $result = Category::getRow(['symbol_id' => $symbol->id]);
+
+      if(empty($result))
+      {
+        return self::success([]);
+      }
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter);
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
+
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
 
   /**
-   * @api {get} /api/community/recommend 02. 推荐社区数据
+   * @api {get} /api/community/recommend 03. 推荐社区数据
    * @apiDescription 获取推荐社区数据列表
    * @apiGroup 71. 社区模块
    *
@@ -149,7 +216,7 @@ class CommunityController extends BaseController
 
 
     /**
-   * @api {get} /api/community/hot 03. 热门社区数据
+   * @api {get} /api/community/hot 04. 热门社区数据
    * @apiDescription 获取热门社区数据列表
    * @apiGroup 71. 社区模块
    *
@@ -207,7 +274,7 @@ class CommunityController extends BaseController
 
 
   /**
-   * @api {get} /api/community/view/{id} 04. 社区详情
+   * @api {get} /api/community/view/{id} 05. 社区详情
    * @apiDescription 获取社区详情
    * @apiGroup 71. 社区模块
    *
