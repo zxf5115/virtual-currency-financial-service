@@ -52,7 +52,7 @@ class AttentionListeners
       }
 
       // 关注
-      $model = Archive::getRow(['id' => $member_id]);
+      $model = Archive::getRow(['member_id' => $member_id]);
 
       if($status)
       {
