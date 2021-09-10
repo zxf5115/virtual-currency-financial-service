@@ -211,7 +211,7 @@ class InformationController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'subject');
 
-      $response = $this->_model::getList($where, $relevance, $this->_order, false, $total);
+      $response = $this->_model::getList($condition, $relevance, $this->_order, false, $total);
 
       return self::success($response);
     }
