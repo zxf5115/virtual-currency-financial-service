@@ -551,7 +551,7 @@ class MemberController extends BaseController
 
         $condition = self::getSimpleWhereData($new_username, 'username');
 
-        $model = Member::getRow($condition);
+        $model = $this->_model::getRow($condition);
 
         if(!empty($model->id))
         {
