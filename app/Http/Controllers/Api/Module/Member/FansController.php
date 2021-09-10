@@ -31,11 +31,9 @@ class FansController extends BaseController
   protected $_relevance = [
     'list' => [
       'member',
-      'attention'
     ],
     'select' => [
       'member',
-      'attention'
     ]
   ];
 
@@ -54,8 +52,8 @@ class FansController extends BaseController
    * @apiParam {int} page 当前页数
    *
    * @apiSuccess (字段说明|基础) {Number} id 会员粉丝编号
-   * @apiSuccess (字段说明|基础) {Number} member_id 会员编号
-   * @apiSuccess (字段说明|基础) {Number} attention_member_id 粉丝会员编号
+   * @apiSuccess (字段说明|基础) {Number} member_id 粉丝会员编号
+   * @apiSuccess (字段说明|基础) {Number} attention_member_id 会员编号
    * @apiSuccess (字段说明|基础) {Number} create_time 粉丝时间
    * @apiSuccess (字段说明|粉丝人) {Number} avatar 头像
    * @apiSuccess (字段说明|粉丝人) {Number} nickname 昵称
