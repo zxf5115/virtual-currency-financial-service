@@ -71,7 +71,7 @@ class AttentionController extends BaseController
   {
     try
     {
-      $condition = self::getSimpleWhereData();
+      $condition = self::getCurrentWhereData();
 
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
@@ -87,7 +87,7 @@ class AttentionController extends BaseController
 
       $result = $this->_model::getPluck('category_id', $where, false, false, true);
 
-      $condition = self::getCurrentWhereData();
+      $condition = self::getSimpleWhereData();
 
       $where = [
         ['category_id', $result]
