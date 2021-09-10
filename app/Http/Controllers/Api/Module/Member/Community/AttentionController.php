@@ -29,7 +29,7 @@ class AttentionController extends BaseController
   ];
 
   // 附加查询条件
-  protected $_params = [
+  protected $_addition = [
     'category' => [
       'title'
     ],
