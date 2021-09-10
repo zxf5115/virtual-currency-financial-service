@@ -305,6 +305,12 @@ $api->version('v1', [
             $api->post('handle', 'AttentionController@handle');
           });
 
+
+          // 会员粉丝路由
+          $api->group(['prefix'  => 'fans'], function ($api) {
+            $api->get('list', 'FansController@list');
+          });
+
           // 会员邀请路由
           $api->group(['prefix'  => 'invitation'], function ($api) {
             $api->get('list', 'InvitationController@list');
