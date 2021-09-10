@@ -28,6 +28,12 @@ class AttentionController extends BaseController
     'category_id',
   ];
 
+  // 附加查询条件
+  protected $_params = [
+    'category' => [
+      'title'
+    ],
+  ];
 
   // 关联对像
   protected $_relevance = [
@@ -50,6 +56,7 @@ class AttentionController extends BaseController
    * }
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} [category_title] 社区分类名称
    * @apiParam {int} [category_id] 社区分类编号
    *
    * @apiSuccess (字段说明|资讯) {Number} id 社区编号
