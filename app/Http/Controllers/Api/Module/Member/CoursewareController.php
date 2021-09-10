@@ -41,7 +41,7 @@ class CoursewareController extends BaseController
   /**
    * @api {get} /api/member/courseware/list?page={page} 01. 我的课程列表
    * @apiDescription 获取当前会员的课程分页列表
-   * @apiGroup 35. 会员课程模块
+   * @apiGroup 36. 会员课程模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -101,7 +101,7 @@ class CoursewareController extends BaseController
   /**
    * @api {get} /api/member/courseware/status/{id} 02. 当前课程是否被购买
    * @apiDescription 获取当前课程是否被当前会员购买
-   * @apiGroup 35. 会员课程模块
+   * @apiGroup 36. 会员课程模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -150,7 +150,7 @@ class CoursewareController extends BaseController
   /**
    * @api {get} /api/member/courseware/view/{id} 03. 我的课程详情
    * @apiDescription 获取当前会员课程详情
-   * @apiGroup 35. 会员课程模块
+   * @apiGroup 36. 会员课程模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -209,7 +209,7 @@ class CoursewareController extends BaseController
   /**
    * @api {post} /api/member/courseware/finish 04. 完成课程
    * @apiDescription 当前会员学习完成了课程
-   * @apiGroup 35. 会员课程模块
+   * @apiGroup 36. 会员课程模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
@@ -275,7 +275,7 @@ class CoursewareController extends BaseController
   /**
    * @api {post} /api/member/courseware/expense 05. 课程学习
    * @apiDescription 当前贵宾会员学习课程
-   * @apiGroup 35. 会员课程模块
+   * @apiGroup 36. 会员课程模块
    * @apiPermission jwt
    * @apiHeader {String} Authorization 身份令牌
    * @apiHeaderExample {json} Header-Example:
