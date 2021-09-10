@@ -2899,7 +2899,14 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "username",
-            "description": "<p>手机号码</p>"
+            "description": "<p>旧手机号码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "new_username",
+            "description": "<p>新手机号码</p>"
           },
           {
             "group": "Parameter",
@@ -2913,7 +2920,7 @@ define({ "api": [
     },
     "sampleRequest": [
       {
-        "url": "/api/change_mobile"
+        "url": "/api/member/change_mobile"
       }
     ],
     "version": "1.0.0",

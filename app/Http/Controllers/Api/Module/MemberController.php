@@ -466,7 +466,7 @@ class MemberController extends BaseController
 
         $result = $this->_model::getRow($condition);
 
-        if(!empty($result) && !empty($result->username))
+        if(empty($result) || empty($result->username))
         {
           return self::error(Code::CURRENT_MOBILE_EMPTY);
         }
@@ -498,24 +498,29 @@ class MemberController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} username 手机号码
+   * @apiParam {string} username 旧手机号码
+   * @apiParam {string} new_username 新手机号码
    * @apiParam {string} sms_code 验证码
    *
-   * @apiSampleRequest /api/change_mobile
+   * @apiSampleRequest /api/member/change_mobile
    * @apiVersion 1.0.0
    */
   public function change_mobile(Request $request)
   {
     $messages = [
-      'username.required' => '请您输入手机号码',
-      'username.regex'    => '手机号码不合法',
-      'sms_code.required' => '请您输入验证码',
+      'username.required'     => '请您输入手机号码',
+      'new_username.required' => '请您输入新手机号码',
+      'username.regex'        => '手机号码不合法',
+      'new_username.regex'    => '新手机号码不合法',
+      'sms_code.required'     => '请您输入验证码',
     ];
 
     $rule = [
-      'username' => 'required',
-      'username' => 'regex:/^1[3456789][0-9]{9}$/',     //正则验证
-      'sms_code' => 'required',
+      'username'     => 'required',
+      'new_username' => 'required',
+      'username'     => 'regex:/^1[3456789][0-9]{9}$/',     //正则验证
+      'new_username' => 'regex:/^1[3456789][0-9]{9}$/',     //正则验证
+      'sms_code'     => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -531,6 +536,8 @@ class MemberController extends BaseController
       {
         $username = $request->username;
 
+        $new_username = $request->new_username;
+
         $sms_code = $request->sms_code;
 
         // 比对验证码
@@ -542,21 +549,16 @@ class MemberController extends BaseController
           return self::error(Code::VERIFICATION_CODE);
         }
 
-        $condition = self::getSimpleWhereData($username, 'username');
+        $condition = self::getSimpleWhereData($new_username, 'username');
 
         $model = Member::getRow($condition);
 
-        if(empty($model->id))
-        {
-          return self::error(Code::MEMBER_EMPTY);
-        }
-
-        if(!empty($model->open_id))
+        if(!empty($model->id))
         {
           return self::error(Code::CURRENT_MOBILE_BIND);
         }
 
-        $model->open_id = $request->open_id;
+        $model->username = $new_username;
 
         $response = $model->save();
 
