@@ -30,6 +30,13 @@ class CommunityController extends BaseController
     'member_id'
   ];
 
+  // 附加查询条件
+  protected $_addition = [
+    'category' => [
+      'title'
+    ],
+  ];
+
 
   // 关联对象
   protected $_relevance = [
@@ -43,8 +50,9 @@ class CommunityController extends BaseController
    * @apiGroup 71. 社区模块
    *
    * @apiParam {int} page 当前页数
-   * @apiParam {int} category_id 社区分类编号
-   * @apiParam {int} member_id 会员编号
+   * @apiParam {int} ]category_id] 社区分类编号
+   * @apiParam {int} [category_title] 社区分类名称
+   * @apiParam {int} ]member_id] 会员编号
    *
    * @apiSuccess (字段说明) {Number} id 社区编号
    * @apiSuccess (字段说明) {String} title 社区标题
