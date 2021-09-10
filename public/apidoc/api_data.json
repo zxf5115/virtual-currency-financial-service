@@ -11278,14 +11278,21 @@
           {
             "group": "Parameter",
             "type": "int",
-            "optional": false,
+            "optional": true,
             "field": "category_id",
             "description": "<p>社区分类编号</p>"
           },
           {
             "group": "Parameter",
             "type": "int",
-            "optional": false,
+            "optional": true,
+            "field": "category_title",
+            "description": "<p>社区分类名称</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": true,
             "field": "member_id",
             "description": "<p>会员编号</p>"
           }
@@ -12549,6 +12556,13 @@
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": true,
+            "field": "category_title",
+            "description": "<p>社区分类名称</p>"
           },
           {
             "group": "Parameter",
