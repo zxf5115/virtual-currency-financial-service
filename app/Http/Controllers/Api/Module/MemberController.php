@@ -549,11 +549,20 @@ class MemberController extends BaseController
           return self::error(Code::VERIFICATION_CODE);
         }
 
+        $where = self::getSimpleWhereData($username, 'username');
+
+        $model = $this->_model::getRow($where);
+
+        if(empty($model->id))
+        {
+          return self::error(Code::CURRENT_MOBILE_EMPTY);
+        }
+
         $condition = self::getSimpleWhereData($new_username, 'username');
 
-        $model = $this->_model::getRow($condition);
+        $result = $this->_model::getRow($condition);
 
-        if(!empty($model->id))
+        if(!empty($result->id))
         {
           return self::error(Code::CURRENT_MOBILE_BIND);
         }
