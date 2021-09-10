@@ -564,7 +564,7 @@ class MemberController extends BaseController
 
         if(!empty($result->id))
         {
-          return self::error(Code::CURRENT_MOBILE_BIND);
+          return self::error(Code::NEW_MOBILE_BIND);
         }
 
         $model->username = $new_username;

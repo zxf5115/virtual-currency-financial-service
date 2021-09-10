@@ -121,6 +121,8 @@ class Code
   const CURRENT_MEMBER_ASSET_DEFICIENCY = 90053;
   // 被关注用户不存在
   const ATTENTION_MEMBER_EMPTY = 90054;
+  // 新手机已存在
+  const NEW_MOBILE_BIND = 90055;
 
 
   // 标签不能为空
@@ -240,6 +242,7 @@ class Code
     self::CURRENT_MEMBER_ASSET_EMPTY => '当前会员暂无可用余额',
     self::CURRENT_MEMBER_ASSET_DEFICIENCY => '当前会员可用余额不足',
     self::ATTENTION_MEMBER_EMPTY => '被关注用户不存在',
+    self::NEW_MOBILE_BIND => '新手机已存在',
 
 
     self::LABEL_EMPTY  => '标签不能为空',
