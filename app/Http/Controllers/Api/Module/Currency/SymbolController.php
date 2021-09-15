@@ -129,9 +129,9 @@ class SymbolController extends BaseController
 
       $key = 0;
 
-      foreach($result as $id => $item)
+      foreach($result as $symbol => $item)
       {
-        $response[$key]['id']    = $id;
+        $response[$key]['symbol']    = $symbol;
         $response[$key]['title'] = $item;
 
         $key++;
