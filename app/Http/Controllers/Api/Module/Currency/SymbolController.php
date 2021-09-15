@@ -123,14 +123,15 @@ class SymbolController extends BaseController
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'select');
 
-      $result = $this->_model::getPluck('quote_currency', $condition, $relevance, $this->_order, true);
+      $result = $this->_model::getPluck(['quote_currency', 'id'], $condition, $relevance, $this->_order, true);
 
       $result = array_unique($result);
 
       $key = 0;
 
-      foreach($result as $item)
+      foreach($result as $id => $item)
       {
+        $response[$key]['id']    = $id;
         $response[$key]['title'] = $item;
 
         $key++;
