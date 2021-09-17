@@ -319,6 +319,9 @@ class CategoryController extends BaseController
       $total = $request->total ?? 24;
 
       // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'defi');
+
+      // 获取关联对象
       $response = $this->_model::getList($condition, $relevance, $this->_order, true, $total);
 
       if(!empty($response))
