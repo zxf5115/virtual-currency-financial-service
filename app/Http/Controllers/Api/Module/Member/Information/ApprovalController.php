@@ -88,7 +88,76 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {post} /api/member/information/approval/status 02. 资讯是否点赞
+   * @api {get} /api/member/information/approval/passive?page={page} 02. 点赞过我的列表
+   * @apiDescription 获取会员过我的分页列表
+   * @apiGroup 63. 资讯点赞模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiParam {int} page 当前页数
+   *
+   * @apiSuccess (字段说明|我的资讯) {String} id 资讯编号
+   * @apiSuccess (字段说明|我的资讯) {String} title 资讯标题
+   * @apiSuccess (字段说明|我的资讯) {String} picture 资讯封面
+   * @apiSuccess (字段说明|我的资讯) {String} content 资讯内容
+   * @apiSuccess (字段说明|我的资讯) {String} source 资讯来源
+   * @apiSuccess (字段说明|我的资讯) {String} author 资讯作者
+   * @apiSuccess (字段说明|我的资讯) {String} read_total 阅读总数
+   * @apiSuccess (字段说明|我的资讯) {String} is_recommend 是否推荐
+   * @apiSuccess (字段说明|我的资讯) {String} create_time 发布时间
+   * @apiSuccess (字段说明|点赞会员) {Number} avatar 会员头像
+   * @apiSuccess (字段说明|点赞会员) {Number} nickname 会员昵称
+   *
+   * @apiSampleRequest /api/member/information/approval/passive
+   * @apiVersion 1.0.0
+   */
+  public function passive(Request $request)
+  {
+    try
+    {
+      $condition = self::getCurrentWhereData();
+
+      $information_id = Information::getPluck('id', $condition, false, false, true);
+
+      if(empty($information_id))
+      {
+        return self::success([]);
+      }
+
+      $where = [
+        ['information_id', $information_id]
+      ];
+
+      $condition = self::getSimpleWhereData();
+
+      // 对用户请求进行过滤
+      $filter = $this->filter($request->all());
+
+      $condition = array_merge($condition, $this->_where, $filter, $where);
+
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'list');
+
+      $response = $this->_model::getPaging($condition, $relevance, $this->_order);
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
+
+
+  /**
+   * @api {post} /api/member/information/approval/status 03. 资讯是否点赞
    * @apiDescription 获取当前会员点赞的详情
    * @apiGroup 63. 资讯点赞模块
    * @apiPermission jwt
@@ -153,7 +222,7 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {post} /api/member/information/approval/handle 03. 点赞操作
+   * @api {post} /api/member/information/approval/handle 04. 点赞操作
    * @apiDescription 当前会员执行资讯点赞操作, 已经点赞过，再次点击取消点赞
    * @apiGroup 63. 资讯点赞模块
    * @apiPermission jwt

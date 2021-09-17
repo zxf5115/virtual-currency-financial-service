@@ -10435,9 +10435,148 @@ define({ "api": [
     "name": "GetApiMemberInformationApprovalListPagePage"
   },
   {
+    "type": "get",
+    "url": "/api/member/information/approval/passive?page={page}",
+    "title": "02. 点赞过我的列表",
+    "description": "<p>获取会员过我的分页列表</p>",
+    "group": "63._资讯点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明|我的资讯": [
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>资讯编号</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "title",
+            "description": "<p>资讯标题</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>资讯封面</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>资讯内容</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "source",
+            "description": "<p>资讯来源</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "author",
+            "description": "<p>资讯作者</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "read_total",
+            "description": "<p>阅读总数</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "is_recommend",
+            "description": "<p>是否推荐</p>"
+          },
+          {
+            "group": "字段说明|我的资讯",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>发布时间</p>"
+          }
+        ],
+        "字段说明|点赞会员": [
+          {
+            "group": "字段说明|点赞会员",
+            "type": "Number",
+            "optional": false,
+            "field": "avatar",
+            "description": "<p>会员头像</p>"
+          },
+          {
+            "group": "字段说明|点赞会员",
+            "type": "Number",
+            "optional": false,
+            "field": "nickname",
+            "description": "<p>会员昵称</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/approval/passive"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
+    "groupTitle": "63._资讯点赞模块",
+    "name": "GetApiMemberInformationApprovalPassivePagePage"
+  },
+  {
     "type": "post",
     "url": "/api/member/information/approval/handle",
-    "title": "03. 点赞操作",
+    "title": "04. 点赞操作",
     "description": "<p>当前会员执行资讯点赞操作, 已经点赞过，再次点击取消点赞</p>",
     "group": "63._资讯点赞模块",
     "permission": [
@@ -10491,7 +10630,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/api/member/information/approval/status",
-    "title": "02. 资讯是否点赞",
+    "title": "03. 资讯是否点赞",
     "description": "<p>获取当前会员点赞的详情</p>",
     "group": "63._资讯点赞模块",
     "permission": [

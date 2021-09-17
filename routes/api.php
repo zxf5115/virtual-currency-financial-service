@@ -415,6 +415,7 @@ $api->version('v1', [
               // 会员资讯点赞路由
               $api->group(['prefix'  => 'approval'], function ($api) {
                 $api->get('list', 'ApprovalController@list');
+                $api->get('passive', 'ApprovalController@passive');
                 $api->post('status', 'ApprovalController@status');
                 $api->post('handle', 'ApprovalController@handle');
               });
