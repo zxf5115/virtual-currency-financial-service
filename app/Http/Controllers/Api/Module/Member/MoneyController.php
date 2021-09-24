@@ -223,7 +223,14 @@ class MoneyController extends BaseController
         $model->save();
 
         // 支付
-        event(new PayEvent($model));
+        $result = event(new PayEvent($model));
+
+        if(empty($result[0]))
+        {
+          return self::error(Code::PAY_ERROR);
+        }
+
+        $response = $result[0];
 
         DB::commit();
 
