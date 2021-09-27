@@ -234,23 +234,28 @@ class LoginController extends BaseController
         $encrypted = $result['phone'];
 
         $key = '-----BEGIN PRIVATE KEY-----
-MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALZKEnH84lVa6zCy
-vrv8uncCibvZ39ALdHLm9hWB58jEbYU8mRsTkms+4hygAgZzU8T5c3Jq3w1TFwwq
-nT0R6UT9uth6oMGCudK4cZ9CzH37TVmfq79FG5Y4IpuEa7QoVeKkLPHfZvmU0Ads
-ph8a36iFKuUp9RSWtM9Otni2OgW/AgMBAAECgYEAiahoQ4JYHWMaZt0k4muZGJRn
-FOAUf1SXLMozncxLEDceCdbYPDVMhgan1DwVK2/eG8rRHt+L79EGf56SvXKQN82f
-0PMUBj0us7lpImScpfbjyAkYANqnfnzuumBrktlW9tAFTHR3G7lrkBBMX4ZAsHpO
-sNgvJkwCrWBaRlLPfrkCQQDk3wq5BpRwSy1XciSxHLA2EPfAQYcvFLs+iRkVP+AP
-WqeiYh7kL3WpAsYaSxV5Lw1ExdlaoLglBaVO1kN3oi31AkEAy+WH0Tqest4fWCtB
-iWO7URnFvz2kMkSHOjsbXkhhU70R475ln0kUp41gIXoXCoM+Xw6uwnRvLGbb0Iw8
-mtFAYwJAc/TdRekjg9FS458dH+7dCEeIfou0phHm3EQxxSZbquvPSuJTrGCvSDXz
-kJbCBmfkXRewi84p/ffiTRMZk59DkQJAHhQqSQ9gwfpKnXMkI+R2iaxHo8KwKko5
-uLlnfC0pTnUh4nr/+tOJHH6ao9Wi+IYL+XHtDfqnO+Ggo89MUXp1CQJAVQFXIsnG
-XZBWlZNYS1MYhK1dLwMRIz+op+XrORpxu3+piNHUw+VcQB2/sARKSDINfAgQg2Z/
-BCJ1DmmcAMkT1w==
+MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAMRRVC/qJlWqWwV5
+zeiNO9gJdqamdV0yk6n2n6fEVKqoj05MpojXA+rCu//edos9Ctdzy7YGrdXCmkMh
+JqOEtzBdY2NXG8fi9EzNHzVnAI2ILvo9zGo2N0zBsqA+NZf3pdvkCZR1pRIYK8Ie
+casLKNBE8i6XFJVF9hn2GSIztn3DAgMBAAECgYB0nmdnSy3Yh6koWJHzyio5jG2a
+U5m2cjv7pBB1ZZByDE2M0sW+1hNympl5Rpqe3fUZxaTGjbMoH0DqDcBZNJZorSs/
+r0mol347Nt6Uji7GQVEcfjkmbNKDJRIwOghYDXJOUEx6+j+DcmllSHWh3av+Hyqc
+Mk+Sbgxuycjah4+xOQJBAP5GB42mlrIPoIvorPzLdeU61sqpx/iFfis/Cr9MlBRl
+EoCG+KO5UqWJcNI+rhfIm12V6Cxj29qJnBU5SnXFQy8CQQDFpo/vgmJFcz5La39k
+/0sY/7aIm3+DxBnUfBxZeIYELpfbNa1kZGbGQ+sV2eyWl9UI+IZ8E/5KMOCNb+2f
+j5mtAkALtZnfcg56gLG5/6sHsS7qsXz2tD7bOPqIb0zFZndjQQxLEuwcTgp6SQwD
+ApPt0HUnKCIa+TZEqBWh/JNrPPxNAkACg+YdBCm//IF0cD/Ex0LrZIWsI15yDNLP
+U20A7nm2H+mqznoQZv6v0zlwo79RA0mgvZjoh1CbHRgedKgveaJZAkEAnHIoGtFu
+UZj0BPWWpI3TzLAKxXTpURU3OIaqioiNkc8DEuuu2FEt25678JS0Z1hjNscYbekI
+3F12mvFb6mYbGw==
 -----END PRIVATE KEY-----';
 
         openssl_private_decrypt(base64_decode($encrypted), $username, openssl_pkey_get_private($key));
+
+        if(empty($username))
+        {
+          return self::error(Code::USER_EXIST);
+        }
 
         $condition = self::getSimpleWhereData($username, 'username');
 

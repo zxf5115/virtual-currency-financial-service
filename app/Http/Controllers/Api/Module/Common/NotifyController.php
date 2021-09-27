@@ -213,7 +213,7 @@ class NotifyController extends BaseController
           $url = getenv('APPLE_TEST_PAY_URL');
         }
 
-        $data = json_encode(['receipt-data' => $receipt])
+        $data = json_encode(['receipt-data' => $receipt]);
 
         /**
          * 21000 App Store不能读取你提供的JSON对象
