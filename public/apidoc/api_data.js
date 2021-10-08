@@ -1372,8 +1372,15 @@ define({ "api": [
             "group": "Parameter",
             "type": "int",
             "optional": false,
-            "field": "order_no",
-            "description": "<p>订单号(创建支付订单id)</p>"
+            "field": "member_id",
+            "description": "<p>当前会员编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "money",
+            "description": "<p>充值金额</p>"
           },
           {
             "group": "Parameter",

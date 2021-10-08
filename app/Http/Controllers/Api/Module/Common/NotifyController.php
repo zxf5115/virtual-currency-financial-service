@@ -156,7 +156,8 @@ class NotifyController extends BaseController
    * @apiDescription 获取微信支付回调
    * @apiGroup 02. 公共模块
    *
-   * @apiParam {int} order_no 订单号(创建支付订单id)
+   * @apiParam {int} member_id 当前会员编号
+   * @apiParam {int} money 充值金额
    * @apiParam {int} is_box 是否为沙盒
    * @apiParam {int} receipt 苹果凭证
    *
@@ -166,13 +167,15 @@ class NotifyController extends BaseController
   public function apple(Request $request)
   {
     $messages = [
-      'money.required'   => '请您输入订单号',
-      'receipt.required' => '请您输入苹果凭证',
+      'member_id.required' => '请您输入当前会员编号',
+      'money.required'     => '请您输入订单号',
+      'receipt.required'   => '请您输入苹果凭证',
     ];
 
     $rule = [
-      'money'   => 'required',
-      'receipt' => 'required',
+      'member_id' => 'required',
+      'money'     => 'required',
+      'receipt'   => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -188,18 +191,24 @@ class NotifyController extends BaseController
 
       try
       {
-        $order_no = $request->order_no;
+        $member_id = $request->member_id;
+        $money = round($request->money, 2);
 
         $receipt  = $request->receipt;
 
         $is_box  = $request->is_box;
 
         $where = [
-          'id'     => $order_no,
-          'status' => 1
+          'member_id' => $member_id,
+          'money'     => $money,
+          'status'    => 1
         ];
 
-        $model = Money::getRow($where);
+        $order = [
+          ['key' => 'id', 'value' => 'desc']
+        ];
+
+        $model = Money::getRow($where, false, false, $order);
 
         if(empty($model->id))
         {

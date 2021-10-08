@@ -58,6 +58,8 @@ class BaseController extends Common
   // 判断是否拥有权限
   public function __construct()
   {
+    parent::__construct();
+
   	// 这里额外注意了：官方文档样例中只除外了『login』
     // 这样的结果是，token 只能在有效期以内进行刷新，过期无法刷新
     // 如果把 refresh 也放进去，token 即使过期但仍在刷新期以内也可刷新
