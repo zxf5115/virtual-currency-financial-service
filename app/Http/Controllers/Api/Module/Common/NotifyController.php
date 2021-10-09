@@ -60,7 +60,7 @@ class NotifyController extends BaseController
 
       if(empty($model->id))
       {
-        return false;
+        return self::error(Code::CURRENT_ORDER_EMPTY);
       }
 
       $model->confirm_status = 1;
@@ -123,7 +123,7 @@ class NotifyController extends BaseController
 
       if(empty($model->id))
       {
-        return false;
+        return self::error(Code::CURRENT_ORDER_EMPTY);
       }
 
       $model->confirm_status = 1;
@@ -212,7 +212,7 @@ class NotifyController extends BaseController
 
         if(empty($model->id))
         {
-          return false;
+          return self::error(Code::CURRENT_ORDER_EMPTY);
         }
 
         $url = getenv('APPLE_PAY_URL');
