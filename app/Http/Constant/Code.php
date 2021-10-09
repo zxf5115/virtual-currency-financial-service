@@ -80,15 +80,15 @@ class Code
   // 当前订单已支付，无法修改
   const CURRENT_ORDER_NO_CHANGE = 90023;
   // 当前课程不存在
-  const CURRENT_COURSE_EMPTY = 90022;
+  const CURRENT_COURSE_EMPTY = 90024;
   // 报名时间还未开始
-  const COURSE_APPLY_WAIT = 90023;
+  const COURSE_APPLY_WAIT = 90025;
   // 报名时间已经过了
-  const COURSE_APPLY_END = 90024;
+  const COURSE_APPLY_END = 90026;
   // 当前课程已购买，无需再次购买
-  const COURSE_EXITS = 90025;
+  const COURSE_EXITS = 90027;
   // 订单课程不存在
-  const CURRENT_ORDER_COURSE_EXITS = 90026;
+  const CURRENT_ORDER_COURSE_EXITS = 90028;
 
   // 用户不存在
   const USER_EMPTY  = 9003;
