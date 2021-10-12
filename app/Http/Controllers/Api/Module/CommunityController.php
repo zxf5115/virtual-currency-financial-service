@@ -54,6 +54,7 @@ class CommunityController extends BaseController
    * @apiParam {int} [category_id] 社区分类编号
    * @apiParam {int} [category_title] 社区分类名称
    * @apiParam {int} [member_id] 会员编号
+   * @apiParam {int} [title] 社区标题
    *
    * @apiSuccess (字段说明) {Number} id 社区编号
    * @apiSuccess (字段说明) {String} title 社区标题

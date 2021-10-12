@@ -11441,6 +11441,13 @@
             "optional": true,
             "field": "member_id",
             "description": "<p>会员编号</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": true,
+            "field": "title",
+            "description": "<p>社区标题</p>"
           }
         ]
       }
