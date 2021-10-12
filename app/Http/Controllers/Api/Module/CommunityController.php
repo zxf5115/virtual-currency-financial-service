@@ -27,7 +27,8 @@ class CommunityController extends BaseController
   // 客户端搜索字段
   protected $_params = [
     'category_id',
-    'member_id'
+    'member_id',
+    'title'
   ];
 
   // 附加查询条件
