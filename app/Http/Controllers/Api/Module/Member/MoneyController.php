@@ -222,7 +222,7 @@ class MoneyController extends BaseController
         $model->pay_type  = $request->pay_type;
         $model->save();
 
-        $response = true;
+        $response = $model;
 
         if(1== $request->pay_type || 2 == $request->pay_type)
         {
