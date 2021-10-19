@@ -222,15 +222,21 @@ class MoneyController extends BaseController
         $model->pay_type  = $request->pay_type;
         $model->save();
 
-        // 支付
-        $result = event(new PayEvent($model));
+        $response = true;
 
-        if(empty($result[0]))
+        if(3 != $request->pay_type)
         {
-          return self::error(Code::PAY_ERROR);
+          // 支付
+          $result = event(new PayEvent($model));
+
+          if(empty($result[0]))
+          {
+            return self::error(Code::PAY_ERROR);
+          }
+
+          $response = $result[0];
         }
 
-        $response = $result[0];
 
         DB::commit();
 
