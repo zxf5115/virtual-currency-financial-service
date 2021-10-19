@@ -224,7 +224,7 @@ class MoneyController extends BaseController
 
         $response = true;
 
-        if(3 != $request->pay_type)
+        if(1== $request->pay_type || 2 == $request->pay_type)
         {
           // 支付
           $result = event(new PayEvent($model));
