@@ -114,9 +114,16 @@ class BaseController extends Controller
     switch($value)
     {
       case 1:
+        sleep(5);
+        break;
       case 5:
+        sleep(1);
+        break;
       case 7:
         sleep(2);
+        break;
+      case 8:
+        sleep(3);
         break;
     }
   }
