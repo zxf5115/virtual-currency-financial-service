@@ -107,25 +107,25 @@ class BaseController extends Controller
   // 判断是否拥有权限
   public function __construct()
   {
-    $timestamp = time();
+    // $timestamp = time();
 
-    $value = substr($timestamp, -1, 1);
+    // $value = substr($timestamp, -1, 1);
 
-    switch($value)
-    {
-      case 1:
-        sleep(5);
-        break;
-      case 5:
-        sleep(1);
-        break;
-      case 7:
-        sleep(2);
-        break;
-      case 8:
-        sleep(3);
-        break;
-    }
+    // switch($value)
+    // {
+    //   case 1:
+    //     sleep(5);
+    //     break;
+    //   case 5:
+    //     sleep(1);
+    //     break;
+    //   case 7:
+    //     sleep(2);
+    //     break;
+    //   case 8:
+    //     sleep(3);
+    //     break;
+    // }
   }
 
 
