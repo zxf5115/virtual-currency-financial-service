@@ -37,10 +37,10 @@ class Kernel extends ConsoleKernel
       $clear_time = Config::getConfigValue('clear_time');
 
       // 清除平台数据
-      $schedule->call(function () {
-        $clear = new Clear();
-        $clear->action();
-      })->monthlyOn($clear_time, '04:00');
+      // $schedule->call(function () {
+      //   $clear = new Clear();
+      //   $clear->action();
+      // })->monthlyOn($clear_time, '04:00');
 
       // // 清除失效贵宾数据
       $schedule->call(function () {
