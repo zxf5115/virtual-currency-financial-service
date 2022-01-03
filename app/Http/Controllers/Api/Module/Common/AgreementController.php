@@ -302,19 +302,19 @@ class AgreementController extends BaseController
       // 平台核心数据Reids Key
       $key = RedisKey::AGREEMENT;
 
-      if(Redis::hexists($key, 'liability'))
+      if(Redis::hexists($key, 'service'))
       {
-        $data = Redis::hget($key, 'liability');
+        $data = Redis::hget($key, 'service');
 
         $response = unserialize($data);
       }
       else
       {
-        $response = $this->_model::getRow(['title' => 'liability']);
+        $response = $this->_model::getRow(['title' => 'service']);
 
         $data = serialize($response);
 
-        Redis::hset($key, 'liability', $data);
+        Redis::hset($key, 'service', $data);
       }
 
       return self::success($response);
