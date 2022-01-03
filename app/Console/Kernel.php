@@ -43,31 +43,31 @@ class Kernel extends ConsoleKernel
       // })->monthlyOn($clear_time, '04:00');
 
       // // 清除失效贵宾数据
-      $schedule->call(function () {
-        $clear = new Failure();
-        $clear->action();
-      })->everyMinute();
+      // $schedule->call(function () {
+      //   $clear = new Failure();
+      //   $clear->action();
+      // })->everyMinute();
 
 
       // 抓取金色财经数据
       $schedule->call(function () {
         $clear = new Crawler();
         $clear->action();
-      })->hourly();
+      })->everyMinute();
 
 
       // // 定时获取货币交易对
-      $schedule->call(function () {
-        $currency = new Symbol();
-        $currency->action();
-      })->yearly();
+      // $schedule->call(function () {
+      //   $currency = new Symbol();
+      //   $currency->action();
+      // })->yearly();
 
 
-      // 定时获取货币种类
-      $schedule->call(function () {
-        $currency = new Category();
-        $currency->action();
-      })->yearly();
+      // // 定时获取货币种类
+      // $schedule->call(function () {
+      //   $currency = new Category();
+      //   $currency->action();
+      // })->yearly();
 
 
       // 定时获取货币交易所
