@@ -283,4 +283,48 @@ class AgreementController extends BaseController
       return self::error(Code::ERROR);
     }
   }
+
+
+  /**
+   * @api {get} /api/common/agreement/service 08. 服务协议
+   * @apiDescription 获取服务协议
+   * @apiGroup 02. 公共模块
+   *
+   * @apiSuccess (basic params) {String} content 协议内容
+   *
+   * @apiSampleRequest /api/common/agreement/service
+   * @apiVersion 1.0.0
+   */
+  public function service(Request $request)
+  {
+    try
+    {
+      // 平台核心数据Reids Key
+      $key = RedisKey::AGREEMENT;
+
+      if(Redis::hexists($key, 'liability'))
+      {
+        $data = Redis::hget($key, 'liability');
+
+        $response = unserialize($data);
+      }
+      else
+      {
+        $response = $this->_model::getRow(['title' => 'liability']);
+
+        $data = serialize($response);
+
+        Redis::hset($key, 'liability', $data);
+      }
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
 }

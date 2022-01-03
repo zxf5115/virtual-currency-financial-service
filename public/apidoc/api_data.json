@@ -1159,6 +1159,35 @@
   },
   {
     "type": "get",
+    "url": "/api/common/agreement/service",
+    "title": "08. 服务协议",
+    "description": "<p>获取服务协议</p>",
+    "group": "02._公共模块",
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>协议内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/common/agreement/service"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Common/AgreementController.php",
+    "groupTitle": "02._公共模块",
+    "name": "GetApiCommonAgreementService"
+  },
+  {
+    "type": "get",
     "url": "/api/common/agreement/specification",
     "title": "07. 账户使用规范",
     "description": "<p>获取账户使用规范</p>",

@@ -61,6 +61,7 @@ $api->version('v1', [
           $api->get('privacy', 'AgreementController@privacy');
           $api->get('specification', 'AgreementController@specification');
           $api->get('liability', 'AgreementController@liability');
+          $api->get('service', 'AgreementController@service');
         });
 
         // 支付回调路由
