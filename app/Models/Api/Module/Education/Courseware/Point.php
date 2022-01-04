@@ -49,6 +49,7 @@ class Point extends Common
 
     $where = [
       'status'        => 1,
+      'pay_status'    => 1,
       'member_id'     => $member_id,
       'courseware_id' => $this->courseware_id
     ];
