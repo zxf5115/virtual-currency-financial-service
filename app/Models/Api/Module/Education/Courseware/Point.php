@@ -1,7 +1,7 @@
 <?php
 namespace App\Models\Api\Module\Education\Courseware;
 
-use App\Models\Common\Module\Order\Courseware as OrderCourseware;
+use App\Models\Common\Module\Member\Courseware as MemberCourseware;
 use App\Models\Common\Module\Education\Courseware\Point as Common;
 
 /**
@@ -49,12 +49,11 @@ class Point extends Common
 
     $where = [
       'status'        => 1,
-      'pay_status'    => 1,
       'member_id'     => $member_id,
       'courseware_id' => $this->courseware_id
     ];
 
-    $response = OrderCourseware::getRow($where);
+    $response = MemberCourseware::getRow($where);
 
     if(empty($response->id))
     {
