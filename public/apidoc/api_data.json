@@ -1246,6 +1246,35 @@
   },
   {
     "type": "get",
+    "url": "/api/common/agreement/vip",
+    "title": "09. 贵宾说明",
+    "description": "<p>获取贵宾说明</p>",
+    "group": "02._公共模块",
+    "success": {
+      "fields": {
+        "basic params": [
+          {
+            "group": "basic params",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>协议内容</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/common/agreement/vip"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Common/AgreementController.php",
+    "groupTitle": "02._公共模块",
+    "name": "GetApiCommonAgreementVip"
+  },
+  {
+    "type": "get",
     "url": "/api/common/area/list",
     "title": "02. 地区列表",
     "description": "<p>获取全国地区列表</p>",

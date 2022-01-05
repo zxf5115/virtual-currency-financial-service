@@ -122,6 +122,8 @@ $api->version('v1', [
         $api->any('privacy', 'SettingController@privacy');
         $api->any('specification', 'SettingController@specification');
         $api->any('liability', 'SettingController@liability');
+        $api->any('service', 'SettingController@service');
+        $api->any('vip', 'SettingController@vip');
       });
 
 

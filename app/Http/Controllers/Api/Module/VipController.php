@@ -18,6 +18,17 @@ class VipController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Vip';
 
+  // 默认查询条件
+  protected $_where = [
+    ['id', '<>', 1]
+  ];
+
+  // 排序方式
+  protected $_order = [
+    ['key' => 'sort', 'value' => 'desc'],
+    ['key' => 'create_time', 'value' => 'desc'],
+  ];
+
 
   /**
    * @api {get} /api/vip/list?page={page} 01. 贵宾列表
