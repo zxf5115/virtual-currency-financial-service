@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Http\Constant\Code;
+use App\Models\Api\Module\Vip;
 use App\Events\Api\Member\AssetEvent;
 use App\Events\Api\Member\MoneyEvent;
 use App\Models\Common\Module\Member\Asset;
@@ -125,11 +126,26 @@ class VipController extends BaseController
           return self::error(Code::CURRENT_MEMBER_ASSET_DEFICIENCY);
         }
 
+        $vip = Vip::getRow(['id' => $request->vip_id]);
+
+        $valid_time = 0;
+
+        if(!empty($vip->id))
+        {
+          $valid_time = $vip->valid_time;
+        }
+
+        // 60 * 60 * 24 * 30
+        $timestamp = bcmul(2592000, $valid_time);
+
+        $end_time = bcadd(time(), $timestamp);
+
         $model = $this->_model::firstOrNew([
           'member_id' => $member_id,
         ]);
 
-        $model->vip_id = $request->vip_id;
+        $model->vip_id   = $request->vip_id;
+        $model->end_time = $end_time;
         $model->save();
 
         // 扣除费用
