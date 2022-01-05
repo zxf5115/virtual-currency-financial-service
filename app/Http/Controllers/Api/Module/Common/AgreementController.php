@@ -327,4 +327,48 @@ class AgreementController extends BaseController
       return self::error(Code::ERROR);
     }
   }
+
+
+  /**
+   * @api {get} /api/common/agreement/vip 09. 贵宾说明
+   * @apiDescription 获取贵宾说明
+   * @apiGroup 02. 公共模块
+   *
+   * @apiSuccess (basic params) {String} content 协议内容
+   *
+   * @apiSampleRequest /api/common/agreement/vip
+   * @apiVersion 1.0.0
+   */
+  public function vip(Request $request)
+  {
+    try
+    {
+      // 平台核心数据Reids Key
+      $key = RedisKey::AGREEMENT;
+
+      if(Redis::hexists($key, 'vip'))
+      {
+        $data = Redis::hget($key, 'vip');
+
+        $response = unserialize($data);
+      }
+      else
+      {
+        $response = $this->_model::getRow(['title' => 'vip']);
+
+        $data = serialize($response);
+
+        Redis::hset($key, 'vip', $data);
+      }
+
+      return self::success($response);
+    }
+    catch(\Exception $e)
+    {
+      // 记录异常信息
+      self::record($e);
+
+      return self::error(Code::ERROR);
+    }
+  }
 }
