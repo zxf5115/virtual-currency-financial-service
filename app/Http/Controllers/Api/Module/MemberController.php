@@ -30,6 +30,7 @@ class MemberController extends BaseController
     'archive' => [
       'archive',
       'certification',
+      'vipRelevance.gvip'
     ],
     'asset' => [
       'asset'
