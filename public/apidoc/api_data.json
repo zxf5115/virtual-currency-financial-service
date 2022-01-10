@@ -3671,8 +3671,8 @@
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "invitation_member_id",
-            "description": "<p>邀请人编号</p>"
+            "field": "invitation_code",
+            "description": "<p>邀请码</p>"
           }
         ]
       }
@@ -3725,8 +3725,8 @@
             "group": "Parameter",
             "type": "Number",
             "optional": false,
-            "field": "invitation_member_id",
-            "description": "<p>邀请会员编号</p>"
+            "field": "invitation_code",
+            "description": "<p>邀请码</p>"
           }
         ]
       }
