@@ -162,7 +162,7 @@ class InvitationController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {Number} invitation_member_id 邀请会员编号
+   * @apiParam {Number} invitation_code 邀请码
    *
    * @apiSuccess (字段说明) {Boolean} status 是否邀请
    *
@@ -172,11 +172,11 @@ class InvitationController extends BaseController
   public function status(Request $request)
   {
     $messages = [
-      'invitation_member_id.required' => '请您输入邀请会员编号',
+      'invitation_code.required' => '请您输入邀请码',
     ];
 
     $rule = [
-      'invitation_member_id' => 'required',
+      'invitation_code' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -194,7 +194,9 @@ class InvitationController extends BaseController
 
         $condition = self::getCurrentWhereData();
 
-        $where = ['invitation_member_id' => $request->invitation_member_id];
+        $invitation_member_id = intval(str_replace('BMW', '', $request->invitation_code));
+
+        $where = ['invitation_member_id' => $invitation_member_id];
 
         $condition = array_merge($condition, $where);
 
@@ -229,7 +231,7 @@ class InvitationController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
-   * @apiParam {string} invitation_member_id 邀请人编号
+   * @apiParam {string} invitation_code 邀请码
    *
    * @apiSampleRequest /api/member/invitation/handle
    * @apiVersion 1.0.0
@@ -237,11 +239,11 @@ class InvitationController extends BaseController
   public function handle(Request $request)
   {
     $messages = [
-      'invitation_member_id.required' => '请您输入邀请人编号',
+      'invitation_code.required' => '请您输入邀请码',
     ];
 
     $rule = [
-      'invitation_member_id' => 'required',
+      'invitation_code' => 'required',
     ];
 
     // 验证用户数据内容是否正确
@@ -255,9 +257,11 @@ class InvitationController extends BaseController
     {
       try
       {
+        $invitation_member_id = intval(str_replace('BMW', '', $request->invitation_code));
+
         $this->_model::createOrDelete([
           'member_id'            => self::getCurrentId(),
-          'invitation_member_id' => $request->invitation_member_id
+          'invitation_member_id' => $invitation_member_id
         ]);
 
         return self::success(Code::message(Code::HANDLE_SUCCESS));
