@@ -216,6 +216,8 @@ $api->version('v1', [
       // 通知路由
       $api->group(['namespace' => 'Notice', 'prefix' => 'notice', 'middleware' => ['auth:api', 'refresh.token.api', 'failure']], function ($api) {
 
+        $api->get('list', 'NoticeController@list');
+
         // 通知分类路由
         $api->group(['prefix'  => 'category'], function ($api) {
           $api->get('select', 'CategoryController@select');

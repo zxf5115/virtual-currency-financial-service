@@ -2174,6 +2174,87 @@ define({ "api": [
   },
   {
     "type": "get",
+    "url": "/api/notice/list?page={page}",
+    "title": "我的通知列表",
+    "description": "<p>获取当前会员通知分页列表</p>",
+    "group": "11._通知模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "page",
+            "description": "<p>当前页数</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "字段说明": [
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>通知编号</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>通知内容</p>"
+          },
+          {
+            "group": "字段说明",
+            "type": "String",
+            "optional": false,
+            "field": "create_time",
+            "description": "<p>通知时间</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/notice/list"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/NoticeController.php",
+    "groupTitle": "11._通知模块",
+    "name": "GetApiNoticeListPagePage"
+  },
+  {
+    "type": "get",
     "url": "/api/vip/list?page={page}",
     "title": "01. 贵宾列表",
     "description": "<p>获取贵宾分页列表</p>",
