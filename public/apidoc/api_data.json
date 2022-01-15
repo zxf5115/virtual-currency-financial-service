@@ -6256,6 +6256,13 @@
             "optional": false,
             "field": "page",
             "description": "<p>当前页数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "int",
+            "optional": false,
+            "field": "pay_status",
+            "description": "<p>支付状态 0 待支付 1 已支付</p>"
           }
         ]
       }

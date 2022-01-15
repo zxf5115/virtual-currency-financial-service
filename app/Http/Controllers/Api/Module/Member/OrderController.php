@@ -26,6 +26,11 @@ class OrderController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Api\Module\Order';
 
+  // 客户端搜索字段
+  protected $_params = [
+    'pay_status',
+  ];
+
   // 关联对像
   protected $_relevance = [
     'list' => [
@@ -49,6 +54,7 @@ class OrderController extends BaseController
    * }
    *
    * @apiParam {int} page 当前页数
+   * @apiParam {int} pay_status 支付状态 0 待支付 1 已支付
    *
    * @apiSuccess (字段说明|订单) {String} id 订单编号
    * @apiSuccess (字段说明|订单) {String} order_no 订单号
