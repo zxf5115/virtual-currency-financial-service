@@ -37,22 +37,24 @@ class AuroraListeners
     {
       // 推送消息类型
       $type   = $event->type;
+
       // 推送数据
       $data   = $event->data;
-      // 推送人别名
-      $member_id = $event->member_id;
-
-      // 获取用户推送设置信息
-      $setting= Setting::getRow(['member_id' => $member_id]);
-
-      if(empty($setting->id) || 2 == $setting->push_switch['value'])
-      {
-        return false;
-      }
 
       // 私信消息
       if(1 == $type)
       {
+        // 推送人别名
+        $member_id = $event->member_id;
+
+        // 获取用户推送设置信息
+        $setting= Setting::getRow(['member_id' => $member_id]);
+
+        if(empty($setting->id) || 2 == $setting->push_switch['value'])
+        {
+          return false;
+        }
+
         $this->message($data, $member_id);
       }
       // 公告消息
