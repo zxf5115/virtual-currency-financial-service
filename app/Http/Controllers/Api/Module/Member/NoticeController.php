@@ -25,6 +25,12 @@ class NoticeController extends BaseController
   ];
 
 
+  // 关联对象
+  protected $_relevance = [
+    'notice.category',
+  ];
+
+
   /**
    * @api {get} /api/member/notice/list?page={page} 我的通知列表
    * @apiDescription 获取当前会员通知分页列表
