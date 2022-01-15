@@ -90,7 +90,7 @@ class AuroraListeners
       // 推送平台 ios android
       $params['platform'] = 'all';
       // 推送标题
-      $params['title'] = $data['title'] ?? '币码翁消息';
+      $params['title'] = $data['title'] ?? '凌晨财经消息';
       // 推送内容
       $params['content'] = $data['content'] ?? '';
       // 通知栏样式 ID
@@ -135,7 +135,7 @@ class AuroraListeners
       // 推送平台 ios android
       $params['platform'] = 'all';
       // 推送标题
-      $params['title'] = $data['title'] ?? '币码翁消息';
+      $params['title'] = $data['title'] ?? '凌晨财经消息';
       // 推送内容
       $params['content'] = $data['content'] ?? '';
       // 通知栏样式 ID
