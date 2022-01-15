@@ -50,7 +50,7 @@ class NoticeController extends BaseController
   {
     try
     {
-      $condition = self::getCurrentWhereData();
+      $condition = self::getBaseWhereData();
 
       // 对用户请求进行过滤
       $filter = $this->filter($request->all());
