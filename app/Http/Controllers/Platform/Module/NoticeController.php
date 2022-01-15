@@ -68,17 +68,17 @@ class NoticeController extends BaseController
         $model = $this->_model::firstOrNew(['id' => $request->id]);
 
         $model->organization_id = self::getOrganizationId();
-        $model->category_id     = 1;
+        $model->category_id     = $request->category_id ?? 1;
         $model->content         = $request->content;
         $model->save();
 
-        $data = [
-          'title'   => '系统公告',
-          'content' => $request->content ?? ''
-        ];
+        // $data = [
+        //   'title'   => '系统公告',
+        //   'content' => $request->content ?? ''
+        // ];
 
-        // 消息推送
-        event(new AuroraEvent(3, $data));
+        // // 消息推送
+        // event(new AuroraEvent(3, $data));
 
         DB::commit();
 

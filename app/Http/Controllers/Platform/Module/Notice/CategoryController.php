@@ -17,6 +17,11 @@ class CategoryController extends BaseController
   // 模型名称
   protected $_model = 'App\Models\Platform\Module\Notice\Category';
 
+  // 客户端搜索字段
+  protected $_params = [
+    'type',
+  ];
+
   // 排序条件
   protected $_order = [
     ['key' => 'sort', 'value' => 'desc'],
