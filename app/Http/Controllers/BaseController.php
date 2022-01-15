@@ -181,6 +181,11 @@ class BaseController extends Controller
         continue;
       }
 
+      if($value == 'null')
+      {
+        continue;
+      }
+
       if(in_array($key, $this->_params))
       {
         $params[$key] = $value;
