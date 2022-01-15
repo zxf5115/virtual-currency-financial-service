@@ -44,15 +44,15 @@ class VipController extends BaseController
   {
     try
     {
-      $status = true;
+      $status = false;
 
       $condition = self::getCurrentWhereData('member_id');
 
       $response = $this->_model::getRow($condition);
 
-      if(empty($response->id))
+      if(!empty($response->id) && $response->vip_id > 1)
       {
-        $status = false;
+        $status = true;
       }
 
       return self::success($status);
