@@ -10721,6 +10721,60 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/api/member/information/approval/data",
+    "title": "05. 点赞统计",
+    "description": "<p>当前会员执行资讯点赞统计</p>",
+    "group": "63._资讯点赞模块",
+    "permission": [
+      {
+        "name": "jwt"
+      }
+    ],
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "Authorization",
+            "description": "<p>身份令牌</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Header-Example:",
+          "content": "{\n  \"Authorization\": \"Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "information_id",
+            "description": "<p>资讯编号</p>"
+          }
+        ]
+      }
+    },
+    "sampleRequest": [
+      {
+        "url": "/api/member/information/approval/data"
+      }
+    ],
+    "version": "1.0.0",
+    "filename": "app/Http/Controllers/Api/Module/Member/Information/ApprovalController.php",
+    "groupTitle": "63._资讯点赞模块",
+    "name": "PostApiMemberInformationApprovalData"
+  },
+  {
+    "type": "post",
     "url": "/api/member/information/approval/handle",
     "title": "04. 点赞操作",
     "description": "<p>当前会员执行资讯点赞操作, 已经点赞过，再次点击取消点赞</p>",
