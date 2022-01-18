@@ -351,6 +351,6 @@ class ApprovalController extends BaseController
       'accepted_total' => $accepted_total,
     ];
 
-    return self::error($response);
+    return self::success($response);
   }
 }
