@@ -318,12 +318,14 @@ class ApprovalController extends BaseController
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
    *
+   * @apiParam {string} member_id 会员编号
+   *
    * @apiSampleRequest /api/member/information/approval/data
    * @apiVersion 1.0.0
    */
   public function data(Request $request)
   {
-    $condition = self::getCurrentWhereData();
+    $condition = self::getSimpleWhereData($request->member_id, 'member_id');
 
     $approval_total = $this->_model::getCount($condition);
 

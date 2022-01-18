@@ -10472,6 +10472,19 @@ define({ "api": [
         }
       ]
     },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "member_id",
+            "description": "<p>会员编号</p>"
+          }
+        ]
+      }
+    },
     "sampleRequest": [
       {
         "url": "/api/member/information/approval/data"
