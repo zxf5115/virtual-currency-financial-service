@@ -308,7 +308,7 @@ class ApprovalController extends BaseController
 
 
   /**
-   * @api {post} /api/member/information/approval/data 05. 点赞统计
+   * @api {get} /api/member/information/approval/data 05. 点赞统计
    * @apiDescription 当前会员执行资讯点赞统计
    * @apiGroup 63. 资讯点赞模块
    * @apiPermission jwt
@@ -317,8 +317,6 @@ class ApprovalController extends BaseController
    * {
    *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
    * }
-   *
-   * @apiParam {string} information_id 资讯编号
    *
    * @apiSampleRequest /api/member/information/approval/data
    * @apiVersion 1.0.0
