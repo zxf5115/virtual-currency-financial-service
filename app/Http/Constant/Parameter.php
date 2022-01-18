@@ -11,7 +11,7 @@ namespace App\Http\Constant;
 class Parameter
 {
   // 默认头像
-  const AVATER = 'https://xiaocy.obs.cn-south-1.myhuaweicloud.com/avatar/2021-01-03/avatar.png';
+  const AVATER = 'http://hnbimawen.oss-cn-beijing.aliyuncs.com/picture/2022-01-18/31f22374ef01088c8733dfdb826889f3.png';
 
   // 默认密码
   const PASSWORD = '123456';
