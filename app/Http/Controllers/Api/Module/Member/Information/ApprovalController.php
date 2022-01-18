@@ -303,4 +303,54 @@ class ApprovalController extends BaseController
       }
     }
   }
+
+
+
+
+  /**
+   * @api {post} /api/member/information/approval/data 05. 点赞统计
+   * @apiDescription 当前会员执行资讯点赞统计
+   * @apiGroup 63. 资讯点赞模块
+   * @apiPermission jwt
+   * @apiHeader {String} Authorization 身份令牌
+   * @apiHeaderExample {json} Header-Example:
+   * {
+   *   "Authorization": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiO"
+   * }
+   *
+   * @apiParam {string} information_id 资讯编号
+   *
+   * @apiSampleRequest /api/member/information/approval/data
+   * @apiVersion 1.0.0
+   */
+  public function data(Request $request)
+  {
+    $condition = self::getCurrentWhereData();
+
+    $approval_total = $this->_model::getCount($condition);
+
+    $information_id = Information::getPluck('id', $condition, false, false, true);
+
+    if(empty($information_id))
+    {
+      $accepted_total = 0;
+    }
+
+    $where = [
+      ['information_id', $information_id]
+    ];
+
+    $condition = self::getSimpleWhereData();
+
+    $condition = array_merge($condition, $where);
+
+    $accepted_total = $this->_model::getCount($condition);
+
+    $response = [
+      'approval_total' => $approval_total,
+      'accepted_total' => $accepted_total,
+    ];
+
+    return self::error($response);
+  }
 }

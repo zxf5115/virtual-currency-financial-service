@@ -422,6 +422,7 @@ $api->version('v1', [
                 $api->get('passive', 'ApprovalController@passive');
                 $api->post('status', 'ApprovalController@status');
                 $api->post('handle', 'ApprovalController@handle');
+                $api->get('data', 'ApprovalController@data');
               });
 
               // 会员资讯收藏路由
