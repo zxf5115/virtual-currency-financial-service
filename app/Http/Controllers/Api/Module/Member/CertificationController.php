@@ -121,6 +121,8 @@ class CertificationController extends BaseController
         $model->organization_id = self::getOrganizationId();
         $model->member_id       = $member_id;
         $model->type            = 1;
+        $model->certification_status = 0;
+        $model->certification_content = '';
         $model->save();
 
         $data = [
@@ -203,6 +205,8 @@ class CertificationController extends BaseController
         $model->organization_id = self::getOrganizationId();
         $model->member_id       = $member_id;
         $model->type            = 2;
+        $model->certification_status = 0;
+        $model->certification_content = '';
         $model->save();
 
         $data = [
@@ -295,6 +299,8 @@ class CertificationController extends BaseController
         $model->organization_id = self::getOrganizationId();
         $model->member_id       = $member_id;
         $model->type            = 3;
+        $model->certification_status = 0;
+        $model->certification_content = '';
         $model->save();
 
         $data = [
