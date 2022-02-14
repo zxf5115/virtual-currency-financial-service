@@ -259,15 +259,15 @@ $api->version('v1', [
 
 
       // 会员路由
-      $api->group(['prefix'  => 'member', 'middleware' => ['auth:api', 'refresh.token.api', 'failure']], function ($api) {
-        $api->get('archive', 'MemberController@archive');
-        $api->get('asset', 'MemberController@asset');
-        $api->get('status', 'MemberController@status');
-        $api->post('handle', 'MemberController@handle');
+      $api->group(['prefix'  => 'member'], function ($api) {
+        $api->get('archive', 'MemberController@archive')->middleware(['auth:api', 'refresh.token.api', 'failure']);
+        $api->get('asset', 'MemberController@asset')->middleware(['auth:api', 'refresh.token.api', 'failure']);
+        $api->get('status', 'MemberController@status')->middleware(['auth:api', 'refresh.token.api', 'failure']);
+        $api->post('handle', 'MemberController@handle')->middleware(['auth:api', 'refresh.token.api', 'failure']);
         $api->get('data', 'MemberController@data');
-        $api->post('password', 'MemberController@password');
-        $api->post('change_code', 'MemberController@change_code');
-        $api->post('change_mobile', 'MemberController@change_mobile');
+        $api->post('password', 'MemberController@password')->middleware(['auth:api', 'refresh.token.api', 'failure']);
+        $api->post('change_code', 'MemberController@change_code')->middleware(['auth:api', 'refresh.token.api', 'failure']);
+        $api->post('change_mobile', 'MemberController@change_mobile')->middleware(['auth:api', 'refresh.token.api', 'failure']);
 
 
         // 会员关联内容路由

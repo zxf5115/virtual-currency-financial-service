@@ -65,9 +65,6 @@ class AuroraListeners
     }
     catch(\Exception $e)
     {
-      // 记录异常信息
-      record($e);
-
       return false;
     }
   }
@@ -109,9 +106,6 @@ class AuroraListeners
     }
     catch (\Exception $e)
     {
-      // 记录异常信息
-      record($e);
-
       return false;
     }
   }
@@ -156,9 +150,6 @@ class AuroraListeners
     }
     catch (\Exception $e)
     {
-      // 记录异常信息
-      record($e);
-
       return false;
     }
   }
