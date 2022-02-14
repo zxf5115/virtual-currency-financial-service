@@ -20,7 +20,13 @@ class CertificationController extends BaseController
   protected $_model = 'App\Models\Api\Module\Member\Certification';
 
   // 关联对象
-  protected $_relevance = [];
+  protected $_relevance = [
+    'data' => [
+      'personal',
+      'company',
+      'project',
+    ]
+  ];
 
 
   /**
@@ -364,24 +370,14 @@ class CertificationController extends BaseController
 
       $condition = self::getCurrentWhereData();
 
-      $model = $this->_model::getRow($condition);
+      // 获取关联对象
+      $relevance = self::getRelevanceData($this->_relevance, 'view');
+
+      $model = $this->_model::getRow($condition, $relevance);
 
       if(empty($model->id))
       {
         return self::error(Code::CERITFICATION_EMPTY);
-      }
-
-      if(1 == $model->type['value'])
-      {
-        $response = $model->with('personal');
-      }
-      else if(2 == $model->type['value'])
-      {
-        $response = $model->with('company');
-      }
-      else if(3 == $model->type['value'])
-      {
-        $response = $model->with('project');
       }
 
       return self::success($response);
