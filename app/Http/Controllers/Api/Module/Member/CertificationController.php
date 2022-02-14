@@ -371,7 +371,7 @@ class CertificationController extends BaseController
       $condition = self::getCurrentWhereData();
 
       // 获取关联对象
-      $relevance = self::getRelevanceData($this->_relevance, 'view');
+      $relevance = self::getRelevanceData($this->_relevance, 'data');
 
       $model = $this->_model::getRow($condition, $relevance);
 
