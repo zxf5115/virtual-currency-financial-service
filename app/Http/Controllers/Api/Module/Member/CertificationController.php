@@ -293,7 +293,7 @@ class CertificationController extends BaseController
 
         $data = [
           'project_name'     => $request->project_name,
-          'project_logo'     => $request->project_logo,
+          'project_logo'     => $request->project_logo ?? '',
           'realname'         => $request->realname,
           'mobile'           => $request->mobile,
           'category_id'      => $request->category_id,
