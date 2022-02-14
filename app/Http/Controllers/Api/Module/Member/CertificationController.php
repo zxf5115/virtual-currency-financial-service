@@ -373,15 +373,15 @@ class CertificationController extends BaseController
 
       if(1 == $model->type['value'])
       {
-        $response = $model->personal;
+        $response = $model->with('personal');
       }
       else if(2 == $model->type['value'])
       {
-        $response = $model->company;
+        $response = $model->with('company');
       }
       else if(3 == $model->type['value'])
       {
-        $response = $model->project;
+        $response = $model->with('project');
       }
 
       return self::success($response);
