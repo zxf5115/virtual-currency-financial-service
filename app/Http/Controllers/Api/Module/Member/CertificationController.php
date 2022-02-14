@@ -257,7 +257,6 @@ class CertificationController extends BaseController
   {
     $messages = [
       'project_name.required' => '请您输入项目名称',
-      'project_logo.required' => '请您上传项目Logo',
       'realname.required'     => '请您输入联系人姓名',
       'mobile.required'       => '请您输入联系人电话',
       'category_id.required'  => '请您选择项目类别',
@@ -265,7 +264,6 @@ class CertificationController extends BaseController
 
     $rule = [
       'project_name' => 'required',
-      'project_logo' => 'required',
       'realname'     => 'required',
       'mobile'       => 'required',
       'category_id'  => 'required'
