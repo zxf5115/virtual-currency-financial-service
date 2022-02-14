@@ -37,7 +37,7 @@ class AttentionListeners
       $data_id   = $event->data_id;
 
       // 粉丝
-      $model = Archive::getRow(['id' => $data_id]);
+      $model = Archive::getRow(['member_id' => $member_id]);
 
       if($status)
       {
