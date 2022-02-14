@@ -366,19 +366,12 @@ class CertificationController extends BaseController
   {
     try
     {
-      $response = '';
-
       $condition = self::getCurrentWhereData();
 
       // 获取关联对象
       $relevance = self::getRelevanceData($this->_relevance, 'data');
 
-      $model = $this->_model::getRow($condition, $relevance);
-
-      if(empty($model->id))
-      {
-        return self::error(Code::CERITFICATION_EMPTY);
-      }
+      $response = $this->_model::getRow($condition, $relevance);
 
       return self::success($response);
     }
