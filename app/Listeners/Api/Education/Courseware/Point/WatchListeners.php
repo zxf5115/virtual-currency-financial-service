@@ -36,7 +36,17 @@ class WatchListeners
 
       $point = Point::getRow(['id' => $data_id]);
 
+      if(empty($point))
+      {
+        return false;
+      }
+
       $model = $point->courseware;
+
+      if(empty($model))
+      {
+        return false;
+      }
 
       $model->increment('watch_total', 1);
 
