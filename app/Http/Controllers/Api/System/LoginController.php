@@ -326,6 +326,8 @@ UZj0BPWWpI3TzLAKxXTpURU3OIaqioiNkc8DEuuu2FEt25678JS0Z1hjNscYbekI
    * @apiGroup 01. 登录模块
    * @apiParam {string} username 登录账户（18201018926）
    * @apiParam {string} sms_code 短信验证码（7777）
+   * @apiParam {string} [open_id] 微信编号
+   * @apiParam {string} [apply_id] 苹果编号
    *
    * @apiSuccess (字段说明|令牌) {String} token 身份令牌
    * @apiSuccess (字段说明|用户) {Number} id 会员编号
@@ -383,6 +385,7 @@ UZj0BPWWpI3TzLAKxXTpURU3OIaqioiNkc8DEuuu2FEt25678JS0Z1hjNscYbekI
           // return self::error(Code::VERIFICATION_CODE);
         }
 
+
         $condition = self::getSimpleWhereData($username, 'username');
 
         $response = Member::getRow($condition, ['role', 'vipRelevance.gvip']);
@@ -393,6 +396,35 @@ UZj0BPWWpI3TzLAKxXTpURU3OIaqioiNkc8DEuuu2FEt25678JS0Z1hjNscYbekI
           Member::register('username', $username);
 
           $response = Member::getRow($condition, ['role', 'vipRelevance.gvip']);
+        }
+
+        // 如果存在openid
+        if(!empty($request->open_id))
+        {
+          if(empty($response->open_id))
+          {
+            $response->open_id = $request->open_id;
+            $response->save();
+          }
+          else
+          {
+            return self::error(Code::CURRENT_MOBILE_BIND);
+          }
+        }
+
+        // 如果存在applyid
+        if(!empty($request->apply_id))
+        {
+
+          if(empty($response->apply_id))
+          {
+            $response->apply_id = $request->apply_id;
+            $response->save();
+          }
+          else
+          {
+            return self::error(Code::CURRENT_MOBILE_BIND);
+          }
         }
 
         // 用户已禁用
