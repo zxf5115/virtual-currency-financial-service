@@ -1,4 +1,4 @@
-## Virtual currency financial platform(虚拟货币财经平台端)
+## Virtual currency financial service(虚拟货币财经服务端)
 - Real-time tracking of financial information related to virtual currencies.
 - 实时追踪虚拟货币相关的财经信息。
 
