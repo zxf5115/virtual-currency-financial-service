@@ -3,12 +3,12 @@
 return [
 
     'wechat' => [
-        'appid' => 'wx4ac1c418d98ebe59', // APP APPID
-        'app_id' => 'wx4ac1c418d98ebe59', // 公众号 APPID
-        'miniapp_id' => 'wx4ac1c418d98ebe59', // 小程序 APPID
-        'mch_id' => '1613707541',
-        'key' => 'fowf78fsdfsf98jhbRWdt5635tyd88w8',
-        'notify_url' => 'https://api.bitcodeman.com/api/common/notify/wechat',
+        'appid' => '', // APP APPID
+        'app_id' => '', // 公众号 APPID
+        'miniapp_id' => '', // 小程序 APPID
+        'mch_id' => '',
+        'key' => '',
+        'notify_url' => '',
         'cert_client' => './cert/apiclient_cert.pem', // optional，退款等情况时用到
         'cert_key' => './cert/apiclient_key.pem',// optional，退款等情况时用到
         'log' => [ // optional
